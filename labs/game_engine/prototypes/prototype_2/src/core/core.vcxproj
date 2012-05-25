@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5BA74CA5-96E0-4FD5-AD74-276FB339400C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>core</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\propertysheets\common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\propertysheets\common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>core_pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>..\..\lib\$(TargetName).lib</ImportLibrary>
+      <AdditionalDependencies>input.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>core_pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\core\Api.h" />
+    <ClInclude Include="..\..\include\core\AssetsManager.h" />
+    <ClInclude Include="..\..\include\core\Camera.h" />
+    <ClInclude Include="..\..\include\core\DataStream.h" />
+    <ClInclude Include="..\..\include\core\DataStream_File.h" />
+    <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
+    <ClInclude Include="..\..\include\core\EngineCore.h" />
+    <ClInclude Include="..\..\include\core\EngineParameters.h" />
+    <ClInclude Include="..\..\include\core\Event.h" />
+    <ClInclude Include="..\..\include\core\EventDispatcher.h" />
+    <ClInclude Include="..\..\include\core\EventManager.h" />
+    <ClInclude Include="..\..\include\core\core_types.h" />
+    <ClInclude Include="..\..\include\core\MemManager.h" />
+    <ClInclude Include="..\..\include\core\Mesh.h" />
+    <ClInclude Include="..\..\include\core\MeshUtil.h" />
+    <ClInclude Include="..\..\include\core\Model.h" />
+    <ClInclude Include="..\..\include\core\ModelSerializer.h" />
+    <ClInclude Include="..\..\include\core\ModelSerializer_Binary.h" />
+    <ClInclude Include="..\..\include\core\ModelSerializer_XML.h" />
+    <ClInclude Include="..\..\include\core\SceneManager.h" />
+    <ClInclude Include="..\..\include\core\Serializer.h" />
+    <ClInclude Include="..\..\include\core\UIManager.h" />
+    <ClInclude Include="..\..\include\core\ViewFrustum.h" />
+    <ClInclude Include="..\..\include\engine.h" />
+    <ClInclude Include="..\..\include\graphics\GeometryBuffer.h" />
+    <ClInclude Include="..\..\include\graphics\RenderData.h" />
+    <ClInclude Include="..\..\include\graphics\Sys_Graphics.h" />
+    <ClInclude Include="..\..\include\network\Sys_Network.h" />
+    <ClInclude Include="..\..\include\sound\Sys_Sound.h" />
+    <ClInclude Include="..\..\include\types\defs.h" />
+    <ClInclude Include="core_pch.h" />
+    <ClInclude Include="SysManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Api.cpp" />
+    <ClCompile Include="AssetsManager.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="core_pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">core_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="DataStream_File.cpp" />
+    <ClCompile Include="DataStream_Mem.cpp" />
+    <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="MemManager.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshUtil.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelSerializer_Binary.cpp" />
+    <ClCompile Include="ModelSerializer_XML.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SysManager.cpp" />
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="ViewFrustum.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

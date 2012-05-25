@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Event Dispath Engine">
+    <Position X="1.312" Y="2.885" Height="0.312" Width="3.044" />
+  </Comment>
+  <Comment CommentText="Network">
+    <Position X="1.271" Y="3.49" Height="0.288" Width="1.242" />
+  </Comment>
+  <Font Name="Tahoma" Size="9.75" />
+</ClassDiagram>

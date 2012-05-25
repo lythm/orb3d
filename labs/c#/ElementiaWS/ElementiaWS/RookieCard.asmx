@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="RookieCard.asmx.cs" Class="ElementiaWS.RookieCard" %>

@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DT Excel 2007", "DT Excel 2007\DT Excel 2007.csproj", "{A317F895-177F-40A6-86C4-982C77B62686}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DT_Installer", "..\..\..\..\DT_Installer\DT_Installer.vdproj", "{E1B06F0D-A7B9-4D6D-9204-28522DE5D46C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A317F895-177F-40A6-86C4-982C77B62686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A317F895-177F-40A6-86C4-982C77B62686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A317F895-177F-40A6-86C4-982C77B62686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A317F895-177F-40A6-86C4-982C77B62686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1B06F0D-A7B9-4D6D-9204-28522DE5D46C}.Debug|Any CPU.ActiveCfg = Debug
+		{E1B06F0D-A7B9-4D6D-9204-28522DE5D46C}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

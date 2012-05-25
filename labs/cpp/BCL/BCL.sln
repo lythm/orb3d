@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BCL", "BCL\BCL.vcxproj", "{6E796DC6-813C-4C49-B365-273F8CCABB07}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BCL.net", "BCL.net\BCL.net.vcxproj", "{AB9037F0-C331-42EB-BE67-E2883BACF4A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E796DC6-813C-4C49-B365-273F8CCABB07}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6E796DC6-813C-4C49-B365-273F8CCABB07}.Debug|Win32.Build.0 = Debug|Win32
+		{6E796DC6-813C-4C49-B365-273F8CCABB07}.Release|Win32.ActiveCfg = Release|Win32
+		{6E796DC6-813C-4C49-B365-273F8CCABB07}.Release|Win32.Build.0 = Release|Win32
+		{AB9037F0-C331-42EB-BE67-E2883BACF4A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AB9037F0-C331-42EB-BE67-E2883BACF4A3}.Debug|Win32.Build.0 = Debug|Win32
+		{AB9037F0-C331-42EB-BE67-E2883BACF4A3}.Release|Win32.ActiveCfg = Release|Win32
+		{AB9037F0-C331-42EB-BE67-E2883BACF4A3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

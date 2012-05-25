@@ -1,0 +1,26 @@
+<model vesion="1.0">
+    <mesh>
+      <materials>
+        <material name="standard.fx">
+          <paramater name="diffuse" type="texture">diffuse.dds</paramater>
+          <paramater name="lightmap" type="texture">lightmap.dds</paramater>
+          <paramater name="specular" type="float4">0.5,0.5,0.5,1.0</paramater>
+         </material>
+      </materials>
+
+      <geometry>
+        <vertices>
+          <vertex>0,0,0</vertex>
+          <vertex>1,1,1</vertex>
+          <vertex>2,2,2</vertex>
+        </vertices>
+
+        <faces>
+          <face>0,1,2</face>
+        </faces>
+        
+      </geometry>
+      
+    </mesh>
+ 
+</model>
