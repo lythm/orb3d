@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title> Web Console </title>
+<style type="text/css"> 
+body { margin: 0px; overflow: hidden; }
+</style>
+<script type="text/javascript">
+
+	function on_resize()
+	{
+		var s = document.getElementById("main_screen")
+	
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		s.width = w;
+		s.height = h
+
+		var ctx = s.getContext("2d")
+
+		ctx.fillStyle = "00000000"
+		ctx.fillRect(0, 0, w, h)
+
+		//document.write( document.body.clientWidth + "," + document.body.clientHeight)
+
+	}
+
+
+</script>
+
+</head>
+
+<body onresize="javascript:on_resize()" onload="javascript:on_resize()">
+
+
+<canvas id="main_screen" width="800" height = "600">
+</canvas>
+
+</body>
+
+
+</html>
