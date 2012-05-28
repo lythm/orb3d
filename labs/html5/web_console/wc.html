@@ -6,36 +6,32 @@
 <style type="text/css"> 
 body { margin: 0px; overflow: hidden; }
 </style>
+
+<script src="scripts/wc.js"> </script>
+
 <script type="text/javascript">
 
-	function on_resize()
+	con = new Console("main_screen");
+
+
+	//con.bgcolor = "rgb(100, 100, 100)";
+	con.prompt = "Tong@Tong.com# ";
+
+	document.onkeypress=function on_keypress(event)
 	{
-		var s = document.getElementById("main_screen")
-	
-		var w = window.innerWidth;
-		var h = window.innerHeight;
-		s.width = w;
-		s.height = h
-
-		var ctx = s.getContext("2d")
-
-		ctx.fillStyle = "00000000"
-		ctx.fillRect(0, 0, w, h)
-
-		//document.write( document.body.clientWidth + "," + document.body.clientHeight)
-
+		con.on_key(event);
 	}
 
-
 </script>
-
 </head>
 
-<body onresize="javascript:on_resize()" onload="javascript:on_resize()">
+<body onresize="javascript:con.on_resize(window.innerWidth, window.innerHeight)" onload="javascript:con.on_resize(window.innerWidth, window.innerHeight)" >
 
 
-<canvas id="main_screen" width="800" height = "600">
+<canvas id="main_screen" width="800" height = "600" bgcolor="0">
 </canvas>
+
+
 
 </body>
 
