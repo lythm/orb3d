@@ -15,17 +15,21 @@ body { margin: 0px; overflow: hidden; }
 
 
 	//con.bgcolor = "rgb(100, 100, 100)";
-	con.prompt = "Tong@Tong.com# ";
+	//con.prompt = "#";
 
-	document.onkeypress=function on_keypress(event)
+	document.onkeypress=function (event)
 	{
-		con.on_key(event);
+		return con.on_key(event);
+	}
+	document.onkeydown=function (event)
+	{
+		return con.on_key(event);
 	}
 
 </script>
 </head>
 
-<body onresize="javascript:con.on_resize(window.innerWidth, window.innerHeight)" onload="javascript:con.on_resize(window.innerWidth, window.innerHeight)" >
+<body onresize="javascript:con.resize(window.innerWidth, window.innerHeight)" onload="javascript:con.resize(window.innerWidth, window.innerHeight)" >
 
 
 <canvas id="main_screen" width="800" height = "600" bgcolor="0">

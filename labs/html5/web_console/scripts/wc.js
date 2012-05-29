@@ -51,10 +51,17 @@ function con_draw() {
 		{
 			break;
 		}
-		ctx.fillText(this.prompt + this.lines[i], 10, y);
+		ctx.fillText(this.lines[i], 10, y);
 	}
-
-	ctx.fillText(this.prompt + this.input_buffer, 10, s.height - 10);
+	
+	if(this.show_cursor)
+	{
+		ctx.fillText(this.prompt + this.input_buffer + "_", 10, s.height - 10);
+	}
+	else
+	{
+		ctx.fillText(this.prompt + this.input_buffer, 10, s.height - 10);
+	}
 }
 
 
@@ -64,16 +71,124 @@ function con_onkey(event)
 	
 	var ch = String.fromCharCode(e.keyCode);
 
-	if(e.keyCode == 0xd)
+	if(e.type == "keydown")
 	{
-		this.writeln(this.input_buffer);
-		this.input_buffer = "";
-	}
-	else
-	{
-		this.input_buffer += ch;
+		switch(e.keyCode)
+		{
+			case 8:
+				
+				this.input_buffer = this.input_buffer.slice(0, -1);
+				
+				e.returnValue = false;
+				e.cancelBubble = true;
+				this.draw();
+				return false;
+			default:
+				return true;
+		}
 	}
 
+	if(e.type == "keypress")
+	{
+
+		switch(e.keyCode)
+		{
+			case 0xd:
+				
+				this.writeln(this.prompt + this.input_buffer);
+
+				this.parse_cmdln(this.input_buffer);
+
+				this.input_buffer = "";
+				break;
+			
+			
+			default:
+
+				this.input_buffer += ch;
+				break;
+		}
+	}
+
+	this.draw();
+
+	return true;
+}
+
+function con_parse_cmdln(cmdln)
+{
+	var ret = cmdln.split(" ", 1);
+
+	if(ret == "")
+	{
+		return;
+	}
+	if(this.on_syscmd(ret[0], cmdln) == true)
+	{
+		return;
+	}
+	
+	
+
+	if(this.on_cmd)
+	{
+		if(this.on_cmd(ret[0], cmdln) == false)
+		{
+			this.writeln("unknown command: " + ret[0] + ".");
+		}
+	}
+
+}
+
+function con_on_syscmd(cmd, cmdln)
+{
+	switch(cmd)
+	{
+		case "sys_help":
+			this.writeln("sys_help:				print sys command list.");
+			this.writeln("sys_bgclr:			change background color.");
+			this.writeln("sys_fgclr:			change foreground color.")
+			break;
+		case "sys_bgclr":
+			
+			var result = cmdln.split(" ", 2);
+			
+			if(result.length != 2)
+			{
+				this.writeln("invalid parameter.");
+			}
+			else
+			{
+				this.bgcolor = result[1];
+				this.draw();
+			}
+
+			break;
+
+		case "sys_fgclr":
+			var result = cmdln.split(" ", 2);
+			
+			if(result.length != 2)
+			{
+				this.writeln("invalid parameter.");
+			}
+			else
+			{
+				this.fontcolor = result[1];
+				this.draw();
+			}
+
+			break;
+		default:
+			return false;
+	}
+
+	return true;
+}
+
+function con_on_interval()
+{
+	this.show_cursor = !this.show_cursor;
 	this.draw();
 }
 
@@ -84,7 +199,7 @@ function Console(canvas_id) {
     this.lines = [];
 	this.input_buffer = "";
 
-    this.on_resize = con_resize;
+    this.resize = con_resize;
 
     this.draw = con_draw;
 
@@ -96,10 +211,21 @@ function Console(canvas_id) {
 
 	this.bgcolor="rgb(0,0,0)";
 	this.fontcolor="rgb(255,255,255)";
+
 	
 	this.on_key = con_onkey;
 
+	this.parse_cmdln = con_parse_cmdln;
 
+	this.on_syscmd = con_on_syscmd;
+
+	this.on_cmd = function(cmd, cmdline){return false;}
+
+	this.on_interval = con_on_interval.bind(this);
+
+	setInterval(this.on_interval, 500);
+
+	this.show_cursor = true;
 }
 
 
