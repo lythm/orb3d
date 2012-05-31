@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title> Rendering Test </title>
+
+		<style type="text/css">
+		canvas { border: thin solid black;}
+		</style>
+
+
+		<script type="text/javascript">
+			
+		// globals 
+		
+		Resources = {};
+
+		Resources.img = new Image();
+
+		Resources.img.src = "15.png";
+		
+
+
+		function on_load()
+		{
+			setInterval(main_loop, 1000);
+		}
+
+		
+		function main_loop()
+		{
+			var c = document.getElementById("framebuffer");
+
+			var ctx = c.getContext("2d");
+
+			ctx.clearRect(0, 0, c.width, c.height);
+
+			
+
+			//var x = c.width/ 2 - img.width / 2;
+			//var y = c.height/ 2 - img.height / 2;
+
+			var x = Math.random() * (c.width - Resources.img.width);
+			var y = Math.random() * (c.height - Resources.img.height);
+
+
+			ctx.drawImage(Resources.img, x, y);
+		}
+
+		
+		</script>
+	</head>
+
+	<body onload="javascript:on_load()"> 
+		
+
+
+		
+		<center>
+			<label> canvas </label>
+			<br>
+			<canvas id="framebuffer" width="800" height="600"> </canvas>
+		</center>
+
+		<script type="text/javascirpt">
+			
+			
+
+
+		</script>
+
+	</body>
+
+</html>
