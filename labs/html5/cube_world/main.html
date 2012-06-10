@@ -6,6 +6,7 @@
 
 		<style type="text/css">
 			canvas { border: thin solid black;}
+			body { margin: 0px; overflow: hidden; }
 		</style>
 
 		
@@ -17,6 +18,11 @@
 			
 			function body_onload()
 			{
+
+				var screen = document.getElementById("main_screen");
+				screen.width = window.innerWidth;
+				screen.height = window.innerHeight;
+
 				App = new Application();
 
 				App.init("main_screen", 60);
@@ -25,11 +31,18 @@
 			
 			}
 
+			function body_onresize()
+			{
+				var screen = document.getElementById("main_screen");
+				screen.width = window.innerWidth;
+				screen.height = window.innerHeight;
+			}
+
 		</script>
 		
 	</head>
 
-	<body onload="javascript:body_onload();"> 
+	<body onload="javascript:body_onload();" onresize="javascript:body_onresize();"> 
 		
 		<center>
 			<canvas id="main_screen" width="800" height="600"> </canvas>
