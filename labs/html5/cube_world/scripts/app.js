@@ -1,8 +1,8 @@
 
 include("scripts/world.js");
-include("scripts/rendermanager.js");
 include("scripts/entitymanager.js");
-
+include("scripts/scenemanager.js");
+include("scripts/sprite.js");
 
 function Application()
 {
@@ -18,10 +18,8 @@ function Application()
 
 		this.world = new World();
 		
-		this.render_manager = new RenderManager();
+		this.scene_manager = new SceneManager();
 
-		this.render_manager.init(this.screen);
-				
 		this.entity_manager = new EntityManager();
 
 		window.setInterval(this.update.bind(this), 1000 / fps);
@@ -29,6 +27,13 @@ function Application()
 
 		this.frame_count = 0;
 		this.frame_tick = 0;
+
+
+
+		this.test_sprite = new Sprite();
+		this.test_sprite.load_from_url("15.png");
+
+
 	}
 	
 	this.draw_fps = function(tick)
@@ -63,7 +68,7 @@ function Application()
 
 		this.entity_manager.update(tick);
 		
-		this.render_manager.render();
+		this.screen_ctx.drawImage(this.test_sprite.img, 0, 0);
 
 
 		this.draw_fps(tick);
