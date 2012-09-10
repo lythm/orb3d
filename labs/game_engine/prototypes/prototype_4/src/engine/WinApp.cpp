@@ -165,73 +165,6 @@ void WinApp::ExitApp()
 	PostQuitMessage(0);
 }
 
-
-class LauncherApp : public WinApp
-{
-public:
-	LauncherApp(void);
-	virtual ~LauncherApp(void);
-
-
-	void											OnUpdate();
-	bool											OnInit();
-	void											OnRelease();
-
-
-private:
-	//engine::EngineMainPtr							m_pEngine;
-};
-
-
-LauncherApp::LauncherApp(void)
-{
-}
-
-
-LauncherApp::~LauncherApp(void)
-{
-}
-
-
-void LauncherApp::OnUpdate()
-{
-	/*if(m_pEngine)
-	{
-		if(false == m_pEngine->Update())
-		{
-			ExitApp();
-			return;
-		}
-	}*/
-}
-bool LauncherApp::OnInit()
-{
-	SetTitle(L"Main");
-
-//	m_pEngine = engine::EngineMainPtr(new engine::EngineMain);
-
-//	engine::EngineParameters param;
-
-//	param.app_handle = this->m_hWnd;
-//	param.config_file = "./engine.conf";
-
-//	if(m_pEngine->Initialize(param) == false)
-//	{
-//		return false;
-//	}
-
-	return true;
-}
-void LauncherApp::OnRelease()
-{
-	/*if(m_pEngine)
-	{
-		m_pEngine->Release();
-		m_pEngine.reset();
-	}*/
-}
-
-
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPTSTR    lpCmdLine,
@@ -241,7 +174,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	LauncherApp app;
+	WinApp app;
 
 	if(false == app.Initialize(hInstance, L"WinApp", 800, 600))
 	{
