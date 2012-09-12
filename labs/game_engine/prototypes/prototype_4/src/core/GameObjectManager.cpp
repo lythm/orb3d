@@ -12,11 +12,10 @@ namespace engine
 
 	GameObjectManager::~GameObjectManager(void)
 	{
-		m_pRoot->ClearChildren();
-
+		ReleaseAllObject();
 
 	}
-	GameObjectPtr	GameObjectManager::CreateObject()
+	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::string& tpl)
 	{
 		return GameObjectPtr();
 	}
@@ -31,5 +30,17 @@ namespace engine
 	GameObjectPtr GameObjectManager::GetRoot()
 	{
 		return m_pRoot;
+	}
+	void GameObjectManager::ReleaseAllObject()
+	{
+		if(m_pRoot)
+		{
+			m_pRoot->Clear();
+			m_pRoot.reset();
+		}
+	}
+	GameObjectComponentPtr GameObjectManager::CreateObjectComponent(const std::string& name)
+	{
+		return GameObjectComponentPtr();
 	}
 }

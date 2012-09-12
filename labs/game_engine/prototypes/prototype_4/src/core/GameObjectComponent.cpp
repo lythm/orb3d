@@ -12,10 +12,11 @@ namespace engine
 
 	GameObjectComponent::~GameObjectComponent(void)
 	{
+		m_pObject.reset();
 	}
 	void GameObjectComponent::Update()
 	{
-
+		
 	}
 	void GameObjectComponent::Attach(GameObjectPtr pObject)
 	{

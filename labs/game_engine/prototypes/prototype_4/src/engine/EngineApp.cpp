@@ -54,8 +54,7 @@ namespace engine
 	}
 	void EngineApp::OnRelease()
 	{
-	//	GameObjectPtr pRoot = m_pObjectManager->GetRoot();
-
+		m_pObjectManager->ReleaseAllObject();
 		m_pObjectManager.reset();
 		
 	}

@@ -11,8 +11,4 @@ namespace engine
 	typedef boost::shared_ptr<GameObject>					GameObjectPtr;
 	typedef boost::shared_ptr<GameObjectComponent>			GameObjectComponentPtr;
 
-
-	class Node;
-
-	typedef boost::shared_ptr<Node>							NodePtr;
 }

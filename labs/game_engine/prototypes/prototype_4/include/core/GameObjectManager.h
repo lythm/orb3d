@@ -10,15 +10,17 @@ namespace engine
 		virtual ~GameObjectManager(void);
 
 
-		GameObjectPtr					CreateObject();
+		GameObjectPtr					CreateObjectFromTemplate(const std::string& tpl);
 		
-
 		void							RegisterObject();
 
 		void							UpdateObjects();
 
 		GameObjectPtr					GetRoot();
+		
+		void							ReleaseAllObject();
 
+		GameObjectComponentPtr			CreateObjectComponent(const std::string& name);
 	private:
 		GameObjectPtr					m_pRoot;
 	};
