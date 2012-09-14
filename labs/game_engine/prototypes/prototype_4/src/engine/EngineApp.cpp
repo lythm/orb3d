@@ -15,7 +15,26 @@ namespace engine
 		}
 		virtual ~ACom()
 		{
-			OutputDebugStringA("deleted\n");
+			OutputDebugStringA("ACom deleted\n");
+		}
+
+		void Update()
+		{
+			OutputDebugStringA(m_name.c_str());
+			OutputDebugStringA("\n");
+		}
+	};
+
+	class BCom : public GameObjectComponent
+	{
+	public:
+		BCom()
+		{
+			m_name = "BCom";
+		}
+		virtual ~BCom()
+		{
+			OutputDebugStringA("BCom deleted\n");
 		}
 
 		void Update()
@@ -36,6 +55,8 @@ namespace engine
 	void EngineApp::OnUpdate()
 	{
 		m_pObjectManager->UpdateObjects();
+
+
 	}
 	bool EngineApp::OnInit()
 	{
@@ -47,6 +68,7 @@ namespace engine
 
 		pObj->AddComponent(boost::shared_ptr<ACom>(new ACom()));
 
+		pObj->AddComponent(boost::shared_ptr<BCom>(new BCom()));
 		
 		pObj->LinkTo(pRoot);
 

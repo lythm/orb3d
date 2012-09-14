@@ -10,6 +10,10 @@ namespace engine
 		virtual ~GameObjectManager(void);
 
 
+//		typedef boost::function<GameObjectComponentPtr () >			GameObjectComponentCreator;
+
+
+
 		GameObjectPtr					CreateObjectFromTemplate(const std::string& tpl);
 		
 		void							RegisterObject();
@@ -23,6 +27,8 @@ namespace engine
 		GameObjectComponentPtr			CreateObjectComponent(const std::string& name);
 	private:
 		GameObjectPtr					m_pRoot;
+
+		//boost::unordered_map<std::string, 
 	};
 
 
