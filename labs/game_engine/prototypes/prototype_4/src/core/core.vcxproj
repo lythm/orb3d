@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -81,15 +81,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\Behavior.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\core_all.h" />
     <ClInclude Include="..\..\include\core\core_ptr.h" />
     <ClInclude Include="..\..\include\core\GameObject.h" />
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
+    <ClInclude Include="..\..\include\core\LuaBehavior.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
+    <ClInclude Include="..\..\include\core\MeshAnimator.h" />
+    <ClInclude Include="..\..\include\core\MeshData.h" />
     <ClInclude Include="..\..\include\core\MeshRenderer.h" />
+    <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
+    <ClInclude Include="..\..\include\core\SoundEmitter.h" />
+    <ClInclude Include="..\..\include\core\SoundListener.h" />
     <ClInclude Include="..\..\include\core\SysManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
     <ClInclude Include="..\..\include\core\Sys_Input.h" />
@@ -98,6 +105,7 @@
     <ClInclude Include="core_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="core_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -105,9 +113,15 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="LuaBehavior.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshAnimator.cpp" />
+    <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SoundEmitter.cpp" />
+    <ClCompile Include="SoundListener.cpp" />
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="Sys_Graphics.cpp" />
     <ClCompile Include="Sys_Sound.cpp" />

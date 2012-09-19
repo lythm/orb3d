@@ -26,7 +26,7 @@ namespace engine
 	{
 		for(size_t i = 0; i < m_components.size(); ++i)
 		{
-			m_components[i]->Attach(GameObjectPtr());
+			m_components[i]->Detach();
 			m_components[i].reset();
 		}
 
@@ -61,11 +61,11 @@ namespace engine
 			m_components[i]->Update();
 		}
 	}
-	GameObjectComponentPtr GameObject::GetComponent(const char* szName)
+	GameObjectComponentPtr GameObject::GetComponent(const std::wstring& name)
 	{
 		for(size_t i = 0; i < m_components.size(); ++i)
 		{
-			if(m_components[i]->GetName() == std::string(szName))
+			if(m_components[i]->GetName() == name)
 			{
 				return m_components[i];
 			}

@@ -1,17 +1,18 @@
 #pragma once
+
 #include "core\GameObjectComponent.h"
+
 
 namespace engine
 {
 	namespace object_component
 	{
-		class Camera : public GameObjectComponent
+		class MeshAnimator : public GameObjectComponent
 		{
 		public:
-			Camera(void);
-			virtual ~Camera(void);
+			MeshAnimator(void);
+			virtual ~MeshAnimator(void);
 		};
-
 
 	}
 }

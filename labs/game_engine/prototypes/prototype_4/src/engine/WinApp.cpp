@@ -113,10 +113,7 @@ namespace engine
 
 		case WM_CHAR:
 			{
-				wchar_t buffer[2];
-				buffer[1] = 0;
-				buffer[0] = wParam;
-				OutputDebugString(buffer);
+				
 			}
 			break;
 		default:
@@ -137,8 +134,8 @@ namespace engine
 			}
 			else
 			{
-
 				OnUpdate();
+				Sleep(1);
 			}
 		}
 

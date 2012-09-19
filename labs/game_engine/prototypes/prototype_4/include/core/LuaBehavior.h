@@ -1,17 +1,18 @@
 #pragma once
+
+
 #include "core\GameObjectComponent.h"
 
 namespace engine
 {
 	namespace object_component
 	{
-		class Camera : public GameObjectComponent
+		class LuaBehavior :public GameObjectComponent
 		{
 		public:
-			Camera(void);
-			virtual ~Camera(void);
+			LuaBehavior(void);
+			virtual ~LuaBehavior(void);
 		};
-
 
 	}
 }

@@ -25,7 +25,7 @@ namespace engine
 		m_pKeyboard = NULL;
 
 		memset(m_keyState.keys, 0, sizeof(uint8) * 256);
-
+		memset(&m_mouseState, 0, sizeof(m_mouseState));
 	}
 
 
@@ -60,7 +60,9 @@ namespace engine
 			return false;
 		}
 
-
+		m_mouseState.x = 0;
+		m_mouseState.y = 0;
+		
 		return true;
 	}
 	void Dx8SysInput::Release()

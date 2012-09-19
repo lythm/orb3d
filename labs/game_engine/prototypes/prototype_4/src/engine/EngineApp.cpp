@@ -11,7 +11,7 @@ namespace engine
 	public:
 		ACom()
 		{
-			m_name = "ACom";
+			m_name = L"ACom";
 		}
 		virtual ~ACom()
 		{
@@ -30,7 +30,7 @@ namespace engine
 	public:
 		BCom()
 		{
-			m_name = "BCom";
+			m_name = L"BCom";
 		}
 		virtual ~BCom()
 		{
@@ -59,7 +59,7 @@ namespace engine
 
 		if(m_pSysInput->GetKeyState().KeyDown(Sys_Input::key_h))
 		{
-			OutputDebugString(L"key down\n");
+			//OutputDebugString(L"key down\n");
 		}
 
 		Sys_Input::MouseState ms = m_pSysInput->GetMouseState();
@@ -67,6 +67,8 @@ namespace engine
 		wchar_t buffer[1024];
 
 		wsprintf(buffer, L"X:%d,Y:%d", ms.x, ms.y);
+
+		//OutputDebugString(buffer);
 
 		SetTitle(buffer);
 

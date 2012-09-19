@@ -12,5 +12,8 @@ namespace engine
 	Scene::~Scene(void)
 	{
 	}
-
+	bool Scene::Load()
+	{
+		return true;
+	}
 }

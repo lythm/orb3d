@@ -12,7 +12,7 @@ namespace engine
 		void										Update();
 		void										AddComponent(GameObjectComponentPtr pCom);
 		
-		GameObjectComponentPtr						GetComponent(const char* szName);
+		GameObjectComponentPtr						GetComponent(const std::wstring& name);
 		GameObjectPtr								ThisPtr();
 
 		void										ClearComponents();

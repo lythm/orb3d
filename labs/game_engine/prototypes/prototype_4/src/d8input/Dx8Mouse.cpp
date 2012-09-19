@@ -3,6 +3,8 @@
 
 namespace engine
 {
+	int dx = 0;
+	int dy =0;
 	Dx8Mouse::Dx8Mouse(void)
 	{
 		m_pDInput			= NULL;
@@ -37,7 +39,32 @@ namespace engine
 		{
 			return false;
 		}
-		m_pMouse->Acquire( );
+		DIPROPDWORD dip;
+
+		dip.diph.dwSize = sizeof(DIPROPDWORD);
+		dip.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+		dip.diph.dwObj = 0;
+		dip.diph.dwHow = DIPH_DEVICE;
+		dip.dwData = DIPROPAXISMODE_ABS;
+		m_pMouse->SetProperty(DIPROP_AXISMODE, &dip.diph);
+
+		hr = m_pMouse->Acquire( );
+
+
+
+		if(FAILED(hr))
+		{
+			return false;
+		}
+
+
+
+		DIMOUSESTATE state;
+
+		GetState(state);
+
+		dx = state.lX;
+		dy = state.lY;
 
 		return true;
 	}
@@ -59,6 +86,7 @@ namespace engine
 		}
 
 
+
 		memset(&state, 0, sizeof(state));
 
 
@@ -68,14 +96,24 @@ namespace engine
 		{
 			if( hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED )
 			{
-				m_pMouse->Acquire( );
+				hr = m_pMouse->Acquire( );
 				
 				hr = m_pMouse->GetDeviceState( sizeof( DIMOUSESTATE ), (LPVOID)&state );
 
+				if(hr != DI_OK)
+				{
+					int i = 0;
+				}
+
+				if(hr == DIERR_NOTACQUIRED)
+				{
+					int d = 0;
+				}
 
 			}
 		}
-
+		state.lX -= dx;
+		state.lY -= dy;
 
 		return true;
 	}

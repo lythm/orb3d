@@ -12,11 +12,11 @@ namespace engine
 		virtual void				Update();
 
 		void						Attach(GameObjectPtr pObject);
-		
-		const std::string&			GetName();
+		void						Detach();
+		const std::wstring&			GetName();
 		
 	protected:
 		GameObjectPtr				m_pObject;
-		std::string					m_name;
+		std::wstring				m_name;
 	};
 }

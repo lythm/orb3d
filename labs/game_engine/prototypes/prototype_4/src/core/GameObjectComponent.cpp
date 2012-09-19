@@ -22,7 +22,11 @@ namespace engine
 	{
 		m_pObject = pObject;
 	}
-	const std::string& GameObjectComponent::GetName()
+	void GameObjectComponent::Detach()
+	{
+		m_pObject.reset();
+	}
+	const std::wstring& GameObjectComponent::GetName()
 	{
 		return m_name;
 	}
