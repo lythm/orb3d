@@ -29,6 +29,8 @@ namespace engine
 		void													AdjustWindow(int Width, int Height );
 
 		static LRESULT CALLBACK									WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+		HWND													GetWnd();
 	protected:
 
 		HINSTANCE												m_hInst;

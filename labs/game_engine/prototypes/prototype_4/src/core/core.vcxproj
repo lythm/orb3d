@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\core_all.h" />
     <ClInclude Include="..\..\include\core\core_ptr.h" />
     <ClInclude Include="..\..\include\core\GameObject.h" />
@@ -88,12 +89,16 @@
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshRenderer.h" />
+    <ClInclude Include="..\..\include\core\Scene.h" />
+    <ClInclude Include="..\..\include\core\SysManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
     <ClInclude Include="..\..\include\core\Sys_Input.h" />
+    <ClInclude Include="..\..\include\core\Sys_Physics.h" />
     <ClInclude Include="..\..\include\core\Sys_Sound.h" />
     <ClInclude Include="core_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="core_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -102,6 +107,8 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="Sys_Graphics.cpp" />
     <ClCompile Include="Sys_Sound.cpp" />
   </ItemGroup>

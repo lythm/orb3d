@@ -17,7 +17,10 @@ namespace engine
 	{
 	}
 
-
+	HWND WinApp::GetWnd()
+	{
+		return m_hWnd;
+	}
 	bool WinApp::Initialize(HINSTANCE hInst, const std::wstring& title, int w, int h)
 	{
 		m_hInst = hInst;

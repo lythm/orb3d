@@ -69,7 +69,10 @@ namespace engine
 			if( hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED )
 			{
 				m_pMouse->Acquire( );
-				m_pMouse->GetDeviceState( sizeof( DIMOUSESTATE ), (LPVOID)&state );
+				
+				hr = m_pMouse->GetDeviceState( sizeof( DIMOUSESTATE ), (LPVOID)&state );
+
+
 			}
 		}
 

@@ -17,9 +17,16 @@ namespace engine
 
 
 	private:
+		
+
+	private:
 
 		GameObjectManagerPtr							m_pObjectManager;
 
+
+		SysManagerPtr									m_pSysManager;
+
+		Sys_InputPtr									m_pSysInput;
 	};
 
 

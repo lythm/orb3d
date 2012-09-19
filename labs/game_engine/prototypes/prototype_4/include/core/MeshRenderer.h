@@ -5,14 +5,16 @@
 
 namespace engine
 {
-	class MeshRenderer : public GameObjectComponent
+	namespace object_component
 	{
-	public:
-		MeshRenderer(void);
-		virtual ~MeshRenderer(void);
+		class MeshRenderer : public GameObjectComponent
+		{
+		public:
+			MeshRenderer(void);
+			virtual ~MeshRenderer(void);
 
-		void							Update();
-	};
+			void							Update();
+		};
 
-
+	}
 }

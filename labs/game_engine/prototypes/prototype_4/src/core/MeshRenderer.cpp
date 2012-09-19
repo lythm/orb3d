@@ -3,15 +3,19 @@
 
 namespace engine
 {
-	MeshRenderer::MeshRenderer(void)
+	namespace object_component
 	{
-	}
-	
-	MeshRenderer::~MeshRenderer(void)
-	{
-	}
-	void MeshRenderer::Update()
-	{
+		MeshRenderer::MeshRenderer(void)
+		{
+		}
 
+		MeshRenderer::~MeshRenderer(void)
+		{
+		}
+		void MeshRenderer::Update()
+		{
+
+		}
 	}
+
 }

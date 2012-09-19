@@ -11,3 +11,9 @@
 #include "core\GameObjectComponent.h"
 #include "core\GameObjectManager.h"
 #include "core\MeshRenderer.h"
+
+
+#include "core\SysManager.h"
+#include "core\Sys_Input.h"
+#include "core\Sys_Graphics.h"
+#include "core\Sys_Sound.h"

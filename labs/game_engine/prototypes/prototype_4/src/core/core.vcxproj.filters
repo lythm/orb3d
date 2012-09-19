@@ -48,6 +48,18 @@
     <ClInclude Include="..\..\include\core\Sys_Sound.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\SysManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Sys_Physics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Scene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_pch.cpp">
@@ -72,6 +84,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sys_Sound.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SysManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

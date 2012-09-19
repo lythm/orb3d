@@ -35,12 +35,12 @@ bool Game::Initialize(engine::GameEnginePtr pEngine)
 	m_pRenderData->AllocVertexBuffer(1024, NULL, true);
 
 
-	m_pShader = m_pGameEngine->GetSysGraphics()->CreateShader();
+	//m_pShader = m_pGameEngine->GetSysGraphics()->CreateShader();
 
 		
-	m_pShader->LoadFromFile("./assets/shaders/test.cgfx");
+	//m_pShader->LoadFromFile("./assets/shaders/test.cgfx");
 
-	m_pRenderData->SetShader(m_pShader);
+//	m_pRenderData->SetShader(m_pShader);
 
 	engine::VertexElement format[] = 
 	{
@@ -48,7 +48,7 @@ bool Game::Initialize(engine::GameEnginePtr pEngine)
 		engine::VertexElement(0, engine::VertexElement::TEXCOORD, engine::VertexElement::VE_FLOAT2),
 	};
 	
-	m_pShader->SetVertexFormat(format, 2);
+//	m_pShader->SetVertexFormat(format, 2);
 
 	return true;
 }
@@ -60,6 +60,8 @@ bool Game::Update()
 {
 	using namespace engine;
 
+	//m_pGameEngine->GetSysInput()->Update();
+
 	const engine::SysInput::KeyState& keys = m_pGameEngine->GetSysInput()->GetKeyState();
 	
 	if(keys.KeyDown(SysInput::key_escape))
@@ -70,7 +72,7 @@ bool Game::Update()
 	const engine::SysInput::MouseState& mouse = m_pGameEngine->GetSysInput()->GetMouseState();
 
 	
-	m_pGameEngine->GetSysGraphics()->PushRenderData(m_pRenderData);
+	//m_pGameEngine->GetSysGraphics()->PushRenderData(m_pRenderData);
 
 
 	struct TTT
