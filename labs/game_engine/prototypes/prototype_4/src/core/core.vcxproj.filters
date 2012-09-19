@@ -65,9 +65,6 @@
     <ClCompile Include="Sys_Graphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sys_Input.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

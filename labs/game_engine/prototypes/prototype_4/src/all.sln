@@ -8,6 +8,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "engine", "engine\engine.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "core\core.vcxproj", "{A2407401-1B15-44BB-B285-5878BDE949C7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "d8input", "d8input\d8input.vcxproj", "{9CBFF138-F760-478B-985D-A7D48873E3C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -22,6 +24,10 @@ Global
 		{A2407401-1B15-44BB-B285-5878BDE949C7}.Debug|Win32.Build.0 = Debug|Win32
 		{A2407401-1B15-44BB-B285-5878BDE949C7}.Release|Win32.ActiveCfg = Release|Win32
 		{A2407401-1B15-44BB-B285-5878BDE949C7}.Release|Win32.Build.0 = Release|Win32
+		{9CBFF138-F760-478B-985D-A7D48873E3C4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9CBFF138-F760-478B-985D-A7D48873E3C4}.Debug|Win32.Build.0 = Debug|Win32
+		{9CBFF138-F760-478B-985D-A7D48873E3C4}.Release|Win32.ActiveCfg = Release|Win32
+		{9CBFF138-F760-478B-985D-A7D48873E3C4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

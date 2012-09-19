@@ -12,8 +12,20 @@ namespace engine
 	typedef boost::shared_ptr<GameObjectComponent>			GameObjectComponentPtr;
 
 
+
+	class Sys_Input;
+	class Sys_Graphics;
+	class Sys_Sound;
+
+
+	typedef boost::shared_ptr<Sys_Input>					Sys_InputPtr;
+	typedef boost::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
+	typedef boost::shared_ptr<Sys_Sound>					Sys_SoundPtr;
+
 	class Mesh;
 
 	typedef boost::shared_ptr<Mesh>							MeshPtr;
+
+
 
 }
