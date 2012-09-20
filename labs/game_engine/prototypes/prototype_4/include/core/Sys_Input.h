@@ -188,12 +188,7 @@ namespace engine
 
 			uint8				buttons[4];
 		};
-
-		//struct JoystickState
-		//{
-		//};
-
-
+		
 	public:
 
 

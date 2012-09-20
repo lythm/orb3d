@@ -24,7 +24,9 @@ namespace engine
 		
 		void							ReleaseAllObject();
 
-		GameObjectComponentPtr			CreateObjectComponent(const std::string& name);
+		GameObjectComponentPtr			CreateObjectComponent(const std::wstring& name);
+
+		void							RegisterObjectComponent();
 	private:
 		GameObjectPtr					m_pRoot;
 

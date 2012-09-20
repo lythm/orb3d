@@ -45,6 +45,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin\</OutDir>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>D:\sdk\boost_1_47_0\;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\sdk\boost_1_47_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

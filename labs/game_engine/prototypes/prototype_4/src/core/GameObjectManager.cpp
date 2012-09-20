@@ -13,7 +13,6 @@ namespace engine
 	GameObjectManager::~GameObjectManager(void)
 	{
 		ReleaseAllObject();
-
 	}
 	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::string& tpl)
 	{
@@ -39,8 +38,12 @@ namespace engine
 			m_pRoot.reset();
 		}
 	}
-	GameObjectComponentPtr GameObjectManager::CreateObjectComponent(const std::string& name)
+	GameObjectComponentPtr GameObjectManager::CreateObjectComponent(const std::wstring& name)
 	{
 		return GameObjectComponentPtr();
+	}
+	void GameObjectManager::RegisterObjectComponent()
+	{
+
 	}
 }

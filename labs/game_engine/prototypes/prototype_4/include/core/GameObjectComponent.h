@@ -14,6 +14,11 @@ namespace engine
 		void						Attach(GameObjectPtr pObject);
 		void						Detach();
 		const std::wstring&			GetName();
+
+		void						SetName(const std::wstring& name);
+	private:
+		virtual void				OnAttach();
+		virtual void				OnDetach();
 		
 	protected:
 		GameObjectPtr				m_pObject;
