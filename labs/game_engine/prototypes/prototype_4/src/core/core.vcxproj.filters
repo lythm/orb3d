@@ -81,6 +81,15 @@
     <ClInclude Include="..\..\include\core\LuaBehavior.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\RenderData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\GFX.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_pch.cpp">
@@ -95,16 +104,10 @@
     <ClCompile Include="GameObjectComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sys_Graphics.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sys_Sound.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SysManager.cpp">
@@ -135,6 +138,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="LuaBehavior.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GFX.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -57,7 +57,7 @@ namespace engine
 		void										LookAt(GameObjectPtr pObj);
 		void										LookAt(const math::Vector3& at);
 
-		// parent/child operatio					n
+		// parent/child operation
 		void										LinkTo(GameObjectPtr pParent);
 		void										UnLink();
 		GameObjectPtr								GetFirstChild();

@@ -13,5 +13,8 @@ namespace engine
 	D3D11Graphics::~D3D11Graphics(void)
 	{
 	}
-
+	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height, uint32 format)
+	{
+		return true;
+	}
 }

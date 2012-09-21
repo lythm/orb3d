@@ -33,5 +33,13 @@ namespace engine
 	typedef boost::shared_ptr<Mesh>							MeshPtr;
 
 
+	class RenderData;
+	class Texture;
+	class GFX;
+
+	typedef boost::shared_ptr<RenderData>					RenderDataPtr;
+	typedef boost::shared_ptr<Texture>						TexturePtr;
+	typedef boost::shared_ptr<GFX>							GFXPtr;
+
 
 }
