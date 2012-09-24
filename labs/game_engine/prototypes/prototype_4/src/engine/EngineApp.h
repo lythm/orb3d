@@ -18,6 +18,7 @@ namespace engine
 
 	private:
 		
+		void											ShowFPS();
 
 	private:
 

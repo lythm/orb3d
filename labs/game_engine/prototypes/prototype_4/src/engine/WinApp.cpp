@@ -135,7 +135,7 @@ namespace engine
 			else
 			{
 				OnUpdate();
-				Sleep(1);
+				//Sleep(1);
 			}
 		}
 

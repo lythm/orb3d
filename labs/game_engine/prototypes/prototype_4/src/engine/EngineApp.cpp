@@ -70,11 +70,13 @@ namespace engine
 
 		//OutputDebugString(buffer);
 
-		SetTitle(buffer);
+	//	SetTitle(buffer);
 
 
 		m_pObjectManager->UpdateObjects();
 
+
+		ShowFPS();
 
 	}
 	bool EngineApp::OnInit()
@@ -108,6 +110,7 @@ namespace engine
 		pObj->LinkTo(pRoot);
 
 
+		
 
 		return true;
 	}
@@ -121,7 +124,28 @@ namespace engine
 		m_pSysInput.reset();
 	}
 
-	
+	void EngineApp::ShowFPS()
+	{
+		static int tick = GetTickCount();
+
+		static int frames = 0;
+		int dt = GetTickCount() - tick;
+
+		if(dt >= 1000)
+		{
+
+			wchar_t buffer[100];
+
+			swprintf(buffer, L"fps : %.3f", float(frames * 1000) / float(dt));
+
+			SetTitle(buffer);
+
+			tick = GetTickCount();
+			frames = 0;
+		}
+
+		frames ++;
+	}
 
 }
 
