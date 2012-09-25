@@ -74,7 +74,7 @@ namespace engine
 			return false;
 		}
 
-		m_pSysGraphics->SetClearColor(math::Color4(0.5, 0.5, 0, 1.0));
+		m_pSysGraphics->SetClearColor(math::Color4(0.3, 0.5, 0.8, 1.0));
 		
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
 
