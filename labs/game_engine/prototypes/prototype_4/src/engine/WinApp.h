@@ -31,6 +31,12 @@ namespace engine
 		static LRESULT CALLBACK									WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 		HWND													GetWnd();
+
+		int														GetClientWidth();
+		int														GetClientHeight();
+
+		int														GetWindowWidth();
+		int														GetWindowHeight();
 	protected:
 
 		HINSTANCE												m_hInst;
@@ -41,6 +47,9 @@ namespace engine
 
 		int														m_width;
 		int														m_height;
+
+		int														m_clientWidth;
+		int														m_clientHeight;
 
 
 

@@ -21,12 +21,30 @@
     <ClInclude Include="d11graphics_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="D3D11RenderData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11Texture2D.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11cgGFX.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D11Graphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="d11graphics_pch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11RenderData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11Texture2D.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11cgGFX.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

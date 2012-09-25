@@ -2,7 +2,7 @@
 
 namespace engine
 {
-	class GFX
+	class EXPORT_CLASS GFX
 	{
 	public:
 		GFX(void);

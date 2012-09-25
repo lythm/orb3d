@@ -10,8 +10,7 @@ namespace engine
 
 		virtual bool									Initialize(void* app_handle, 
 																uint32 width, 
-																uint32 height, 
-																uint32 format)										= 0;
+																uint32 height)										= 0;
 
 		virtual void									Release()													= 0;
 		virtual void									Draw(RenderDataPtr pData)									= 0;

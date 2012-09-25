@@ -12,5 +12,18 @@ namespace engine
 	RenderData::~RenderData(void)
 	{
 	}
-
+	void RenderData::SetTransform(const math::Matrix44& tf)
+	{
+	}
+		
+	void RenderData::UpdateVertexBuffer(void* buffer, int bytes)
+	{
+	}
+	void RenderData::UpdateIndexBuffer(void* buffer, int bytes)
+	{
+	}
+		
+	void RenderData::SetGFX(GFXPtr pGFX)
+	{
+	}
 }

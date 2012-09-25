@@ -64,4 +64,9 @@ namespace engine
 		return m_inputMod.pSys;
 	}
 
+	Sys_GraphicsPtr	SysManager::GetSysGraphics()
+	{
+		return m_graphicsMod.pSys;
+	}
+
 }

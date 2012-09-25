@@ -54,6 +54,7 @@ namespace engine
 
 
 		Sys_InputPtr							GetSysInput();
+		Sys_GraphicsPtr							GetSysGraphics();
 	private:
 
 

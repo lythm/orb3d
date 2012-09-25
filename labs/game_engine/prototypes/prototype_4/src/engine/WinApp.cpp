@@ -10,6 +10,9 @@ namespace engine
 		m_hWnd = NULL;
 		m_width = 640;
 		m_height = 480;
+
+		m_clientWidth		= 0;
+		m_clientHeight		= 0;
 	}
 
 
@@ -26,6 +29,10 @@ namespace engine
 		m_hInst = hInst;
 		m_wndTitle = title;
 		m_wndClass = title + L"_WndClass";
+
+
+		m_clientWidth = w;
+		m_clientHeight = h;
 
 		m_width = w;
 		m_height = h;
@@ -70,7 +77,7 @@ namespace engine
 			return false;
 		}
 
-		AdjustWindow(m_width, m_height);
+		AdjustWindow(w, h);
 
 		ShowWindow(m_hWnd, SW_SHOW);
 		UpdateWindow(m_hWnd);
@@ -97,6 +104,10 @@ namespace engine
 		int IncY = Height - ClientHeight;
 
 		SetWindowPos( m_hWnd, 0, WinRect.left, WinRect.top, WinRect.right - WinRect.left + IncX, WinRect.bottom - WinRect.top + IncY, SWP_NOZORDER );
+
+
+		m_width = IncX + Width;
+		m_height = IncY + Height;
 	}
 	void WinApp::Release()
 	{
@@ -165,5 +176,20 @@ namespace engine
 	{
 		PostQuitMessage(0);
 	}
-
+	int WinApp::GetClientWidth()
+	{
+		return m_clientWidth;
+	}
+	int	WinApp::GetClientHeight()
+	{
+		return m_clientHeight;
+	}
+	int	WinApp::GetWindowWidth()
+	{
+		return m_width;
+	}
+	int WinApp::GetWindowHeight()
+	{
+		return m_height;
+	}
 }

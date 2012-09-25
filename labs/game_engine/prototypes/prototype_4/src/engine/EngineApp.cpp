@@ -6,44 +6,6 @@
 namespace engine
 {
 
-	class ACom : public GameObjectComponent
-	{
-	public:
-		ACom()
-		{
-			m_name = L"ACom";
-		}
-		virtual ~ACom()
-		{
-			OutputDebugStringA("ACom deleted\n");
-		}
-
-		void Update()
-		{
-			//OutputDebugStringA(m_name.c_str());
-			//OutputDebugStringA("\n");
-		}
-	};
-
-	class BCom : public GameObjectComponent
-	{
-	public:
-		BCom()
-		{
-			m_name = L"BCom";
-		}
-		virtual ~BCom()
-		{
-			OutputDebugStringA("BCom deleted\n");
-		}
-
-		void Update()
-		{
-			//OutputDebugStringA(m_name.c_str());
-			//OutputDebugStringA("\n");
-		}
-	};
-
 	EngineApp::EngineApp(void)
 	{
 	}
@@ -78,6 +40,11 @@ namespace engine
 
 		ShowFPS();
 
+		m_pSysGraphics->ClearRenderTarget();
+
+	//	Sleep(1000);
+		m_pSysGraphics->Present();
+
 	}
 	bool EngineApp::OnInit()
 	{
@@ -96,21 +63,20 @@ namespace engine
 			return false;
 		}
 
+		m_pSysGraphics = m_pSysManager->LoadSysGraphics(L"./d11graphics.dll");
+
+		if(m_pSysGraphics == Sys_GraphicsPtr())
+		{
+			return false;
+		}
+		if(false == m_pSysGraphics->Initialize(GetWnd(), GetClientWidth(), GetClientHeight()))
+		{
+			return false;
+		}
+
+		m_pSysGraphics->SetClearColor(math::Color4(0.5, 0.5, 0, 1.0));
 		
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
-
-		GameObjectPtr pRoot = m_pObjectManager->GetRoot();
-
-		GameObjectPtr pObj = GameObjectPtr(new GameObject());
-
-		pObj->AddComponent(boost::shared_ptr<ACom>(new ACom()));
-
-		pObj->AddComponent(boost::shared_ptr<BCom>(new BCom()));
-		
-		pObj->LinkTo(pRoot);
-
-
-		
 
 		return true;
 	}
@@ -120,6 +86,9 @@ namespace engine
 		m_pObjectManager->ReleaseAllObject();
 		m_pObjectManager.reset();
 		
+		m_pSysGraphics->Release();
+		m_pSysGraphics.reset();
+
 		m_pSysInput->Release();
 		m_pSysInput.reset();
 	}

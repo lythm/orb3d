@@ -3,11 +3,11 @@
 
 namespace engine
 {
-	class Texture
+	class EXPORT_CLASS Texture
 	{
 	public:
-		Texture(void);
-		virtual ~Texture(void);
+		Texture(void){}
+		virtual ~Texture(void){}
 	};
 
 

@@ -28,6 +28,8 @@ namespace engine
 		SysManagerPtr									m_pSysManager;
 
 		Sys_InputPtr									m_pSysInput;
+
+		Sys_GraphicsPtr									m_pSysGraphics;
 	};
 
 
