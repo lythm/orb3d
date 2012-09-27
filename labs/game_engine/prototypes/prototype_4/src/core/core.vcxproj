@@ -91,7 +91,6 @@
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
     <ClInclude Include="..\..\include\core\GFX.h" />
-    <ClInclude Include="..\..\include\core\LuaBehavior.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\MeshData.h" />
@@ -120,7 +119,6 @@
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GFX.cpp" />
-    <ClCompile Include="LuaBehavior.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshAnimator.cpp" />
     <ClCompile Include="MeshData.cpp" />
