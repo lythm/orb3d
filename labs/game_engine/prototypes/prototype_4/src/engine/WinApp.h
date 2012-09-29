@@ -26,6 +26,9 @@ namespace engine
 		virtual bool											OnInit();
 		virtual void											OnRelease();
 
+
+		virtual void											HandleMessage(MSG& msg){}
+
 		void													AdjustWindow(int Width, int Height );
 
 		static LRESULT CALLBACK									WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

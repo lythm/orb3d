@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "EngineApp.h"
 #include <tchar.h>
+#include "WMInput.h"
 
 
 namespace engine
@@ -32,7 +33,7 @@ namespace engine
 
 		//OutputDebugString(buffer);
 
-	//	SetTitle(buffer);
+		SetTitle(buffer);
 
 
 		m_pObjectManager->UpdateObjects();
@@ -45,13 +46,19 @@ namespace engine
 	//	Sleep(1000);
 		m_pSysGraphics->Present();
 
+		Sleep(1);
+
 	}
 	bool EngineApp::OnInit()
 	{
 
 		m_pSysManager = SysManagerPtr(new SysManager);
 
-		m_pSysInput = m_pSysManager->LoadSysInput(L"./d8input.dll");
+		//m_pSysInput = m_pSysManager->LoadSysInput(L"./d8input.dll");
+
+		m_pWMInput = boost::shared_ptr<WMInput>(new WMInput);
+
+		m_pSysInput	= m_pWMInput;
 
 		if(m_pSysInput == Sys_InputPtr())
 		{
@@ -107,13 +114,21 @@ namespace engine
 
 			swprintf(buffer, L"fps : %.3f", float(frames * 1000) / float(dt));
 
-			SetTitle(buffer);
+		//	SetTitle(buffer);
 
 			tick = GetTickCount();
 			frames = 0;
 		}
 
 		frames ++;
+	}
+
+	void EngineApp::HandleMessage(MSG& msg)
+	{
+		if(m_pWMInput)
+		{
+			m_pWMInput->ProcessMessage(msg);
+		}
 	}
 
 }

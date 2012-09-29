@@ -90,6 +90,12 @@
     <ClInclude Include="..\..\include\core\Texture2D.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\GPUBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\VertexFormat.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_pch.cpp">

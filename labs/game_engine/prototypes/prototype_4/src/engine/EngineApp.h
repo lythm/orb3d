@@ -5,6 +5,7 @@
 
 namespace engine
 {
+	class WMInput;
 	class EngineApp : public WinApp
 	{
 	public:
@@ -20,6 +21,7 @@ namespace engine
 		
 		void											ShowFPS();
 
+		void											HandleMessage(MSG& msg);
 	private:
 
 		GameObjectManagerPtr							m_pObjectManager;
@@ -30,6 +32,8 @@ namespace engine
 		Sys_InputPtr									m_pSysInput;
 
 		Sys_GraphicsPtr									m_pSysGraphics;
+
+		boost::shared_ptr<WMInput>						m_pWMInput;
 	};
 
 

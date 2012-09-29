@@ -9,6 +9,11 @@ namespace engine
 	public:
 		D3D11cgGFX(void);
 		virtual ~D3D11cgGFX(void);
+
+
+		void								BeginPass(int& pass);
+		void								EndPass();
+		void								ApplyPass();
 	};
 
 

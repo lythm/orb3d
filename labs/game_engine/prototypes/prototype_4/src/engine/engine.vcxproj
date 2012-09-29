@@ -14,6 +14,7 @@
     <ClInclude Include="EngineApp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="WinApp.h" />
+    <ClInclude Include="WMInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineApp.cpp" />
@@ -21,6 +22,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="WinApp.cpp" />
+    <ClCompile Include="WMInput.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E0053528-CC93-484F-8D79-4278E436C03D}</ProjectGuid>

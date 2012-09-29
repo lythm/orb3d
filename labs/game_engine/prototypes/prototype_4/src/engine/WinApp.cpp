@@ -140,8 +140,11 @@ namespace engine
 		{
 			if( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 			{
+				HandleMessage(msg);
+
 				TranslateMessage( &msg );
 				DispatchMessage( &msg );
+			
 			}
 			else
 			{

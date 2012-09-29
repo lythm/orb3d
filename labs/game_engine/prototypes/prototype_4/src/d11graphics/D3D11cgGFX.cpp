@@ -12,4 +12,14 @@ namespace engine
 	{
 	}
 
+	void D3D11cgGFX::BeginPass(int& pass)
+	{
+	}
+	void D3D11cgGFX::EndPass()
+	{
+	}
+	void D3D11cgGFX::ApplyPass()
+	{
+	}
+
 }

@@ -24,3 +24,4 @@
 
 #include "core\GFX.h"
 #include "core\RenderData.h"
+#include "core\GPUBuffer.h"

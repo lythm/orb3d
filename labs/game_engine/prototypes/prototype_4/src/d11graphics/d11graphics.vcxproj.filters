@@ -30,6 +30,9 @@
     <ClInclude Include="D3D11cgGFX.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="D3D11Buffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D11Graphics.cpp">
@@ -45,6 +48,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11cgGFX.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11Buffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

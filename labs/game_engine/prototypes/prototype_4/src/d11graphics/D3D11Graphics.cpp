@@ -1,6 +1,7 @@
 #include "d11graphics_pch.h"
 
 #include "D3D11Graphics.h"
+#include "D3D11Buffer.h"
 
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
@@ -221,16 +222,8 @@ namespace engine
 	}
 
 
-	void D3D11Graphics::ClearRenderQueue()
-	{
-		//m_queue.Clear();
-	}
 	void D3D11Graphics::Draw(RenderDataPtr pData)
 	{
-	}
-	void D3D11Graphics::PushRenderData(RenderDataPtr pData)
-	{
-		//m_queue.Push(pData);
 	}
 	void D3D11Graphics::Render()
 	{
@@ -283,6 +276,127 @@ namespace engine
 	void D3D11Graphics::Present()
 	{
 		m_pSwapChain->Present(0, 0);
+	}
+
+	GPUBufferPtr D3D11Graphics::CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic)
+	{
+		GPUBufferPtr pBuffer;
+
+		switch(type)
+		{
+		case BT_VERTEX_BUFFER:
+			pBuffer = CreateVertexBuffer(bytes, pInitData, dynamic);
+			break;
+		case BT_INDEX_BUFFER:
+			pBuffer = CreateIndexBuffer(bytes, pInitData, dynamic);
+			break;
+		case BT_CONSTANT_BUFFER:
+			pBuffer = CreateConstantBuffer(bytes, pInitData);
+			break;
+		default:
+			return GPUBufferPtr();
+		}
+
+		return pBuffer;
+		
+	}
+	GPUBufferPtr D3D11Graphics::CreateIndexBuffer(int bytes, void* pInitData, bool dynamic)
+	{
+		D3D11_BUFFER_DESC bufferDesc;
+		bufferDesc.Usage           = dynamic ? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
+		bufferDesc.ByteWidth       = bytes;
+		bufferDesc.BindFlags       = D3D11_BIND_INDEX_BUFFER;
+		bufferDesc.CPUAccessFlags  = dynamic ? D3D11_CPU_ACCESS_WRITE : 0;
+		bufferDesc.MiscFlags       = 0;
+		bufferDesc.StructureByteStride = 0;
+
+		ID3D11Buffer* pBuffer = NULL;
+		ID3D11Device* pDevice = NULL;
+		m_pContext->GetDevice(&pDevice);
+
+		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
+
+		if(FAILED(pDevice->CreateBuffer(&bufferDesc, pInitData == NULL ? NULL :&InitData, &pBuffer)))
+		{
+			pDevice->Release();
+			return GPUBufferPtr();
+		}
+		pDevice->Release();
+
+
+		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
+	}
+
+	GPUBufferPtr D3D11Graphics::CreateVertexBuffer(int bytes, void* pInitData, bool dynamic)
+	{
+		D3D11_BUFFER_DESC desc;
+
+		desc.BindFlags =  D3D11_BIND_VERTEX_BUFFER;
+		desc.ByteWidth = bytes;
+		desc.CPUAccessFlags = dynamic ? D3D11_CPU_ACCESS_WRITE : 0;
+		desc.MiscFlags = 0;
+		desc.StructureByteStride = 0;
+		desc.Usage = dynamic ? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
+
+
+		ID3D11Buffer* pBuffer = NULL;
+		ID3D11Device* pDevice = NULL;
+		m_pContext->GetDevice(&pDevice);
+
+
+		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
+		
+		HRESULT ret = pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
+		if(FAILED(ret))
+		{
+			pDevice->Release();
+			return GPUBufferPtr();
+		}
+
+		pDevice->Release();
+		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
+	}
+
+	GPUBufferPtr D3D11Graphics::CreateConstantBuffer(int bytes, void* pInitData)
+	{
+		D3D11_BUFFER_DESC desc;
+
+		desc.BindFlags =  D3D11_BIND_CONSTANT_BUFFER;
+		desc.ByteWidth = bytes;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		desc.MiscFlags = 0;
+		desc.StructureByteStride = 0;
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+
+
+		ID3D11Buffer* pBuffer = NULL;
+		ID3D11Device* pDevice = NULL;
+		m_pContext->GetDevice(&pDevice);
+
+
+		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
+		
+		HRESULT ret = pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
+		if(FAILED(ret))
+		{
+			pDevice->Release();
+			return GPUBufferPtr();
+		}
+
+		pDevice->Release();
+		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
+	}
+	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer)
+	{
+		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
+
+		m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R16_UINT, 0);
+	}
+	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer)
+	{
+		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
+
+		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, NULL, NULL);
 	}
 	/*void D3D11Graphics::SetRenderTarget(Texture2DPtr pTarget)
 	{

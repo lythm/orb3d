@@ -16,7 +16,6 @@ namespace engine
 		void									Release();
 
 		void									Draw(RenderDataPtr pData);
-		void									PushRenderData(RenderDataPtr pData);
 		void									Render();
 
 		void									SetViewTransform(const math::Matrix44& view);
@@ -27,9 +26,15 @@ namespace engine
 		void									SetClearStencil(uint32 val);
 
 		void									ClearRenderTarget();
-		void									ClearRenderQueue();
-		
+				
 		void									Present();
+
+
+		void									SetIndexBuffer(GPUBufferPtr pBuffer);
+		void									SetVertexBuffer(GPUBufferPtr pBuffer);
+
+		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
+
 		//void									SetRenderTarget(Texture2DPtr pTarget)						= 0;
 		//virtual ShaderPtr								CreateShader()												= 0;
 
@@ -38,6 +43,13 @@ namespace engine
 
 		//virtual TexturePtr								CreateRenderTarget()										= 0;
 
+
+
+	private:
+
+		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
+		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);
+		GPUBufferPtr							CreateConstantBuffer(int bytes, void* pInitData);
 	private:
 
 	//	RenderQueue								m_queue;

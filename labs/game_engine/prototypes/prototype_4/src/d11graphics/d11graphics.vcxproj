@@ -82,6 +82,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="d11graphics_pch.h" />
+    <ClInclude Include="D3D11Buffer.h" />
     <ClInclude Include="D3D11cgGFX.h" />
     <ClInclude Include="D3D11Graphics.h" />
     <ClInclude Include="D3D11RenderData.h" />
@@ -92,6 +93,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">d11graphics_pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="D3D11Buffer.cpp" />
     <ClCompile Include="D3D11cgGFX.cpp" />
     <ClCompile Include="D3D11Graphics.cpp" />
     <ClCompile Include="D3D11RenderData.cpp" />

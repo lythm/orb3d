@@ -24,6 +24,9 @@
     <ClInclude Include="EngineApp.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="WMInput.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="EngineApp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WMInput.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
