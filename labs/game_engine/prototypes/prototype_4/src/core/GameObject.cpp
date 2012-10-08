@@ -6,7 +6,7 @@ namespace engine
 {
 	GameObject::GameObject(void)
 	{
-		m_LocalTransform.SetIdentity();
+		m_LocalTransform.MakeIdentity();
 
 		m_pParent						= GameObjectPtr();
 		m_pFirstChild					= GameObjectPtr();

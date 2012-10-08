@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A2407401-1B15-44BB-B285-5878BDE949C7}</ProjectGuid>
+    <ProjectGuid>{32B76CD0-68C9-413F-8039-8C94043EF782}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>core</RootNamespace>
+    <RootNamespace>ogl4graphics</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -43,10 +43,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\bin\</OutDir>
-    <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>D:\sdk\boost_1_47_0\;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\sdk\boost_1_47_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -56,24 +52,23 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>core_pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\include;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;OGL4GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>ogl4graphics_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\..\lib\$(ProjectName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OGL4GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,53 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\core\Behavior.h" />
-    <ClInclude Include="..\..\include\core\Camera.h" />
-    <ClInclude Include="..\..\include\core\core_all.h" />
-    <ClInclude Include="..\..\include\core\core_ptr.h" />
-    <ClInclude Include="..\..\include\core\GameObject.h" />
-    <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
-    <ClInclude Include="..\..\include\core\GameObjectManager.h" />
-    <ClInclude Include="..\..\include\core\GFX.h" />
-    <ClInclude Include="..\..\include\core\GPUBuffer.h" />
-    <ClInclude Include="..\..\include\core\Mesh.h" />
-    <ClInclude Include="..\..\include\core\MeshAnimator.h" />
-    <ClInclude Include="..\..\include\core\MeshData.h" />
-    <ClInclude Include="..\..\include\core\MeshRenderer.h" />
-    <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
-    <ClInclude Include="..\..\include\core\RenderData.h" />
-    <ClInclude Include="..\..\include\core\Renderer.h" />
-    <ClInclude Include="..\..\include\core\Scene.h" />
-    <ClInclude Include="..\..\include\core\SoundEmitter.h" />
-    <ClInclude Include="..\..\include\core\SoundListener.h" />
-    <ClInclude Include="..\..\include\core\SysManager.h" />
-    <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
-    <ClInclude Include="..\..\include\core\Sys_Input.h" />
-    <ClInclude Include="..\..\include\core\Sys_Physics.h" />
-    <ClInclude Include="..\..\include\core\Sys_Sound.h" />
-    <ClInclude Include="..\..\include\core\Texture.h" />
-    <ClInclude Include="..\..\include\core\Texture2D.h" />
-    <ClInclude Include="..\..\include\core\VertexFormat.h" />
-    <ClInclude Include="core_pch.h" />
+    <ClInclude Include="OGL4Graphics.h" />
+    <ClInclude Include="ogl4graphics_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Behavior.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="core_pch.cpp">
+    <ClCompile Include="OGL4Graphics.cpp" />
+    <ClCompile Include="ogl4graphics_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameObjectComponent.cpp" />
-    <ClCompile Include="GameObjectManager.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshAnimator.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
-    <ClCompile Include="ParticleRenderer.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SoundEmitter.cpp" />
-    <ClCompile Include="SoundListener.cpp" />
-    <ClCompile Include="SysManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

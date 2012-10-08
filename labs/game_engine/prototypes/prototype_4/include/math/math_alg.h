@@ -195,7 +195,7 @@ namespace math
 		Matrix44 MatrixTranslation(const Vector3& trans)
 	{
 		Matrix44 ret;
-		ret.SetIdentity();
+		ret.MakeIdentity();
 		ret.SetRow3(3, trans);
 		return ret;
 	}
@@ -203,7 +203,7 @@ namespace math
 		Matrix44 MatrixScale(const Vector3& s)
 	{
 		Matrix44 ret;
-		ret.SetIdentity();
+		ret.MakeIdentity();
 		ret(0, 0) = s.x;
 		ret(1, 1) = s.y;
 		ret(2, 2) = s.z;

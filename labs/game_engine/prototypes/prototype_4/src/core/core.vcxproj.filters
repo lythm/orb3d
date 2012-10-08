@@ -96,6 +96,9 @@
     <ClInclude Include="..\..\include\core\VertexFormat.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\Renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_pch.cpp">
@@ -141,12 +144,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Behavior.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GFX.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

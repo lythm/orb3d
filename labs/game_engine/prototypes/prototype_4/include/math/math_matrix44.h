@@ -55,7 +55,7 @@ namespace math
 		void					SetScale(const Vector3& s);
 
 		bool					IsIdentity() const;
-		void					SetIdentity();
+		void					MakeIdentity();
 		void					Transpose();
 		void					Invert();
 
@@ -206,7 +206,7 @@ namespace math
 		return m[i * 4 + j];
 	}
 	inline
-		void Matrix44::SetIdentity()
+		void Matrix44::MakeIdentity()
 	{
 		m11 = 1;
 		m12 = 0;

@@ -2,7 +2,7 @@
 
 #include "D3D11Graphics.h"
 #include "D3D11Buffer.h"
-
+#include "D3D11cgGFX.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -157,9 +157,31 @@ namespace engine
 		m_pContext->RSSetViewports( 1, &vp );
 
 
+		D3D11_BUFFER_DESC desc;
+
+		desc.BindFlags =  D3D11_BIND_CONSTANT_BUFFER;
+		desc.ByteWidth = sizeof(math::Matrix44) * 3;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		desc.MiscFlags = 0;
+		desc.StructureByteStride = 0;
+		desc.Usage = D3D11_USAGE_DYNAMIC;
 
 
-		/*HRESULT hr = S_OK;
+		math::Matrix44 mat[3];
+		mat[0].MakeIdentity();
+		mat[1].MakeIdentity();
+		mat[2].MakeIdentity();
+
+
+		D3D11_SUBRESOURCE_DATA InitData = {&mat, 0, 0,};
+		
+		ret = m_pDevice->CreateBuffer(&desc, &InitData, &m_pCB);
+		if(FAILED(ret))
+		{
+			return false;
+		}
+		
+		HRESULT hr = S_OK;
 
 		m_pCG = cgCreateContext();
 		if(m_pCG == NULL)
@@ -175,13 +197,17 @@ namespace engine
 
 		cgD3D11RegisterStates( m_pCG);
 			
-		cgD3D11SetManageTextureParameters( m_pCG, CG_TRUE );*/
+		cgD3D11SetManageTextureParameters( m_pCG, CG_TRUE );
 		
 		return true;
 	}
 	void D3D11Graphics::Release()
 	{
-		//m_queue.Clear();
+		if(m_pCB)
+		{
+			m_pCB->Release();
+			m_pCB = NULL;
+		}
 
 		if(m_pDepthStencilBuffer)
 		{
@@ -207,12 +233,21 @@ namespace engine
 			m_pContext = NULL;
 		}
 
-		//cgD3D11SetDevice(m_pCG, NULL);
+		cgD3D11RegisterStates( NULL);
 		
+		cgD3D11SetDevice(m_pCG, NULL);
 
-	//	cgD3D11RegisterStates( NULL);
-	//	cgDestroyContext(m_pCG);
+		// cgD3D11SetDevice(m_pCG, NULL) does not release device reference , a bug?
+		if(m_pDevice)
+		{
+			m_pDevice->Release();
+		}	
 
+		//
+
+
+		cgDestroyContext(m_pCG);
+		m_pCG = NULL;
 		if(m_pDevice)
 		{
 			m_pDevice->Release();
@@ -423,4 +458,21 @@ namespace engine
 	{
 		return ShaderPtr(new CGFXShader(m_pCG));
 	}*/
+
+	GFXPtr D3D11Graphics::CreateGFXFromFile(const char* szFile)
+	{
+		D3D11cgGFX* pFX = new D3D11cgGFX(m_pCG);
+
+		if(false == pFX->LoadFromFile(szFile))
+		{
+			pFX->Release();
+			return GFXPtr();
+		}
+
+		return GFXPtr(pFX);
+	}
+	void D3D11Graphics::DrawPrimitive(int count, int startindex, int basevertex)
+	{
+		m_pContext->DrawIndexed(count, startindex, basevertex);
+	}
 }

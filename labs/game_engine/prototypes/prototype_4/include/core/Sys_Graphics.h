@@ -21,6 +21,10 @@ namespace engine
 
 		virtual void									Release()													= 0;
 		virtual void									Draw(RenderDataPtr pData)									= 0;
+		virtual void									DrawPrimitive(int count, 
+																int startindex, 
+																int basevertex)										= 0;
+
 		virtual void									Render()													= 0;
 
 		virtual void									SetViewTransform(const math::Matrix44& view)				= 0;
@@ -42,6 +46,7 @@ namespace engine
 		virtual void									SetIndexBuffer(GPUBufferPtr pBuffer)						= 0;
 		virtual void									SetVertexBuffer(GPUBufferPtr pBuffer)						= 0;
 
+		virtual GFXPtr									CreateGFXFromFile(const char* szFile)						= 0;
 		//virtual void									SetRenderTarget(Texture2DPtr pTarget)						= 0;
 		//virtual ShaderPtr								CreateShader()												= 0;
 

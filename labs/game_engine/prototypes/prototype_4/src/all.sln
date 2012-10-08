@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "d11graphics", "d11graphics\
 		{A2407401-1B15-44BB-B285-5878BDE949C7} = {A2407401-1B15-44BB-B285-5878BDE949C7}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogl4graphics", "ogl4graphics\ogl4graphics.vcxproj", "{32B76CD0-68C9-413F-8039-8C94043EF782}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -32,6 +34,10 @@ Global
 		{345E5016-6171-456E-AC63-0026F0997D9A}.Debug|Win32.Build.0 = Debug|Win32
 		{345E5016-6171-456E-AC63-0026F0997D9A}.Release|Win32.ActiveCfg = Release|Win32
 		{345E5016-6171-456E-AC63-0026F0997D9A}.Release|Win32.Build.0 = Release|Win32
+		{32B76CD0-68C9-413F-8039-8C94043EF782}.Debug|Win32.ActiveCfg = Debug|Win32
+		{32B76CD0-68C9-413F-8039-8C94043EF782}.Debug|Win32.Build.0 = Debug|Win32
+		{32B76CD0-68C9-413F-8039-8C94043EF782}.Release|Win32.ActiveCfg = Release|Win32
+		{32B76CD0-68C9-413F-8039-8C94043EF782}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
