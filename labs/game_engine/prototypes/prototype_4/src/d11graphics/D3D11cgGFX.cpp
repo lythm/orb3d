@@ -66,13 +66,10 @@ namespace engine
 			pTechnique = cgGetNextTechnique( pTechnique );
 		}
 			
-		if( pTechnique == NULL) 
-		{
-			return false;
-		}
+		
 		m_pTechnique = pTechnique;
 		
-		return true;
+		return m_pTechnique != NULL;
 	}
 	void D3D11cgGFX::Release()
 	{
@@ -195,6 +192,16 @@ namespace engine
 
 	bool D3D11cgGFX::BeginPass()
 	{
+		ID3D11Device* pDevice = cgD3D11GetDevice(m_pCG);
+
+		ID3D11DeviceContext* pContext = NULL;
+		pDevice->GetImmediateContext(&pContext);
+
+		pContext->IASetInputLayout(m_pIL);
+
+		
+		pContext->Release();
+
 		m_pPass = cgGetFirstPass(m_pTechnique);
 		if(m_pPass == NULL)
 		{
@@ -209,6 +216,9 @@ namespace engine
 	}
 	void D3D11cgGFX::ApplyPass()
 	{
+
+
+
 		cgSetPassState(m_pPass);
 	}
 	bool D3D11cgGFX::NextPass()

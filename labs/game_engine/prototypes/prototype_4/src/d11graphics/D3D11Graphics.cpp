@@ -37,7 +37,7 @@ namespace engine
 	}
 	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height)
 	{
-		HRESULT ret = D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, NULL, D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, NULL, 0, D3D11_SDK_VERSION, &m_pDevice, NULL, &m_pContext);
+		HRESULT ret = D3D11CreateDevice(NULL, /*D3D_DRIVER_TYPE_HARDWARE*/ D3D_DRIVER_TYPE_REFERENCE, NULL, D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, NULL, 0, D3D11_SDK_VERSION, &m_pDevice, NULL, &m_pContext);
 		if( FAILED( ret ) )
 		{
 			return false;
@@ -431,7 +431,10 @@ namespace engine
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
-		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, NULL, NULL);
+		UINT offset = 0;
+		UINT stride = sizeof(math::Vector3);
+
+		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
 	/*void D3D11Graphics::SetRenderTarget(Texture2DPtr pTarget)
 	{
@@ -473,6 +476,8 @@ namespace engine
 	}
 	void D3D11Graphics::DrawPrimitive(int count, int startindex, int basevertex)
 	{
+		m_pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 		m_pContext->DrawIndexed(count, startindex, basevertex);
 	}
 }

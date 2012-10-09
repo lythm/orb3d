@@ -34,6 +34,13 @@ namespace engine
 		Sys_GraphicsPtr									m_pSysGraphics;
 
 		boost::shared_ptr<WMInput>						m_pWMInput;
+
+
+		GPUBufferPtr									m_pVB;
+		GPUBufferPtr									m_pIB;
+
+		GFXPtr											m_pGFX;
+
 	};
 
 

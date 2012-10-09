@@ -1,5 +1,8 @@
 #pragma once
 
+
+#include "core\VertexFormat.h"
+
 namespace engine
 {
 	class EXPORT_CLASS GFX
@@ -14,6 +17,8 @@ namespace engine
 		virtual void								ApplyPass()								= 0;
 		virtual bool								NextPass()								= 0;
 
+		virtual bool								SetVertexFormat(VertexElement format[], 
+																uint32 nElem)				= 0;
 		virtual void								Release()								= 0;
 
 	};

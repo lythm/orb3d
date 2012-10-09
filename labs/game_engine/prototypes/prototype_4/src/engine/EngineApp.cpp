@@ -43,7 +43,23 @@ namespace engine
 
 		m_pSysGraphics->ClearRenderTarget();
 
-	//	Sleep(1000);
+	
+		m_pSysGraphics->SetIndexBuffer(m_pIB);
+		m_pSysGraphics->SetVertexBuffer(m_pVB);
+
+		m_pGFX->BeginPass();
+
+		do
+		{
+			m_pGFX->ApplyPass();
+
+			m_pSysGraphics->DrawPrimitive(1, 0, 0);
+
+		}while(m_pGFX->NextPass());
+
+		m_pGFX->EndPass();
+		
+
 		m_pSysGraphics->Present();
 
 		Sleep(1);
@@ -84,6 +100,32 @@ namespace engine
 		m_pSysGraphics->SetClearColor(math::Color4(0.3, 0.5, 0.8, 1.0));
 		
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
+
+
+		struct Vertex
+		{
+			math::Vector3 pos;
+		};
+
+		Vertex verts[] = { math::Vector3(0.5, 0, 0),
+			math::Vector3(0, 0.5, 0),
+			math::Vector3(0, 0, 0),
+		};
+
+
+		m_pVB = m_pSysGraphics->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(math::Vector3) * 3, verts, true);
+
+		short indice[] = {0, 1, 2,};
+
+		m_pIB = m_pSysGraphics->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(short) * 3, indice, true);
+
+
+		m_pGFX = m_pSysGraphics->CreateGFXFromFile("./test.cgfx");
+
+		VertexElement vf(0, VertexElement::POSITION,VertexElement::VE_FLOAT3);
+
+		m_pGFX->SetVertexFormat(&vf, 1);
+		
 
 		return true;
 	}
