@@ -64,6 +64,8 @@ local.properties
 *.vspscc
 *.exp
 *.lib
+*.dll
+*.exe
 .builds
 **/*.dotCover
 
@@ -101,7 +103,7 @@ DocProject/Help/html
 publish
 
 # Others
-[Bb]in
+#[Bb]in
 [Oo]bj
 sql
 TestResults
