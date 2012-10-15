@@ -15,6 +15,11 @@ namespace engine
 			BT_CONSTANT_BUFFER,
 		};
 
+		enum PRIMITIVE_TYPE
+		{
+			PT_TRIANGLE_LIST,
+		};
+
 		virtual bool									Initialize(void* app_handle, 
 																uint32 width, 
 																uint32 height)										= 0;
@@ -24,7 +29,7 @@ namespace engine
 		virtual void									DrawPrimitive(int count, 
 																int startindex, 
 																int basevertex)										= 0;
-
+		virtual void									SetPrimitiveType(PRIMITIVE_TYPE pt)							= 0;
 		virtual void									Render()													= 0;
 
 		virtual void									SetViewTransform(const math::Matrix44& view)				= 0;

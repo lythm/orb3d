@@ -93,23 +93,14 @@ namespace engine
 	}
 
 
-	void D3D11cgGFX::SetTexture()
-	{
-	}
+	
 	bool D3D11cgGFX::SetVertexFormat(VertexElement format[], uint32 nElem)
 	{
 		if(m_pIL != NULL)
 		{
 			m_pIL->Release();
 		}
-		//DXGI_FORMAT_R32G32B32_FLOAT
-		ID3D11Device* pDevice = cgD3D11GetDevice(m_pCG);
-
-		if(pDevice == NULL)
-		{
-			return false;
-		}
-
+		
 		D3D11_INPUT_ELEMENT_DESC* layout = new D3D11_INPUT_ELEMENT_DESC[nElem];
 
 		for(uint32 i = 0; i < nElem; ++i)
@@ -180,11 +171,21 @@ namespace engine
 
 		ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass( pass );
 
+
+		//DXGI_FORMAT_R32G32B32_FLOAT
+		ID3D11Device* pDevice = NULL;
+
+		m_pContext->GetDevice(&pDevice);
+
+		if(pDevice == NULL)
+		{
+			return false;
+		}
+
 		HRESULT hr = pDevice->CreateInputLayout( layout, nElem, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &m_pIL ); 
 
+		pVSBuf->Release();
 		delete []layout;
-
-
 		pDevice->Release();
 
 		if(FAILED(hr))
@@ -192,16 +193,12 @@ namespace engine
 			return false;
 		}
 		
-
 		return true;
 	}
 
 
 	bool D3D11cgGFX::BeginPass()
 	{
-		m_pContext->IASetInputLayout(m_pIL);
-
-
 		if(m_pPass == NULL)
 		{
 			m_pPass = cgGetFirstPass(m_pTechnique);
@@ -235,5 +232,153 @@ namespace engine
 
 		cgSetMatrixParameterfr(param, mat.m);
 	}
+	void D3D11cgGFX::SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szSemantic);
 
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetMatrixParameterfr(param, mat.m);
+	}
+	void D3D11cgGFX::SetTextureByName(const char* szName, TexturePtr pTex)
+	{
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+
+		//cgD3D11SetTextureParameter(param, pTex);
+	}
+
+	void D3D11cgGFX::SetVectorByName(const char* szName, const math::Vector3& v)
+	{
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter3f(param, v.x, v.y, v.z);
+	}
+	void D3D11cgGFX::SetVectorByName(const char* szName, const math::Vector4& v)
+	{
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter4f(param, v.x, v.y, v.z, v.w);
+	}
+	void D3D11cgGFX::SetVectorByName(const char* szName, const math::Vector2& v)
+	{
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter2f(param, v.x, v.y);
+	}
+	void D3D11cgGFX::SetFloatByName(const char* szName, float v)
+	{
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter1f(param, v);
+	}
+	void D3D11cgGFX::SetIntByName(const char* szName, int v)
+	{
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter1i(param, v);
+	}
+	void D3D11cgGFX::SetTextureBySemantic(const char* szName, TexturePtr pTex)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		//cgSetTextureParameter(param, mat.m);
+	}
+	void D3D11cgGFX::SetVectorBySemantic(const char* szName, const math::Vector3& v)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter3f(param, v.x, v.y, v.z);
+	}
+	void D3D11cgGFX::SetVectorBySemantic(const char* szName, const math::Vector4& v)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter4f(param, v.x, v.y, v.z, v.w);
+	}
+	void D3D11cgGFX::SetVectorBySemantic(const char* szName, const math::Vector2& v)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter2f(param, v.x, v.y);
+	}
+	void D3D11cgGFX::SetFloatBySemantic(const char* szName, float v)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter1f(param, v);
+	}
+	void D3D11cgGFX::SetIntBySemantic(const char* szName, int v)
+	{
+		CGparameter param = cgGetEffectParameterBySemantic(m_pEffect, szName);
+
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetParameter1i(param, v);
+	}
+	void D3D11cgGFX::ApplyVertexFormat()
+	{
+		m_pContext->IASetInputLayout(m_pIL);
+	}
 }

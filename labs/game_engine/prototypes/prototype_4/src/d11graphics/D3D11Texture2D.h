@@ -9,6 +9,13 @@ namespace engine
 	public:
 		D3D11Texture2D(void);
 		virtual ~D3D11Texture2D(void);
+
+
+
+		ID3D11Texture2D*					GetD3D11Resource();
+
+	private:
+		ID3D11Texture2D*					m_pTex;
 	};
 
 

@@ -46,6 +46,9 @@ namespace engine
 	
 		m_pSysGraphics->SetIndexBuffer(m_pIB);
 		m_pSysGraphics->SetVertexBuffer(m_pVB);
+		m_pSysGraphics->SetPrimitiveType(Sys_Graphics::PT_TRIANGLE_LIST);
+		
+		m_pGFX->ApplyVertexFormat();
 
 		while(m_pGFX->BeginPass())
 		{
@@ -128,17 +131,19 @@ namespace engine
 
 		m_pGFX->SetVertexFormat(vf, 1);
 		
-
 		math::Matrix44 view = math::MatrixLookAtLH(math::Vector3(0, 0, -10), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
-
 		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14, 4.0f/ 3.0f, 0.0001, 10000);
 
-		m_pGFX->SetMatrixByName("mat", view * proj);
-
+		m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
 		return true;
 	}
 	void EngineApp::OnRelease()
 	{
+
+		m_pIB->Release();
+		m_pVB->Release();
+		m_pGFX->Release();
+
 
 		m_pObjectManager->ReleaseAllObject();
 		m_pObjectManager.reset();

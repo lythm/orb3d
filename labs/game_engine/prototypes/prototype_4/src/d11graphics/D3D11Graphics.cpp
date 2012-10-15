@@ -239,15 +239,18 @@ namespace engine
 			m_pSwapChain = NULL;
 		}
 
+		cgD3D11RegisterStates( NULL);
+		
+		cgD3D11SetDevice(m_pCG, NULL);
+		cgDestroyContext(m_pCG);
+
 		if(m_pContext)
 		{
 			m_pContext->Release();
 			m_pContext = NULL;
 		}
 
-		cgD3D11RegisterStates( NULL);
 		
-		cgD3D11SetDevice(m_pCG, NULL);
 
 		// cgD3D11SetDevice(m_pCG, NULL) does not release device reference , a bug?
 		if(m_pDevice)
@@ -258,7 +261,7 @@ namespace engine
 		//
 
 
-		cgDestroyContext(m_pCG);
+		
 		m_pCG = NULL;
 		if(m_pDevice)
 		{
@@ -419,8 +422,7 @@ namespace engine
 		ID3D11Buffer* pBuffer = NULL;
 		ID3D11Device* pDevice = NULL;
 		m_pContext->GetDevice(&pDevice);
-
-
+		
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
 		
 		HRESULT ret = pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
@@ -444,7 +446,7 @@ namespace engine
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
 		UINT offset = 0;
-		UINT stride = 0;//sizeof(math::Vector3);
+		UINT stride = sizeof(math::Vector3);
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
@@ -486,10 +488,22 @@ namespace engine
 
 		return GFXPtr(pFX);
 	}
+	void D3D11Graphics::SetPrimitiveType(PRIMITIVE_TYPE pt)
+	{
+		D3D_PRIMITIVE_TOPOLOGY tp;
+
+		switch(pt)
+		{
+		case PT_TRIANGLE_LIST:
+			tp = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+			break;
+		default:
+			return;
+		}
+		m_pContext->IASetPrimitiveTopology(tp);
+	}
 	void D3D11Graphics::DrawPrimitive(int count, int startindex, int basevertex)
 	{
-		m_pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
 		m_pContext->DrawIndexed(count, startindex, basevertex);
 	}
 }

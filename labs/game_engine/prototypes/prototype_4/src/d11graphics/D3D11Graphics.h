@@ -15,6 +15,7 @@ namespace engine
 		bool									Initialize(void* app_handle, uint32 width, uint32 height);
 		void									Release();
 
+		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
 		void									DrawPrimitive(int count, int startindex, int basevertex);
 		void									Draw(RenderDataPtr pData);
 		void									Render();
@@ -51,6 +52,7 @@ namespace engine
 
 	private:
 
+		
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateConstantBuffer(int bytes, void* pInitData);
