@@ -3,7 +3,7 @@
 
 namespace engine
 {
-	D3D11cgGFX::D3D11cgGFX(CGcontext pCG)
+	D3D11cgGFX::D3D11cgGFX(CGcontext pCG, ID3D11DeviceContext* pContext)
 	{
 		m_pCG = pCG;
 
@@ -12,6 +12,8 @@ namespace engine
 		m_pIL							= NULL;
 		m_pTechnique					= NULL;
 		m_pPass							= NULL;
+
+		m_pContext						= pContext;
 	}
 
 
@@ -69,6 +71,8 @@ namespace engine
 		
 		m_pTechnique = pTechnique;
 		
+		m_pPass = NULL;
+
 		return m_pTechnique != NULL;
 	}
 	void D3D11cgGFX::Release()
@@ -85,11 +89,10 @@ namespace engine
 		m_pEffect = NULL;
 
 		m_pCG = NULL;
+		m_pContext = NULL;
 	}
 
-	void D3D11cgGFX::SetParameter()
-	{
-	}
+
 	void D3D11cgGFX::SetTexture()
 	{
 	}
@@ -181,51 +184,56 @@ namespace engine
 
 		delete []layout;
 
+
+		pDevice->Release();
+
 		if(FAILED(hr))
 		{
 			return false;
 		}
 		
+
 		return true;
 	}
 
 
 	bool D3D11cgGFX::BeginPass()
 	{
-		ID3D11Device* pDevice = cgD3D11GetDevice(m_pCG);
+		m_pContext->IASetInputLayout(m_pIL);
 
-		ID3D11DeviceContext* pContext = NULL;
-		pDevice->GetImmediateContext(&pContext);
 
-		pContext->IASetInputLayout(m_pIL);
-
-		
-		pContext->Release();
-
-		m_pPass = cgGetFirstPass(m_pTechnique);
 		if(m_pPass == NULL)
 		{
-			return false;
+			m_pPass = cgGetFirstPass(m_pTechnique);
 		}
-
-		return true;
+		else
+		{
+			m_pPass = cgGetNextPass(m_pPass);
+		}
+		
+		return m_pPass != NULL;
 	}
 	void D3D11cgGFX::EndPass()
 	{
-		m_pPass = NULL;
+		if(m_pPass != NULL)
+		{
+			cgResetPassState(m_pPass);
+		}
 	}
 	void D3D11cgGFX::ApplyPass()
 	{
-
-
-
 		cgSetPassState(m_pPass);
 	}
-	bool D3D11cgGFX::NextPass()
+	void D3D11cgGFX::SetMatrixByName(const char* szParam, const math::Matrix44& mat)
 	{
-		m_pPass = cgGetNextPass(m_pPass);
+		CGparameter param = cgGetNamedEffectParameter(m_pEffect, szParam);
 
-		return m_pPass != NULL;
+		if(param == NULL)
+		{
+			return;
+		}
+
+		cgSetMatrixParameterfr(param, mat.m);
 	}
-	
+
 }

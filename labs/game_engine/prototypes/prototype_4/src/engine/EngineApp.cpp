@@ -33,7 +33,7 @@ namespace engine
 
 		//OutputDebugString(buffer);
 
-		SetTitle(buffer);
+		//SetTitle(buffer);
 
 
 		m_pObjectManager->UpdateObjects();
@@ -47,18 +47,15 @@ namespace engine
 		m_pSysGraphics->SetIndexBuffer(m_pIB);
 		m_pSysGraphics->SetVertexBuffer(m_pVB);
 
-		m_pGFX->BeginPass();
-
-		do
+		while(m_pGFX->BeginPass())
 		{
 			m_pGFX->ApplyPass();
 
-			m_pSysGraphics->DrawPrimitive(1, 0, 0);
+			m_pSysGraphics->DrawPrimitive(3, 0, 0);
 
-		}while(m_pGFX->NextPass());
+			m_pGFX->EndPass();
 
-		m_pGFX->EndPass();
-		
+		}
 
 		m_pSysGraphics->Present();
 
@@ -97,7 +94,7 @@ namespace engine
 			return false;
 		}
 
-		m_pSysGraphics->SetClearColor(math::Color4(0.3, 0.5, 0.8, 1.0));
+		m_pSysGraphics->SetClearColor(math::Color4(0.0, 0.0, 0.0, 1.0));
 		
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
 
@@ -107,8 +104,10 @@ namespace engine
 			math::Vector3 pos;
 		};
 
-		Vertex verts[] = { math::Vector3(0.5, 0, 0),
-			math::Vector3(0, 0.5, 0),
+		Vertex verts[] = 
+		{
+			math::Vector3(100, 0, 0),
+			math::Vector3(0, 100, 0),
 			math::Vector3(0, 0, 0),
 		};
 
@@ -122,10 +121,19 @@ namespace engine
 
 		m_pGFX = m_pSysGraphics->CreateGFXFromFile("./test.cgfx");
 
-		VertexElement vf(0, VertexElement::POSITION,VertexElement::VE_FLOAT3);
+		VertexElement vf[] = 
+		{
+			VertexElement(0, VertexElement::POSITION,VertexElement::VE_FLOAT3),
+		};
 
-		m_pGFX->SetVertexFormat(&vf, 1);
+		m_pGFX->SetVertexFormat(vf, 1);
 		
+
+		math::Matrix44 view = math::MatrixLookAtLH(math::Vector3(0, 0, -10), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
+
+		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14, 4.0f/ 3.0f, 0.0001, 10000);
+
+		m_pGFX->SetMatrixByName("mat", view * proj);
 
 		return true;
 	}
@@ -156,7 +164,7 @@ namespace engine
 
 			swprintf(buffer, L"fps : %.3f", float(frames * 1000) / float(dt));
 
-		//	SetTitle(buffer);
+			SetTitle(buffer);
 
 			tick = GetTickCount();
 			frames = 0;

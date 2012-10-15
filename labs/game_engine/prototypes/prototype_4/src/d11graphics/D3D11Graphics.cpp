@@ -37,7 +37,19 @@ namespace engine
 	}
 	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height)
 	{
-		HRESULT ret = D3D11CreateDevice(NULL, /*D3D_DRIVER_TYPE_HARDWARE*/ D3D_DRIVER_TYPE_REFERENCE, NULL, D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, NULL, 0, D3D11_SDK_VERSION, &m_pDevice, NULL, &m_pContext);
+		
+		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_10_0;
+
+		HRESULT ret = D3D11CreateDevice(NULL, 
+										D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
+										NULL, 
+										D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, 
+										&fl, 
+										1, 
+										D3D11_SDK_VERSION, 
+										&m_pDevice, 
+										NULL, 
+										&m_pContext);
 		if( FAILED( ret ) )
 		{
 			return false;
@@ -370,7 +382,7 @@ namespace engine
 		desc.ByteWidth = bytes;
 		desc.CPUAccessFlags = dynamic ? D3D11_CPU_ACCESS_WRITE : 0;
 		desc.MiscFlags = 0;
-		desc.StructureByteStride = 0;
+		desc.StructureByteStride = 12;
 		desc.Usage = dynamic ? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
 
 
@@ -432,7 +444,7 @@ namespace engine
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
 		UINT offset = 0;
-		UINT stride = sizeof(math::Vector3);
+		UINT stride = 0;//sizeof(math::Vector3);
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
@@ -464,7 +476,7 @@ namespace engine
 
 	GFXPtr D3D11Graphics::CreateGFXFromFile(const char* szFile)
 	{
-		D3D11cgGFX* pFX = new D3D11cgGFX(m_pCG);
+		D3D11cgGFX* pFX = new D3D11cgGFX(m_pCG, m_pContext);
 
 		if(false == pFX->LoadFromFile(szFile))
 		{
