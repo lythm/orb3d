@@ -122,7 +122,7 @@ namespace engine
 		m_pIB = m_pSysGraphics->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(short) * 3, indice, true);
 
 
-		m_pGFX = m_pSysGraphics->CreateGFXFromFile("./test.cgfx");
+		m_pGFX = m_pSysGraphics->CreateGFXFromFile("./assets/gfx/test.cgfx");
 
 		VertexElement vf[] = 
 		{
