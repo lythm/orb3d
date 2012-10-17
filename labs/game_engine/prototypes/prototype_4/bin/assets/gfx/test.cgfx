@@ -45,12 +45,16 @@ technique test
 {
   pass p1
   {
+	  DepthTestEnable = false;
       AlphaBlendEnable = false;
       CullMode = None;
       FillMode = Solid;
       
-      VertexProgram = compile vs_4_0 vs_main();
-      FragmentProgram = compile ps_4_0 ps_main();
+	  VertexShader = compile vs_5_0 vs_main();
+	  PixelShader = compile ps_5_0 ps_main();
+     // VertexProgram = compile vs_5_0 vs_main();
+      //FragmentProgram = compile ps_5_0 ps_main();
+	  
   }
 }
 

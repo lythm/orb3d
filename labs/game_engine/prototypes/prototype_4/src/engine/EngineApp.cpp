@@ -96,17 +96,12 @@ namespace engine
 			return false;
 		}
 
-		m_pSysGraphics->SetClearColor(math::Color4(0.0, 0.0, 0.0, 1.0));
+		m_pSysGraphics->SetClearColor(math::Color4(0.2, 0.2, 0.2, 1.0));
 		
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
 
 
-		struct Vertex
-		{
-			math::Vector3 pos;
-		};
-
-		Vertex verts[] = 
+		math::Vector3 verts[] = 
 		{
 			math::Vector3(0.5, 0, 0),
 			math::Vector3(0, 0.5, 0),
@@ -116,9 +111,19 @@ namespace engine
 
 		m_pVB = m_pSysGraphics->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(math::Vector3) * 3, verts, true);
 
-		short indice[] = {0, 1, 2,};
+		void* pData = m_pVB->Map(GPUBuffer::MAP_DISCARD);
 
-		m_pIB = m_pSysGraphics->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(short) * 3, indice, true);
+		memcpy(pData, verts, sizeof(math::Vector3)*3);
+		m_pVB->Unmap();
+
+		uint32 indice[] = {0, 1, 2,};
+
+		m_pIB = m_pSysGraphics->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(uint32) * 3, indice, true);
+
+		pData = m_pIB->Map(GPUBuffer::MAP_DISCARD);
+
+		memcpy(pData, indice, sizeof(uint32)*3);
+		m_pIB->Unmap();
 
 
 		m_pGFX = m_pSysGraphics->CreateGFXFromFile("./assets/gfx/test.cgfx");

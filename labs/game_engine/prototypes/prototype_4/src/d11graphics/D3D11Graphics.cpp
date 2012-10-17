@@ -23,7 +23,7 @@ namespace engine
 		m_clearDepth					= 1.0f;
 		m_clearStencil					= 0;
 
-		//m_pCG							= NULL;
+		m_pCG							= NULL;
 		m_pDevice						= NULL;
 		m_pContext						= NULL;
 		m_pSwapChain					= NULL;
@@ -44,8 +44,8 @@ namespace engine
 										D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
 										NULL, 
 										D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, 
-										&fl, 
-										1, 
+										NULL,//&fl, 
+										0, 
 										D3D11_SDK_VERSION, 
 										&m_pDevice, 
 										NULL, 
@@ -59,7 +59,7 @@ namespace engine
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory( &sd, sizeof(sd) );
 
-		sd.BufferCount										= 1;
+		sd.BufferCount										= 2;
 		sd.BufferDesc.Width									= width;
 		sd.BufferDesc.Height								= height;
 		sd.BufferDesc.Format								= DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -70,7 +70,7 @@ namespace engine
 		sd.SampleDesc.Count									= 1;
 		sd.SampleDesc.Quality								= 0;
 		sd.Windowed											= TRUE;
-		sd.SwapEffect										= DXGI_SWAP_EFFECT_DISCARD;
+		sd.SwapEffect										= DXGI_SWAP_EFFECT_SEQUENTIAL;//DXGI_SWAP_EFFECT_DISCARD;
 		//sd.Flags											= DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 		IDXGIFactory1* pFactory = NULL;
@@ -127,11 +127,14 @@ namespace engine
 		// Create depth stencil texture
         ID3D11Texture2D* pDepthStencil = NULL;
         D3D11_TEXTURE2D_DESC descDepth;
+
+		ZeroMemory(&descDepth, sizeof(descDepth));
+
 		descDepth.Width = width;
 		descDepth.Height = height;
         descDepth.MipLevels = 1;
         descDepth.ArraySize = 1;
-        descDepth.Format = DXGI_FORMAT_D32_FLOAT;
+        descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
         descDepth.SampleDesc.Count = 1;
         descDepth.SampleDesc.Quality = 0;
         descDepth.Usage = D3D11_USAGE_DEFAULT;
@@ -144,6 +147,7 @@ namespace engine
 
         // Create the depth stencil view
         D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
+		ZeroMemory(&descDSV, sizeof(descDSV));
         descDSV.Format = descDepth.Format;
         descDSV.Flags = 0;
         if( descDepth.SampleDesc.Count > 1 )
@@ -160,6 +164,8 @@ namespace engine
 
 		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
 
+		m_pContext->OMSetBlendState(NULL, 0, -1);
+
 
 		D3D11_VIEWPORT vp;
 		vp.Width = (FLOAT)width;
@@ -171,39 +177,13 @@ namespace engine
 		m_pContext->RSSetViewports( 1, &vp );
 
 
-		D3D11_BUFFER_DESC desc;
-
-		desc.BindFlags =  D3D11_BIND_CONSTANT_BUFFER;
-		desc.ByteWidth = sizeof(math::Matrix44) * 3;
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		desc.MiscFlags = 0;
-		desc.StructureByteStride = 0;
-		desc.Usage = D3D11_USAGE_DYNAMIC;
-
-
-		math::Matrix44 mat[3];
-		mat[0].MakeIdentity();
-		mat[1].MakeIdentity();
-		mat[2].MakeIdentity();
-
-
-		D3D11_SUBRESOURCE_DATA InitData = {&mat, 0, 0,};
-		
-		ret = m_pDevice->CreateBuffer(&desc, &InitData, &m_pCB);
-		if(FAILED(ret))
-		{
-			return false;
-		}
-		
-		HRESULT hr = S_OK;
-
 		m_pCG = cgCreateContext();
 		if(m_pCG == NULL)
 		{
 			return false;
 		}
 
-		hr = cgD3D11SetDevice( m_pCG, m_pDevice);
+		HRESULT hr = cgD3D11SetDevice( m_pCG, m_pDevice);
 		if( hr != S_OK )
 		{
 			return false;
@@ -218,12 +198,6 @@ namespace engine
 	}
 	void D3D11Graphics::Release()
 	{
-		if(m_pCB)
-		{
-			m_pCB->Release();
-			m_pCB = NULL;
-		}
-
 		if(m_pDepthStencilBuffer)
 		{
 			m_pDepthStencilBuffer->Release();
@@ -274,39 +248,6 @@ namespace engine
 
 	}
 
-
-	void D3D11Graphics::Draw(RenderDataPtr pData)
-	{
-	}
-	void D3D11Graphics::Render()
-	{
-		/*for(uint32 i = 0; i < m_queue.GetLength(); ++i)
-		{
-			RenderDataPtr pData = m_queue.GetAt(i);
-			Draw(pData);
-		}*/
-	}
-
-	//RenderDataPtr D3D11Graphics::CreateRenderData()
-	//{
-	//	return RenderDataPtr();
-	//	//return RenderDataPtr(new D3D11RenderData(m_pContext));
-	//}
-	/*Texture2DPtr D3D11Graphics::CreateTexture2D()
-	{
-		return Texture2DPtr();
-	}*/
-
-	/*TexturePtr D3D11Graphics::CreateRenderTarget()
-	{
-		return TexturePtr();
-	}*/
-	void D3D11Graphics::SetViewTransform(const math::Matrix44& view)
-	{
-	}
-	void D3D11Graphics::SetProjTransform(const math::Matrix44& proj)
-	{
-	}
 	void D3D11Graphics::SetClearColor(const math::Color4& clr)
 	{
 		m_clearColor		= clr;
@@ -364,18 +305,13 @@ namespace engine
 		bufferDesc.StructureByteStride = 0;
 
 		ID3D11Buffer* pBuffer = NULL;
-		ID3D11Device* pDevice = NULL;
-		m_pContext->GetDevice(&pDevice);
-
+		
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
 
-		if(FAILED(pDevice->CreateBuffer(&bufferDesc, pInitData == NULL ? NULL :&InitData, &pBuffer)))
+		if(FAILED(m_pDevice->CreateBuffer(&bufferDesc, pInitData == NULL ? NULL :&InitData, &pBuffer)))
 		{
-			pDevice->Release();
 			return GPUBufferPtr();
 		}
-		pDevice->Release();
-
 
 		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
 	}
@@ -388,25 +324,20 @@ namespace engine
 		desc.ByteWidth = bytes;
 		desc.CPUAccessFlags = dynamic ? D3D11_CPU_ACCESS_WRITE : 0;
 		desc.MiscFlags = 0;
-		desc.StructureByteStride = 12;
+		desc.StructureByteStride = 0;
 		desc.Usage = dynamic ? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
 
 
 		ID3D11Buffer* pBuffer = NULL;
-		ID3D11Device* pDevice = NULL;
-		m_pContext->GetDevice(&pDevice);
-
-
+		
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
 		
-		HRESULT ret = pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
+		HRESULT ret = m_pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
 		if(FAILED(ret))
 		{
-			pDevice->Release();
 			return GPUBufferPtr();
 		}
 
-		pDevice->Release();
 		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
 	}
 
@@ -423,26 +354,22 @@ namespace engine
 
 
 		ID3D11Buffer* pBuffer = NULL;
-		ID3D11Device* pDevice = NULL;
-		m_pContext->GetDevice(&pDevice);
 		
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
 		
-		HRESULT ret = pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
+		HRESULT ret = m_pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
 		if(FAILED(ret))
 		{
-			pDevice->Release();
 			return GPUBufferPtr();
 		}
 
-		pDevice->Release();
 		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
 	}
 	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer)
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
-		m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R16_UINT, 0);
+		m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R32_UINT, 0);
 	}
 	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer)
 	{

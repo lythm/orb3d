@@ -214,7 +214,7 @@ namespace engine
 	{
 		if(m_pPass != NULL)
 		{
-			cgResetPassState(m_pPass);
+			//cgResetPassState(m_pPass);
 		}
 	}
 	void D3D11cgGFX::ApplyPass()

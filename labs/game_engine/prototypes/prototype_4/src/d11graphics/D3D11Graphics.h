@@ -17,13 +17,7 @@ namespace engine
 
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
 		void									DrawPrimitive(int count, int startindex, int basevertex);
-		void									Draw(RenderDataPtr pData);
-		void									Render();
-
-
-		void									SetViewTransform(const math::Matrix44& view);
-		void									SetProjTransform(const math::Matrix44& proj);
-
+		
 		void									SetClearColor(const math::Color4& clr);
 		void									SetClearDepth(float d);
 		void									SetClearStencil(uint32 val);
@@ -41,15 +35,7 @@ namespace engine
 		GFXPtr									CreateGFXFromFile(const char* szFile);
 
 		//void									SetRenderTarget(Texture2DPtr pTarget)						= 0;
-		//virtual ShaderPtr						CreateShader()												= 0;
-
-		//virtual RenderDataPtr					CreateRenderData()											= 0;
-		//virtual Texture2DPtr					CreateTexture2D()											= 0;
-
-		//virtual TexturePtr					CreateRenderTarget()										= 0;
-
-
-
+		
 	private:
 
 		
@@ -75,7 +61,6 @@ namespace engine
 
 
 		 CGcontext								m_pCG;
-
-		ID3D11Buffer*							m_pCB;
+		
 	};
 }
