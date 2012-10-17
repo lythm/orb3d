@@ -15,11 +15,12 @@ vs_out vs_main(float3 position:POSITION)
 
 	//vsout.pos = mul(mat, float4(position, 1));
 
-	vsout.pos = mul(float4(position, 1), mat);
+	//vsout.pos = mul(float4(position, 1), mat);
 	
-	//float4(position.xy * 10, 0, 1);
+	vsout.pos = float4(position.xy , 0, 1);
 
-	vsout.color = float3(1, 0, 0);
+	vsout.color = float3(1, 1,1);
+
 	return vsout;
 }
 
@@ -32,7 +33,9 @@ ps_out ps_main(vs_out psin)
 {
 	ps_out psout;
 
-	psout.color = float4(psin.color, 1);
+	//psout.color = float4(psin.color, 1);
+
+	psout.color = float4(1, 1, 1, 1);
 
 	return psout;
 }
@@ -40,7 +43,7 @@ ps_out ps_main(vs_out psin)
 
 technique test
 {
-  pass 
+  pass p1
   {
       AlphaBlendEnable = false;
       CullMode = None;

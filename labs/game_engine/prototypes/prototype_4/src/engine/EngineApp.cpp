@@ -57,7 +57,6 @@ namespace engine
 			m_pSysGraphics->DrawPrimitive(3, 0, 0);
 
 			m_pGFX->EndPass();
-
 		}
 
 		m_pSysGraphics->Present();
@@ -109,8 +108,8 @@ namespace engine
 
 		Vertex verts[] = 
 		{
-			math::Vector3(100, 0, 0),
-			math::Vector3(0, 100, 0),
+			math::Vector3(0.5, 0, 0),
+			math::Vector3(0, 0.5, 0),
 			math::Vector3(0, 0, 0),
 		};
 
@@ -205,7 +204,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace engine;
 	EngineApp app;
 
-	if(false == app.Initialize(hInstance, L"Main Window", 800, 600))
+	if(false == app.Initialize(hInstance, L"Main Window", 1024, 768))
 	{
 		return -1;
 	}

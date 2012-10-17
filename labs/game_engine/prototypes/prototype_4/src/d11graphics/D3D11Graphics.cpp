@@ -155,9 +155,11 @@ namespace engine
         if( FAILED( ret ) )
             return false;
         
+		pDepthStencil->Release();
+
+
 		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
 
-		pDepthStencil->Release();
 
 		D3D11_VIEWPORT vp;
 		vp.Width = (FLOAT)width;
@@ -211,6 +213,7 @@ namespace engine
 			
 		cgD3D11SetManageTextureParameters( m_pCG, CG_TRUE );
 		
+
 		return true;
 	}
 	void D3D11Graphics::Release()
@@ -241,7 +244,7 @@ namespace engine
 
 		cgD3D11RegisterStates( NULL);
 		
-		cgD3D11SetDevice(m_pCG, NULL);
+		//cgD3D11SetDevice(m_pCG, NULL);
 		cgDestroyContext(m_pCG);
 
 		if(m_pContext)
