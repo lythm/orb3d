@@ -38,12 +38,12 @@ namespace engine
 	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height)
 	{
 		
-		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_10_0;
+		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_0;
 
 		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_9_2;
 
 		HRESULT ret = D3D11CreateDevice(NULL, 
-										/*D3D_DRIVER_TYPE_HARDWARE*/ D3D_DRIVER_TYPE_REFERENCE, 
+										D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
 										NULL, 
 										D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, 
 										&fl, 
@@ -72,7 +72,7 @@ namespace engine
 		sd.SampleDesc.Count									= 1;
 		sd.SampleDesc.Quality								= 0;
 		sd.Windowed											= TRUE;
-		sd.SwapEffect										= DXGI_SWAP_EFFECT_SEQUENTIAL;//DXGI_SWAP_EFFECT_DISCARD;
+		sd.SwapEffect										= DXGI_SWAP_EFFECT_DISCARD;
 		//sd.Flags											= DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 		IDXGIFactory1* pFactory = NULL;

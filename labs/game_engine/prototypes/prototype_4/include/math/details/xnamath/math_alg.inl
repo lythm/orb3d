@@ -81,7 +81,7 @@ namespace math
 
 		XMVECTOR r = XMVector3TransformCoord(_v, _t);
 
-		XMStoreFloat3((XMFLOAT3*)&v, _v);
+		XMStoreFloat3((XMFLOAT3*)&v, r);
 
 	}
 	inline

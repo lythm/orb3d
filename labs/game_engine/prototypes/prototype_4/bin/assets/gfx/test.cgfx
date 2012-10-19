@@ -3,21 +3,12 @@ float4x4 mat:WORLDVIEWPROJ;
 struct vs_out
 {
 	float4 pos:POSITION;
-	float3 color:COLOR;
 };
 
 vs_out vs_main(float3 position:POSITION)
 {
 	vs_out vsout;
-
-	//vsout.pos = mul(mat, float4(position, 1));
-
-	//vsout.pos = mul(float4(position, 1), mat);
-	
-	vsout.pos = float4(position.xy , 0, 1);
-
-	vsout.color = float3(1, 1,1);
-
+	vsout.pos = mul(float4(position, 1), mat);
 	return vsout;
 }
 
@@ -30,13 +21,10 @@ ps_out ps_main(vs_out psin)
 {
 	ps_out psout;
 
-	//psout.color = float4(psin.color, 1);
-
-	psout.color = float4(1, 0, 0, 1);
+	psout.color = float4(1, 1 , 1, 1);
 
 	return psout;
 }
-
 
 technique test
 {
@@ -45,12 +33,10 @@ technique test
 	 // DepthTestEnable = false;
       AlphaBlendEnable = false;
       CullMode = None;
-      FillMode = Solid;
+      FillMode = wireframe;
       
-	 // VertexShader = compile vs_4_0 vs_main();
-	 // PixelShader = compile ps_4_0 ps_main();
-      VertexProgram = compile vs_2_x vs_main();
-     FragmentProgram = compile ps_2_x ps_main();
+     VertexProgram = compile vs_5_0 vs_main();
+     FragmentProgram = compile ps_5_0 ps_main();
 	  
   }
 }

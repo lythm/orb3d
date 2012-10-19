@@ -41,6 +41,23 @@ namespace engine
 
 		ShowFPS();
 
+
+		static float rad = 0;
+		rad += 0.001;
+
+		math::Vector3 eye(0, 30, -30);
+
+		math::Matrix44 mat = math::MatrixRotationAxisY(rad);
+
+		math::TransformCoord(eye, mat);
+		
+
+		math::Matrix44 view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
+		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14, 4.0f/ 3.0f, 0.0001, 10000);
+
+		m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
+
+
 		m_pSysGraphics->ClearRenderTarget();
 
 	
@@ -49,6 +66,7 @@ namespace engine
 		m_pSysGraphics->SetPrimitiveType(Sys_Graphics::PT_TRIANGLE_LIST);
 		
 		m_pGFX->ApplyVertexFormat();
+
 
 		while(m_pGFX->BeginPass())
 		{
@@ -103,8 +121,8 @@ namespace engine
 
 		math::Vector3 verts[] = 
 		{
-			math::Vector3(0.5, 0, 0),
-			math::Vector3(0, 0.5, 0),
+			math::Vector3(0, 50, 0),
+			math::Vector3(50, 0, 0),
 			math::Vector3(0, 0, 0),
 		};
 
@@ -135,7 +153,7 @@ namespace engine
 
 		m_pGFX->SetVertexFormat(vf, 1);
 		
-		math::Matrix44 view = math::MatrixLookAtLH(math::Vector3(0, 0, -10), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
+		math::Matrix44 view = math::MatrixLookAtLH(math::Vector3(0, 30, -20), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14, 4.0f/ 3.0f, 0.0001, 10000);
 
 		m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
@@ -147,8 +165,7 @@ namespace engine
 		m_pIB->Release();
 		m_pVB->Release();
 		m_pGFX->Release();
-
-
+		
 		m_pObjectManager->ReleaseAllObject();
 		m_pObjectManager.reset();
 		

@@ -1,5 +1,7 @@
 #include "d11graphics_pch.h"
 #include "D3D11cgGFX.h"
+#include <D3Dcompiler.h>
+#include <D3DX11.h>
 
 namespace engine
 {
@@ -206,6 +208,7 @@ namespace engine
 
 	bool D3D11cgGFX::BeginPass()
 	{
+
 		if(m_pPass == NULL)
 		{
 			m_pPass = cgGetFirstPass(m_pTechnique);
@@ -221,11 +224,12 @@ namespace engine
 	{
 		if(m_pPass != NULL)
 		{
-			//cgResetPassState(m_pPass);
+			cgResetPassState(m_pPass);
 		}
 	}
 	void D3D11cgGFX::ApplyPass()
 	{
+
 		cgSetPassState(m_pPass);
 	}
 	void D3D11cgGFX::SetMatrixByName(const char* szParam, const math::Matrix44& mat)
@@ -388,4 +392,5 @@ namespace engine
 	{
 		m_pContext->IASetInputLayout(m_pIL);
 	}
+
 }
