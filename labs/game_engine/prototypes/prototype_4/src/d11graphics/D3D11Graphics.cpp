@@ -40,12 +40,14 @@ namespace engine
 		
 		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_10_0;
 
+		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_9_2;
+
 		HRESULT ret = D3D11CreateDevice(NULL, 
-										D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
+										/*D3D_DRIVER_TYPE_HARDWARE*/ D3D_DRIVER_TYPE_REFERENCE, 
 										NULL, 
 										D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, 
-										NULL,//&fl, 
-										0, 
+										&fl, 
+										1, 
 										D3D11_SDK_VERSION, 
 										&m_pDevice, 
 										NULL, 

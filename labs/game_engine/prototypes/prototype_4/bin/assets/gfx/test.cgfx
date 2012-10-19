@@ -1,7 +1,4 @@
-
 float4x4 mat:WORLDVIEWPROJ;
-
-
 
 struct vs_out
 {
@@ -35,7 +32,7 @@ ps_out ps_main(vs_out psin)
 
 	//psout.color = float4(psin.color, 1);
 
-	psout.color = float4(1, 1, 1, 1);
+	psout.color = float4(1, 0, 0, 1);
 
 	return psout;
 }
@@ -45,16 +42,15 @@ technique test
 {
   pass p1
   {
-	  DepthTestEnable = false;
+	 // DepthTestEnable = false;
       AlphaBlendEnable = false;
       CullMode = None;
       FillMode = Solid;
       
-	  VertexShader = compile vs_5_0 vs_main();
-	  PixelShader = compile ps_5_0 ps_main();
-     // VertexProgram = compile vs_5_0 vs_main();
-      //FragmentProgram = compile ps_5_0 ps_main();
+	 // VertexShader = compile vs_4_0 vs_main();
+	 // PixelShader = compile ps_4_0 ps_main();
+      VertexProgram = compile vs_2_x vs_main();
+     FragmentProgram = compile ps_2_x ps_main();
 	  
   }
 }
-

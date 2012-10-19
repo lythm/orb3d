@@ -171,7 +171,6 @@ namespace engine
 
 		ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass( pass );
 
-
 		//DXGI_FORMAT_R32G32B32_FLOAT
 		ID3D11Device* pDevice = NULL;
 
@@ -182,9 +181,17 @@ namespace engine
 			return false;
 		}
 
-		HRESULT hr = pDevice->CreateInputLayout( layout, nElem, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &m_pIL ); 
 
-		pVSBuf->Release();
+		HRESULT hr = pDevice->CreateInputLayout( layout, 
+											nElem, 
+											pVSBuf != NULL ? pVSBuf->GetBufferPointer() : NULL, 
+											pVSBuf != NULL ? pVSBuf->GetBufferSize() : 0, 
+											&m_pIL ); 
+
+		if(pVSBuf != NULL)
+		{
+			pVSBuf->Release();
+		}
 		delete []layout;
 		pDevice->Release();
 
