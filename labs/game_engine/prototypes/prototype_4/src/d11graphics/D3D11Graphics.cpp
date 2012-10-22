@@ -38,9 +38,9 @@ namespace engine
 	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height)
 	{
 		
-		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_0;
+		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_0;
 
-		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_9_2;
+		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_10_0;
 
 		HRESULT ret = D3D11CreateDevice(NULL, 
 										D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
