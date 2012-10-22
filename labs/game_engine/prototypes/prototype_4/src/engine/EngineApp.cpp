@@ -43,7 +43,7 @@ namespace engine
 
 
 		static float rad = 0;
-		rad += 0.001;
+		rad += 0.001f;
 
 		math::Vector3 eye(0, 30, -30);
 
@@ -53,7 +53,7 @@ namespace engine
 		
 
 		math::Matrix44 view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
-		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14, 4.0f/ 3.0f, 0.0001, 10000);
+		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14f, 4.0f/ 3.0f, 0.0001f, 10000.0f);
 
 		m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
 
@@ -61,8 +61,8 @@ namespace engine
 		m_pSysGraphics->ClearRenderTarget();
 
 	
-		m_pSysGraphics->SetIndexBuffer(m_pIB);
-		m_pSysGraphics->SetVertexBuffer(m_pVB);
+		m_pSysGraphics->SetIndexBuffer(m_pIB, Sys_Graphics::IT_INT32);
+		m_pSysGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		m_pSysGraphics->SetPrimitiveType(Sys_Graphics::PT_TRIANGLE_LIST);
 		
 		m_pGFX->ApplyVertexFormat();
@@ -114,7 +114,7 @@ namespace engine
 			return false;
 		}
 
-		m_pSysGraphics->SetClearColor(math::Color4(0.2, 0.2, 0.2, 1.0));
+		m_pSysGraphics->SetClearColor(math::Color4(0.2f, 0.2f, 0.2f, 1.0f));
 		
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
 
@@ -154,7 +154,7 @@ namespace engine
 		m_pGFX->SetVertexFormat(vf, 1);
 		
 		math::Matrix44 view = math::MatrixLookAtLH(math::Vector3(0, 30, -20), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
-		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14, 4.0f/ 3.0f, 0.0001, 10000);
+		math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14f, 4.0f/ 3.0f, 0.0001f, 10000.0f);
 
 		m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
 		return true;

@@ -20,6 +20,12 @@ namespace engine
 			PT_TRIANGLE_LIST,
 		};
 
+		enum INDEX_TYPE
+		{
+			IT_INT16,
+			IT_INT32,
+		};
+
 		virtual bool									Initialize(void* app_handle, 
 																uint32 width, 
 																uint32 height)										= 0;
@@ -44,8 +50,10 @@ namespace engine
 																	void* pInitData, 
 																	bool dynamic)									= 0;
 
-		virtual void									SetIndexBuffer(GPUBufferPtr pBuffer)						= 0;
-		virtual void									SetVertexBuffer(GPUBufferPtr pBuffer)						= 0;
+		virtual void									SetIndexBuffer(GPUBufferPtr pBuffer, INDEX_TYPE type)		= 0;
+		virtual void									SetVertexBuffer(GPUBufferPtr pBuffer, 
+																	unsigned int offset, 
+																	unsigned int stride)							= 0;
 
 		virtual GFXPtr									CreateGFXFromFile(const char* szFile)						= 0;
 		

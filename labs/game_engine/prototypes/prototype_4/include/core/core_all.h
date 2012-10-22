@@ -23,6 +23,5 @@
 #include "core\Texture2D.h"
 
 #include "core\GFX.h"
-#include "core\RenderData.h"
 #include "core\GPUBuffer.h"
 #include "core\VertexFormat.h"

@@ -27,8 +27,8 @@ namespace engine
 		void									Present();
 
 
-		void									SetIndexBuffer(GPUBufferPtr pBuffer);
-		void									SetVertexBuffer(GPUBufferPtr pBuffer);
+		void									SetIndexBuffer(GPUBufferPtr pBuffer, INDEX_TYPE type);
+		void									SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride);
 
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
 
@@ -37,21 +37,14 @@ namespace engine
 		//void									SetRenderTarget(Texture2DPtr pTarget)						= 0;
 		
 	private:
-
-		
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateConstantBuffer(int bytes, void* pInitData);
 	private:
 
-	//	RenderQueue								m_queue;
-
 		ID3D11Device*							m_pDevice;
-
 		ID3D11DeviceContext*					m_pContext;
-
 		IDXGISwapChain*							m_pSwapChain;
-
 		ID3D11RenderTargetView*					m_pFrameBuffer;
 		ID3D11DepthStencilView*					m_pDepthStencilBuffer;
 
@@ -59,8 +52,6 @@ namespace engine
 		float									m_clearDepth;
 		int										m_clearStencil;
 
-
 		 CGcontext								m_pCG;
-		
 	};
 }

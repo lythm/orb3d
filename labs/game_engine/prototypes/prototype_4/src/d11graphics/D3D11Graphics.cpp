@@ -136,7 +136,7 @@ namespace engine
 		descDepth.Height = height;
         descDepth.MipLevels = 1;
         descDepth.ArraySize = 1;
-        descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+        descDepth.Format = DXGI_FORMAT_D32_FLOAT;
         descDepth.SampleDesc.Count = 1;
         descDepth.SampleDesc.Quality = 0;
         descDepth.Usage = D3D11_USAGE_DEFAULT;
@@ -162,13 +162,10 @@ namespace engine
             return false;
         
 		pDepthStencil->Release();
-
-
+		
 		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-
 		m_pContext->OMSetBlendState(NULL, 0, -1);
-
-
+		
 		D3D11_VIEWPORT vp;
 		vp.Width = (FLOAT)width;
 		vp.Height = (FLOAT)height;
@@ -367,18 +364,27 @@ namespace engine
 
 		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
 	}
-	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer)
+	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, INDEX_TYPE type)
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
 
-		m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R32_UINT, 0);
+		switch(type)
+		{
+		case IT_INT16:
+			m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R16_UINT, 0);
+			break;
+		case IT_INT32:
+			m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R32_UINT, 0);
+			break;
+		default:
+			assert(0);
+			return;
+		}
+		
 	}
-	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer)
+	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
-
-		UINT offset = 0;
-		UINT stride = sizeof(math::Vector3);
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}

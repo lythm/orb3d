@@ -78,9 +78,6 @@
     <ClInclude Include="..\..\include\core\Behavior.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\RenderData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\core\Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
