@@ -2,10 +2,11 @@
 
 
 #include "WinApp.h"
+#include "GameManager.h"
 
 namespace engine
 {
-	class WMInput;
+	
 	class EngineApp : public WinApp
 	{
 	public:
@@ -24,23 +25,9 @@ namespace engine
 		void											HandleMessage(MSG& msg);
 	private:
 
-		GameObjectManagerPtr							m_pObjectManager;
-
-
-		SysManagerPtr									m_pSysManager;
-
-		Sys_InputPtr									m_pSysInput;
-
-		Sys_GraphicsPtr									m_pSysGraphics;
-
-		boost::shared_ptr<WMInput>						m_pWMInput;
-
-
-		GPUBufferPtr									m_pVB;
-		GPUBufferPtr									m_pIB;
-
-		GFXPtr											m_pGFX;
-
+		
+		GameManagerPtr									m_pGameManager;
+		CoreApiPtr										m_pCore;
 	};
 
 

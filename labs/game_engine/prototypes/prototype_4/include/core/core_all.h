@@ -5,6 +5,9 @@
 
 #include <vector>
 
+#include "math\math_all.h"
+
+
 #include "core\core_ptr.h"
 
 #include "core\GameObject.h"
@@ -25,3 +28,7 @@
 #include "core\GFX.h"
 #include "core\GPUBuffer.h"
 #include "core\VertexFormat.h"
+
+#include "core\GameInterface.h"
+
+#include "core\coreapi.h"

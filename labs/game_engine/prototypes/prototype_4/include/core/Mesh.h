@@ -24,7 +24,7 @@ namespace engine
 
 			GFXPtr									m_pGFX;
 
-			RenderDataPtr							m_pRenderData;
+
 		};
 
 		Mesh(void);

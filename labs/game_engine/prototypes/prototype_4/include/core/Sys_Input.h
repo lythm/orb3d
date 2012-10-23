@@ -199,9 +199,11 @@ namespace engine
 		
 		virtual const KeyState&										GetKeyState()														= 0;
 		virtual const MouseState&									GetMouseState()														= 0;
-	
-		
 
+#if defined(WIN32) || defined(WIN64)
+		virtual void												HandleMessage(MSG& msg)												= 0;
+#endif
+	
 		Sys_Input(void){}
 		virtual ~Sys_Input(void){}
 	};

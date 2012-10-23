@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "core_pch.h"
 #include "WMInput.h"
 #include <windowsx.h>
 
@@ -33,7 +33,7 @@ namespace engine
 	{
 		return m_mouseState;
 	}
-	void WMInput::ProcessMessage(MSG& msg)
+	void WMInput::HandleMessage(MSG& msg)
 	{
 		switch(msg.message)
 		{

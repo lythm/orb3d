@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core\Sys_Input.h"
 
 
 namespace engine
@@ -19,7 +20,8 @@ namespace engine
 		const KeyState&										GetKeyState();
 		const MouseState&									GetMouseState();
 
-		void												ProcessMessage(MSG& msg);
+		void												HandleMessage(MSG& msg);
+
 
 	private:
 		KeyState											m_keyState;
