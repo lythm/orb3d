@@ -32,30 +32,57 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 
 
-	math::Vector3 verts[] = 
+	/*math::Vector3 verts[] = 
 	{
 		math::Vector3(0, 50, 0),
 		math::Vector3(50, 0, 0),
 		math::Vector3(0, 0, 0),
 	};
+*/
+
+	math::Vector3 verts[] = 
+	{
+		math::Vector3(10, 10, -10),
+		math::Vector3(10, -10, -10),
+		math::Vector3(-10, -10, -10),
+		math::Vector3(-10, 10, -10),
 
 
-	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(math::Vector3) * 3, verts, true);
+		math::Vector3(10, 10, 10),
+		math::Vector3(10, -10, 10),
+		math::Vector3(-10, -10, 10),
+		math::Vector3(-10, 10, 10),
+	};
 
-	void* pData = m_pVB->Map(GPUBuffer::MAP_DISCARD);
 
-	memcpy(pData, verts, sizeof(math::Vector3)*3);
-	m_pVB->Unmap();
 
-	uint32 indice[] = {0, 1, 2,};
+	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(math::Vector3) * 8, verts, true);
 
-	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(uint32) * 3, indice, true);
+	
+	uint32 indice[] = 
+	{
+		0, 1, 2,
+		0, 2, 3,
 
-	pData = m_pIB->Map(GPUBuffer::MAP_DISCARD);
+		4, 6, 5,
+		4, 7, 6,
 
-	memcpy(pData, indice, sizeof(uint32)*3);
-	m_pIB->Unmap();
+		0, 3, 4,
+		4, 3, 7,
 
+		1, 5, 6,
+		1, 6, 2,
+
+		0, 4, 5,
+		0, 5, 1,
+
+		3, 2, 6,
+		3, 6, 7,
+	};
+
+	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(uint32) * 36, indice, true);
+
+	
 
 	m_pGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test.cgfx");
 
@@ -65,11 +92,6 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 	};
 
 	m_pGFX->SetVertexFormat(vf, 1);
-
-	math::Matrix44 view = math::MatrixLookAtLH(math::Vector3(0, 30, -20), math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
-	math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14f, 4.0f/ 3.0f, 0.0001f, 10000.0f);
-
-	m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
 
 	return true;
 }
@@ -83,12 +105,14 @@ void Game::Release()
 }
 bool Game::Update()
 {
+
+
 	using namespace engine;
 
 	static float rad = 0;
-	rad += 0.001f;
+	rad += 0.005f;
 
-	math::Vector3 eye(0, 30, -30);
+	math::Vector3 eye(0, 20, -30);
 
 	math::Matrix44 mat = math::MatrixRotationAxisY(rad);
 
@@ -96,7 +120,7 @@ bool Game::Update()
 
 
 	math::Matrix44 view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
-	math::Matrix44 proj = math::MatrixPerspectiveFovLH(3.0f/4.0f * 3.14f, 4.0f/ 3.0f, 0.0001f, 10000.0f);
+	math::Matrix44 proj = math::MatrixPerspectiveFovLH(1.0f/2.0f * 3.14f, 4.0f/ 3.0f, 0.0001f, 10000.0f);
 
 	m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
 
@@ -115,7 +139,7 @@ bool Game::Update()
 	{
 		m_pGFX->ApplyPass();
 
-		m_pCore->GetSysGraphics()->DrawPrimitive(3, 0, 0);
+		m_pCore->GetSysGraphics()->DrawPrimitive(36, 0, 0);
 
 		m_pGFX->EndPass();
 	}

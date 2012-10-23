@@ -20,15 +20,10 @@ namespace engine
 		m_pCore->Update();
 
 		ShowFPS();
-
-
 		
-
-
 		m_pGameManager->GetGame()->Update();
-
-
-		Sleep(1);
+		
+		//Sleep(1);
 
 	}
 	bool EngineApp::OnInit()
@@ -81,7 +76,8 @@ namespace engine
 		static int frames = 0;
 		int dt = GetTickCount() - tick;
 
-		if(dt >= 1000)
+		int iv = 100;
+		if(dt >= iv)
 		{
 
 			wchar_t buffer[100];

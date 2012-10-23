@@ -149,7 +149,6 @@ namespace engine
 			else
 			{
 				OnUpdate();
-				//Sleep(1);
 			}
 		}
 

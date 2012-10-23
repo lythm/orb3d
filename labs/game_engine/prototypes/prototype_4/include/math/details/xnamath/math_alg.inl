@@ -69,7 +69,7 @@ namespace math
 
 		XMVECTOR r = XMVector2TransformCoord(_v, _t);
 
-		XMStoreFloat2((XMFLOAT2*)&v, _v);
+		XMStoreFloat2((XMFLOAT2*)&v, r);
 	}
 	inline
 		void TransformCoord(Vector3& v, const Matrix44& t)
@@ -94,7 +94,7 @@ namespace math
 
 		XMVECTOR r = XMVector4Transform(_v, _t);
 
-		XMStoreFloat4((XMFLOAT4*)&v, _v);
+		XMStoreFloat4((XMFLOAT4*)&v, r);
 
 	}
 	inline
@@ -106,7 +106,7 @@ namespace math
 
 		XMVECTOR r = XMVector2TransformNormal(_v, _t);
 
-		XMStoreFloat2((XMFLOAT2*)&v, _v);
+		XMStoreFloat2((XMFLOAT2*)&v, r);
 	}
 	inline
 		void	TransformNormal(Vector3& v, const Matrix44& t)
@@ -117,7 +117,7 @@ namespace math
 
 		XMVECTOR r = XMVector3TransformNormal(_v, _t);
 
-		XMStoreFloat3((XMFLOAT3*)&v, _v);
+		XMStoreFloat3((XMFLOAT3*)&v, r);
 	}
 	inline
 		Matrix44 MatrixLookAtLH(const Vector3& eye, const Vector3& at, const Vector3& up)
