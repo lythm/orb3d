@@ -34,6 +34,7 @@ namespace engine
 
 		GFXPtr									CreateGFXFromFile(const char* szFile);
 
+		TexturePtr								CreateTextureFromFile(const char* szFile);
 		//void									SetRenderTarget(Texture2DPtr pTarget)						= 0;
 		
 	private:

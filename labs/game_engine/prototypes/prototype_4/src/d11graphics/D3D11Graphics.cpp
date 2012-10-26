@@ -3,6 +3,9 @@
 #include "D3D11Graphics.h"
 #include "D3D11Buffer.h"
 #include "D3D11cgGFX.h"
+#include "D3D11Texture2D.h"
+#include "D3D11Texture1D.h"
+#include "D3D11Texture3D.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -37,21 +40,21 @@ namespace engine
 	}
 	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height)
 	{
-		
+
 		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_0;
 
 		D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_10_0;
 
 		HRESULT ret = D3D11CreateDevice(NULL, 
-										D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
-										NULL, 
-										D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, 
-										&fl, 
-										1, 
-										D3D11_SDK_VERSION, 
-										&m_pDevice, 
-										NULL, 
-										&m_pContext);
+			D3D_DRIVER_TYPE_HARDWARE /*D3D_DRIVER_TYPE_REFERENCE*/, 
+			NULL, 
+			D3D11_CREATE_DEVICE_SINGLETHREADED |  D3D11_CREATE_DEVICE_DEBUG, 
+			&fl, 
+			1, 
+			D3D11_SDK_VERSION, 
+			&m_pDevice, 
+			NULL, 
+			&m_pContext);
 		if( FAILED( ret ) )
 		{
 			return false;
@@ -127,45 +130,45 @@ namespace engine
 			return FALSE;
 
 		// Create depth stencil texture
-        ID3D11Texture2D* pDepthStencil = NULL;
-        D3D11_TEXTURE2D_DESC descDepth;
+		ID3D11Texture2D* pDepthStencil = NULL;
+		D3D11_TEXTURE2D_DESC descDepth;
 
 		ZeroMemory(&descDepth, sizeof(descDepth));
 
 		descDepth.Width = width;
 		descDepth.Height = height;
-        descDepth.MipLevels = 1;
-        descDepth.ArraySize = 1;
-        descDepth.Format = DXGI_FORMAT_D32_FLOAT;
-        descDepth.SampleDesc.Count = 1;
-        descDepth.SampleDesc.Quality = 0;
-        descDepth.Usage = D3D11_USAGE_DEFAULT;
-        descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-        descDepth.CPUAccessFlags = 0;
-        descDepth.MiscFlags = 0;
-        ret = m_pDevice->CreateTexture2D( &descDepth, NULL, &pDepthStencil );
-        if( FAILED( ret ) )
-            return false;
+		descDepth.MipLevels = 1;
+		descDepth.ArraySize = 1;
+		descDepth.Format = DXGI_FORMAT_D32_FLOAT;
+		descDepth.SampleDesc.Count = 1;
+		descDepth.SampleDesc.Quality = 0;
+		descDepth.Usage = D3D11_USAGE_DEFAULT;
+		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		descDepth.CPUAccessFlags = 0;
+		descDepth.MiscFlags = 0;
+		ret = m_pDevice->CreateTexture2D( &descDepth, NULL, &pDepthStencil );
+		if( FAILED( ret ) )
+			return false;
 
-        // Create the depth stencil view
-        D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
+		// Create the depth stencil view
+		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 		ZeroMemory(&descDSV, sizeof(descDSV));
-        descDSV.Format = descDepth.Format;
-        descDSV.Flags = 0;
-        if( descDepth.SampleDesc.Count > 1 )
-            descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
-        else
-            descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-        descDSV.Texture2D.MipSlice = 0;
-        ret = m_pDevice->CreateDepthStencilView( pDepthStencil, &descDSV, &m_pDepthStencilBuffer );
-        if( FAILED( ret ) )
-            return false;
-        
+		descDSV.Format = descDepth.Format;
+		descDSV.Flags = 0;
+		if( descDepth.SampleDesc.Count > 1 )
+			descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
+		else
+			descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		descDSV.Texture2D.MipSlice = 0;
+		ret = m_pDevice->CreateDepthStencilView( pDepthStencil, &descDSV, &m_pDepthStencilBuffer );
+		if( FAILED( ret ) )
+			return false;
+
 		pDepthStencil->Release();
-		
+
 		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
 		m_pContext->OMSetBlendState(NULL, 0, -1);
-		
+
 		D3D11_VIEWPORT vp;
 		vp.Width = (FLOAT)width;
 		vp.Height = (FLOAT)height;
@@ -189,9 +192,9 @@ namespace engine
 		}
 
 		cgD3D11RegisterStates( m_pCG);
-			
+
 		cgD3D11SetManageTextureParameters( m_pCG, CG_TRUE );
-		
+
 
 		return true;
 	}
@@ -216,7 +219,7 @@ namespace engine
 		}
 
 		cgD3D11RegisterStates( NULL);
-		
+
 		//cgD3D11SetDevice(m_pCG, NULL);
 		cgDestroyContext(m_pCG);
 
@@ -226,7 +229,7 @@ namespace engine
 			m_pContext = NULL;
 		}
 
-		
+
 
 		// cgD3D11SetDevice(m_pCG, NULL) does not release device reference , a bug?
 		if(m_pDevice)
@@ -237,7 +240,7 @@ namespace engine
 		//
 
 
-		
+
 		m_pCG = NULL;
 		if(m_pDevice)
 		{
@@ -250,12 +253,12 @@ namespace engine
 	void D3D11Graphics::SetClearColor(const math::Color4& clr)
 	{
 		m_clearColor		= clr;
-		
+
 	}
 	void D3D11Graphics::SetClearDepth(float d)
 	{
 		m_clearDepth		= d;
-		
+
 	}
 	void D3D11Graphics::SetClearStencil(uint32 val)
 	{
@@ -291,7 +294,7 @@ namespace engine
 		}
 
 		return pBuffer;
-		
+
 	}
 	GPUBufferPtr D3D11Graphics::CreateIndexBuffer(int bytes, void* pInitData, bool dynamic)
 	{
@@ -304,7 +307,7 @@ namespace engine
 		bufferDesc.StructureByteStride = 0;
 
 		ID3D11Buffer* pBuffer = NULL;
-		
+
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
 
 		if(FAILED(m_pDevice->CreateBuffer(&bufferDesc, pInitData == NULL ? NULL :&InitData, &pBuffer)))
@@ -328,9 +331,9 @@ namespace engine
 
 
 		ID3D11Buffer* pBuffer = NULL;
-		
+
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
-		
+
 		HRESULT ret = m_pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
 		if(FAILED(ret))
 		{
@@ -353,9 +356,9 @@ namespace engine
 
 
 		ID3D11Buffer* pBuffer = NULL;
-		
+
 		D3D11_SUBRESOURCE_DATA InitData = {pInitData, 0, 0,};
-		
+
 		HRESULT ret = m_pDevice->CreateBuffer(&desc, pInitData == NULL ? NULL : &InitData, &pBuffer);
 		if(FAILED(ret))
 		{
@@ -380,7 +383,7 @@ namespace engine
 			assert(0);
 			return;
 		}
-		
+
 	}
 	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
 	{
@@ -390,28 +393,28 @@ namespace engine
 	}
 	/*void D3D11Graphics::SetRenderTarget(Texture2DPtr pTarget)
 	{
-		if(pTarget == NULL)
-		{
-			m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-			return;
-		}
+	if(pTarget == NULL)
+	{
+	m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
+	return;
+	}
 
-		D3D11Texture2D* pTex = (D3D11Texture2D*)pTarget.get();
+	D3D11Texture2D* pTex = (D3D11Texture2D*)pTarget.get();
 
-		ID3D11RenderTargetView* pView = pTex->GetD3D11RenderTargetView();
+	ID3D11RenderTargetView* pView = pTex->GetD3D11RenderTargetView();
 
-		if(pView == NULL)
-		{
-			m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-			return;
-		}
+	if(pView == NULL)
+	{
+	m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
+	return;
+	}
 
-		m_pContext->OMSetRenderTargets(1, &pView, m_pDepthStencilBuffer);
+	m_pContext->OMSetRenderTargets(1, &pView, m_pDepthStencilBuffer);
 	}
 
 	ShaderPtr D3D11Graphics::CreateShader()
 	{
-		return ShaderPtr(new CGFXShader(m_pCG));
+	return ShaderPtr(new CGFXShader(m_pCG));
 	}*/
 
 	GFXPtr D3D11Graphics::CreateGFXFromFile(const char* szFile)
@@ -444,4 +447,45 @@ namespace engine
 	{
 		m_pContext->DrawIndexed(count, startindex, basevertex);
 	}
+	TexturePtr D3D11Graphics::CreateTextureFromFile(const char* szFile)
+	{
+		ID3D11Resource* pRes = NULL;
+
+		HRESULT ret = D3DX11CreateTextureFromFileA(m_pDevice, szFile, NULL, NULL, &pRes, NULL);
+
+		if(FAILED(ret))
+		{
+			return TexturePtr();
+		}
+
+		D3D11_RESOURCE_DIMENSION dim;
+		pRes->GetType(&dim);
+
+		TexturePtr pTex;
+
+		switch(dim)
+		{
+		case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
+			{
+				pTex = TexturePtr(new D3D11Texture1D((ID3D11Texture1D*)pRes));
+			}
+			break;
+		case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
+			{
+				pTex = TexturePtr(new D3D11Texture2D((ID3D11Texture2D*)pRes));
+			}
+			break;
+		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
+			{
+				pTex = TexturePtr(new D3D11Texture3D((ID3D11Texture3D*)pRes));
+			}
+			break;
+		default:
+			break;
+		}
+
+		return pTex;
+	}
+
 }
+

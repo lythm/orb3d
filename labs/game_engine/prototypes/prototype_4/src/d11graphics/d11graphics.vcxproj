@@ -85,7 +85,9 @@
     <ClInclude Include="D3D11Buffer.h" />
     <ClInclude Include="D3D11cgGFX.h" />
     <ClInclude Include="D3D11Graphics.h" />
+    <ClInclude Include="D3D11Texture1D.h" />
     <ClInclude Include="D3D11Texture2D.h" />
+    <ClInclude Include="D3D11Texture3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d11graphics_pch.cpp">
@@ -95,7 +97,9 @@
     <ClCompile Include="D3D11Buffer.cpp" />
     <ClCompile Include="D3D11cgGFX.cpp" />
     <ClCompile Include="D3D11Graphics.cpp" />
+    <ClCompile Include="D3D11Texture1D.cpp" />
     <ClCompile Include="D3D11Texture2D.cpp" />
+    <ClCompile Include="D3D11Texture3D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -31,6 +31,7 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 	m_pCore = pCore;
 
 
+	m_pTex = m_pCore->GetSysGraphics()->CreateTextureFromFile("./15.png");
 
 	/*math::Vector3 verts[] = 
 	{
@@ -40,23 +41,28 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 	};
 */
 
-	math::Vector3 verts[] = 
+
+	struct Vertex
 	{
-		math::Vector3(10, 10, -10),
-		math::Vector3(10, -10, -10),
-		math::Vector3(-10, -10, -10),
-		math::Vector3(-10, 10, -10),
-
-
-		math::Vector3(10, 10, 10),
-		math::Vector3(10, -10, 10),
-		math::Vector3(-10, -10, 10),
-		math::Vector3(-10, 10, 10),
+		math::Vector3			pos;
+		math::Vector2			uv;
 	};
 
+	Vertex verts[] = 
+	{
+		{ math::Vector3(10, 10, -10), math::Vector2(1, 0),},
+		{ math::Vector3(10, -10, -10), math::Vector2(1, 1),},
+		{ math::Vector3(-10, -10, -10), math::Vector2(0, 1),},
+		{ math::Vector3(-10, 10, -10), math::Vector2(0, 0),},
 
 
-	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(math::Vector3) * 8, verts, true);
+		{ math::Vector3(10, 10, 10), math::Vector2(0, 1),},
+		{ math::Vector3(10, -10, 10),math::Vector2(1, 1),},
+		{ math::Vector3(-10, -10, 10),math::Vector2(0, 1),},
+		{ math::Vector3(-10, 10, 10),math::Vector2(0, 0),},
+	};
+
+	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(Vertex) * 8, verts, true);
 
 	
 	uint32 indice[] = 
@@ -89,10 +95,13 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 	VertexElement vf[] = 
 	{
 		VertexElement(0, VertexElement::POSITION,VertexElement::VE_FLOAT3),
+		VertexElement(0, VertexElement::TEXCOORD,VertexElement::VE_FLOAT2),
 	};
 
 	m_pGFX->SetVertexFormat(vf, 1);
 
+
+	m_pGFX->SetTextureByName("diff", m_pTex);
 	return true;
 }
 void Game::Release()
@@ -129,7 +138,7 @@ bool Game::Update()
 
 
 	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, Sys_Graphics::IT_INT32);
-	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
+	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
 	m_pCore->GetSysGraphics()->SetPrimitiveType(Sys_Graphics::PT_TRIANGLE_LIST);
 
 	m_pGFX->ApplyVertexFormat();

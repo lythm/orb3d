@@ -22,6 +22,7 @@ private:
 
 	engine::GFXPtr									m_pGFX;
 
+	engine::TexturePtr								m_pTex;
 	
 };
 

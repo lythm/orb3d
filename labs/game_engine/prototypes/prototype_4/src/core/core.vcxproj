@@ -109,7 +109,9 @@
     <ClInclude Include="..\..\include\core\Sys_Physics.h" />
     <ClInclude Include="..\..\include\core\Sys_Sound.h" />
     <ClInclude Include="..\..\include\core\Texture.h" />
+    <ClInclude Include="..\..\include\core\Texture1D.h" />
     <ClInclude Include="..\..\include\core\Texture2D.h" />
+    <ClInclude Include="..\..\include\core\Texture3D.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="WMInput.h" />

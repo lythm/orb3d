@@ -3,6 +3,10 @@
 #include <D3Dcompiler.h>
 #include <D3DX11.h>
 
+#include "D3D11Texture3D.h"
+#include "D3D11Texture1D.h"
+#include "D3D11Texture2D.h"
+
 namespace engine
 {
 	D3D11cgGFX::D3D11cgGFX(CGcontext pCG, ID3D11DeviceContext* pContext)
@@ -30,7 +34,7 @@ namespace engine
 
 		char buffer[128];
 		m_pEffect = cgCreateEffectFromFile( m_pCG, szFile, NULL );
-		
+
 		CGerror error;
 		const char *string = cgGetLastErrorString(&error);
 
@@ -49,7 +53,7 @@ namespace engine
 			else 
 			{
 				sprintf(szError,
-	                "Program: %s\n"
+					"Program: %s\n"
 					"Error: %s",
 					szFile, string);
 			}
@@ -58,7 +62,7 @@ namespace engine
 			OutputDebugStringA("\n");
 
 		}
-   
+
 		if(m_pEffect == NULL)
 		{
 			return false;
@@ -69,10 +73,10 @@ namespace engine
 		{
 			pTechnique = cgGetNextTechnique( pTechnique );
 		}
-			
-		
+
+
 		m_pTechnique = pTechnique;
-		
+
 		m_pPass = NULL;
 
 		return m_pTechnique != NULL;
@@ -95,14 +99,14 @@ namespace engine
 	}
 
 
-	
+
 	bool D3D11cgGFX::SetVertexFormat(VertexElement format[], uint32 nElem)
 	{
 		if(m_pIL != NULL)
 		{
 			m_pIL->Release();
 		}
-		
+
 		D3D11_INPUT_ELEMENT_DESC* layout = new D3D11_INPUT_ELEMENT_DESC[nElem];
 
 		for(uint32 i = 0; i < nElem; ++i)
@@ -160,15 +164,15 @@ namespace engine
 				break;
 
 			}
-			
+
 			layout[i].SemanticIndex							= format[i].element_slot;
-			
+
 			layout[i].InputSlot								= 0;
 			layout[i].AlignedByteOffset						= 0;
 			layout[i].InputSlotClass						= D3D11_INPUT_PER_VERTEX_DATA;
 			layout[i].InstanceDataStepRate					= 0;
 		}
-		
+
 		CGpass pass = cgGetFirstPass( m_pTechnique );
 
 		ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass( pass );
@@ -185,10 +189,10 @@ namespace engine
 
 
 		HRESULT hr = pDevice->CreateInputLayout( layout, 
-											nElem, 
-											pVSBuf != NULL ? pVSBuf->GetBufferPointer() : NULL, 
-											pVSBuf != NULL ? pVSBuf->GetBufferSize() : 0, 
-											&m_pIL ); 
+			nElem, 
+			pVSBuf != NULL ? pVSBuf->GetBufferPointer() : NULL, 
+			pVSBuf != NULL ? pVSBuf->GetBufferSize() : 0, 
+			&m_pIL ); 
 
 		if(pVSBuf != NULL)
 		{
@@ -201,7 +205,7 @@ namespace engine
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -217,7 +221,7 @@ namespace engine
 		{
 			m_pPass = cgGetNextPass(m_pPass);
 		}
-		
+
 		return m_pPass != NULL;
 	}
 	void D3D11cgGFX::EndPass()
@@ -263,9 +267,31 @@ namespace engine
 			return;
 		}
 
+		ID3D11Resource* pRes = NULL;
 
-		//cgD3D11SetTextureParameter(param, pTex);
+		switch(pTex->GetType())
+		{
+		case Texture::TEXTURE_1D:
+
+			pRes = ((D3D11Texture1D*)pTex.get())->GetD3D11Resource();
+
+			break;
+		case Texture::TEXTURE_2D:
+
+			pRes = ((D3D11Texture2D*)pTex.get())->GetD3D11Resource();
+			break;
+
+		case Texture::TEXTURE_3D:
+
+			pRes = ((D3D11Texture3D*)pTex.get())->GetD3D11Resource();
+			break;
+		default:
+			return;
+		}
+
+		cgD3D11SetTextureParameter(param, pRes);
 	}
+
 
 	void D3D11cgGFX::SetVectorByName(const char* szName, const math::Vector3& v)
 	{

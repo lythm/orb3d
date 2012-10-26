@@ -57,6 +57,7 @@ namespace engine
 
 		virtual GFXPtr									CreateGFXFromFile(const char* szFile)						= 0;
 		
+		virtual TexturePtr								CreateTextureFromFile(const char* szFile)					= 0;
 
 	protected:
 		Sys_Graphics(void){}

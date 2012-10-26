@@ -1,6 +1,13 @@
 float4x4 mat:WORLDVIEWPROJ;
 
 float3 dir = normalize(float3(1,-1, 1));
+
+sampler2D diff = sampler_state
+{
+    AddressU = Mirror;
+    AddressV = Mirror;
+};
+
 struct vs_out
 {
 	float4 pos:POSITION;
@@ -29,7 +36,7 @@ struct ps_out
 	float4 color:COLOR;
 };
 
-ps_out ps_main(vs_out psin)
+ps_out ps_main(vs_out psin, uniform sampler2D decal : TEX0)
 {
 	ps_out psout;
 
@@ -46,9 +53,10 @@ technique test
       AlphaBlendEnable = false;
       CullMode = None;
       FillMode = solid;
-      
+
+	        
      VertexProgram = compile vs_4_0 vs_main();
-     FragmentProgram = compile ps_4_0 ps_main();
+     FragmentProgram = compile ps_4_0 ps_main(diff);
 	  
   }
 }

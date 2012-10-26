@@ -4,17 +4,18 @@
 
 namespace engine
 {
-	D3D11Texture2D::D3D11Texture2D(void)
+	D3D11Texture2D::D3D11Texture2D(ID3D11Resource* pTex)
 	{
-		m_pTex = NULL;
+		m_pTex = pTex;
 	}
 
 
 	D3D11Texture2D::~D3D11Texture2D(void)
 	{
 	}
-	ID3D11Texture2D* D3D11Texture2D::GetD3D11Resource()
+	ID3D11Resource* D3D11Texture2D::GetD3D11Resource()
 	{
 		return m_pTex;
 	}
+	
 }

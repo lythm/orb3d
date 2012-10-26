@@ -2,6 +2,7 @@
 
 
 #include <D3D11.h>
+#include <D3DX11.h>
 
 #include "types\dllexport.h"
 #include "types\types.h"
