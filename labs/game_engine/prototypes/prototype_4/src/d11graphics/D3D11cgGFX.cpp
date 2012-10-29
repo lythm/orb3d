@@ -277,8 +277,11 @@ namespace engine
 
 			break;
 		case Texture::TEXTURE_2D:
-
-			pRes = ((D3D11Texture2D*)pTex.get())->GetD3D11Resource();
+			{
+			boost::shared_ptr<D3D11Texture2D> pTex2d = boost::shared_dynamic_cast<D3D11Texture2D>(pTex);
+			pRes = pTex2d->GetD3D11Resource();
+			//pRes = ((D3D11Texture2D*)pTex.get())->GetD3D11Resource();
+			}
 			break;
 
 		case Texture::TEXTURE_3D:
