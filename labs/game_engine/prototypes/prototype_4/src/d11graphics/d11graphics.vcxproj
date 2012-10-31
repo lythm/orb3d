@@ -56,11 +56,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;D11GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>d11graphics_pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\include;.\effect11;.\effect11\inc;.\effect11\binary;.\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>cg.lib;cgd3d11.lib;d3d11.lib;dxguid.lib;d3dx11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dcompiler.lib;cg.lib;cgd3d11.lib;d3d11.lib;dxguid.lib;d3dx11.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,10 +85,14 @@
     <ClInclude Include="d11graphics_pch.h" />
     <ClInclude Include="D3D11Buffer.h" />
     <ClInclude Include="D3D11cgGFX.h" />
+    <ClInclude Include="D3D11EffectGFX.h" />
     <ClInclude Include="D3D11Graphics.h" />
     <ClInclude Include="D3D11Texture1D.h" />
     <ClInclude Include="D3D11Texture2D.h" />
     <ClInclude Include="D3D11Texture3D.h" />
+    <ClInclude Include="effect11\Effect.h" />
+    <ClInclude Include="effect11\EffectLoad.h" />
+    <ClInclude Include="effect11\pchfx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="d11graphics_pch.cpp">
@@ -96,10 +101,21 @@
     </ClCompile>
     <ClCompile Include="D3D11Buffer.cpp" />
     <ClCompile Include="D3D11cgGFX.cpp" />
+    <ClCompile Include="D3D11EffectGFX.cpp" />
     <ClCompile Include="D3D11Graphics.cpp" />
     <ClCompile Include="D3D11Texture1D.cpp" />
     <ClCompile Include="D3D11Texture2D.cpp" />
     <ClCompile Include="D3D11Texture3D.cpp" />
+    <ClCompile Include="effect11\d3dx11dbg.cpp" />
+    <ClCompile Include="effect11\d3dxGlobal.cpp" />
+    <ClCompile Include="effect11\EffectAPI.cpp" />
+    <ClCompile Include="effect11\EffectLoad.cpp" />
+    <ClCompile Include="effect11\EffectNonRuntime.cpp" />
+    <ClCompile Include="effect11\EffectReflection.cpp" />
+    <ClCompile Include="effect11\EffectRuntime.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="effect11\EffectVariable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

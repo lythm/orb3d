@@ -15,3 +15,5 @@
 
 #include <Cg\cg.h>
 #include <Cg\cgD3D11.h>
+
+#include "pchfx.h"

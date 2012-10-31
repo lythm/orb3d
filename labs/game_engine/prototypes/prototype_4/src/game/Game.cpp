@@ -90,7 +90,7 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	
 
-	m_pGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test.cgfx");
+	m_pGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test.fx");
 
 	VertexElement vf[] = 
 	{

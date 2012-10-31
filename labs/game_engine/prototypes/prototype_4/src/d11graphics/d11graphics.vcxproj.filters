@@ -36,6 +36,18 @@
     <ClInclude Include="D3D11Texture3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="effect11\Effect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="effect11\EffectLoad.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="effect11\pchfx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11EffectGFX.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D11Graphics.cpp">
@@ -59,5 +71,34 @@
     <ClCompile Include="D3D11Texture3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="effect11\d3dx11dbg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="effect11\d3dxGlobal.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="effect11\EffectAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="effect11\EffectLoad.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="effect11\EffectNonRuntime.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="effect11\EffectReflection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="effect11\EffectRuntime.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11EffectGFX.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="effect11\EffectVariable.inl">
+      <Filter>头文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

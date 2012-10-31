@@ -6,6 +6,7 @@
 #include "D3D11Texture2D.h"
 #include "D3D11Texture1D.h"
 #include "D3D11Texture3D.h"
+#include "D3D11EffectGFX.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -419,7 +420,7 @@ namespace engine
 
 	GFXPtr D3D11Graphics::CreateGFXFromFile(const char* szFile)
 	{
-		D3D11cgGFX* pFX = new D3D11cgGFX(m_pCG, m_pContext);
+		D3D11EffectGFX* pFX = new D3D11EffectGFX(m_pContext);
 
 		if(false == pFX->LoadFromFile(szFile))
 		{
