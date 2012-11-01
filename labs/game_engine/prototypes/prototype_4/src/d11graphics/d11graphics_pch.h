@@ -12,8 +12,4 @@
 
 #include "core\core_ptr.h"
 
-
-#include <Cg\cg.h>
-#include <Cg\cgD3D11.h>
-
 #include "pchfx.h"

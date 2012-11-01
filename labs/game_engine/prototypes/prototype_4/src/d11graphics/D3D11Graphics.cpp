@@ -2,10 +2,7 @@
 
 #include "D3D11Graphics.h"
 #include "D3D11Buffer.h"
-#include "D3D11cgGFX.h"
-#include "D3D11Texture2D.h"
-#include "D3D11Texture1D.h"
-#include "D3D11Texture3D.h"
+#include "D3D11Texture.h"
 #include "D3D11EffectGFX.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
@@ -27,7 +24,6 @@ namespace engine
 		m_clearDepth					= 1.0f;
 		m_clearStencil					= 0;
 
-		m_pCG							= NULL;
 		m_pDevice						= NULL;
 		m_pContext						= NULL;
 		m_pSwapChain					= NULL;
@@ -180,23 +176,6 @@ namespace engine
 		m_pContext->RSSetViewports( 1, &vp );
 
 
-		m_pCG = cgCreateContext();
-		if(m_pCG == NULL)
-		{
-			return false;
-		}
-
-		HRESULT hr = cgD3D11SetDevice( m_pCG, m_pDevice);
-		if( hr != S_OK )
-		{
-			return false;
-		}
-
-		cgD3D11RegisterStates( m_pCG);
-
-		cgD3D11SetManageTextureParameters( m_pCG, CG_TRUE );
-
-
 		return true;
 	}
 	void D3D11Graphics::Release()
@@ -219,11 +198,6 @@ namespace engine
 			m_pSwapChain = NULL;
 		}
 
-		cgD3D11RegisterStates( NULL);
-
-		//cgD3D11SetDevice(m_pCG, NULL);
-		cgDestroyContext(m_pCG);
-
 		if(m_pContext)
 		{
 			m_pContext->Release();
@@ -231,18 +205,6 @@ namespace engine
 		}
 
 
-
-		// cgD3D11SetDevice(m_pCG, NULL) does not release device reference , a bug?
-		if(m_pDevice)
-		{
-			m_pDevice->Release();
-		}	
-
-		//
-
-
-
-		m_pCG = NULL;
 		if(m_pDevice)
 		{
 			m_pDevice->Release();
@@ -448,44 +410,19 @@ namespace engine
 	{
 		m_pContext->DrawIndexed(count, startindex, basevertex);
 	}
+
 	TexturePtr D3D11Graphics::CreateTextureFromFile(const char* szFile)
 	{
-		ID3D11Resource* pRes = NULL;
 
-		HRESULT ret = D3DX11CreateTextureFromFileA(m_pDevice, szFile, NULL, NULL, &pRes, NULL);
+		D3D11Texture* pTex = new D3D11Texture(m_pContext);
 
-		if(FAILED(ret))
+		if(pTex->LoadFromFile(szFile) == false)
 		{
+			delete pTex;
 			return TexturePtr();
 		}
 
-		D3D11_RESOURCE_DIMENSION dim;
-		pRes->GetType(&dim);
-
-		TexturePtr pTex;
-
-		switch(dim)
-		{
-		case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
-			{
-				pTex = TexturePtr(new D3D11Texture1D((ID3D11Texture1D*)pRes));
-			}
-			break;
-		case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
-			{
-				pTex = TexturePtr(new D3D11Texture2D((ID3D11Texture2D*)pRes));
-			}
-			break;
-		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
-			{
-				pTex = TexturePtr(new D3D11Texture3D((ID3D11Texture3D*)pRes));
-			}
-			break;
-		default:
-			break;
-		}
-
-		return pTex;
+		return TexturePtr(pTex);
 	}
 
 }

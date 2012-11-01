@@ -23,7 +23,6 @@ namespace engine
 		void									SetClearStencil(uint32 val);
 
 		void									ClearRenderTarget();
-				
 		void									Present();
 
 
@@ -53,6 +52,5 @@ namespace engine
 		float									m_clearDepth;
 		int										m_clearStencil;
 
-		 CGcontext								m_pCG;
 	};
 }

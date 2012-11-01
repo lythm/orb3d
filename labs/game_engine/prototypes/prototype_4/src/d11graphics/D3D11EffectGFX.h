@@ -14,8 +14,8 @@ namespace engine
 
 		void								ApplyVertexFormat();
 
-		bool								BeginPass();
-		void								ApplyPass();
+		bool								BeginPass(int& nPass);
+		void								ApplyPass(int index);
 		void								EndPass();
 		
 
@@ -48,7 +48,13 @@ namespace engine
 		
 		ID3D11InputLayout*					m_pIL;
 		ID3D11DeviceContext*				m_pContext;
+
+		ID3DX11Effect*						m_pEffect;
+
+		ID3D11Device*						m_pDevice;
+
+		ID3DX11EffectTechnique*				m_pTech;
+
+		int									m_nPass;
 	};
-
-
 }

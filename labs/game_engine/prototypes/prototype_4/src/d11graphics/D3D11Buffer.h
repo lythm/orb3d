@@ -15,7 +15,6 @@ namespace engine
 
 		void*											Map(MAP_HINT hint);
 		void											Unmap();
-
 		void											Release();
 
 		ID3D11Buffer*									GetD3D11BufferInterface();

@@ -21,19 +21,7 @@
     <ClInclude Include="d11graphics_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11Texture2D.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11cgGFX.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="D3D11Buffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Texture1D.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Texture3D.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="effect11\Effect.h">
@@ -48,6 +36,9 @@
     <ClInclude Include="D3D11EffectGFX.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="D3D11Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D11Graphics.cpp">
@@ -56,19 +47,7 @@
     <ClCompile Include="d11graphics_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11Texture2D.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11cgGFX.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="D3D11Buffer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11Texture1D.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11Texture3D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="effect11\d3dx11dbg.cpp">
@@ -93,6 +72,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11EffectGFX.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

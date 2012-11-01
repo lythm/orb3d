@@ -23,7 +23,6 @@
 
 
 #include "core\Texture.h"
-#include "core\Texture2D.h"
 
 #include "core\GFX.h"
 #include "core\GPUBuffer.h"
@@ -32,3 +31,4 @@
 #include "core\GameInterface.h"
 
 #include "core\coreapi.h"
+

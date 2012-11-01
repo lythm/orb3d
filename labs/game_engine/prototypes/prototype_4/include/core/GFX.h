@@ -14,9 +14,9 @@ namespace engine
 
 		virtual void								ApplyVertexFormat()											= 0;
 
-		virtual bool								BeginPass()													= 0;
+		virtual bool								BeginPass(int& nPass)										= 0;
 		virtual void								EndPass()													= 0;
-		virtual void								ApplyPass()													= 0;
+		virtual void								ApplyPass(int index)										= 0;
 		
 		virtual bool								SetVertexFormat(VertexElement format[], 
 																uint32 nElem)									= 0;

@@ -8,14 +8,18 @@ namespace engine
 	public:
 		enum TEXTURE_TYPE
 		{
-			TEXTURE_1D,
-			TEXTURE_2D,
-			TEXTURE_3D,
+			TEX_1D,
+			TEX_2D,
+			TEX_3D,
+
+			TEX_UNKNOWN,
 		};
 		Texture(void){}
 		virtual ~Texture(void){}
 
 		virtual TEXTURE_TYPE								GetType()								= 0;
+
+		virtual void										Release()								= 0;
 
 	};
 

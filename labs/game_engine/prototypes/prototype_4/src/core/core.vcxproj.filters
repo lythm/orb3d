@@ -84,9 +84,6 @@
     <ClInclude Include="..\..\include\core\GFX.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\Texture2D.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\core\GPUBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -105,10 +102,10 @@
     <ClInclude Include="WMInput.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\Texture1D.h">
+    <ClInclude Include="..\..\include\core\RenderTarget.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\Texture3D.h">
+    <ClInclude Include="..\..\include\core\ShaderResource.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

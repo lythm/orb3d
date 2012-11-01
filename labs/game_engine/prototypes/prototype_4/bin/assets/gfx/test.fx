@@ -1,62 +1,61 @@
 float4x4 mat:WORLDVIEWPROJ;
 
-float3 dir = normalize(float3(1,-1, 1));
+//float3 dir = normalize(float3(1,-1, 1));
 
-SamplerState diff[1]
+Texture2D diff_tex;
+SamplerState diff
 {
-    AddressU = Mirror;
-    AddressV = Mirror;
+    AddressU = clamp;
+    AddressV = clamp;
 };
 
+struct vs_in
+{
+	float3 pos:POSITION;
+	float2 uv:TEXCOORD;	
+};
 struct vs_out
 {
-	float4 pos:POSITION;
-	float4 clr:COLOR;
+	float4 pos:SV_POSITION;
+	float2 uv:TEXCOORD;
 };
 
-vs_out vs_main(float3 position:POSITION)
+vs_out vs_main(vs_in vsin)
 {
 	vs_out vsout;
-	vsout.pos = mul(float4(position, 1), mat);
+	vsout.pos = mul(float4(vsin.pos, 1), mat);
 
-	float3 n = normalize(position);
-		
-	float l = dot(n.xyz, -dir); 
-
-	l = l + 0.3;
-	vsout.clr = float4(l, l, l, 1);
-
-	//vsout.clr = float4(1, 1, 1, 1);
+	vsout.uv = vsin.uv;
 
 	return vsout;
 }
 
 struct ps_out
 {
-	float4 color:COLOR;
+	float4 color:SV_TARGET;
 };
 
-ps_out ps_main(vs_out psin, uniform SamplerState decal : TEX0)
+ps_out ps_main(vs_out psin)
 {
 	ps_out psout;
+	
+	psout.color = diff_tex.Sample(diff, psin.uv) * float4(0.5, 1, 1, 1);
 
-	psout.color.xyz = psin.clr;
-	psout.color.w = 1;
+	//psout.color = float4(1,1,1,1);
 	return psout;
 }
 
-technique test
+RasterizerState rs
+{
+	CULLMODE = None;
+};
+technique11 test
 {
   pass p1
   {
-	 // DepthTestEnable = false;
-      AlphaBlendEnable = false;
-      CullMode = None;
-      FillMode = solid;
+	SetRasterizerState(rs);
+	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
+	SetPixelShader( CompileShader( ps_4_0, ps_main(  ) ) );
 
-	  SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
-      SetPixelShader( CompileShader( ps_4_0, ps_main( diff[1] ) ) );
-
-	  
   }
 }

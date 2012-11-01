@@ -88,8 +88,6 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(uint32) * 36, indice, true);
 
-	
-
 	m_pGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test.fx");
 
 	VertexElement vf[] = 
@@ -98,18 +96,18 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 		VertexElement(0, VertexElement::TEXCOORD,VertexElement::VE_FLOAT2),
 	};
 
-	m_pGFX->SetVertexFormat(vf, 1);
+	m_pGFX->SetVertexFormat(vf, 2);
 
 
-	m_pGFX->SetTextureByName("diff", m_pTex);
+	m_pGFX->SetTextureByName("diff_tex", m_pTex);
 	return true;
 }
 void Game::Release()
 {
+	m_pTex->Release();
 	m_pIB->Release();
 	m_pVB->Release();
 	m_pGFX->Release();
-
 
 }
 bool Game::Update()
@@ -144,14 +142,18 @@ bool Game::Update()
 	m_pGFX->ApplyVertexFormat();
 
 
-	while(m_pGFX->BeginPass())
+	int nPass = 0;
+
+	m_pGFX->BeginPass(nPass);
+
+	for(int i = 0; i < nPass; ++i)
 	{
-		m_pGFX->ApplyPass();
+		m_pGFX->ApplyPass(i);
 
 		m_pCore->GetSysGraphics()->DrawPrimitive(36, 0, 0);
-
-		m_pGFX->EndPass();
 	}
+
+	m_pGFX->EndPass();
 
 	m_pCore->GetSysGraphics()->Present();
 
