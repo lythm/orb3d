@@ -39,6 +39,9 @@
     <ClInclude Include="D3D11Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="D3D11RenderTarget.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D11Graphics.cpp">
@@ -75,6 +78,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11RenderTarget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -14,6 +14,9 @@ namespace engine
 
 			TEX_UNKNOWN,
 		};
+
+		
+
 		Texture(void){}
 		virtual ~Texture(void){}
 

@@ -102,7 +102,6 @@
     <ClInclude Include="..\..\include\core\Renderer.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
-    <ClInclude Include="..\..\include\core\ShaderResource.h" />
     <ClInclude Include="..\..\include\core\SoundEmitter.h" />
     <ClInclude Include="..\..\include\core\SoundListener.h" />
     <ClInclude Include="..\..\include\core\SysManager.h" />

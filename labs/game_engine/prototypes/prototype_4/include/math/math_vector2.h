@@ -26,8 +26,15 @@ namespace math
 		Real				Length() const;
 		void				Normalize();
 
-		Real		x;
-		Real		y;
+		union
+		{
+			struct
+			{
+				Real		x;
+				Real		y;
+			};
+			Real			v[2];
+		};
 	};
 
 	inline

@@ -11,13 +11,5 @@ namespace engine
 
 		virtual ~RenderTarget(void){}
 
-
-		virtual void SetColorBuffer(Texture2DPtr pTex)												= 0;
-		virtual void SetDepthStencilBuffer(Texture2DPtr pTex)										= 0;
-
-		
-
 	};
-
-
 }

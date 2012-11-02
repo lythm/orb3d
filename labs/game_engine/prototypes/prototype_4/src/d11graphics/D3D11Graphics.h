@@ -22,7 +22,10 @@ namespace engine
 		void									SetClearDepth(float d);
 		void									SetClearStencil(uint32 val);
 
-		void									ClearRenderTarget();
+		void									ClearRenderTarget(CLEAR_RENDERTARGET_FLAG flag = 
+																	CLEAR_RENDERTARGET_FLAG(
+																	CLEAR_COLOR_BUFFER 
+																	| CLEAR_DEPTHSTENCIL_BUFFER));
 		void									Present();
 
 
@@ -34,8 +37,10 @@ namespace engine
 		GFXPtr									CreateGFXFromFile(const char* szFile);
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
-		//void									SetRenderTarget(Texture2DPtr pTarget)						= 0;
+		void									SetRenderTarget(RenderTargetPtr pRenderTarget);
 		
+
+		RenderTargetPtr							CreateRenderTarget(TexturePtr pColorBuffer, TexturePtr pDepthStencilBuffer);
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);

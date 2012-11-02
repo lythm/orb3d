@@ -56,13 +56,10 @@ namespace engine
 		{
 			return false;
 		}
-
 		
-
 		D3D11_RESOURCE_DIMENSION dim;
 		m_pTex->GetType(&dim);
-
-
+		
 		D3D11_SHADER_RESOURCE_VIEW_DESC desc;
 		ZeroMemory(&desc, sizeof(desc));
 
@@ -106,5 +103,4 @@ namespace engine
 	{
 		return m_pShaderView;
 	}
-	
 }

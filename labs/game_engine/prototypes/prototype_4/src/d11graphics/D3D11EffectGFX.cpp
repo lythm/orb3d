@@ -155,18 +155,23 @@ namespace engine
 	}
 	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector3& v)
 	{
+		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 3);
 	}
 	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector4& v)
 	{
+		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 4);
 	}
 	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector2& v)
 	{
+		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 2);
 	}
 	void D3D11EffectGFX::SetFloatByName(const char* szName, float v)
 	{
+		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloat(v);
 	}
 	void D3D11EffectGFX::SetIntByName(const char* szName, int v)
 	{
+		m_pEffect->GetVariableByName(szName)->AsScalar()->SetInt(v);
 	}
 
 	void D3D11EffectGFX::SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat)
@@ -175,21 +180,30 @@ namespace engine
 	}
 	void D3D11EffectGFX::SetTextureBySemantic(const char* szName, TexturePtr pTex)
 	{
+		ID3D11ShaderResourceView* pView = NULL;
+
+		pView = ((D3D11Texture*)pTex.get())->GetShaderResourceView();
+		m_pEffect->GetVariableBySemantic(szName)->AsShaderResource()->SetResource(pView);
 	}
 	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector3& v)
 	{
+		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloatArray(v.v, 0, 3);
 	}
 	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector4& v)
 	{
+		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloatArray(v.v, 0, 4);
 	}
 	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector2& v)
 	{
+		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloatArray(v.v, 0, 2);
 	}
 	void D3D11EffectGFX::SetFloatBySemantic(const char* szName, float v)
 	{
+		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloat(v);
 	}
 	void D3D11EffectGFX::SetIntBySemantic(const char* szName, int v)
 	{
+		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetInt(v);
 	}
 
 	bool D3D11EffectGFX::SetVertexFormat(VertexElement format[], uint32 nElem)
@@ -268,8 +282,6 @@ namespace engine
 		ID3DX11EffectTechnique* pTech = m_pEffect->GetTechniqueByIndex(0);
 		
 		ID3DX11EffectPass* pPass = pTech->GetPassByIndex(0);
-		
-
 		D3DX11_PASS_DESC pass;
 		ZeroMemory(&pass, sizeof(pass));
 		HRESULT hr = pPass->GetDesc(&pass);

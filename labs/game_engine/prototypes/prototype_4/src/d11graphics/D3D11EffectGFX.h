@@ -22,7 +22,6 @@ namespace engine
 		void								Release();
 
 		bool								LoadFromFile(const char* szFile);
-		
 
 		// parameter by name
 		void								SetMatrixByName(const char* szParam, const math::Matrix44& mat);

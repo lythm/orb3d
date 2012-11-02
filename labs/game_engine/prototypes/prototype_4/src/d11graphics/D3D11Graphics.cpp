@@ -4,6 +4,7 @@
 #include "D3D11Buffer.h"
 #include "D3D11Texture.h"
 #include "D3D11EffectGFX.h"
+#include "D3D11RenderTarget.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -227,10 +228,17 @@ namespace engine
 	{
 		m_clearStencil		= val;;
 	}
-	void D3D11Graphics::ClearRenderTarget()
+	void D3D11Graphics::ClearRenderTarget(CLEAR_RENDERTARGET_FLAG flag)
 	{
-		m_pContext->ClearRenderTargetView(m_pFrameBuffer, m_clearColor.v);
-		m_pContext->ClearDepthStencilView(m_pDepthStencilBuffer, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , m_clearDepth, m_clearStencil);
+		if(flag & CLEAR_COLOR_BUFFER)
+		{
+			m_pContext->ClearRenderTargetView(m_pFrameBuffer, m_clearColor.v);
+		}
+
+		if(flag & CLEAR_DEPTHSTENCIL_BUFFER)
+		{
+			m_pContext->ClearDepthStencilView(m_pDepthStencilBuffer, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , m_clearDepth, m_clearStencil);
+		}
 	}
 	void D3D11Graphics::Present()
 	{
@@ -354,32 +362,25 @@ namespace engine
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
-	/*void D3D11Graphics::SetRenderTarget(Texture2DPtr pTarget)
+	void D3D11Graphics::SetRenderTarget(RenderTargetPtr pRenderTarget)
 	{
-	if(pTarget == NULL)
-	{
-	m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-	return;
+		if(pRenderTarget == NULL)
+		{
+			m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
+			return;
+		}
+
+		D3D11RenderTarget* pD3DRT = (D3D11RenderTarget*)pRenderTarget.get();
+
+		ID3D11RenderTargetView* pRT = pD3DRT->GetRenderTargetView();
+		ID3D11DepthStencilView* pDS = pD3DRT->GetDepthStencilView();
+
+		m_pContext->OMSetRenderTargets(1, 
+					pRT == NULL ? &m_pFrameBuffer : &pRT, 
+					pDS == NULL ? m_pDepthStencilBuffer : pDS);
+
 	}
-
-	D3D11Texture2D* pTex = (D3D11Texture2D*)pTarget.get();
-
-	ID3D11RenderTargetView* pView = pTex->GetD3D11RenderTargetView();
-
-	if(pView == NULL)
-	{
-	m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-	return;
-	}
-
-	m_pContext->OMSetRenderTargets(1, &pView, m_pDepthStencilBuffer);
-	}
-
-	ShaderPtr D3D11Graphics::CreateShader()
-	{
-	return ShaderPtr(new CGFXShader(m_pCG));
-	}*/
-
+	
 	GFXPtr D3D11Graphics::CreateGFXFromFile(const char* szFile)
 	{
 		D3D11EffectGFX* pFX = new D3D11EffectGFX(m_pContext);
@@ -423,6 +424,12 @@ namespace engine
 		}
 
 		return TexturePtr(pTex);
+	}
+
+	RenderTargetPtr D3D11Graphics::CreateRenderTarget(TexturePtr pColorBuffer, TexturePtr pDepthStencilBuffer)
+	{
+
+		return RenderTargetPtr();
 	}
 
 }
