@@ -6,14 +6,6 @@ namespace engine
 	{
 	public:
 
-		enum MAP_HINT
-		{
-			MAP_DEFAULT,
-			MAP_DISCARD,
-			MAP_NO_OVERWRITE,
-
-		};
-
 		GPUBuffer(void){}
 
 		virtual ~GPUBuffer(void){}

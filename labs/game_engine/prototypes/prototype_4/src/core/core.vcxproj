@@ -95,6 +95,7 @@
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
     <ClInclude Include="..\..\include\core\GFX.h" />
     <ClInclude Include="..\..\include\core\GPUBuffer.h" />
+    <ClInclude Include="..\..\include\core\g_format.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\MeshData.h" />

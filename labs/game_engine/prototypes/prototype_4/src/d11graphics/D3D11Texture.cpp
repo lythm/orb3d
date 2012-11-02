@@ -43,7 +43,7 @@ namespace engine
 		}
 		m_pContext = NULL;
 	}
-	D3D11Texture::TEXTURE_TYPE D3D11Texture::GetType()
+	TEXTURE_TYPE D3D11Texture::GetType()
 	{
 		return m_type;
 	}

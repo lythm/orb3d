@@ -1,22 +1,12 @@
 #pragma once
 
+#include "core\g_format.h"
 
 namespace engine
 {
 	class VertexElement
 	{
 	public:
-
-		enum ELEMENT_TYPE
-		{
-			VE_FLOAT4,
-			VE_FLOAT3,
-			VE_FLOAT2,
-			VE_FLOAT1,
-
-			VE_UINT32,
-
-		};
 
 		enum SEMANTIC
 		{
@@ -28,14 +18,14 @@ namespace engine
 		};
 
 
-		VertexElement(int i, SEMANTIC s, ELEMENT_TYPE t)
+		VertexElement(int i, SEMANTIC s, G_FORMAT t)
 		{
 			type = t;
 			semantic = s;
 			element_slot = i;
 		}
 
-		ELEMENT_TYPE					type;
+		G_FORMAT						type;
 		SEMANTIC						semantic;
 		int								element_slot;
 	};

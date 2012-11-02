@@ -14,5 +14,5 @@
 #include <string>
 #include <math\math_all.h>
 
-
+#include <core\g_format.h>
 

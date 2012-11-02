@@ -1,22 +1,13 @@
 #pragma once
 
+#include "g_format.h"
 
 namespace engine
 {
 	class EXPORT_CLASS Texture
 	{
 	public:
-		enum TEXTURE_TYPE
-		{
-			TEX_1D,
-			TEX_2D,
-			TEX_3D,
-
-			TEX_UNKNOWN,
-		};
-
 		
-
 		Texture(void){}
 		virtual ~Texture(void){}
 

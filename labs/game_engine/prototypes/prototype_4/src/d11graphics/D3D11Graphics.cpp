@@ -6,6 +6,7 @@
 #include "D3D11EffectGFX.h"
 #include "D3D11RenderTarget.h"
 #include "D3D11DepthStencilBuffer.h"
+#include "D3D11Format.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -341,23 +342,11 @@ namespace engine
 
 		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
 	}
-	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, INDEX_TYPE type)
+	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();
-
-		switch(type)
-		{
-		case IT_INT16:
-			m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R16_UINT, 0);
-			break;
-		case IT_INT32:
-			m_pContext->IASetIndexBuffer(pD3DBuffer, DXGI_FORMAT_R32_UINT, 0);
-			break;
-		default:
-			assert(0);
-			return;
-		}
-
+		
+		m_pContext->IASetIndexBuffer(pD3DBuffer, D3D11Format::Convert(type), 0);
 	}
 	void D3D11Graphics::SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride)
 	{

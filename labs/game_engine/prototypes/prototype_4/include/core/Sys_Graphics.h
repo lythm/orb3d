@@ -2,29 +2,13 @@
 
 #include "math/math_all.h"
 
+#include "core/g_format.h"
+
 namespace engine
 {
 	class Sys_Graphics
 	{
 	public:
-
-		enum BUFFER_TYPE
-		{
-			BT_VERTEX_BUFFER,
-			BT_INDEX_BUFFER,
-			BT_CONSTANT_BUFFER,
-		};
-
-		enum PRIMITIVE_TYPE
-		{
-			PT_TRIANGLE_LIST,
-		};
-
-		enum INDEX_TYPE
-		{
-			IT_INT16,
-			IT_INT32,
-		};
 
 		enum CLEAR_RENDERTARGET_FLAG
 		{
@@ -59,7 +43,7 @@ namespace engine
 																	void* pInitData, 
 																	bool dynamic)									= 0;
 
-		virtual void									SetIndexBuffer(GPUBufferPtr pBuffer, INDEX_TYPE type)		= 0;
+		virtual void									SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)			= 0;
 		virtual void									SetVertexBuffer(GPUBufferPtr pBuffer, 
 																	unsigned int offset, 
 																	unsigned int stride)							= 0;

@@ -1,6 +1,7 @@
 #include "d11graphics_pch.h"
 #include "D3D11EffectGFX.h"
 #include "D3D11Texture.h"
+#include "D3D11Format.h"
 
 namespace engine
 {
@@ -244,33 +245,7 @@ namespace engine
 
 			}
 
-			switch(format[i].type)
-			{
-			case VertexElement::VE_FLOAT1:
-				layout[i].Format								= DXGI_FORMAT_R32_FLOAT;
-				break;
-
-			case VertexElement::VE_FLOAT2:
-				layout[i].Format								= DXGI_FORMAT_R32G32_FLOAT;
-				break;
-
-			case VertexElement::VE_FLOAT3:
-				layout[i].Format								= DXGI_FORMAT_R32G32B32_FLOAT;
-				break;
-
-			case VertexElement::VE_FLOAT4:
-				layout[i].Format								= DXGI_FORMAT_R32G32B32A32_FLOAT;
-				break;
-
-			case VertexElement::VE_UINT32:
-				layout[i].Format								= DXGI_FORMAT_R32_UINT;
-				break;
-
-			default:
-				break;
-
-			}
-
+			layout[i].Format = D3D11Format::Convert(format[i].type);
 			layout[i].SemanticIndex							= format[i].element_slot;
 
 			layout[i].InputSlot								= 0;

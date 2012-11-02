@@ -16,3 +16,5 @@
 
 
 #include <vector>
+
+#include "core\g_format.h"

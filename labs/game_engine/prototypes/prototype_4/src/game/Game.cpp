@@ -62,7 +62,7 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 		{ math::Vector3(-10, 10, 10),math::Vector2(0, 0),},
 	};
 
-	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_VERTEX_BUFFER, sizeof(Vertex) * 8, verts, true);
+	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 8, verts, true);
 
 	
 	uint32 indice[] = 
@@ -86,14 +86,14 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 		3, 6, 7,
 	};
 
-	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(Sys_Graphics::BT_INDEX_BUFFER, sizeof(uint32) * 36, indice, true);
+	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, sizeof(uint32) * 36, indice, true);
 
 	m_pGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test.fx");
 
 	VertexElement vf[] = 
 	{
-		VertexElement(0, VertexElement::POSITION,VertexElement::VE_FLOAT3),
-		VertexElement(0, VertexElement::TEXCOORD,VertexElement::VE_FLOAT2),
+		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
+		VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
 	};
 
 	m_pGFX->SetVertexFormat(vf, 2);
@@ -137,9 +137,9 @@ bool Game::Update()
 	m_pCore->GetSysGraphics()->ClearFrameBuffer();
 
 
-	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, Sys_Graphics::IT_INT32);
+	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
 	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
-	m_pCore->GetSysGraphics()->SetPrimitiveType(Sys_Graphics::PT_TRIANGLE_LIST);
+	m_pCore->GetSysGraphics()->SetPrimitiveType(PT_TRIANGLE_LIST);
 
 	m_pGFX->ApplyVertexFormat();
 

@@ -29,7 +29,7 @@ namespace engine
 		void									Present();
 
 
-		void									SetIndexBuffer(GPUBufferPtr pBuffer, INDEX_TYPE type);
+		void									SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type);
 		void									SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride);
 
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
