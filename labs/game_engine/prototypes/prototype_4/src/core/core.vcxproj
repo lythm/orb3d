@@ -88,6 +88,7 @@
     <ClInclude Include="..\..\include\core\CoreApi.h" />
     <ClInclude Include="..\..\include\core\core_all.h" />
     <ClInclude Include="..\..\include\core\core_ptr.h" />
+    <ClInclude Include="..\..\include\core\DepthStencilBuffer.h" />
     <ClInclude Include="..\..\include\core\GameInterface.h" />
     <ClInclude Include="..\..\include\core\GameObject.h" />
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />

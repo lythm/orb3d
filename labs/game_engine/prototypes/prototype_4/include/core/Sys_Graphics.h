@@ -47,7 +47,7 @@ namespace engine
 		virtual void									SetClearDepth(float d)										= 0;
 		virtual void									SetClearStencil(uint32 val)									= 0;
 
-		virtual void									ClearRenderTarget(CLEAR_RENDERTARGET_FLAG flag = 
+		virtual void									ClearFrameBuffer(CLEAR_RENDERTARGET_FLAG flag = 
 																	CLEAR_RENDERTARGET_FLAG(
 																	CLEAR_COLOR_BUFFER 
 																	| CLEAR_DEPTHSTENCIL_BUFFER))					= 0;
@@ -68,10 +68,15 @@ namespace engine
 		
 		virtual TexturePtr								CreateTextureFromFile(const char* szFile)					= 0;
 
-		virtual RenderTargetPtr							CreateRenderTarget(TexturePtr pColorBuffer, 
-																	TexturePtr pDepthStencilBuffer)					= 0;
+		virtual void									SetRenderTarget(RenderTargetPtr pRenderTarget, 
+																	DepthStencilBufferPtr pDS)						= 0;
 
-		virtual void									SetRenderTarget(RenderTargetPtr pRenderTarget)				= 0;
+		virtual void									SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, 
+																	DepthStencilBufferPtr pDS)						= 0;
+
+		virtual RenderTargetPtr							CreateRenderTarget(TexturePtr pColorBuffer)					= 0;
+		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer()									= 0;
+
 	protected:
 		Sys_Graphics(void){}
 		virtual ~Sys_Graphics(void){}

@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClInclude Include="d11graphics_pch.h" />
     <ClInclude Include="D3D11Buffer.h" />
+    <ClInclude Include="D3D11DepthStencilBuffer.h" />
     <ClInclude Include="D3D11EffectGFX.h" />
     <ClInclude Include="D3D11Graphics.h" />
     <ClInclude Include="D3D11RenderTarget.h" />
@@ -98,6 +99,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">d11graphics_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="D3D11Buffer.cpp" />
+    <ClCompile Include="D3D11DepthStencilBuffer.cpp" />
     <ClCompile Include="D3D11EffectGFX.cpp" />
     <ClCompile Include="D3D11Graphics.cpp" />
     <ClCompile Include="D3D11RenderTarget.cpp" />

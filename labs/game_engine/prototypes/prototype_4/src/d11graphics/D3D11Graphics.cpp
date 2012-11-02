@@ -5,6 +5,7 @@
 #include "D3D11Texture.h"
 #include "D3D11EffectGFX.h"
 #include "D3D11RenderTarget.h"
+#include "D3D11DepthStencilBuffer.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -177,6 +178,8 @@ namespace engine
 		m_pContext->RSSetViewports( 1, &vp );
 
 
+
+		ClearFrameBuffer();
 		return true;
 	}
 	void D3D11Graphics::Release()
@@ -228,7 +231,7 @@ namespace engine
 	{
 		m_clearStencil		= val;;
 	}
-	void D3D11Graphics::ClearRenderTarget(CLEAR_RENDERTARGET_FLAG flag)
+	void D3D11Graphics::ClearFrameBuffer(CLEAR_RENDERTARGET_FLAG flag)
 	{
 		if(flag & CLEAR_COLOR_BUFFER)
 		{
@@ -362,22 +365,28 @@ namespace engine
 
 		m_pContext->IASetVertexBuffers(0, 1, &pD3DBuffer, &stride, &offset);
 	}
-	void D3D11Graphics::SetRenderTarget(RenderTargetPtr pRenderTarget)
+	void D3D11Graphics::SetRenderTarget(RenderTargetPtr pRenderTarget, DepthStencilBufferPtr pDS)
 	{
-		if(pRenderTarget == NULL)
+		D3D11RenderTarget* pD3DRT = (D3D11RenderTarget*)pRenderTarget.get();
+		D3D11DepthStencilBuffer* pD3DDS = (D3D11DepthStencilBuffer*)pDS.get();
+
+		
+		ID3D11RenderTargetView* pRTView = NULL;
+		ID3D11DepthStencilView* pDSView = NULL;
+
+		if(pD3DRT)
 		{
-			m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-			return;
+			pRTView = pD3DRT->GetD3D11RenderTargetView();
 		}
 
-		D3D11RenderTarget* pD3DRT = (D3D11RenderTarget*)pRenderTarget.get();
-
-		ID3D11RenderTargetView* pRT = pD3DRT->GetRenderTargetView();
-		ID3D11DepthStencilView* pDS = pD3DRT->GetDepthStencilView();
+		if(pD3DDS)
+		{
+			pDSView = pD3DDS->GetD3D11DepthStencilView();
+		}
 
 		m_pContext->OMSetRenderTargets(1, 
-					pRT == NULL ? &m_pFrameBuffer : &pRT, 
-					pDS == NULL ? m_pDepthStencilBuffer : pDS);
+					pRTView == NULL ? &m_pFrameBuffer : &pRTView, 
+					pDSView == NULL ? m_pDepthStencilBuffer : pDSView);
 
 	}
 	
@@ -426,11 +435,37 @@ namespace engine
 		return TexturePtr(pTex);
 	}
 
-	RenderTargetPtr D3D11Graphics::CreateRenderTarget(TexturePtr pColorBuffer, TexturePtr pDepthStencilBuffer)
+	RenderTargetPtr D3D11Graphics::CreateRenderTarget(TexturePtr pColorBuffer)
 	{
 
 		return RenderTargetPtr();
 	}
+	DepthStencilBufferPtr D3D11Graphics::CreateDepthStencilBuffer()
+	{
+		return DepthStencilBufferPtr();
+	}
 
+	void D3D11Graphics::SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, DepthStencilBufferPtr pDS)
+	{
+		D3D11DepthStencilBuffer* pD3DDS = (D3D11DepthStencilBuffer*)pDS.get();
+		ID3D11DepthStencilView* pDSView = NULL;
+		ID3D11RenderTargetView* pRTView[8];
+
+		if(pD3DDS)
+		{
+			pDSView = pD3DDS->GetD3D11DepthStencilView();
+		}
+
+		for(size_t i = 0; i < pTargets.size(); ++i)
+		{
+			RenderTargetPtr pRenderTarget = pTargets[i];
+			D3D11RenderTarget* pD3DRT = (D3D11RenderTarget*)pRenderTarget.get();
+			
+			pRTView[i] = pD3DRT->GetD3D11RenderTargetView();
+		
+		}
+		m_pContext->OMSetRenderTargets(pTargets.size(), pRTView, pDSView == NULL ? m_pDepthStencilBuffer : pDSView);
+
+	}
 }
 

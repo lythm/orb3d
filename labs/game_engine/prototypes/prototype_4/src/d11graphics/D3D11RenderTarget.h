@@ -13,15 +13,20 @@ namespace engine
 		D3D11RenderTarget(ID3D11DeviceContext* pContext);
 		virtual ~D3D11RenderTarget(void);
 
+		bool										Create(TexturePtr pTex);
+		ID3D11RenderTargetView*						GetD3D11RenderTargetView();
 
-		void SetColorBuffer(TexturePtr pTex);
+		TexturePtr									AsTexture();
 
-		ID3D11RenderTargetView*						GetRenderTargetView();
+		void										Release();
 
+		void										Clear(const math::Color4& clr);
 	private:
 
 		ID3D11DeviceContext*						m_pContext;
 		ID3D11Device*								m_pDevice;
 		ID3D11RenderTargetView*						m_pRenderTargetView;
+
+		TexturePtr									m_pTex;
 	};
 }

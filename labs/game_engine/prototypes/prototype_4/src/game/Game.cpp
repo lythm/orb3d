@@ -100,6 +100,8 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 
 	m_pGFX->SetTextureByName("diff_tex", m_pTex);
+
+	//m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(
 	return true;
 }
 void Game::Release()
@@ -132,7 +134,7 @@ bool Game::Update()
 	m_pGFX->SetMatrixBySemantic("WORLDVIEWPROJ", view * proj);
 
 
-	m_pCore->GetSysGraphics()->ClearRenderTarget();
+	m_pCore->GetSysGraphics()->ClearFrameBuffer();
 
 
 	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, Sys_Graphics::IT_INT32);

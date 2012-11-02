@@ -11,8 +11,6 @@ public:
 	void									Release();
 	bool									Update();
 
-	
-
 private:
 	
 	engine::CoreApiPtr								m_pCore;
@@ -23,6 +21,8 @@ private:
 	engine::GFXPtr									m_pGFX;
 
 	engine::TexturePtr								m_pTex;
-	
+
+	engine::RenderTargetPtr							m_pRT;
+
 };
 

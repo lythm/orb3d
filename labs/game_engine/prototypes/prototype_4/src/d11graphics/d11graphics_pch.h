@@ -13,3 +13,6 @@
 #include "core\core_ptr.h"
 
 #include "pchfx.h"
+
+
+#include <vector>
