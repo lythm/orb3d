@@ -39,11 +39,11 @@ namespace engine
 		TexturePtr								CreateTextureFromFile(const char* szFile);
 		void									SetRenderTarget(RenderTargetPtr pRenderTarget, DepthStencilBufferPtr pDS);
 		void									SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, DepthStencilBufferPtr pDS);
-
+		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
 		
 
-		RenderTargetPtr							CreateRenderTarget(TexturePtr pColorBuffer);
+		RenderTargetPtr							CreateRenderTarget();
 		DepthStencilBufferPtr					CreateDepthStencilBuffer();
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);

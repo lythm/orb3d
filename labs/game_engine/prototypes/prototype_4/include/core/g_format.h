@@ -113,6 +113,8 @@ namespace engine
 		TEX_1D,
 		TEX_2D,
 		TEX_3D,
+		TEX_RENDERTARGET,
+		TEX_DEPTHSTENCIL,
 
 		TEX_UNKNOWN,
 	};

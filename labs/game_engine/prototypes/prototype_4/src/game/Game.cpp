@@ -114,12 +114,17 @@ void Game::Release()
 }
 bool Game::Update()
 {
+	static int tick = GetTickCount();
 
+	int dt = GetTickCount() - tick;
 
+	float angle = 3.14 * (dt / 1000.0f);
+
+	tick = GetTickCount();
 	using namespace engine;
 
 	static float rad = 0;
-	rad += 0.005f;
+	rad += angle;
 
 	math::Vector3 eye(0, 20, -30);
 
@@ -159,6 +164,6 @@ bool Game::Update()
 
 	m_pCore->GetSysGraphics()->Present();
 
-
+	
 	return true;
 }

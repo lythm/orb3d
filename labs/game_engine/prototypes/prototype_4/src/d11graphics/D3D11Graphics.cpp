@@ -424,8 +424,9 @@ namespace engine
 		return TexturePtr(pTex);
 	}
 
-	RenderTargetPtr D3D11Graphics::CreateRenderTarget(TexturePtr pColorBuffer)
+	RenderTargetPtr D3D11Graphics::CreateRenderTarget()
 	{
+
 
 		return RenderTargetPtr();
 	}
@@ -455,6 +456,10 @@ namespace engine
 		}
 		m_pContext->OMSetRenderTargets(pTargets.size(), pRTView, pDSView == NULL ? m_pDepthStencilBuffer : pDSView);
 
+	}
+	TexturePtr D3D11Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)
+	{
+		return TexturePtr();
 	}
 }
 
