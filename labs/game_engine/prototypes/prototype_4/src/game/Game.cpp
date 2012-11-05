@@ -101,11 +101,15 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	m_pGFX->SetTextureByName("diff_tex", m_pTex);
 
-	//m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(
+	m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(1024, 768, G_FORMAT_R8G8B8A8_UNORM);
+
+	m_pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(1024, 768, G_FORMAT_D32_FLOAT);
 	return true;
 }
 void Game::Release()
 {
+	m_pDS->Release();
+	m_pRT->Release();
 	m_pTex->Release();
 	m_pIB->Release();
 	m_pVB->Release();
@@ -141,6 +145,9 @@ bool Game::Update()
 
 	m_pCore->GetSysGraphics()->ClearFrameBuffer();
 
+	m_pDS->Clear(1, 0);
+	m_pRT->Clear(math::Color4(0, 0, 0, 1));
+	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT, m_pDS);
 
 	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
 	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));

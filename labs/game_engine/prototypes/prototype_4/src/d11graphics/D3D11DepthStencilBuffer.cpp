@@ -40,7 +40,15 @@ namespace engine
 		}
 		m_pTex = pTex;
 
-		if(FAILED(m_pDevice->CreateDepthStencilView( ((D3D11Texture*)pTex.get())->GetD3D11Resource(), NULL, &m_pDepthStencilView)))
+		D3D11_DEPTH_STENCIL_VIEW_DESC d;
+		ZeroMemory(&d, sizeof(d));
+
+		d.Format = DXGI_FORMAT_D32_FLOAT;
+		d.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		d.Flags = 0;
+		d.Texture2D.MipSlice = 0;
+
+		if(FAILED(m_pDevice->CreateDepthStencilView( ((D3D11Texture*)pTex.get())->GetD3D11Resource(), &d, &m_pDepthStencilView)))
 		{
 			return false;
 		}

@@ -58,8 +58,13 @@ namespace engine
 		virtual void									SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, 
 																	DepthStencilBufferPtr pDS)						= 0;
 
-		virtual RenderTargetPtr							CreateRenderTarget()										= 0;
-		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer()									= 0;
+		virtual RenderTargetPtr							CreateRenderTarget(int w, 
+																	int h, 
+																	G_FORMAT format, 
+																	int miplvls = 0)								= 0;
+		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
+																	int h, 
+																	G_FORMAT format)								= 0;
 
 	protected:
 		Sys_Graphics(void){}

@@ -12,5 +12,6 @@ namespace engine
 
 		virtual TexturePtr						AsTexture()					= 0;
 		virtual void							Release()					= 0;
+		virtual void							Clear(float d, int s)		= 0;
 	};
 }

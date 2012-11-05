@@ -43,8 +43,8 @@ namespace engine
 
 		
 
-		RenderTargetPtr							CreateRenderTarget();
-		DepthStencilBufferPtr					CreateDepthStencilBuffer();
+		RenderTargetPtr							CreateRenderTarget(int w, int h, G_FORMAT format, int miplvls = 0);
+		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);

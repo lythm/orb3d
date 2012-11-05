@@ -79,10 +79,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DefferedShadingDemo.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="game_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DefferedShadingDemo.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="game_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

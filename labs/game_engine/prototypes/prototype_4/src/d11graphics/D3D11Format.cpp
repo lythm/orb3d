@@ -122,4 +122,8 @@ namespace engine
 	{
 		return s_g2dxgi[format];
 	}
+	D3D11_CPU_ACCESS_FLAG D3D11Format::Convert(CPU_ACCESS acc)
+	{
+		return (D3D11_CPU_ACCESS_FLAG)acc;
+	}
 }

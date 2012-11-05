@@ -103,4 +103,50 @@ namespace engine
 	{
 		return m_pShaderView;
 	}
+	bool D3D11Texture::CreateFromRes(ID3D11Resource* pRes)
+	{
+
+		m_pTex = pRes;
+		
+		D3D11_RESOURCE_DIMENSION dim;
+		m_pTex->GetType(&dim);
+		
+		D3D11_SHADER_RESOURCE_VIEW_DESC desc;
+		ZeroMemory(&desc, sizeof(desc));
+
+
+		switch(dim)
+		{
+		case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
+			m_type = TEX_1D;
+			break;
+		case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
+			{
+				m_type = TEX_2D;
+				D3D11_TEXTURE2D_DESC td;
+				((ID3D11Texture2D*)m_pTex)->GetDesc(&td);
+
+				desc.Format = td.Format;
+
+				desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+				desc.Texture2D.MipLevels = td.MipLevels;
+				desc.Texture2D.MostDetailedMip = 0;
+			}
+			break;
+		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
+			m_type = TEX_3D;
+			break;
+		default:
+			return false;
+		}
+
+		if(FAILED(m_pDevice->CreateShaderResourceView(m_pTex, &desc, &m_pShaderView)))
+		{
+			m_pTex->Release();
+			m_pTex = NULL;
+			return false;
+		}
+
+		return true;
+	}
 }

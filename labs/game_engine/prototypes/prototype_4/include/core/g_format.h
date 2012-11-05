@@ -138,4 +138,18 @@ namespace engine
 		MAP_NO_OVERWRITE,
 
 	};
+
+	enum CPU_ACCESS
+	{
+		CPU_ACCESS_WRITE   = 0x10000L,
+		CPU_ACCESS_READ    = 0x20000L,
+	};
+
+	enum G_USAGE 
+	{
+		G_USAGE_DEFAULT     = 0,
+		G_USAGE_IMMUTABLE   = 1,
+		G_USAGE_DYNAMIC     = 2,
+		G_USAGE_STAGING     = 3 
+	};
 }

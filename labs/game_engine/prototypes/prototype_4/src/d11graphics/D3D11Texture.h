@@ -11,7 +11,7 @@ namespace engine
 		virtual ~D3D11Texture(void);
 
 
-		bool								Create();
+		bool								CreateFromRes(ID3D11Resource* pRes);
 		bool								LoadFromFile(const char* szFile);
 		ID3D11Resource*						GetD3D11Resource();
 

@@ -424,15 +424,88 @@ namespace engine
 		return TexturePtr(pTex);
 	}
 
-	RenderTargetPtr D3D11Graphics::CreateRenderTarget()
+	RenderTargetPtr D3D11Graphics::CreateRenderTarget(int w, int h, G_FORMAT format, int miplvls)
 	{
+		D3D11_TEXTURE2D_DESC td;
+		ZeroMemory(&td, sizeof(td));
 
+		td.ArraySize = 1;
+		td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		td.CPUAccessFlags = 0;
+		td.Format = D3D11Format::Convert(format);
+		td.Height = h;
+		td.MipLevels = miplvls;
+		td.MiscFlags = 0;
+		td.SampleDesc.Count = 1;
+		td.SampleDesc.Quality = 0;
+		td.Usage = D3D11_USAGE_DEFAULT;
+		td.Width = w;
 
-		return RenderTargetPtr();
+		ID3D11Texture2D* pD3D11Tex = NULL;
+		if(FAILED(m_pDevice->CreateTexture2D(&td, NULL, &pD3D11Tex)))
+		{
+			return RenderTargetPtr();
+		}
+
+		D3D11Texture* pTex = new D3D11Texture(m_pContext);
+
+		if(false == pTex->CreateFromRes(pD3D11Tex))
+		{
+			pD3D11Tex->Release();
+			return RenderTargetPtr();
+		}
+
+		D3D11RenderTarget* pTarget = new D3D11RenderTarget(m_pContext);
+
+		if(false == pTarget->Create(TexturePtr(pTex)))
+		{
+			pD3D11Tex->Release();
+			return RenderTargetPtr();
+		}
+		
+		return RenderTargetPtr(pTarget);
+
 	}
-	DepthStencilBufferPtr D3D11Graphics::CreateDepthStencilBuffer()
+	DepthStencilBufferPtr D3D11Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)
 	{
-		return DepthStencilBufferPtr();
+		D3D11_TEXTURE2D_DESC td;
+		ZeroMemory(&td, sizeof(td));
+
+		td.ArraySize = 1;
+		td.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
+		td.CPUAccessFlags = 0;
+		td.Format = D3D11Format::Convert(format);
+		td.Height = h;
+		td.MipLevels = 1;
+		td.MiscFlags = 0;
+		td.SampleDesc.Count = 1;
+		td.SampleDesc.Quality = 0;
+		td.Usage = D3D11_USAGE_DEFAULT;
+		td.Width = w;
+
+		ID3D11Texture2D* pD3D11Tex = NULL;
+		if(FAILED(m_pDevice->CreateTexture2D(&td, NULL, &pD3D11Tex)))
+		{
+			return DepthStencilBufferPtr();
+		}
+
+		D3D11Texture* pTex = new D3D11Texture(m_pContext);
+
+		if(false == pTex->CreateFromRes(pD3D11Tex))
+		{
+			pD3D11Tex->Release();
+			return DepthStencilBufferPtr();
+		}
+
+		D3D11DepthStencilBuffer* pTarget = new D3D11DepthStencilBuffer(m_pContext);
+
+		if(false == pTarget->Create(TexturePtr(pTex)))
+		{
+			pD3D11Tex->Release();
+			return DepthStencilBufferPtr();
+		}
+		
+		return DepthStencilBufferPtr(pTarget);
 	}
 
 	void D3D11Graphics::SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, DepthStencilBufferPtr pDS)

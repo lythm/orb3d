@@ -23,6 +23,6 @@ private:
 	engine::TexturePtr								m_pTex;
 
 	engine::RenderTargetPtr							m_pRT;
-
+	engine::DepthStencilBufferPtr					m_pDS;
 };
 
