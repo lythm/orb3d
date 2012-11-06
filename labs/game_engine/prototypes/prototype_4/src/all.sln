@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "game\game.vcxproj",
 		{345E5016-6171-456E-AC63-0026F0997D9A} = {345E5016-6171-456E-AC63-0026F0997D9A}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEditor", "GameEditor\GameEditor.vcxproj", "{50632825-291A-42C8-BF9B-28C94FD24CFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{F2C47D0B-30F0-4120-86FC-2D70B7AE1775}.Debug|Win32.Build.0 = Debug|Win32
 		{F2C47D0B-30F0-4120-86FC-2D70B7AE1775}.Release|Win32.ActiveCfg = Release|Win32
 		{F2C47D0B-30F0-4120-86FC-2D70B7AE1775}.Release|Win32.Build.0 = Release|Win32
+		{50632825-291A-42C8-BF9B-28C94FD24CFE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{50632825-291A-42C8-BF9B-28C94FD24CFE}.Debug|Win32.Build.0 = Debug|Win32
+		{50632825-291A-42C8-BF9B-28C94FD24CFE}.Release|Win32.ActiveCfg = Release|Win32
+		{50632825-291A-42C8-BF9B-28C94FD24CFE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
