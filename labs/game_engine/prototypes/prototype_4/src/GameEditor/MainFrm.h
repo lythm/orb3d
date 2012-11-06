@@ -69,6 +69,8 @@ protected:
 	BOOL CreateDockingWindows();
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
 	BOOL CreateCaptionBar();
+public:
+	afx_msg void OnClose();
 };
 
 

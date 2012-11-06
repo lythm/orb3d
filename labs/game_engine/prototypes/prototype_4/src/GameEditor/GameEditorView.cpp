@@ -24,6 +24,7 @@ IMPLEMENT_DYNCREATE(CGameEditorView, CView)
 BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -48,13 +49,15 @@ BOOL CGameEditorView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CGameEditorView 绘制
 
-void CGameEditorView::OnDraw(CDC* /*pDC*/)
+void CGameEditorView::OnDraw(CDC* pDC)
 {
 	CGameEditorDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
+	CRect rc(100, 100, 400, 400);
+	pDC->DrawText(L"Hello World", rc, 0);
 	// TODO: 在此处为本机数据添加绘制代码
 }
 
@@ -94,3 +97,11 @@ CGameEditorDoc* CGameEditorView::GetDocument() const // 非调试版本是内联的
 
 
 // CGameEditorView 消息处理程序
+
+
+void CGameEditorView::OnClose()
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CView::OnClose();
+}
