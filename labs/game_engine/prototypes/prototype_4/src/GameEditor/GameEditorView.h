@@ -41,7 +41,14 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnClose();
+	virtual void OnInitialUpdate();
+
+
+
+private:
+	void								Render();
+public:
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
 
 #ifndef _DEBUG  // GameEditorView.cpp 中的调试版本

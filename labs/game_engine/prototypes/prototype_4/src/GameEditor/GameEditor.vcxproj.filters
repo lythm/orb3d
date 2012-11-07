@@ -30,9 +30,6 @@
     <ClInclude Include="MainFrm.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ChildFrm.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="GameEditorDoc.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -57,6 +54,9 @@
     <ClInclude Include="PropertiesWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AppContext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -66,9 +66,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MainFrm.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ChildFrm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GameEditorDoc.cpp">
@@ -90,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AppContext.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

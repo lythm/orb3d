@@ -8,11 +8,12 @@
 #include "OutputWnd.h"
 #include "PropertiesWnd.h"
 
-class CMainFrame : public CMDIFrameWndEx
+class CMainFrame : public CFrameWndEx
 {
-	DECLARE_DYNAMIC(CMainFrame)
-public:
+	
+protected: // 仅从序列化创建
 	CMainFrame();
+	DECLARE_DYNCREATE(CMainFrame)
 
 // 特性
 public:
@@ -47,19 +48,10 @@ protected:  // 控件条嵌入成员
 // 生成的消息映射函数
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnWindowManager();
 	afx_msg void OnViewCustomize();
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
 	afx_msg void OnApplicationLook(UINT id);
 	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
-	afx_msg void OnViewFileView();
-	afx_msg void OnUpdateViewFileView(CCmdUI* pCmdUI);
-	afx_msg void OnViewClassView();
-	afx_msg void OnUpdateViewClassView(CCmdUI* pCmdUI);
-	afx_msg void OnViewOutputWindow();
-	afx_msg void OnUpdateViewOutputWindow(CCmdUI* pCmdUI);
-	afx_msg void OnViewPropertiesWindow();
-	afx_msg void OnUpdateViewPropertiesWindow(CCmdUI* pCmdUI);
 	afx_msg void OnViewCaptionBar();
 	afx_msg void OnUpdateViewCaptionBar(CCmdUI* pCmdUI);
 	afx_msg void OnOptions();

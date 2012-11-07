@@ -8,7 +8,6 @@
 #include "GameEditor.h"
 #include "MainFrm.h"
 
-#include "ChildFrm.h"
 #include "GameEditorDoc.h"
 #include "GameEditorView.h"
 
@@ -81,7 +80,7 @@ BOOL CGameEditorApp::InitInstance()
 
 	AfxEnableControlContainer();
 
-	EnableTaskbarInteraction();
+	EnableTaskbarInteraction(FALSE);
 
 	// 使用 RichEdit 控件需要  AfxInitRichEdit2()	
 	// AfxInitRichEdit2();
@@ -109,28 +108,16 @@ BOOL CGameEditorApp::InitInstance()
 
 	// 注册应用程序的文档模板。文档模板
 	// 将用作文档、框架窗口和视图之间的连接
-	CMultiDocTemplate* pDocTemplate;
-	pDocTemplate = new CMultiDocTemplate(IDR_GameEditorTYPE,
+	CSingleDocTemplate* pDocTemplate;
+	pDocTemplate = new CSingleDocTemplate(
+		IDR_MAINFRAME,
 		RUNTIME_CLASS(CGameEditorDoc),
-		RUNTIME_CLASS(CChildFrame), // 自定义 MDI 子框架
+		RUNTIME_CLASS(CMainFrame),       // 主 SDI 框架窗口
 		RUNTIME_CLASS(CGameEditorView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
 
-	// 创建主 MDI 框架窗口
-	CMainFrame* pMainFrame = new CMainFrame;
-	if (!pMainFrame || !pMainFrame->LoadFrame(IDR_MAINFRAME))
-	{
-		delete pMainFrame;
-		return FALSE;
-	}
-	m_pMainWnd = pMainFrame;
-
-	// 仅当具有后缀时才调用 DragAcceptFiles
-	//  在 MDI 应用程序中，这应在设置 m_pMainWnd 之后立即发生
-	// 启用拖/放
-	m_pMainWnd->DragAcceptFiles();
 
 	// 分析标准 shell 命令、DDE、打开文件操作的命令行
 	CCommandLineInfo cmdInfo;
@@ -145,10 +132,14 @@ BOOL CGameEditorApp::InitInstance()
 	// 用 /RegServer、/Register、/Unregserver 或 /Unregister 启动应用程序，则返回 FALSE。
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
-	// 主窗口已初始化，因此显示它并对其进行更新
-	pMainFrame->ShowWindow(m_nCmdShow);
-	pMainFrame->UpdateWindow();
 
+	// 唯一的一个窗口已初始化，因此显示它并对其进行更新
+	m_pMainWnd->ShowWindow(SW_SHOW);
+	m_pMainWnd->UpdateWindow();
+	// 仅当具有后缀时才调用 DragAcceptFiles
+	//  在 SDI 应用程序中，这应在 ProcessShellCommand 之后发生
+	// 启用拖/放
+	m_pMainWnd->DragAcceptFiles();
 	return TRUE;
 }
 

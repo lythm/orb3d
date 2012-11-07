@@ -40,18 +40,11 @@ GameEditor.reg
 
 MainFrm.h, MainFrm.cpp
     这些文件中包含框架类 CMainFrame，该类派生自
-    CMDIFrameWnd 并控制所有 MDI 框架功能。
+    CFrameWnd 并控制所有 SDI 框架功能。
 
 res\Toolbar.bmp
     此位图文件用于为工具栏创建平铺图像。
     初始工具栏和状态栏在 CMainFrame 类中构造。使用资源编辑器编辑此工具栏位图，并更新 GameEditor.rc 中的 IDR_MAINFRAME TOOLBAR 数组以添加工具栏按钮。
-/////////////////////////////////////////////////////////////////////////////
-
-对于子框架窗口：
-
-ChildFrm.h, ChildFrm.cpp
-    这些文件定义并实现 CChildFrame 类，该类支持 MDI 应用程序中的子窗口。
-
 /////////////////////////////////////////////////////////////////////////////
 
 应用程序向导创建一种文档类型和一个视图：
@@ -71,8 +64,6 @@ GameEditorView.h、GameEditorView.cpp - 文档视图
     这些文件包含 CGameEditorView 类。
     CGameEditorView 对象用于查看 CGameEditorDoc 对象。
 
-res\GameEditorDoc.ico
-    这是一个图标文件，用作 CGameEditorDoc 类的 MDI 子窗口的图标。此图标包括在主资源文件 GameEditor.rc 中。
 
 
 
