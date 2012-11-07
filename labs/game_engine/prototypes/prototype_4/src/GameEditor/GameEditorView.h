@@ -4,6 +4,7 @@
 
 #pragma once
 
+class GridMesh;
 
 class CGameEditorView : public CView
 {
@@ -47,6 +48,10 @@ public:
 
 private:
 	void								Render();
+
+
+private:
+	GridMesh*							m_pGrid;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };

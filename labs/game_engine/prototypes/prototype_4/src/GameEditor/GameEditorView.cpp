@@ -15,6 +15,7 @@
 
 #include "AppContext.h"
 
+#include "GridMesh.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -37,10 +38,13 @@ CGameEditorView::CGameEditorView()
 {
 	// TODO: 在此处添加构造代码
 
+	m_pGrid = NULL;
+
 }
 
 CGameEditorView::~CGameEditorView()
 {
+	
 }
 
 BOOL CGameEditorView::PreCreateWindow(CREATESTRUCT& cs)
@@ -113,6 +117,10 @@ void CGameEditorView::OnInitialUpdate()
 
 	this->SetTimer(0, 10, NULL);
 
+	m_pGrid = new GridMesh();
+
+	m_pGrid->Init();
+
 
 	CView::OnInitialUpdate();
 
@@ -124,6 +132,7 @@ void CGameEditorView::Render()
 
 	AppContext::GetSysGraphics()->ClearFrameBuffer();
 
+	m_pGrid->Render();
 
 	AppContext::GetSysGraphics()->Present();
 }

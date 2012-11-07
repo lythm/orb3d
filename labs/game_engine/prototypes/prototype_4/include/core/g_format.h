@@ -129,6 +129,7 @@ namespace engine
 	enum PRIMITIVE_TYPE
 	{
 		PT_TRIANGLE_LIST,
+		PT_LINE_LIST,
 	};
 
 	enum MAP_HINT

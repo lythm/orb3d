@@ -12,6 +12,7 @@ namespace engine
 
 		static DXGI_FORMAT						Convert(G_FORMAT format);
 		static D3D11_CPU_ACCESS_FLAG			Convert(CPU_ACCESS acc);
+		static D3D_PRIMITIVE_TOPOLOGY			Convert(PRIMITIVE_TYPE p);
 	};
 
 

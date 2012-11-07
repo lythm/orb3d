@@ -110,6 +110,7 @@
     <ClInclude Include="GameEditor.h" />
     <ClInclude Include="GameEditorDoc.h" />
     <ClInclude Include="GameEditorView.h" />
+    <ClInclude Include="GridMesh.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="PropertiesWnd.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="GameEditor.cpp" />
     <ClCompile Include="GameEditorDoc.cpp" />
     <ClCompile Include="GameEditorView.cpp" />
+    <ClCompile Include="GridMesh.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />

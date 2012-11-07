@@ -101,7 +101,8 @@
     <ClInclude Include="..\..\include\core\MeshData.h" />
     <ClInclude Include="..\..\include\core\MeshRenderer.h" />
     <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
-    <ClInclude Include="..\..\include\core\Renderer.h" />
+    <ClInclude Include="..\..\include\core\RenderData.h" />
+    <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\SoundEmitter.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SoundEmitter.cpp" />
     <ClCompile Include="SoundListener.cpp" />

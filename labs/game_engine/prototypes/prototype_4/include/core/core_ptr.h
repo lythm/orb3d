@@ -33,7 +33,7 @@ namespace engine
 	typedef boost::shared_ptr<Mesh>							MeshPtr;
 
 	class DepthStencilBuffer;
-	class Renderer;
+	class RenderData;
 	class RenderTarget;
 	class Texture;
 	class GFX;
@@ -41,7 +41,7 @@ namespace engine
 
 	typedef boost::shared_ptr<DepthStencilBuffer>			DepthStencilBufferPtr;
 	typedef boost::shared_ptr<RenderTarget>					RenderTargetPtr;
-	typedef boost::shared_ptr<Renderer>						RendererPtr;
+	typedef boost::shared_ptr<RenderData>					RenderDataPtr;
 	typedef boost::shared_ptr<GPUBuffer>					GPUBufferPtr;
 	typedef boost::shared_ptr<Texture>						TexturePtr;
 	typedef boost::shared_ptr<GFX>							GFXPtr;

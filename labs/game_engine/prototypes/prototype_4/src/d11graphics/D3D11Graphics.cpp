@@ -393,16 +393,7 @@ namespace engine
 	}
 	void D3D11Graphics::SetPrimitiveType(PRIMITIVE_TYPE pt)
 	{
-		D3D_PRIMITIVE_TOPOLOGY tp;
-
-		switch(pt)
-		{
-		case PT_TRIANGLE_LIST:
-			tp = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-			break;
-		default:
-			return;
-		}
+		D3D_PRIMITIVE_TOPOLOGY tp = D3D11Format::Convert(pt);
 		m_pContext->IASetPrimitiveTopology(tp);
 	}
 	void D3D11Graphics::DrawPrimitive(int count, int startindex, int basevertex)

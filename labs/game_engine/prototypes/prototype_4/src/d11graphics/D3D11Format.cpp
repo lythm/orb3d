@@ -126,4 +126,22 @@ namespace engine
 	{
 		return (D3D11_CPU_ACCESS_FLAG)acc;
 	}
+	D3D_PRIMITIVE_TOPOLOGY D3D11Format::Convert(PRIMITIVE_TYPE p)
+	{
+		D3D_PRIMITIVE_TOPOLOGY tp;
+
+		switch(p)
+		{
+		case PT_TRIANGLE_LIST:
+			tp = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+			break;
+		case PT_LINE_LIST:
+			tp = D3D_PRIMITIVE_TOPOLOGY_LINELIST;
+			break;
+		default:
+			return D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
+		}
+
+		return tp;
+	}
 }

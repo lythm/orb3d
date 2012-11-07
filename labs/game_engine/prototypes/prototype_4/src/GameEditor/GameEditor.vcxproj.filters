@@ -57,6 +57,9 @@
     <ClInclude Include="AppContext.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GridMesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -90,6 +93,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AppContext.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GridMesh.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
