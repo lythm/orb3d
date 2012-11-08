@@ -10,7 +10,7 @@ namespace engine
 		virtual ~CoreApi(void);
 
 		void											Update();
-		bool											Initialize(void* app_handle, int w, int h);
+		bool											Initialize(void* app_handle, int w, int h, G_FORMAT format);
 		void											Release();
 		void											HandleMessage(MSG& msg);
 		

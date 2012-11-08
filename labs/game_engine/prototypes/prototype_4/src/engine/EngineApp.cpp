@@ -31,7 +31,7 @@ namespace engine
 
 		m_pCore = CoreApiPtr(new CoreApi);
 
-		if(false == m_pCore->Initialize(GetWnd(), GetClientWidth(), GetClientHeight()))
+		if(false == m_pCore->Initialize(GetWnd(), GetClientWidth(), GetClientHeight(), G_FORMAT_R8G8B8A8_UNORM))
 		{
 			return false;
 		}

@@ -54,6 +54,7 @@ private:
 	GridMesh*							m_pGrid;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 #ifndef _DEBUG  // GameEditorView.cpp 中的调试版本

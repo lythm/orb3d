@@ -3,7 +3,7 @@
 
 namespace engine
 {
-	class Mesh
+	class EXPORT_CLASS Mesh
 	{
 	public:
 
@@ -23,13 +23,10 @@ namespace engine
 			int										m_primitiveCount;
 
 			GFXPtr									m_pGFX;
-
-
 		};
 
 		Mesh(void);
 		virtual ~Mesh(void);
-
 
 	private:
 		void*										m_pIndexBuffer;

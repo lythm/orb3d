@@ -13,7 +13,14 @@ public:
 	static void									ReleaseContext();
 	static engine::CoreApiPtr					GetCoreApi();
 	static engine::Sys_GraphicsPtr				GetSysGraphics();
+
+	static int									GetRTViewWidth();
+	static int									GetRTViewHeight();
+	static void									ResizeRTView(int cx, int cy);
 private:
+
+	static int									s_RTWidth;
+	static int									s_RTHeight;
 
 	static engine::CoreApiPtr					s_pCore;
 	static engine::Sys_GraphicsPtr				s_pSysGraphics;

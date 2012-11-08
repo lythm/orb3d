@@ -18,7 +18,8 @@ namespace engine
 
 		virtual bool									Initialize(void* app_handle, 
 																uint32 width, 
-																uint32 height)										= 0;
+																uint32 height,
+																G_FORMAT format)									= 0;
 
 		virtual void									Release()													= 0;
 		
@@ -65,6 +66,8 @@ namespace engine
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
 																	int h, 
 																	G_FORMAT format)								= 0;
+
+		virtual void									ResizeFrameBuffer(int cx, int cy)							= 0;
 
 	protected:
 		Sys_Graphics(void){}

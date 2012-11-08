@@ -28,6 +28,8 @@ bool GridMesh::Init()
 
 	math::Vector3* pBuffer = (math::Vector3*)m_pVB->Map(MAP_DISCARD);
 
+	math::Vector3* pBufferData = pBuffer;
+
 	for(int i = 0; i < (size / grid_size + 1); ++i)
 	{
 		math::Vector3* vertex = pBuffer + i;
@@ -37,7 +39,8 @@ bool GridMesh::Init()
 		vertex->z = size/2;
 	}
 
-	for(int i = (size / grid_size + 1); i < 2 * (size / grid_size + 1); ++i)
+	pBuffer += (size / grid_size + 1);
+	for(int i = 0; i < (size / grid_size + 1); ++i)
 	{
 		math::Vector3* vertex = pBuffer + i;
 
@@ -45,8 +48,11 @@ bool GridMesh::Init()
 		vertex->y = 0;
 		vertex->z = -size/2;
 	}
+	pBuffer += (size / grid_size + 1);
 
-	for(int i = 2 * (size / grid_size + 1); i < 3 * (size / grid_size + 1); ++i)
+
+
+	for(int i = 0; i < (size / grid_size + 1); ++i)
 	{
 		math::Vector3* vertex = pBuffer + i;
 
@@ -54,8 +60,10 @@ bool GridMesh::Init()
 		vertex->y = 0;
 		vertex->z = size/2 - grid_size * i;
 	}
+	pBuffer += (size / grid_size + 1);
 
-	for(int i = 3 * (size / grid_size + 1); i < 4 * (size / grid_size + 1); ++i)
+
+	for(int i = 0; i < (size / grid_size + 1); ++i)
 	{
 		math::Vector3* vertex = pBuffer + i;
 
@@ -67,17 +75,13 @@ bool GridMesh::Init()
 	m_pVB->Unmap();
 
 
-	int line_count = (size / grid_size + 1) + (size / grid_size + 1) - 2;
+	int line_count = (size / grid_size + 1) + (size / grid_size + 1) ;
 	int index_count = line_count * 2;
 	m_pIB = pGraphics->CreateBuffer(BT_INDEX_BUFFER, index_count * sizeof(int), NULL, true);
 
 	int * pIB = (int*)m_pIB->Map(MAP_DISCARD);
 
-	for(int i = 0; i < (size / grid_size + 1); ++i)
-	{
-		*(pIB + 2* i) = i;
-		*(pIB + 2* i + 1) = i + size / grid_size + 1;
-	}
+	int * pData = pIB;
 
 	for(int i = 0; i < (size / grid_size + 1); ++i)
 	{
@@ -85,16 +89,78 @@ bool GridMesh::Init()
 		*(pIB + 2* i + 1) = i + size / grid_size + 1;
 	}
 
-
+	pIB += 2 * (size / grid_size + 1);
+	for(int i = 0; i < (size / grid_size + 1) ; ++i)
+	{
+		*(pIB + 2* i) = i + 2 * (size / grid_size + 1);
+		*(pIB + 2* i + 1) = i + size / grid_size + 1 + 2 * (size / grid_size + 1);
+	}
+	
 	m_pIB->Unmap();
 
+	m_pGFX = pGraphics->CreateGFXFromFile("./assets/gfx/editor_grid.fx");
+
+	VertexElement vf[] = 
+	{
+		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
+		VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
+	};
+
+	m_pGFX->SetVertexFormat(vf, 2);
 
 	return true;
 }
 void GridMesh::Release()
 {
+	m_pIB->Release();
+	m_pVB->Release();
+	m_pGFX->Release();
 }
 
 void GridMesh::Render()
 {
+	using namespace engine;
+
+	using namespace math;
+
+
+	int size = 100;
+	int grid_size = 10;
+
+	int line_count = (size / grid_size + 1) + (size / grid_size + 1) ;
+	int index_count = line_count * 2;
+
+	Matrix44 view, world, proj;
+
+	float aspect = float(AppContext::GetRTViewWidth()) / float(AppContext::GetRTViewHeight());
+
+	proj = MatrixPerspectiveFovLH(3.0f/ 4.0f * MATH_PI, aspect, 0.001, 10000000);
+	view = MatrixLookAtLH(Vector3(0, 50, -50), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	world.MakeIdentity();
+
+	m_pGFX->SetMatrixBySemantic("WORLD_MATRIX", world);
+	m_pGFX->SetMatrixBySemantic("VIEW_MATRIX", view);
+	m_pGFX->SetMatrixBySemantic("PROJ_MATRIX", proj);
+	
+	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+
+	pGraphics->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
+	pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
+	pGraphics->SetPrimitiveType(PT_LINE_LIST);
+
+	m_pGFX->ApplyVertexFormat();
+	
+	int nPass = 0;
+
+	m_pGFX->BeginPass(nPass);
+
+	for(int i = 0; i < nPass; ++i)
+	{
+		m_pGFX->ApplyPass(i);
+
+		pGraphics->DrawPrimitive(index_count, 0, 0);
+	}
+
+	m_pGFX->EndPass();
+
 }

@@ -32,14 +32,17 @@ namespace engine
 		m_pSwapChain					= NULL;
 		m_pFrameBuffer					= NULL;
 		m_pDepthStencilBuffer			= NULL;
+
+		m_frameBufferFormat				= G_FORMAT_UNKNOWN;
 	}
 
 
 	D3D11Graphics::~D3D11Graphics(void)
 	{
 	}
-	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height)
+	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height, G_FORMAT format)
 	{
+		m_frameBufferFormat = format;
 
 		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_0;
 
@@ -67,7 +70,7 @@ namespace engine
 		sd.BufferCount										= 2;
 		sd.BufferDesc.Width									= width;
 		sd.BufferDesc.Height								= height;
-		sd.BufferDesc.Format								= DXGI_FORMAT_R8G8B8A8_UNORM;
+		sd.BufferDesc.Format								= D3D11Format::Convert(m_frameBufferFormat);
 		sd.BufferDesc.RefreshRate.Numerator					= 60;
 		sd.BufferDesc.RefreshRate.Denominator				= 1;
 		sd.BufferUsage										= DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -116,27 +119,61 @@ namespace engine
 		pDXGIDevice->Release();
 
 
+		if(CreateFrameBuffer() == false)
+		{
+			return false;
+		}
+		if(CreateDepthStencilBuffer(width, height) == false)
+		{
+			return false;
+		}
+
+		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
+		m_pContext->OMSetBlendState(NULL, 0, -1);
+
+		SetupViewport(width , height);
+		
+		ClearFrameBuffer();
+		return true;
+	}
+	void D3D11Graphics::SetupViewport(int w, int h)
+	{
+		D3D11_VIEWPORT vp;
+		vp.Width = (FLOAT)w;
+		vp.Height = (FLOAT)h;
+		vp.MinDepth = 0.0f;
+		vp.MaxDepth = 1.0f;
+		vp.TopLeftX = 0;
+		vp.TopLeftY = 0;
+		m_pContext->RSSetViewports( 1, &vp );
+	}
+
+	bool D3D11Graphics::CreateFrameBuffer()
+	{
 		// Create a render target view
 		ID3D11Texture2D *pBackBuffer;
 
 		if( FAILED( m_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), (LPVOID*)&pBackBuffer ) ) )
-			return FALSE;
+			return false;
 
-		ret = m_pDevice->CreateRenderTargetView( pBackBuffer, NULL, &m_pFrameBuffer);
+		HRESULT ret = m_pDevice->CreateRenderTargetView( pBackBuffer, NULL, &m_pFrameBuffer);
 		pBackBuffer->Release();
 
-
 		if( FAILED( ret ) )
-			return FALSE;
+			return false;
 
+		return true;
+	}
+	bool D3D11Graphics::CreateDepthStencilBuffer(int w, int h)
+	{
 		// Create depth stencil texture
 		ID3D11Texture2D* pDepthStencil = NULL;
 		D3D11_TEXTURE2D_DESC descDepth;
 
 		ZeroMemory(&descDepth, sizeof(descDepth));
 
-		descDepth.Width = width;
-		descDepth.Height = height;
+		descDepth.Width = w;
+		descDepth.Height = h;
 		descDepth.MipLevels = 1;
 		descDepth.ArraySize = 1;
 		descDepth.Format = DXGI_FORMAT_D32_FLOAT;
@@ -146,7 +183,7 @@ namespace engine
 		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 		descDepth.CPUAccessFlags = 0;
 		descDepth.MiscFlags = 0;
-		ret = m_pDevice->CreateTexture2D( &descDepth, NULL, &pDepthStencil );
+		HRESULT ret = m_pDevice->CreateTexture2D( &descDepth, NULL, &pDepthStencil );
 		if( FAILED( ret ) )
 			return false;
 
@@ -166,21 +203,6 @@ namespace engine
 
 		pDepthStencil->Release();
 
-		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
-		m_pContext->OMSetBlendState(NULL, 0, -1);
-
-		D3D11_VIEWPORT vp;
-		vp.Width = (FLOAT)width;
-		vp.Height = (FLOAT)height;
-		vp.MinDepth = 0.0f;
-		vp.MaxDepth = 1.0f;
-		vp.TopLeftX = 0;
-		vp.TopLeftY = 0;
-		m_pContext->RSSetViewports( 1, &vp );
-
-
-
-		ClearFrameBuffer();
 		return true;
 	}
 	void D3D11Graphics::Release()
@@ -524,6 +546,28 @@ namespace engine
 	TexturePtr D3D11Graphics::CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h)
 	{
 		return TexturePtr();
+	}
+	void D3D11Graphics::ResizeFrameBuffer(int cx, int cy)
+	{
+		if(m_pFrameBuffer != NULL)
+		{
+			m_pFrameBuffer->Release();
+			m_pFrameBuffer = NULL;
+		}
+
+		
+		if(m_pDepthStencilBuffer)
+		{
+			m_pDepthStencilBuffer->Release();
+			m_pDepthStencilBuffer = NULL;
+		}
+
+		m_pSwapChain->ResizeBuffers(2, cx, cy, D3D11Format::Convert(m_frameBufferFormat), 0);
+
+		CreateFrameBuffer();
+		CreateDepthStencilBuffer(cx, cy);
+		SetupViewport(cx, cy);
+
 	}
 }
 

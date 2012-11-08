@@ -13,8 +13,7 @@ public:
 	void									Render();
 
 private:
-
-
+	
 	engine::GPUBufferPtr					m_pVB;
 	engine::GPUBufferPtr					m_pIB;
 	engine::GFXPtr							m_pGFX;

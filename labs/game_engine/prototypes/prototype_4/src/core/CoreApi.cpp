@@ -22,7 +22,7 @@ namespace engine
 	{
 		m_pObjectManager->UpdateObjects();
 	}
-	bool CoreApi::Initialize(void* app_handle, int w, int h)
+	bool CoreApi::Initialize(void* app_handle, int w, int h, G_FORMAT format)
 	{
 
 		m_pSysManager = SysManagerPtr(new SysManager);
@@ -33,7 +33,7 @@ namespace engine
 		{
 			return false;
 		}
-		if(false == m_pSysGraphics->Initialize(app_handle, w, h))
+		if(false == m_pSysGraphics->Initialize(app_handle, w, h, format))
 		{
 			return false;
 		}

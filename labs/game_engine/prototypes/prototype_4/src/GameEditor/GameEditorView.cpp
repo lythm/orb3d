@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 	ON_WM_TIMER()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -44,7 +45,11 @@ CGameEditorView::CGameEditorView()
 
 CGameEditorView::~CGameEditorView()
 {
-	
+	if(m_pGrid)
+	{
+		m_pGrid->Release();
+		delete m_pGrid;
+	}
 }
 
 BOOL CGameEditorView::PreCreateWindow(CREATESTRUCT& cs)
@@ -144,4 +149,24 @@ void CGameEditorView::OnTimer(UINT_PTR nIDEvent)
 	Render();
 
 	CView::OnTimer(nIDEvent);
+}
+
+
+void CGameEditorView::OnSize(UINT nType, int cx, int cy)
+{
+	CView::OnSize(nType, cx, cy);
+
+	engine::Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+	if(pGraphics != NULL)
+	{
+
+		if(cx != 0 && cy != 0)
+		{
+			pGraphics->ResizeFrameBuffer(cx, cy);
+			pGraphics->SetRenderTarget(engine::RenderTargetPtr(), engine::DepthStencilBufferPtr());
+		}
+	}
+
+	AppContext::ResizeRTView(cx, cy);
+	// TODO: 在此处添加消息处理程序代码
 }
