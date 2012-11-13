@@ -44,7 +44,7 @@ namespace engine
 		
 
 		RenderTargetPtr							CreateRenderTarget(int w, int h, G_FORMAT format, int miplvls = 0);
-		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
+		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format, bool asTexture = false);
 
 		void									ResizeFrameBuffer(int cx, int cy);
 	private:

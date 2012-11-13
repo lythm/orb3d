@@ -1,7 +1,7 @@
 #pragma once
 
 
-class GridMesh
+class GridMesh : public engine::RenderData
 {
 public:
 	GridMesh(void);
@@ -10,7 +10,7 @@ public:
 	bool									Init();
 	void									Release();
 
-	void									Render();
+	void									Render(engine::Sys_GraphicsPtr pSysGraphics);
 
 private:
 	

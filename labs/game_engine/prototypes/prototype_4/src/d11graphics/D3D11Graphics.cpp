@@ -394,7 +394,7 @@ namespace engine
 		{
 			pDSView = pD3DDS->GetD3D11DepthStencilView();
 		}
-
+					
 		m_pContext->OMSetRenderTargets(1, 
 					pRTView == NULL ? &m_pFrameBuffer : &pRTView, 
 					pDSView == NULL ? m_pDepthStencilBuffer : pDSView);
@@ -479,42 +479,13 @@ namespace engine
 		return RenderTargetPtr(pTarget);
 
 	}
-	DepthStencilBufferPtr D3D11Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format)
+	DepthStencilBufferPtr D3D11Graphics::CreateDepthStencilBuffer(int w, int h, G_FORMAT format, bool asTexture)
 	{
-		D3D11_TEXTURE2D_DESC td;
-		ZeroMemory(&td, sizeof(td));
-
-		td.ArraySize = 1;
-		td.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
-		td.CPUAccessFlags = 0;
-		td.Format = D3D11Format::Convert(format);
-		td.Height = h;
-		td.MipLevels = 1;
-		td.MiscFlags = 0;
-		td.SampleDesc.Count = 1;
-		td.SampleDesc.Quality = 0;
-		td.Usage = D3D11_USAGE_DEFAULT;
-		td.Width = w;
-
-		ID3D11Texture2D* pD3D11Tex = NULL;
-		if(FAILED(m_pDevice->CreateTexture2D(&td, NULL, &pD3D11Tex)))
-		{
-			return DepthStencilBufferPtr();
-		}
-
-		D3D11Texture* pTex = new D3D11Texture(m_pContext);
-
-		if(false == pTex->CreateFromRes(pD3D11Tex))
-		{
-			pD3D11Tex->Release();
-			return DepthStencilBufferPtr();
-		}
-
 		D3D11DepthStencilBuffer* pTarget = new D3D11DepthStencilBuffer(m_pContext);
 
-		if(false == pTarget->Create(TexturePtr(pTex)))
+		if(false == pTarget->Create(w, h, format, asTexture))
 		{
-			pD3D11Tex->Release();
+			delete pTarget;
 			return DepthStencilBufferPtr();
 		}
 		

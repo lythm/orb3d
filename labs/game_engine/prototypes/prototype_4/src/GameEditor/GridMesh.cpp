@@ -117,7 +117,7 @@ void GridMesh::Release()
 	m_pGFX->Release();
 }
 
-void GridMesh::Render()
+void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 {
 	using namespace engine;
 
@@ -138,12 +138,8 @@ void GridMesh::Render()
 	view = MatrixLookAtLH(Vector3(0, 50, -50), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	world.MakeIdentity();
 
-	m_pGFX->SetMatrixBySemantic("WORLD_MATRIX", world);
-	m_pGFX->SetMatrixBySemantic("VIEW_MATRIX", view);
-	m_pGFX->SetMatrixBySemantic("PROJ_MATRIX", proj);
-	
-	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
-
+	m_pGFX->SetMatrixBySemantic("MATRIX_WVP", world * view * proj);
+		
 	pGraphics->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
 	pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 	pGraphics->SetPrimitiveType(PT_LINE_LIST);

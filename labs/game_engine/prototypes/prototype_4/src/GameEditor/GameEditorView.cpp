@@ -39,7 +39,7 @@ CGameEditorView::CGameEditorView()
 {
 	// TODO: 在此处添加构造代码
 
-	m_pGrid = NULL;
+//	m_pGrid = NULL;
 
 }
 
@@ -48,7 +48,7 @@ CGameEditorView::~CGameEditorView()
 	if(m_pGrid)
 	{
 		m_pGrid->Release();
-		delete m_pGrid;
+		m_pGrid.reset();
 	}
 }
 
@@ -122,7 +122,7 @@ void CGameEditorView::OnInitialUpdate()
 
 	this->SetTimer(0, 10, NULL);
 
-	m_pGrid = new GridMesh();
+	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
 
 	m_pGrid->Init();
 
@@ -135,11 +135,12 @@ void CGameEditorView::Render()
 {
 	AppContext::GetCoreApi()->Update();
 
-	AppContext::GetSysGraphics()->ClearFrameBuffer();
+	AppContext::GetCoreApi()->AddRenderData(m_pGrid);
 
-	m_pGrid->Render();
+	AppContext::GetCoreApi()->Render();
 
-	AppContext::GetSysGraphics()->Present();
+	AppContext::GetCoreApi()->ClearRenderQueue();
+
 }
 
 

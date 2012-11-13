@@ -30,6 +30,6 @@
 #include "core\RenderTarget.h"
 #include "core\DepthStencilBuffer.h"
 #include "core\GameInterface.h"
-
+#include "core\RenderData.h"
 #include "core\coreapi.h"
 

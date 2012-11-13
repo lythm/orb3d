@@ -1,6 +1,6 @@
 #include "d11graphics_pch.h"
 #include "D3D11Texture.h"
-
+#include "D3D11Format.h"
 
 namespace engine
 {
@@ -103,9 +103,8 @@ namespace engine
 	{
 		return m_pShaderView;
 	}
-	bool D3D11Texture::CreateFromRes(ID3D11Resource* pRes)
+	bool D3D11Texture::CreateFromRes(ID3D11Resource* pRes, G_FORMAT view_format)
 	{
-
 		m_pTex = pRes;
 		
 		D3D11_RESOURCE_DIMENSION dim;
@@ -113,7 +112,6 @@ namespace engine
 		
 		D3D11_SHADER_RESOURCE_VIEW_DESC desc;
 		ZeroMemory(&desc, sizeof(desc));
-
 
 		switch(dim)
 		{
@@ -126,7 +124,14 @@ namespace engine
 				D3D11_TEXTURE2D_DESC td;
 				((ID3D11Texture2D*)m_pTex)->GetDesc(&td);
 
-				desc.Format = td.Format;
+				if(view_format == G_FORMAT_UNKNOWN)
+				{
+					desc.Format = td.Format;
+				}
+				else
+				{
+					desc.Format = D3D11Format::Convert(view_format);
+				}
 
 				desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 				desc.Texture2D.MipLevels = td.MipLevels;

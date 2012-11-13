@@ -151,8 +151,16 @@ namespace engine
 	{
 		ID3D11ShaderResourceView* pView = NULL;
 
-		pView = ((D3D11Texture*)pTex.get())->GetShaderResourceView();
+		pView = (pTex == TexturePtr() ? NULL : ((D3D11Texture*)pTex.get())->GetShaderResourceView());
+
 		m_pEffect->GetVariableByName(szName)->AsShaderResource()->SetResource(pView);
+
+		
+	/*	if(pTex == TexturePtr())
+		{
+			ID3D11ShaderResourceView* pTmp[] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }; 
+			m_pContext->PSSetShaderResources(0, _countof(pTmp), pTmp);
+		}*/
 	}
 	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector3& v)
 	{

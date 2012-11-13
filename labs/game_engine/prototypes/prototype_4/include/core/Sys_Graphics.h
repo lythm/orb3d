@@ -65,7 +65,8 @@ namespace engine
 																	int miplvls = 0)								= 0;
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
 																	int h, 
-																	G_FORMAT format)								= 0;
+																	G_FORMAT format,
+																	bool asTexture = false)							= 0;
 
 		virtual void									ResizeFrameBuffer(int cx, int cy)							= 0;
 

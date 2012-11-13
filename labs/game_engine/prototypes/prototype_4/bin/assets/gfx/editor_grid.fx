@@ -1,8 +1,8 @@
 
-float4x4 world:WORLD_MATRIX;
-float4x4 view:VIEW_MATRIX;
-float4x4 proj:PROJ_MATRIX;
-
+float4x4 world:MATRIX_WORLD;
+float4x4 view:MATRIX_VIEW;
+float4x4 proj:MATRIX_PROJ;
+float4x4 wvp:MATRIX_WVP;
 
 struct vs_in
 {
@@ -15,11 +15,8 @@ struct vs_out
 
 vs_out vs_main(vs_in vsin)
 {
-	float4x4 mat = mul(world, view);
-	mat = mul(mat, proj);
-
 	vs_out vsout;
-	vsout.pos = mul(float4(vsin.pos, 1), mat);
+	vsout.pos = mul(float4(vsin.pos, 1), wvp);
 	return vsout;
 }
 

@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\BaseCamera.h" />
     <ClInclude Include="..\..\include\core\Behavior.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\CoreApi.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="WMInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CoreApi.cpp" />

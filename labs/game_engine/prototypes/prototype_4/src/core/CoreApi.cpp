@@ -4,6 +4,8 @@
 #include "core\SysManager.h"
 #include "core\Sys_Graphics.h"
 #include "core\GameObjectManager.h"
+#include "core\RenderSystem.h"
+
 #include "WMInput.h"
 
 
@@ -46,6 +48,12 @@ namespace engine
 		{
 			return false;
 		}
+
+		m_pRenderSystem = RenderSystemPtr(new RenderSystem);
+		if(m_pRenderSystem->Initialize(m_pSysGraphics) == false)
+		{
+			return false;
+		}
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
 
 		return true;
@@ -55,6 +63,8 @@ namespace engine
 		m_pObjectManager->ReleaseAllObject();
 		m_pObjectManager.reset();
 		
+		m_pRenderSystem->Release();
+		m_pRenderSystem.reset();
 
 		m_pSysInput->Release();
 		m_pSysInput.reset();
@@ -82,6 +92,27 @@ namespace engine
 		if(m_pSysInput)
 		{
 			m_pSysInput->HandleMessage(msg);
+		}
+	}
+	void CoreApi::Render()
+	{
+		if(m_pRenderSystem)
+		{
+			m_pRenderSystem->Render();
+		}
+	}
+	void CoreApi::AddRenderData(RenderDataPtr pData)
+	{
+		if(m_pRenderSystem)
+		{
+			m_pRenderSystem->AddRenderData(pData);
+		}
+	}
+	void CoreApi::ClearRenderQueue()
+	{
+		if(m_pRenderSystem)
+		{
+			m_pRenderSystem->Clear();
 		}
 	}
 }

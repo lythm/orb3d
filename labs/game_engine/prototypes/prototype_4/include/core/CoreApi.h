@@ -17,11 +17,17 @@ namespace engine
 		GameObjectManagerPtr							GetGameObjectManager();
 		Sys_GraphicsPtr									GetSysGraphics();
 		Sys_InputPtr									GetSysInput();
+
+		void											Render();
+		void											AddRenderData(RenderDataPtr pData);
+		void											ClearRenderQueue();
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;
 		Sys_GraphicsPtr									m_pSysGraphics;
 		Sys_InputPtr									m_pSysInput;
+
+		RenderSystemPtr									m_pRenderSystem;
 	};
 
 

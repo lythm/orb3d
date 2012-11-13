@@ -16,6 +16,4 @@ namespace engine
 		virtual void										Release()								= 0;
 
 	};
-
-
 }

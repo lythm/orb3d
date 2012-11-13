@@ -1,5 +1,4 @@
-float4x4 mat:WORLDVIEWPROJ;
-
+float4x4 mat:MATRIX_WVP;
 //float3 dir = normalize(float3(1,-1, 1));
 
 Texture2D diff_tex;

@@ -48,6 +48,9 @@ namespace engine
 
 
 	class CoreApi;
+	class RenderSystem;
+
+	typedef boost::shared_ptr<RenderSystem>					RenderSystemPtr;
 	typedef boost::shared_ptr<CoreApi>						CoreApiPtr;
 
 }

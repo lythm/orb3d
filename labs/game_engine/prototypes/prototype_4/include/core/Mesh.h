@@ -33,6 +33,5 @@ namespace engine
 		void*										m_pVertexBuffer;
 
 	};
-
-
 }
+
