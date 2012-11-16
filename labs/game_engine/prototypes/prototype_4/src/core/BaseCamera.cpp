@@ -20,10 +20,7 @@ namespace engine
 	{
 		return m_projMatrix;
 	}
-	void BaseCamera::Update()
-	{
 
-	}
 	void BaseCamera::LookAtLH(const math::Vector3& eye, const math::Vector3 at, const math::Vector3& up)
 	{
 		m_viewMatrix = math::MatrixLookAtLH(eye, at, up);
@@ -39,5 +36,13 @@ namespace engine
 	void BaseCamera::PerspectiveFovRH(Real fov, Real aspect, Real zn, Real zf)
 	{
 		m_projMatrix = math::MatrixPerspectiveFovRH(fov, aspect, zn, zf);
+	}
+	void BaseCamera::SetViewMatrix(const math::Matrix44& view)
+	{
+		m_viewMatrix = view;
+	}
+	void BaseCamera::SetProjMatrix(const math::Matrix44& proj)
+	{
+		m_projMatrix = proj;
 	}
 }

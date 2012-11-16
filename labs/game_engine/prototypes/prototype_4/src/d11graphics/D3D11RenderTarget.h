@@ -21,6 +21,8 @@ namespace engine
 		void										Release();
 
 		void										Clear(const math::Color4& clr);
+
+		void										AttachDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
 	private:
 
 		ID3D11DeviceContext*						m_pContext;
@@ -28,5 +30,7 @@ namespace engine
 		ID3D11RenderTargetView*						m_pRenderTargetView;
 
 		TexturePtr									m_pTex;
+
+		DepthStencilBufferPtr						m_pDepthBuffer;
 	};
 }

@@ -15,10 +15,11 @@ namespace engine
 		void													PerspectiveFovLH(Real fov, Real aspect, Real zn, Real zf);
 		void													PerspectiveFovRH(Real fov, Real aspect, Real zn, Real zf);
 
-		virtual void											Update();
 		virtual const math::Matrix44&							GetViewMatrix() const;
 		virtual const math::Matrix44&							GetProjMatrix() const;
 
+		void													SetViewMatrix(const math::Matrix44& view);
+		void													SetProjMatrix(const math::Matrix44& proj);
 	private:
 		math::Matrix44											m_viewMatrix;
 		math::Matrix44											m_projMatrix;

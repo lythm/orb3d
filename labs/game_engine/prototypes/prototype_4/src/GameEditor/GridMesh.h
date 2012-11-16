@@ -11,7 +11,8 @@ public:
 	void									Release();
 
 	void									Render(engine::Sys_GraphicsPtr pSysGraphics);
-
+	engine::GFXPtr							GetGFX();
+	math::Matrix44							GetWorldMatrix();
 private:
 	
 	engine::GPUBufferPtr					m_pVB;

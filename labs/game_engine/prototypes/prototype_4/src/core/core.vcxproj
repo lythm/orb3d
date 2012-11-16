@@ -101,6 +101,7 @@
     <ClInclude Include="..\..\include\core\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\MeshData.h" />
     <ClInclude Include="..\..\include\core\MeshRenderer.h" />
+    <ClInclude Include="..\..\include\core\MultiRenderTarget.h" />
     <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderSystem.h" />

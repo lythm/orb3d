@@ -33,15 +33,6 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	m_pTex = m_pCore->GetSysGraphics()->CreateTextureFromFile("./15.png");
 
-	/*math::Vector3 verts[] = 
-	{
-		math::Vector3(0, 50, 0),
-		math::Vector3(50, 0, 0),
-		math::Vector3(0, 0, 0),
-	};
-*/
-
-
 	struct Vertex
 	{
 		math::Vector3			pos;
@@ -101,7 +92,7 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	m_pGFX->SetTextureByName("diff_tex", m_pTex);
 
-	m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(1024, 768, G_FORMAT_R8G8B8A8_UNORM, 0);
+	m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(1024, 768, G_FORMAT_R8G8B8A8_UNORM, 1);
 
 	m_pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(1024, 768, G_FORMAT_R16_TYPELESS, true);
 	return true;
@@ -146,7 +137,7 @@ bool Game::Update()
 	m_pCore->GetSysGraphics()->ClearFrameBuffer();
 
 	m_pDS->Clear(1, 0);
-	m_pRT->Clear(math::Color4(0, 0, 0, 1));
+	m_pRT->Clear(math::Color4(0.5, 0.5, 0, 0));
 	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT, m_pDS);
 
 	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);

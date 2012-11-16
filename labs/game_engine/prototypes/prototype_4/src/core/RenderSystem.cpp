@@ -2,11 +2,14 @@
 #include "..\..\include\core\RenderSystem.h"
 #include "core\RenderData.h"
 #include "core\Sys_Graphics.h"
+#include "core\GFX.h"
 
 namespace engine
 {
 	RenderSystem::RenderSystem(void)
 	{
+		m_viewMatrix.MakeIdentity();
+		m_projMatrix.MakeIdentity();
 	}
 
 
@@ -38,9 +41,30 @@ namespace engine
 
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
 		{
+			SetSemanticsValue(m_renderQueue[i]);
 			m_renderQueue[i]->Render(m_pGraphics);
 		}
 
 		m_pGraphics->Present();
+	}
+	void RenderSystem::SetViewMatrix(const math::Matrix44& view)
+	{
+		m_viewMatrix = view;
+	}
+	void RenderSystem::SetProjMatrix(const math::Matrix44& proj)
+	{
+		m_projMatrix = proj;
+	}
+	void RenderSystem::SetSemanticsValue(RenderDataPtr pData)
+	{
+		GFXPtr pGFX = pData->GetGFX();
+
+		math::Matrix44 world = pData->GetWorldMatrix();
+
+		pGFX->SetMatrixBySemantic("MATRIX_WORLD", world);
+		pGFX->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
+		pGFX->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
+		pGFX->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
+
 	}
 }

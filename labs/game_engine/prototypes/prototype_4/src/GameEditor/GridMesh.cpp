@@ -18,12 +18,8 @@ bool GridMesh::Init()
 	int size = 100;
 	int grid_size = 10;
 	
-
-	
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
-
 	
-
 	m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * ((size / grid_size + 1) * 4), NULL, true);
 
 	math::Vector3* pBuffer = (math::Vector3*)m_pVB->Map(MAP_DISCARD);
@@ -159,4 +155,15 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 
 	m_pGFX->EndPass();
 
+}
+engine::GFXPtr GridMesh::GetGFX()
+{
+	return m_pGFX;
+}
+math::Matrix44 GridMesh::GetWorldMatrix()
+{
+	math::Matrix44 mat;
+	mat.MakeIdentity();
+	return mat;
+	
 }
