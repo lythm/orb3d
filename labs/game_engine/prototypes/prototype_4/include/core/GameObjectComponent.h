@@ -16,6 +16,8 @@ namespace engine
 		const std::wstring&			GetName();
 
 		void						SetName(const std::wstring& name);
+
+		GameObjectPtr				GetGameObject();
 	private:
 		virtual void				OnAttach();
 		virtual void				OnDetach();

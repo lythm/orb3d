@@ -104,6 +104,9 @@ bool GridMesh::Init()
 
 	m_pGFX->SetVertexFormat(vf, 2);
 
+
+
+
 	return true;
 }
 void GridMesh::Release()
@@ -126,16 +129,6 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 	int line_count = (size / grid_size + 1) + (size / grid_size + 1) ;
 	int index_count = line_count * 2;
 
-	Matrix44 view, world, proj;
-
-	float aspect = float(AppContext::GetRTViewWidth()) / float(AppContext::GetRTViewHeight());
-
-	proj = MatrixPerspectiveFovLH(3.0f/ 4.0f * MATH_PI, aspect, 0.001, 10000000);
-	view = MatrixLookAtLH(Vector3(0, 50, -50), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	world.MakeIdentity();
-
-	m_pGFX->SetMatrixBySemantic("MATRIX_WVP", world * view * proj);
-		
 	pGraphics->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
 	pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 	pGraphics->SetPrimitiveType(PT_LINE_LIST);

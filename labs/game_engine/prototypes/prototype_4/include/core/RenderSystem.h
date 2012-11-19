@@ -3,7 +3,7 @@
 
 namespace engine
 {
-	class RenderSystem
+	class EXPORT_CLASS RenderSystem
 	{
 	public:
 		RenderSystem(void);

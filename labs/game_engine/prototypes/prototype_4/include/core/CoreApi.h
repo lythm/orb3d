@@ -21,6 +21,8 @@ namespace engine
 		void											Render();
 		void											AddRenderData(RenderDataPtr pData);
 		void											ClearRenderQueue();
+
+		RenderSystemPtr									GetRenderSystem();
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;

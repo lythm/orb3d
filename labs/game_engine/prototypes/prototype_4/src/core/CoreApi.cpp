@@ -115,4 +115,8 @@ namespace engine
 			m_pRenderSystem->Clear();
 		}
 	}
+	RenderSystemPtr	CoreApi::GetRenderSystem()
+	{
+		return m_pRenderSystem;
+	}
 }

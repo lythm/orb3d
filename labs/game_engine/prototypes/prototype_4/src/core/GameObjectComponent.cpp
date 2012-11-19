@@ -44,5 +44,9 @@ namespace engine
 	{
 		m_name = name;
 	}
+	GameObjectPtr GameObjectComponent::GetGameObject()
+	{
+		return m_pObject;
+	}
 }
 

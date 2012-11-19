@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_RBUTTONUP()
 	ON_WM_TIMER()
 	ON_WM_SIZE()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -127,6 +128,21 @@ void CGameEditorView::OnInitialUpdate()
 	m_pGrid->Init();
 
 
+	using namespace math;
+	using namespace engine;
+	Matrix44 view, world, proj;
+
+	float aspect = float(AppContext::GetRTViewWidth()) / float(AppContext::GetRTViewHeight());
+
+	proj = MatrixPerspectiveFovLH(3.0f/ 4.0f * MATH_PI, aspect, 0.001, 10000000);
+	view = MatrixLookAtLH(Vector3(0, 50, -50), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	world.MakeIdentity();
+
+	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
+
+	pRS->SetViewMatrix(view);
+	pRS->SetProjMatrix(proj);
+	
 	CView::OnInitialUpdate();
 
 	// TODO: 在此添加专用代码和/或调用基类
@@ -170,4 +186,12 @@ void CGameEditorView::OnSize(UINT nType, int cx, int cy)
 
 	AppContext::ResizeRTView(cx, cy);
 	// TODO: 在此处添加消息处理程序代码
+}
+
+
+void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CView::OnMouseMove(nFlags, point);
 }
