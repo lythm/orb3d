@@ -17,6 +17,8 @@ public:
 	static int									GetRTViewWidth();
 	static int									GetRTViewHeight();
 	static void									ResizeRTView(int cx, int cy);
+
+	static RendererPtr							GetRenderer();
 private:
 
 	static int									s_RTWidth;
@@ -24,5 +26,6 @@ private:
 
 	static engine::CoreApiPtr					s_pCore;
 	static engine::Sys_GraphicsPtr				s_pSysGraphics;
+	static RendererPtr							s_pRenderer;
 };
 

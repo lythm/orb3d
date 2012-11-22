@@ -67,11 +67,8 @@ void CGameEditorView::OnDraw(CDC* /*pDC*/)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
-	if(m_pRenderer)
-	{
-		m_pRenderer->Render();
-	}
+	Render();
+	
 	// TODO: 在此处为本机数据添加绘制代码
 }
 
@@ -115,12 +112,6 @@ CGameEditorDoc* CGameEditorView::GetDocument() const // 非调试版本是内联的
 
 void CGameEditorView::OnInitialUpdate()
 {
-
-	if(m_pRenderer)
-	{
-		m_pRenderer->Release();
-		m_pRenderer.reset();
-	}
 	AppContext::ReleaseContext();
 	CRect rc;
 	GetClientRect(rc);
@@ -130,17 +121,9 @@ void CGameEditorView::OnInitialUpdate()
 		return;
 	}
 
-	m_pRenderer = RendererPtr(new Renderer);
-	if(m_pRenderer->Initialize() == false)
-	{
-		AfxMessageBox(_T("Failed to init engine."), MB_OK | MB_ICONERROR);
-		return;
-	}
-	
 	SetTimer(0, 10, NULL);
+	Render();
 
-	m_pRenderer->Render();
-	
 	CView::OnInitialUpdate();
 	// TODO: 在此添加专用代码和/或调用基类
 }
@@ -150,10 +133,7 @@ void CGameEditorView::OnInitialUpdate()
 void CGameEditorView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	if(m_pRenderer)
-	{
-		m_pRenderer->Render();
-	}
+	Render();
 
 	CView::OnTimer(nIDEvent);
 }
@@ -183,6 +163,8 @@ void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
+	AppContext::GetRenderer()->OnMouseMove(nFlags, point);
+
 	CView::OnMouseMove(nFlags, point);
 }
 
@@ -197,14 +179,19 @@ void CGameEditorView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*
 
 void CGameEditorView::OnDestroy()
 {
-	if(m_pRenderer)
-	{
-		m_pRenderer->Release();
-		m_pRenderer.reset();
-	}
+	
 	AppContext::ReleaseContext();
 
 	CView::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
+}
+void CGameEditorView::Render()
+{
+	RendererPtr pRenderer = AppContext::GetRenderer();
+
+	if(pRenderer)
+	{
+		pRenderer->Render();
+	}
 }

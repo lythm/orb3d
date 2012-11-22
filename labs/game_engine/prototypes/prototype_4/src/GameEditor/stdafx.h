@@ -69,7 +69,12 @@
 class Project;
 class Renderer;
 class GridMesh;
+class EditorCamera;
 
+
+
+
+typedef boost::shared_ptr<EditorCamera>				EditorCameraPtr;
 typedef boost::shared_ptr<GridMesh>					GridMeshPtr;
 typedef boost::shared_ptr<Renderer>					RendererPtr;
 typedef boost::shared_ptr<Project>					ProjectPtr;

@@ -1,9 +1,11 @@
 #include "StdAfx.h"
 #include "AppContext.h"
+#include "Renderer.h"
 
 
 engine::CoreApiPtr					AppContext::s_pCore;
 engine::Sys_GraphicsPtr				AppContext::s_pSysGraphics;
+RendererPtr							AppContext::s_pRenderer;
 
 int									AppContext::s_RTWidth	= 0;
 int									AppContext::s_RTHeight	= 0;
@@ -33,6 +35,11 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 		return false;
 	}
 
+	s_pRenderer = RendererPtr(new Renderer);
+	if(s_pRenderer->Initialize(w, h) == false)
+	{
+		return false;
+	}
 	return true;
 }
 engine::Sys_GraphicsPtr AppContext::GetSysGraphics()
@@ -45,6 +52,12 @@ engine::Sys_GraphicsPtr AppContext::GetSysGraphics()
 }
 void AppContext::ReleaseContext()
 {
+	if(s_pRenderer)
+	{
+		s_pRenderer->Release();
+		s_pRenderer.reset();
+	}
+
 	if(s_pCore != NULL)
 	{
 		s_pCore->Release();
@@ -70,4 +83,8 @@ void	AppContext::ResizeRTView(int cx, int cy)
 {
 	s_RTWidth = cx;
 	s_RTHeight = cy;
+}
+RendererPtr AppContext::GetRenderer()
+{
+	return s_pRenderer;
 }

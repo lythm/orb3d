@@ -54,6 +54,8 @@ namespace math
 	void				MatrixDecompose(const Matrix44& m, Vector3& s, Quat& r, Vector3& t);
 	Matrix44			MatrixRotationQuat(const Quat& q);
 	Matrix44			MatrixRotationAxis(const Vector3& axis, Real rad);
+	Matrix44			MatrixIdentity();
+	
 	Quat				QuatRotationAxis(const Vector3& axis, Real rad);
 	Quat				QuatRotationMatrix(const Matrix44& m);
 
@@ -211,7 +213,13 @@ namespace math
 		ret(2, 2) = s.z;
 		return ret;
 	}
-
+	inline
+		Matrix44 MatrixIdentity()
+	{
+		Matrix44 ret;
+		ret.MakeIdentity();
+		return ret;
+	}
 	inline
 		Quat QuatRotationAxisX(Real rad)
 	{

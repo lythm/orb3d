@@ -35,11 +35,13 @@ ps_out ps_main(vs_out psin)
 RasterizerState rs
 {
 	CULLMODE = None;
+	FILLMODE=SOLID;
 };
 technique11 test
 {
   pass p1
   {
+	//rs.FILLMODE=wireframe;
 	SetRasterizerState(rs);
 	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 	SetPixelShader( CompileShader( ps_4_0, ps_main(  ) ) );
