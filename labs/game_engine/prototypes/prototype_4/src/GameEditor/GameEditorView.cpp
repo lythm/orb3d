@@ -16,6 +16,7 @@
 #include "AppContext.h"
 
 #include "GridMesh.h"
+#include "Renderer.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -32,6 +33,7 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_TIMER()
 	ON_WM_SIZE()
 	ON_WM_MOUSEMOVE()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -46,11 +48,7 @@ CGameEditorView::CGameEditorView()
 
 CGameEditorView::~CGameEditorView()
 {
-	if(m_pGrid)
-	{
-		m_pGrid->Release();
-		m_pGrid.reset();
-	}
+	
 }
 
 BOOL CGameEditorView::PreCreateWindow(CREATESTRUCT& cs)
@@ -70,6 +68,10 @@ void CGameEditorView::OnDraw(CDC* /*pDC*/)
 	if (!pDoc)
 		return;
 
+	if(m_pRenderer)
+	{
+		m_pRenderer->Render();
+	}
 	// TODO: 在此处为本机数据添加绘制代码
 }
 
@@ -113,57 +115,45 @@ CGameEditorDoc* CGameEditorView::GetDocument() const // 非调试版本是内联的
 
 void CGameEditorView::OnInitialUpdate()
 {
+
+	if(m_pRenderer)
+	{
+		m_pRenderer->Release();
+		m_pRenderer.reset();
+	}
+	AppContext::ReleaseContext();
 	CRect rc;
 	GetClientRect(rc);
 	if(false == AppContext::InitContext(m_hWnd, rc.right - rc.left, rc.bottom - rc.top))
 	{
 		AfxMessageBox(_T("Failed to init engine."), MB_OK | MB_ICONERROR);
+		return;
 	}
 
+	m_pRenderer = RendererPtr(new Renderer);
+	if(m_pRenderer->Initialize() == false)
+	{
+		AfxMessageBox(_T("Failed to init engine."), MB_OK | MB_ICONERROR);
+		return;
+	}
+	
+	SetTimer(0, 10, NULL);
 
-	this->SetTimer(0, 10, NULL);
-
-	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
-
-	m_pGrid->Init();
-
-
-	using namespace math;
-	using namespace engine;
-	Matrix44 view, world, proj;
-
-	float aspect = float(AppContext::GetRTViewWidth()) / float(AppContext::GetRTViewHeight());
-
-	proj = MatrixPerspectiveFovLH(3.0f/ 4.0f * MATH_PI, aspect, 0.001, 10000000);
-	view = MatrixLookAtLH(Vector3(0, 50, -50), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	world.MakeIdentity();
-
-	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
-
-	pRS->SetViewMatrix(view);
-	pRS->SetProjMatrix(proj);
+	m_pRenderer->Render();
 	
 	CView::OnInitialUpdate();
-
 	// TODO: 在此添加专用代码和/或调用基类
 }
-void CGameEditorView::Render()
-{
-	AppContext::GetCoreApi()->Update();
 
-	AppContext::GetCoreApi()->AddRenderData(m_pGrid);
-
-	AppContext::GetCoreApi()->Render();
-
-	AppContext::GetCoreApi()->ClearRenderQueue();
-
-}
 
 
 void CGameEditorView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	Render();
+	if(m_pRenderer)
+	{
+		m_pRenderer->Render();
+	}
 
 	CView::OnTimer(nIDEvent);
 }
@@ -194,4 +184,27 @@ void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
 	CView::OnMouseMove(nFlags, point);
+}
+
+
+void CGameEditorView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+
+}
+
+
+void CGameEditorView::OnDestroy()
+{
+	if(m_pRenderer)
+	{
+		m_pRenderer->Release();
+		m_pRenderer.reset();
+	}
+	AppContext::ReleaseContext();
+
+	CView::OnDestroy();
+
+	// TODO: 在此处添加消息处理程序代码
 }

@@ -21,7 +21,7 @@
 #include "core\Sys_Graphics.h"
 #include "core\Sys_Sound.h"
 
-
+#include "core\BaseCamera.h"
 #include "core\Texture.h"
 
 #include "core\GFX.h"

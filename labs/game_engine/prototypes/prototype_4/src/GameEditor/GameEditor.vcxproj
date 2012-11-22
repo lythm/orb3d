@@ -105,7 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppContext.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="GameEditor.h" />
     <ClInclude Include="GameEditorDoc.h" />
@@ -113,15 +115,20 @@
     <ClInclude Include="GridMesh.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
+    <ClInclude Include="Project.h" />
     <ClInclude Include="PropertiesWnd.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ViewTree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppContext.cpp" />
+    <ClCompile Include="Assets.cpp" />
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="GameEditor.cpp" />
     <ClCompile Include="GameEditorDoc.cpp" />
@@ -129,7 +136,10 @@
     <ClCompile Include="GridMesh.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
+    <ClCompile Include="Project.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

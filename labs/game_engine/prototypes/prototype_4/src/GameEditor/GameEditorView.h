@@ -21,10 +21,14 @@ public:
 
 // 重写
 public:
+
+	
+
 	virtual void OnDraw(CDC* pDC);  // 重写以绘制该视图
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
 
+	RendererPtr								m_pRenderer;
 // 实现
 public:
 	virtual ~CGameEditorView();
@@ -44,18 +48,16 @@ protected:
 public:
 	virtual void OnInitialUpdate();
 
-
-
 private:
-	void								Render();
-
-
+	
 private:
-	boost::shared_ptr<GridMesh>			m_pGrid;
+	
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
+	afx_msg void OnDestroy();
 };
 
 #ifndef _DEBUG  // GameEditorView.cpp 中的调试版本

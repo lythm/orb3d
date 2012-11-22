@@ -256,4 +256,28 @@ namespace math
 
 		XMStoreFloat4((XMFLOAT4*)&r, _r);
 	}
+
+	inline
+		Ray	UnProject(int x, int y, int vw, int vh, const Matrix44& worldTM, const Matrix44& ViewTM, const Matrix44& ProjTM)
+	{
+		Vector3 v;
+		v.x = -( ( ( 2.0f * x ) / vw  ) - 1 ) / ProjTM(0,0);
+		v.y = ( ( ( 2.0f * y ) / vh ) - 1 ) / ProjTM(1,1);
+		v.z =  -1.0f;
+
+
+		math::Matrix44 m = worldTM * ViewTM;
+		m.Invert();
+
+		Ray r;
+		// Transform the screen space pick ray into 3D space
+		r.d.x  = -(v.x*m(0,0) + v.y*m(1,0) + v.z*m(2,0));
+		r.d.y  = -(v.x*m(0,1) + v.y*m(1,1) + v.z*m(2,1));
+		r.d.z  = -(v.x*m(0,2) + v.y*m(1,2) + v.z*m(2,2));
+		r.o.x = m(3,0);
+		r.o.y = m(3,1);
+		r.o.z = m(3,2);
+
+		return r;
+	}
 }

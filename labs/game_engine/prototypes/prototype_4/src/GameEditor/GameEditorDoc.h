@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "Project.h"
 
 class CGameEditorDoc : public CDocument
 {
@@ -26,7 +27,7 @@ public:
 	virtual void InitializeSearchContent();
 	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
 #endif // SHARED_HANDLERS
-
+	ProjectPtr									m_pProject;
 // 实现
 public:
 	virtual ~CGameEditorDoc();
@@ -45,4 +46,7 @@ protected:
 	// 用于为搜索处理程序设置搜索内容的 Helper 函数
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
+	virtual BOOL OnSaveDocument(LPCTSTR lpszPathName);
 };

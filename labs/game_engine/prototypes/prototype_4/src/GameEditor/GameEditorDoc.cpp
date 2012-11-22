@@ -45,6 +45,19 @@ BOOL CGameEditorDoc::OnNewDocument()
 	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)
 
+	if(m_pProject)
+	{
+		m_pProject->Release();
+	}
+
+	m_pProject = ProjectPtr(new Project);
+
+	if(m_pProject->New(_T("未命名")) == false)
+	{
+		return FALSE;
+	}
+
+	UpdateAllViews(NULL);
 	return TRUE;
 }
 
@@ -135,3 +148,23 @@ void CGameEditorDoc::Dump(CDumpContext& dc) const
 
 
 // CGameEditorDoc 命令
+
+
+BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	if (!CDocument::OnOpenDocument(lpszPathName))
+		return FALSE;
+
+
+
+
+	return TRUE;
+}
+
+
+BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	return CDocument::OnSaveDocument(lpszPathName);
+}

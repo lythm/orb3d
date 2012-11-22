@@ -31,6 +31,4 @@ namespace engine
 
 		RenderSystemPtr									m_pRenderSystem;
 	};
-
-
 }

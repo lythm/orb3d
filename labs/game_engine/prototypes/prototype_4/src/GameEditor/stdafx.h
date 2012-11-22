@@ -56,9 +56,20 @@
 #endif
 #endif
 
-
+#include <string>
 
 #include "types\dllexport.h"
 #include "types\types.h"
 
 #include "core\core_all.h"
+
+
+
+
+class Project;
+class Renderer;
+class GridMesh;
+
+typedef boost::shared_ptr<GridMesh>					GridMeshPtr;
+typedef boost::shared_ptr<Renderer>					RendererPtr;
+typedef boost::shared_ptr<Project>					ProjectPtr;

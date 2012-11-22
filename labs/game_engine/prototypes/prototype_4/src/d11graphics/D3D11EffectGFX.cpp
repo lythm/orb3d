@@ -185,34 +185,64 @@ namespace engine
 
 	void D3D11EffectGFX::SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat)
 	{
-		m_pEffect->GetVariableBySemantic(szSemantic)->AsMatrix()->SetMatrix(mat.m);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szSemantic);
+		
+		if(pVal)
+		{
+			pVal->AsMatrix()->SetMatrix(mat.m);
+		}
 	}
 	void D3D11EffectGFX::SetTextureBySemantic(const char* szName, TexturePtr pTex)
 	{
 		ID3D11ShaderResourceView* pView = NULL;
 
 		pView = ((D3D11Texture*)pTex.get())->GetShaderResourceView();
-		m_pEffect->GetVariableBySemantic(szName)->AsShaderResource()->SetResource(pView);
+
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsShaderResource()->SetResource(pView);
+		}
 	}
 	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector3& v)
 	{
-		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloatArray(v.v, 0, 3);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsScalar()->SetFloatArray(v.v, 0, 3);
+		}
 	}
 	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector4& v)
 	{
-		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloatArray(v.v, 0, 4);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsScalar()->SetFloatArray(v.v, 0, 4);
+		}
 	}
 	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector2& v)
 	{
-		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloatArray(v.v, 0, 2);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsScalar()->SetFloatArray(v.v, 0, 2);
+		}
 	}
 	void D3D11EffectGFX::SetFloatBySemantic(const char* szName, float v)
 	{
-		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetFloat(v);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsScalar()->SetFloat(v);
+		}
 	}
 	void D3D11EffectGFX::SetIntBySemantic(const char* szName, int v)
 	{
-		m_pEffect->GetVariableBySemantic(szName)->AsScalar()->SetInt(v);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsScalar()->SetInt(v);
+		}
 	}
 
 	bool D3D11EffectGFX::SetVertexFormat(VertexElement format[], uint32 nElem)

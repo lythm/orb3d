@@ -149,7 +149,7 @@ int CGameEditorApp::ExitInstance()
 	//TODO: 处理可能已添加的附加资源
 	AfxOleTerm(FALSE);
 
-	AppContext::ReleaseContext();
+	
 	return CWinAppEx::ExitInstance();
 }
 

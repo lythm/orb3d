@@ -60,6 +60,21 @@
     <ClInclude Include="GridMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="EditorCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Project.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -96,6 +111,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GridMesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Project.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

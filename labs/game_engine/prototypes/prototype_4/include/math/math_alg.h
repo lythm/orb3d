@@ -68,6 +68,8 @@ namespace math
 	Vector4				Cross(const Vector4& v1, const Vector4& v2, const Vector4& v3);
 
 	bool				TriAABBoxIntersectTest(const Vector3& a, const Vector3& b, const Vector3& c, const AABBox& aabb);
+
+	Ray					UnProject(int x, int y, int vw, int vh, const Matrix44& worldTM, const Matrix44& ViewTM, const Matrix44& ProjTM);
 }
 
 // inline declaration

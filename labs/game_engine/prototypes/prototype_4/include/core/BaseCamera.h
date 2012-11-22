@@ -2,7 +2,7 @@
 
 namespace engine
 {
-	class BaseCamera
+	class EXPORT_CLASS BaseCamera
 	{
 	public:
 		BaseCamera(void);
