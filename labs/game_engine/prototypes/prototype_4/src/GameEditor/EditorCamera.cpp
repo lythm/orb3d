@@ -155,32 +155,22 @@ void EditorCamera::Rotate(int dx, int dy)
 
 	Vector3 e = GetEyePos();
 	Vector3 axis_x = GetAxisX();
-	Vector3 axis_z = GetAxisZ();
-	
+	Vector3 axis_y = GetAxisY();
+
 	Vector3 t = IntersectXZPlane();
 
-	Real el = (e - t).Length();
-
-	float factor = RotationFactor() * 0.001;
-
+	float factor = 0.5 / 108.0f;
 	e = e - t;
-
 	Matrix44 rot = MatrixRotationAxisY(dx * factor);
 
 	rot = MatrixRotationAxis(axis_x, dy * factor) * rot;
 
 	TransformCoord(e, rot);
 
-
-	Vector3 tmp = -e;
-	tmp.Normalize();
-
-	TransformNormal(axis_x, MatrixRotationAxisY(dx * factor));
-
-	Vector3 axis_y = Cross(tmp, axis_x);
-
 	e += t;
 	
+	TransformNormal(axis_y, rot);
+
 	LookAtLH(e, t, axis_y);
 }
 void EditorCamera::Move(int dx, int dy)
@@ -222,7 +212,7 @@ void EditorCamera::MoveAlignYZ(int dx, int dy)
 	TransformCoord(e, view);
 	view.Invert();
 
-	Vector3 p(-dx * 0.1, dy * 0.1, 0);
+	Vector3 p(-dx * 0.5, dy * 0.5, 0);
 
 	t += p;
 	e += p;
@@ -232,17 +222,7 @@ void EditorCamera::MoveAlignYZ(int dx, int dy)
 
 	LookAtLH(e, t, Vector3(0, 1, 0));
 }
-float EditorCamera::RotationFactor()
-{
-	using namespace math;
 
-	Vector3 e = GetEyePos();
-	Vector3 t = IntersectXZPlane();
-
-	Real el = (e - t).Length();
-
-	return log(el);
-}
 
 void EditorCamera::OnMouseRButtonDown(UINT nFlags, CPoint point)
 {

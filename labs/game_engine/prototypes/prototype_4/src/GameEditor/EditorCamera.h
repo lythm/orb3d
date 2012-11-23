@@ -22,7 +22,7 @@ public:
 
 	void				SetViewPort(int cx, int cy);
 private:
-	float				RotationFactor();
+	
 	void				Rotate(int dx, int dy);
 	void				Move(int dx, int dy);
 	void				Zoom(int d);
