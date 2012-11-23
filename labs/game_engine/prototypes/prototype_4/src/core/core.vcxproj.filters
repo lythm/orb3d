@@ -120,6 +120,9 @@
     <ClInclude Include="..\..\include\core\MultiRenderTarget.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\ArcBall.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_pch.cpp">
@@ -177,6 +180,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BaseCamera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ArcBall.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

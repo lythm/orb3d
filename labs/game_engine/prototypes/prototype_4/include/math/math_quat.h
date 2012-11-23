@@ -20,7 +20,7 @@ namespace math
 
 
 		Real				Length() const;
-		void				SetIdentity();
+		void				MakeIdentity();
 		bool				IsIdentity() const;
 		void				Conjugate();
 		void				Invert();
@@ -62,7 +62,7 @@ namespace math
 		w = w;
 	}
 	inline
-		void Quat::SetIdentity()
+		void Quat::MakeIdentity()
 	{
 		x = y = z = 0;
 		w = 1;

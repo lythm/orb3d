@@ -11,12 +11,12 @@ GridMesh::GridMesh(void)
 GridMesh::~GridMesh(void)
 {
 }
-bool GridMesh::Init()
+bool GridMesh::Init(int size, int grid_size)
 {
 	using namespace engine;
 
-	int size = 100;
-	int grid_size = 10;
+	m_size = size;
+	m_gridSize = grid_size;
 	
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 	
@@ -123,8 +123,8 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 	using namespace math;
 
 
-	int size = 100;
-	int grid_size = 10;
+	int size = m_size;
+	int grid_size = m_gridSize;
 
 	int line_count = (size / grid_size + 1) + (size / grid_size + 1) ;
 	int index_count = line_count * 2;

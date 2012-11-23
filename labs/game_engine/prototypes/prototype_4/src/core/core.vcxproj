@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
     <ClInclude Include="..\..\include\core\Behavior.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="WMInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArcBall.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />

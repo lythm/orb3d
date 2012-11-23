@@ -34,6 +34,9 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_SIZE()
 	ON_WM_MOUSEMOVE()
 	ON_WM_DESTROY()
+	ON_WM_MOUSEHWHEEL()
+	ON_WM_MOUSEWHEEL()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -72,10 +75,19 @@ void CGameEditorView::OnDraw(CDC* /*pDC*/)
 	// TODO: 在此处为本机数据添加绘制代码
 }
 
-void CGameEditorView::OnRButtonUp(UINT /* nFlags */, CPoint point)
+void CGameEditorView::OnRButtonUp(UINT nFlags , CPoint point)
 {
+
+	RendererPtr pRenderer = AppContext::GetRenderer();
+
+	if(pRenderer)
+	{
+		pRenderer->OnMouseRButtonUp(nFlags, point);
+	}
+
+
 	ClientToScreen(&point);
-	OnContextMenu(this, point);
+	//OnContextMenu(this, point);
 }
 
 void CGameEditorView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
@@ -194,4 +206,43 @@ void CGameEditorView::Render()
 	{
 		pRenderer->Render();
 	}
+}
+
+void CGameEditorView::OnMouseHWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	// 此功能要求 Windows Vista 或更高版本。
+	// _WIN32_WINNT 符号必须 >= 0x0600。
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+
+
+	CView::OnMouseHWheel(nFlags, zDelta, pt);
+}
+
+
+BOOL CGameEditorView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	RendererPtr pRenderer = AppContext::GetRenderer();
+
+	if(pRenderer)
+	{
+		pRenderer->OnMouseWheel(nFlags, zDelta, pt);
+	}
+	return CView::OnMouseWheel(nFlags, zDelta, pt);
+}
+
+
+void CGameEditorView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	RendererPtr pRenderer = AppContext::GetRenderer();
+
+	if(pRenderer)
+	{
+		pRenderer->OnMouseRButtonDown(nFlags, point);
+	}
+
+	CView::OnRButtonDown(nFlags, point);
 }

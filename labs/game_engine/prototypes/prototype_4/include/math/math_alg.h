@@ -58,6 +58,7 @@ namespace math
 	
 	Quat				QuatRotationAxis(const Vector3& axis, Real rad);
 	Quat				QuatRotationMatrix(const Matrix44& m);
+	Quat				QuatIdentity();
 
 	void				Transform(Vector4& v, const Matrix44& t);
 	void				TransformCoord(Vector2& v, const Matrix44& t);
@@ -219,6 +220,14 @@ namespace math
 		Matrix44 ret;
 		ret.MakeIdentity();
 		return ret;
+	}
+
+	inline
+		Quat QuatIdentity()
+	{
+		Quat q;
+		q.MakeIdentity();
+		return q;
 	}
 	inline
 		Quat QuatRotationAxisX(Real rad)

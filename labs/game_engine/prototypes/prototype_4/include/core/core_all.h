@@ -14,7 +14,7 @@
 #include "core\GameObjectComponent.h"
 #include "core\GameObjectManager.h"
 #include "core\MeshRenderer.h"
-
+#include "core\ArcBall.h"
 
 #include "core\SysManager.h"
 #include "core\Sys_Input.h"
