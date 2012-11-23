@@ -23,7 +23,7 @@ void EditorCamera::Update()
 	pRS->SetViewMatrix(GetViewMatrix());
 	pRS->SetProjMatrix(GetProjMatrix());
 
-	math::Vector3 t = IntersectXZPlane();
+	
 	return;
 }
 math::Vector3 EditorCamera::GetEyePos()
@@ -80,7 +80,25 @@ void EditorCamera::OnMouseMove(UINT nFlags, CPoint point)
 
 	if(MK_RBUTTON & nFlags)
 	{
-		m_arcBall.Move(point.x, point.y);
+		/*m_arcBall.Move(point.x, point.y);
+
+		math::Matrix44 r = m_arcBall.GetRotationMatrix();
+		
+		r.Invert();
+
+		float d = 150;
+		Vector3 eye(0, 0, -d);
+		TransformCoord(eye, r);
+
+		Vector3 up(0, 1, 0);
+		TransformNormal(up, r);
+
+		up.x = 0;
+		up.Normalize();
+
+		LookAtLH(eye, Vector3(0, 0, 0), up);*/
+
+		/*m_arcBall.Move(point.x, point.y);
 
 		math::Matrix44 r = m_arcBall.GetRotationMatrix();
 		
@@ -91,8 +109,8 @@ void EditorCamera::OnMouseMove(UINT nFlags, CPoint point)
 		SetViewMatrix(view);
 
 		m_lastRotInvert = r;
-		m_lastRotInvert.Invert();
-		//Rotate(delta.x, delta.y);
+		m_lastRotInvert.Invert();*/
+		Rotate(delta.x, delta.y);
 	}
 	if(MK_MBUTTON & nFlags)
 	{
@@ -138,25 +156,32 @@ void EditorCamera::Rotate(int dx, int dy)
 	Vector3 e = GetEyePos();
 	Vector3 axis_x = GetAxisX();
 	Vector3 axis_z = GetAxisZ();
-	Vector3 axis_y = GetAxisY();
-
+	
 	Vector3 t = IntersectXZPlane();
 
 	Real el = (e - t).Length();
 
-	float factor = RotationFactor();
+	float factor = RotationFactor() * 0.001;
 
 	e = e - t;
 
-	Matrix44 rot = MatrixRotationAxis(axis_y, dx * factor);
+	Matrix44 rot = MatrixRotationAxisY(dx * factor);
 
-	rot = rot * MatrixRotationAxis(axis_x, dy * factor);
+	rot = MatrixRotationAxis(axis_x, dy * factor) * rot;
 
 	TransformCoord(e, rot);
 
-	e += t;
 
-	LookAtLH(e, t, Vector3(0, 1, 0));
+	Vector3 tmp = -e;
+	tmp.Normalize();
+
+	TransformNormal(axis_x, MatrixRotationAxisY(dx * factor));
+
+	Vector3 axis_y = Cross(tmp, axis_x);
+
+	e += t;
+	
+	LookAtLH(e, t, axis_y);
 }
 void EditorCamera::Move(int dx, int dy)
 {
@@ -226,4 +251,13 @@ void EditorCamera::OnMouseRButtonDown(UINT nFlags, CPoint point)
 void EditorCamera::OnMouseRButtonUp(UINT nFlags, CPoint point)
 {
 	m_arcBall.End();
+}
+
+void EditorCamera::Init()
+{
+	using namespace math;
+
+	LookAtLH(Vector3(0, 150, -150), Vector3(0, 0, 0), Vector3(0, 1, 0));
+
+	m_startViewMatrix = GetViewMatrix();
 }

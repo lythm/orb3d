@@ -6,6 +6,7 @@ public:
 	EditorCamera(void);
 	virtual ~EditorCamera(void);
 
+	void				Init();
 	void				Update();
 
 	math::Vector3		GetEyePos();
@@ -33,6 +34,8 @@ private:
 
 	math::Matrix44		m_lastRotInvert;
 	engine::ArcBall		m_arcBall;
+
+	math::Matrix44		m_startViewMatrix;
 
 };
 

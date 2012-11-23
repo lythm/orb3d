@@ -57,8 +57,11 @@ namespace engine
 		else
 			z = sqrtf( 1.0f - mag );
 
-		// Return vector
-		return Vector3( x, y, z );
+		Vector3 v(x, y, z);
+		v.Normalize();
+
+		return v;
+
 	}
 
 	void ArcBall::Begin(int x, int y)
@@ -88,39 +91,13 @@ namespace engine
 	{
 		using namespace math;
 
+		
 		Vector3 vCross;
 		float dot = Dot(from, to);
 		vCross = Cross(from, to);
 
 		Quat q (vCross.x, vCross.y, vCross.z, dot);
-
-		Vector3 f, t;
-
-		f = from;
-		t = to;
-
-		f.z = 0;
-		f.Normalize();
-		t.z = 0;
-		t.Normalize();
-
-		dot = Dot(f, t);
-		vCross = Cross(f, t);
-
-		Quat qi(vCross.x, vCross.y, vCross.z, dot);
-		qi.Invert();
-
 		return q;
-
-
-
-		/*
-		Vector3 vCross;
-		float dot = Dot(from, to);
-		vCross = Cross(from, to);
-
-		Quat q (vCross.x, vCross.y, vCross.z, dot);
-		return q;*/
 
 		
 	}

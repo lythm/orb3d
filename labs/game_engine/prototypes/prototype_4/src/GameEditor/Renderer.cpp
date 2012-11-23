@@ -29,10 +29,18 @@ bool Renderer::Initialize(int vpw, int vph)
 
 	ResetViewPort(vpw, vph);
 
-	m_pCamera->LookAtLH(Vector3(0, 150, -150), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	m_pCamera->Init();
+
+	
 	
 	m_pCamera->Update();
 	
+
+	Matrix44 mat = m_pCamera->GetViewMatrix();
+
+	Matrix44 invmat = mat;
+	invmat.Invert();
+
 	return true;
 }
 void Renderer::ResetViewPort(int vpw, int vph)
