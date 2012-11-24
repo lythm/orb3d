@@ -46,7 +46,7 @@ CGameEditorView::CGameEditorView()
 	// TODO: 在此处添加构造代码
 
 //	m_pGrid = NULL;
-
+	m_bRotating = false;
 }
 
 CGameEditorView::~CGameEditorView()
@@ -85,9 +85,13 @@ void CGameEditorView::OnRButtonUp(UINT nFlags , CPoint point)
 		pRenderer->OnMouseRButtonUp(nFlags, point);
 	}
 
+	if(m_bRotating == false)
+	{
+		ClientToScreen(&point);
+		OnContextMenu(this, point);
+	}
 
-	ClientToScreen(&point);
-	//OnContextMenu(this, point);
+	m_bRotating = false;
 }
 
 void CGameEditorView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
@@ -175,6 +179,11 @@ void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
+	if(nFlags& MK_RBUTTON)
+	{
+		m_bRotating = true;
+	}
+	
 	AppContext::GetRenderer()->OnMouseMove(nFlags, point);
 
 	CView::OnMouseMove(nFlags, point);

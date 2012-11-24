@@ -51,6 +51,7 @@ public:
 
 private:
 	
+	bool			m_bRotating;
 private:
 	
 public:

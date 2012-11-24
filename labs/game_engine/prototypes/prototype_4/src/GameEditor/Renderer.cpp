@@ -15,42 +15,26 @@ Renderer::~Renderer(void)
 }
 bool Renderer::Initialize(int vpw, int vph)
 {
+	using namespace math;
+	using namespace engine;
+
 	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
 
 	if(false == m_pGrid->Init(300, 10))
 	{
 		return false;
 	}
-
-	using namespace math;
-	using namespace engine;
-
 	m_pCamera = EditorCameraPtr(new EditorCamera);
-
 	ResetViewPort(vpw, vph);
 
 	m_pCamera->Init();
-
-	
-	
 	m_pCamera->Update();
 	
-
-	Matrix44 mat = m_pCamera->GetViewMatrix();
-
-	Matrix44 invmat = mat;
-	invmat.Invert();
-
 	return true;
 }
 void Renderer::ResetViewPort(int vpw, int vph)
 {
 	m_pCamera->SetViewPort(vpw, vph);
-
-	using namespace math;
-	using namespace engine;
-	float aspect = vpw /vph;
-	m_pCamera->PerspectiveFovLH(1.0f/ 4.0f * MATH_PI, aspect, 0.001, 10000000);
 
 }
 void Renderer::Release()

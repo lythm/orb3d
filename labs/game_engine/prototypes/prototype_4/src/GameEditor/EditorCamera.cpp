@@ -8,7 +8,6 @@ EditorCamera::EditorCamera(void)
 	m_vpw				= 800;
 	m_vph				= 600;
 
-	m_lastRotInvert.MakeIdentity();
 }
 
 
@@ -23,7 +22,6 @@ void EditorCamera::Update()
 	pRS->SetViewMatrix(GetViewMatrix());
 	pRS->SetProjMatrix(GetProjMatrix());
 
-	
 	return;
 }
 math::Vector3 EditorCamera::GetEyePos()
@@ -61,62 +59,18 @@ math::Vector3 EditorCamera::GetAxisY()
 }
 void EditorCamera::OnMouseMove(UINT nFlags, CPoint point)
 {
-
-
-
 	using namespace math;
-
-
-	//
-	/*if(MK_RBUTTON & nFlags)
-	{
-
-
-	MeshRenderer::instance()->mouseMoveCam(delta.x, delta.y);
-	}*/
 
 	static CPoint lastpt = point;
 	CPoint delta = point - lastpt;
 
-	if(MK_RBUTTON & nFlags)
+	if(MK_RBUTTON & nFlags && MK_CONTROL & nFlags)
 	{
-		/*m_arcBall.Move(point.x, point.y);
-
-		math::Matrix44 r = m_arcBall.GetRotationMatrix();
-		
-		r.Invert();
-
-		float d = 150;
-		Vector3 eye(0, 0, -d);
-		TransformCoord(eye, r);
-
-		Vector3 up(0, 1, 0);
-		TransformNormal(up, r);
-
-		up.x = 0;
-		up.Normalize();
-
-		LookAtLH(eye, Vector3(0, 0, 0), up);*/
-
-		/*m_arcBall.Move(point.x, point.y);
-
-		math::Matrix44 r = m_arcBall.GetRotationMatrix();
-		
-		math::Matrix44 view = GetViewMatrix();
-
-		view = r * (m_lastRotInvert * view) ;
-
-		SetViewMatrix(view);
-
-		m_lastRotInvert = r;
-		m_lastRotInvert.Invert();*/
 		Rotate(delta.x, delta.y);
 	}
 	if(MK_MBUTTON & nFlags)
 	{
-
-		MoveAlignYZ(delta.x, delta.y);
-
+		Move(delta.x, delta.y);
 	}
 	lastpt = point;
 }
@@ -145,8 +99,7 @@ void EditorCamera::SetViewPort(int cx, int cy)
 	m_vpw = cx;
 	m_vph = cy;
 	float aspect = float(m_vpw) / float(m_vph);
-	m_arcBall.SetViewPort(cx, cy);
-	PerspectiveFovLH(1.0f/ 4.0f * MATH_PI, aspect, 0.001, 10000000);
+	PerspectiveFovLH(1.0f/ 4.0f * MATH_PI, aspect, 0.001f, 10000000);
 
 }
 void EditorCamera::Rotate(int dx, int dy)
@@ -159,7 +112,7 @@ void EditorCamera::Rotate(int dx, int dy)
 
 	Vector3 t = IntersectXZPlane();
 
-	float factor = 0.5 / 108.0f;
+	float factor = 0.5f / 108.0f;
 	e = e - t;
 	Matrix44 rot = MatrixRotationAxisY(dx * factor);
 
@@ -173,23 +126,24 @@ void EditorCamera::Rotate(int dx, int dy)
 
 	LookAtLH(e, t, axis_y);
 }
-void EditorCamera::Move(int dx, int dy)
-{
-}
+
 void EditorCamera::Zoom(int d)
 {
 	using namespace math;
 
 	Vector3 e = GetEyePos();
-
 	Vector3 t = IntersectXZPlane();
+	Vector3 up = GetAxisY();
 
 	Vector3 v = e - t;
+	
 	Real l = v.Length();
 
-	l -= d * l * 0.001;
+	Real offset = d /120.0f * l * 0.2f;
 
-	l = l <= 0.1 ? 0.1 : l;
+	l -= offset;
+
+	l = l <= 1.0f ? 1.0f : l;
 
 	v.Normalize();
 
@@ -197,9 +151,10 @@ void EditorCamera::Zoom(int d)
 
 	e = t + v;
 
-	LookAtLH(e, t, Vector3(0, 1, 0));
+	LookAtLH(e, t, up);
+
 }
-void EditorCamera::MoveAlignYZ(int dx, int dy)
+void EditorCamera::Move(int dx, int dy)
 {
 	using namespace math;
 
@@ -212,7 +167,7 @@ void EditorCamera::MoveAlignYZ(int dx, int dy)
 	TransformCoord(e, view);
 	view.Invert();
 
-	Vector3 p(-dx * 0.5, dy * 0.5, 0);
+	Vector3 p(-dx * 0.5f, dy * 0.5f, 0);
 
 	t += p;
 	e += p;
@@ -226,11 +181,11 @@ void EditorCamera::MoveAlignYZ(int dx, int dy)
 
 void EditorCamera::OnMouseRButtonDown(UINT nFlags, CPoint point)
 {
-	m_arcBall.Begin(point.x, point.y);
+
 }
 void EditorCamera::OnMouseRButtonUp(UINT nFlags, CPoint point)
 {
-	m_arcBall.End();
+
 }
 
 void EditorCamera::Init()
@@ -239,5 +194,10 @@ void EditorCamera::Init()
 
 	LookAtLH(Vector3(0, 150, -150), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
-	m_startViewMatrix = GetViewMatrix();
+}
+math::Ray EditorCamera::PickRay(int x, int y)
+{
+	using namespace math;
+
+	return UnProject(x, y, m_vpw, m_vph, MatrixIdentity(), GetViewMatrix(), GetProjMatrix());
 }

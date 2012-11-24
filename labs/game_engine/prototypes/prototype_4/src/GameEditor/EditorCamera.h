@@ -18,24 +18,19 @@ public:
 	void				OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void				OnMouseRButtonDown(UINT nFlags, CPoint point);
 	void				OnMouseRButtonUp(UINT nFlags, CPoint point);
-
-
+	
 	void				SetViewPort(int cx, int cy);
+
+	math::Ray			PickRay(int x, int y);
 private:
 	
 	void				Rotate(int dx, int dy);
-	void				Move(int dx, int dy);
 	void				Zoom(int d);
-	void				MoveAlignYZ(int dx, int dy);
+	void				Move(int dx, int dy);
 private:
 
 	int					m_vpw;
 	int					m_vph;
-
-	math::Matrix44		m_lastRotInvert;
-	engine::ArcBall		m_arcBall;
-
-	math::Matrix44		m_startViewMatrix;
 
 };
 
