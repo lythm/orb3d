@@ -1,5 +1,6 @@
 #pragma once
 
+class CMainFrame;
 
 class AppContext
 {
@@ -19,6 +20,8 @@ public:
 	static void									ResizeRTView(int cx, int cy);
 
 	static RendererPtr							GetRenderer();
+
+	static CMainFrame*							GetMainFrame();
 private:
 
 	static int									s_RTWidth;

@@ -7,7 +7,7 @@ namespace engine
 {
 	GameObjectManager::GameObjectManager(void)
 	{
-		m_pRoot = GameObjectPtr(new GameObject);
+		m_pRoot = GameObjectPtr(new GameObject(L"_root"));
 	}
 
 	GameObjectManager::~GameObjectManager(void)
@@ -38,11 +38,28 @@ namespace engine
 			m_pRoot.reset();
 		}
 	}
-	GameObjectComponentPtr GameObjectManager::CreateObjectComponent(const std::wstring& name)
+	GameObjectComponentPtr GameObjectManager::CreateObjectComponent(const std::string& name)
 	{
 		return GameObjectComponentPtr();
 	}
 	void GameObjectManager::RegisterObjectComponent()
+	{
+
+	}
+	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
+	{
+		GameObjectPtr pObj = GameObjectPtr(new GameObject(name));
+		pObj->LinkTo(m_pRoot);
+		return pObj;
+	}
+	void GameObjectManager::WalkObjectTree()
+	{
+		if(m_pRoot == NULL)
+		{
+			return;
+		}
+	}
+	void GameObjectManager::_tree_walk(GameObject* pObj)
 	{
 
 	}

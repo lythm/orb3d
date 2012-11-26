@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "AppContext.h"
 #include "Renderer.h"
-
+#include "MainFrm.h"
 
 engine::CoreApiPtr					AppContext::s_pCore;
 engine::Sys_GraphicsPtr				AppContext::s_pSysGraphics;
@@ -92,4 +92,8 @@ void	AppContext::ResizeRTView(int cx, int cy)
 RendererPtr AppContext::GetRenderer()
 {
 	return s_pRenderer;
+}
+CMainFrame* AppContext::GetMainFrame()
+{
+	return (CMainFrame*)AfxGetMainWnd();
 }

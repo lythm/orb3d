@@ -79,3 +79,7 @@ void Renderer::OnMouseRButtonUp(UINT nFlags, CPoint point)
 {
 	m_pCamera->OnMouseRButtonUp(nFlags, point);
 }
+void Renderer::CreateGridMesh()
+{
+
+}

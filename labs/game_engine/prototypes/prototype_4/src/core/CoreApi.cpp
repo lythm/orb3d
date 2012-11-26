@@ -119,4 +119,12 @@ namespace engine
 	{
 		return m_pRenderSystem;
 	}
+	GameObjectPtr CoreApi::CreateGameObject(const std::wstring& name)
+	{
+		return m_pObjectManager->CreateGameObject(name);
+	}
+	GameObjectPtr CoreApi::GetRoot()
+	{
+		return m_pObjectManager->GetRoot();
+	}
 }

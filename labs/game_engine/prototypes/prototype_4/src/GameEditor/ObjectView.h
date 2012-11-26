@@ -3,7 +3,7 @@
 
 #include "ViewTree.h"
 
-class CClassToolBar : public CMFCToolBar
+class CObjectViewToolBar : public CMFCToolBar
 {
 	virtual void OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL bDisableIfNoHndler)
 	{
@@ -13,26 +13,33 @@ class CClassToolBar : public CMFCToolBar
 	virtual BOOL AllowShowOnList() const { return FALSE; }
 };
 
-class CClassView : public CDockablePane
+class CObjectView : public CDockablePane
 {
 public:
-	CClassView();
-	virtual ~CClassView();
+	CObjectView();
+	virtual ~CObjectView();
 
 	void AdjustLayout();
 	void OnChangeVisualStyle();
 
+	void FillObjectView();
+
 protected:
-	CClassToolBar m_wndToolBar;
-	CViewTree m_wndClassView;
-	CImageList m_ClassViewImages;
+	CObjectViewToolBar m_wndToolBar;
+	CViewTree m_wndObjectView;
+	CImageList m_ObjectViewImages;
 	UINT m_nCurrSort;
 
-	void FillClassView();
+	
 
 // ÖØÐ´
 public:
+
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
+protected:
+
+	void		_fill_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot);
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

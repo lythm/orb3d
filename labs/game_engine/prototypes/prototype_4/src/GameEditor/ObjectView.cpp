@@ -1,18 +1,19 @@
 
 #include "stdafx.h"
 #include "MainFrm.h"
-#include "ClassView.h"
+#include "ObjectView.h"
 #include "Resource.h"
 #include "GameEditor.h"
+#include "AppContext.h"
 
-class CClassViewMenuButton : public CMFCToolBarMenuButton
+class CObjectViewMenuButton : public CMFCToolBarMenuButton
 {
-	friend class CClassView;
+	friend class CObjectView;
 
-	DECLARE_SERIAL(CClassViewMenuButton)
+	DECLARE_SERIAL(CObjectViewMenuButton)
 
 public:
-	CClassViewMenuButton(HMENU hMenu = NULL) : CMFCToolBarMenuButton((UINT)-1, hMenu, -1)
+	CObjectViewMenuButton(HMENU hMenu = NULL) : CMFCToolBarMenuButton((UINT)-1, hMenu, -1)
 	{
 	}
 
@@ -30,22 +31,22 @@ public:
 	}
 };
 
-IMPLEMENT_SERIAL(CClassViewMenuButton, CMFCToolBarMenuButton, 1)
+IMPLEMENT_SERIAL(CObjectViewMenuButton, CMFCToolBarMenuButton, 1)
 
 //////////////////////////////////////////////////////////////////////
 // 构造/析构
 //////////////////////////////////////////////////////////////////////
 
-CClassView::CClassView()
+CObjectView::CObjectView()
 {
 	m_nCurrSort = ID_SORTING_GROUPBYTYPE;
 }
 
-CClassView::~CClassView()
+CObjectView::~CObjectView()
 {
 }
 
-BEGIN_MESSAGE_MAP(CClassView, CDockablePane)
+BEGIN_MESSAGE_MAP(CObjectView, CDockablePane)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
@@ -61,9 +62,9 @@ BEGIN_MESSAGE_MAP(CClassView, CDockablePane)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CClassView 消息处理程序
+// CObjectView 消息处理程序
 
-int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -74,9 +75,9 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// 创建视图:
 	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
-	if (!m_wndClassView.Create(dwViewStyle, rectDummy, this, 2))
+	if (!m_wndObjectView.Create(dwViewStyle, rectDummy, this, 2))
 	{
-		TRACE0("未能创建类视图\n");
+		TRACE0("未能创建对象视图\n");
 		return -1;      // 未能创建
 	}
 
@@ -97,9 +98,9 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CMenu menuSort;
 	menuSort.LoadMenu(IDR_POPUP_SORT);
 
-	m_wndToolBar.ReplaceButton(ID_SORT_MENU, CClassViewMenuButton(menuSort.GetSubMenu(0)->GetSafeHmenu()));
+	m_wndToolBar.ReplaceButton(ID_SORT_MENU, CObjectViewMenuButton(menuSort.GetSubMenu(0)->GetSafeHmenu()));
 
-	CClassViewMenuButton* pButton =  DYNAMIC_DOWNCAST(CClassViewMenuButton, m_wndToolBar.GetButton(0));
+	CObjectViewMenuButton* pButton =  DYNAMIC_DOWNCAST(CObjectViewMenuButton, m_wndToolBar.GetButton(0));
 
 	if (pButton != NULL)
 	{
@@ -110,58 +111,33 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
-	FillClassView();
+	//FillObjectView();
 
 	return 0;
 }
 
-void CClassView::OnSize(UINT nType, int cx, int cy)
+void CObjectView::OnSize(UINT nType, int cx, int cy)
 {
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
 
-void CClassView::FillClassView()
+void CObjectView::FillObjectView()
 {
-	HTREEITEM hRoot = m_wndClassView.InsertItem(_T("FakeApp 类"), 0, 0);
-	m_wndClassView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	using namespace engine;
 
-	HTREEITEM hClass = m_wndClassView.InsertItem(_T("CFakeAboutDlg"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAboutDlg()"), 3, 3, hClass);
+	GameObjectPtr pRoot = AppContext::GetCoreApi()->GetRoot();
 
-	m_wndClassView.Expand(hRoot, TVE_EXPAND);
+	HTREEITEM hRoot = m_wndObjectView.InsertItem(pRoot->GetName().c_str(), 5, 5);
+	
+	_fill_tree(pRoot, hRoot);
 
-	hClass = m_wndClassView.InsertItem(_T("CFakeApp"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeApp()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("InitInstance()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("OnAppAbout()"), 3, 3, hClass);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeAppDoc"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAppDoc()"), 4, 4, hClass);
-	m_wndClassView.InsertItem(_T("~CFakeAppDoc()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("OnNewDocument()"), 3, 3, hClass);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeAppView"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAppView()"), 4, 4, hClass);
-	m_wndClassView.InsertItem(_T("~CFakeAppView()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("GetDocument()"), 3, 3, hClass);
-	m_wndClassView.Expand(hClass, TVE_EXPAND);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeAppFrame"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAppFrame()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("~CFakeAppFrame()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("m_wndMenuBar"), 6, 6, hClass);
-	m_wndClassView.InsertItem(_T("m_wndToolBar"), 6, 6, hClass);
-	m_wndClassView.InsertItem(_T("m_wndStatusBar"), 6, 6, hClass);
-
-	hClass = m_wndClassView.InsertItem(_T("Globals"), 2, 2, hRoot);
-	m_wndClassView.InsertItem(_T("theFakeApp"), 5, 5, hClass);
-	m_wndClassView.Expand(hClass, TVE_EXPAND);
+	m_wndObjectView.Expand(hRoot, TVE_EXPAND);
 }
 
-void CClassView::OnContextMenu(CWnd* pWnd, CPoint point)
+void CObjectView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndClassView;
+	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndObjectView;
 	ASSERT_VALID(pWndTree);
 
 	if (pWnd != pWndTree)
@@ -202,7 +178,7 @@ void CClassView::OnContextMenu(CWnd* pWnd, CPoint point)
 	}
 }
 
-void CClassView::AdjustLayout()
+void CObjectView::AdjustLayout()
 {
 	if (GetSafeHwnd() == NULL)
 	{
@@ -215,15 +191,15 @@ void CClassView::AdjustLayout()
 	int cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
 
 	m_wndToolBar.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
-	m_wndClassView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndObjectView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-BOOL CClassView::PreTranslateMessage(MSG* pMsg)
+BOOL CObjectView::PreTranslateMessage(MSG* pMsg)
 {
 	return CDockablePane::PreTranslateMessage(pMsg);
 }
 
-void CClassView::OnSort(UINT id)
+void CObjectView::OnSort(UINT id)
 {
 	if (m_nCurrSort == id)
 	{
@@ -232,7 +208,7 @@ void CClassView::OnSort(UINT id)
 
 	m_nCurrSort = id;
 
-	CClassViewMenuButton* pButton =  DYNAMIC_DOWNCAST(CClassViewMenuButton, m_wndToolBar.GetButton(0));
+	CObjectViewMenuButton* pButton =  DYNAMIC_DOWNCAST(CObjectViewMenuButton, m_wndToolBar.GetButton(0));
 
 	if (pButton != NULL)
 	{
@@ -242,58 +218,58 @@ void CClassView::OnSort(UINT id)
 	}
 }
 
-void CClassView::OnUpdateSort(CCmdUI* pCmdUI)
+void CObjectView::OnUpdateSort(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(pCmdUI->m_nID == m_nCurrSort);
 }
 
-void CClassView::OnClassAddMemberFunction()
+void CObjectView::OnClassAddMemberFunction()
 {
 	AfxMessageBox(_T("添加成员函数..."));
 }
 
-void CClassView::OnClassAddMemberVariable()
+void CObjectView::OnClassAddMemberVariable()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CClassView::OnClassDefinition()
+void CObjectView::OnClassDefinition()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CClassView::OnClassProperties()
+void CObjectView::OnClassProperties()
 {
 	// TODO: 在此处添加命令处理程序代码
 }
 
-void CClassView::OnNewFolder()
+void CObjectView::OnNewFolder()
 {
 	AfxMessageBox(_T("新建文件夹..."));
 }
 
-void CClassView::OnPaint()
+void CObjectView::OnPaint()
 {
 	CPaintDC dc(this); // 用于绘制的设备上下文
 
 	CRect rectTree;
-	m_wndClassView.GetWindowRect(rectTree);
+	m_wndObjectView.GetWindowRect(rectTree);
 	ScreenToClient(rectTree);
 
 	rectTree.InflateRect(1, 1);
 	dc.Draw3dRect(rectTree, ::GetSysColor(COLOR_3DSHADOW), ::GetSysColor(COLOR_3DSHADOW));
 }
 
-void CClassView::OnSetFocus(CWnd* pOldWnd)
+void CObjectView::OnSetFocus(CWnd* pOldWnd)
 {
 	CDockablePane::OnSetFocus(pOldWnd);
 
-	m_wndClassView.SetFocus();
+	m_wndObjectView.SetFocus();
 }
 
-void CClassView::OnChangeVisualStyle()
+void CObjectView::OnChangeVisualStyle()
 {
-	m_ClassViewImages.DeleteImageList();
+	m_ObjectViewImages.DeleteImageList();
 
 	UINT uiBmpId = theApp.m_bHiColorIcons ? IDB_CLASS_VIEW_24 : IDB_CLASS_VIEW;
 
@@ -312,11 +288,66 @@ void CClassView::OnChangeVisualStyle()
 
 	nFlags |= (theApp.m_bHiColorIcons) ? ILC_COLOR24 : ILC_COLOR4;
 
-	m_ClassViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
-	m_ClassViewImages.Add(&bmp, RGB(255, 0, 0));
+	m_ObjectViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
+	m_ObjectViewImages.Add(&bmp, RGB(255, 0, 0));
 
-	m_wndClassView.SetImageList(&m_ClassViewImages, TVSIL_NORMAL);
+	m_wndObjectView.SetImageList(&m_ObjectViewImages, TVSIL_NORMAL);
 
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_SORT_24 : IDR_SORT, 0, 0, TRUE /* 锁定*/);
+}
+void CObjectView::_fill_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot)
+{
+	if(pRoot == NULL)
+	{
+		return;
+	}
+	
+	using namespace engine;
+	GameObjectPtr pObj = pRoot->GetFirstChild();
+
+	while(pObj)
+	{
+		HTREEITEM hObj = m_wndObjectView.InsertItem(pObj->GetName().c_str(), 5, 5, hRoot);
+
+		_fill_tree(pObj, hObj);
+		pObj = pObj->GetNextNode();
+	}
+
+	/*HTREEITEM hRoot = m_wndObjectView.InsertItem(_T("FakeApp 类"), 5, 5);
+	m_wndObjectView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+
+	HTREEITEM hClass = m_wndObjectView.InsertItem(_T("CFakeAboutDlg"), 5, 5, hRoot);
+	m_wndObjectView.InsertItem(_T("CFakeAboutDlg()"), 5, 5, hClass);
+
+	m_wndObjectView.Expand(hRoot, TVE_EXPAND);
+
+	hClass = m_wndObjectView.InsertItem(_T("CFakeApp"), 5, 5, hRoot);
+	m_wndObjectView.InsertItem(_T("CFakeApp()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("InitInstance()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("OnAppAbout()"), 5, 5, hClass);
+
+	hClass = m_wndObjectView.InsertItem(_T("CFakeAppDoc"), 5, 5, hRoot);
+	m_wndObjectView.InsertItem(_T("CFakeAppDoc()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("~CFakeAppDoc()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("OnNewDocument()"), 5, 5, hClass);
+
+	hClass = m_wndObjectView.InsertItem(_T("CFakeAppView"), 5, 5, hRoot);
+	m_wndObjectView.InsertItem(_T("CFakeAppView()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("~CFakeAppView()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("GetDocument()"), 5, 5, hClass);
+	m_wndObjectView.Expand(hClass, TVE_EXPAND);
+
+	hClass = m_wndObjectView.InsertItem(_T("CFakeAppFrame"), 5, 5, hRoot);
+	m_wndObjectView.InsertItem(_T("CFakeAppFrame()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("~CFakeAppFrame()"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("m_wndMenuBar"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("m_wndToolBar"), 5, 5, hClass);
+	m_wndObjectView.InsertItem(_T("m_wndStatusBar"), 5, 5, hClass);
+
+	hClass = m_wndObjectView.InsertItem(_T("Globals"), 5, 5, hRoot);
+	m_wndObjectView.InsertItem(_T("theFakeApp"), 5, 5, hClass);
+
+	
+	m_wndObjectView.Expand(hClass, TVE_EXPAND);*/
 }

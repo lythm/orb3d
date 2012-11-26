@@ -6,7 +6,7 @@ namespace engine
 	class EXPORT_CLASS GameObject : public boost::enable_shared_from_this<GameObject>
 	{
 	public:
-		GameObject(void);
+		GameObject(const std::wstring& name);
 		virtual ~GameObject(void);
 		
 		void										Update();
@@ -69,7 +69,7 @@ namespace engine
 		void										SetPrevNode(GameObjectPtr pNode);
 		void										SetNextNode(GameObjectPtr pNode);
 
-
+		const std::wstring&							GetName();
 
 		// world transform operation
 		const math::Matrix44&						GetWorldTransform();
@@ -91,5 +91,6 @@ namespace engine
 
 		std::vector<GameObjectComponentPtr>			m_components;
 
+		std::wstring								m_name;
 	};
 }

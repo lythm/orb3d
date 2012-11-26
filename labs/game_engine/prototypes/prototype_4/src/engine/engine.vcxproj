@@ -24,6 +24,9 @@
     </ClCompile>
     <ClCompile Include="WinApp.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E0053528-CC93-484F-8D79-4278E436C03D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

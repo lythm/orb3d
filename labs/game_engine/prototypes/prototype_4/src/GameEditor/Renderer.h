@@ -16,8 +16,13 @@ public:
 	void								OnMouseRButtonUp(UINT nFlags, CPoint point);
 private:
 	void								UpdateSemantics();
+
+	void								CreateGridMesh();
 private:
 	GridMeshPtr							m_pGrid;
+
+
+	engine::MeshPtr						m_pGridMesh;
 
 	EditorCameraPtr						m_pCamera;
 };

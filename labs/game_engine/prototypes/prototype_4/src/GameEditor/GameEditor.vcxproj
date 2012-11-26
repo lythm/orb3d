@@ -106,7 +106,7 @@
   <ItemGroup>
     <ClInclude Include="AppContext.h" />
     <ClInclude Include="Assets.h" />
-    <ClInclude Include="ClassView.h" />
+    <ClInclude Include="ObjectView.h" />
     <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="GameEditor.h" />
@@ -127,7 +127,7 @@
   <ItemGroup>
     <ClCompile Include="AppContext.cpp" />
     <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="ObjectView.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="GameEditor.cpp" />

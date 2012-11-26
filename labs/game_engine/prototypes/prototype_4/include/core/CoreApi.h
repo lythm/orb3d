@@ -23,6 +23,11 @@ namespace engine
 		void											ClearRenderQueue();
 
 		RenderSystemPtr									GetRenderSystem();
+
+		GameObjectPtr									CreateGameObject(const std::wstring& name);
+
+		GameObjectPtr									GetRoot();
+
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;

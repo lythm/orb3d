@@ -17,6 +17,7 @@ EditorCamera::~EditorCamera(void)
 void EditorCamera::Update()
 {
 	using namespace engine;
+
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
 	pRS->SetViewMatrix(GetViewMatrix());
@@ -26,15 +27,7 @@ void EditorCamera::Update()
 }
 math::Vector3 EditorCamera::GetEyePos()
 {
-	using namespace math;
-	Matrix44 view = GetViewMatrix();
-
-	view.Invert();
-
-	Vector3 e(0,0,0);
-
-	TransformCoord(e, view);
-	return e;
+	return m_eye;
 }
 math::Vector3 EditorCamera::GetAxisZ()
 {
@@ -78,7 +71,7 @@ void EditorCamera::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	Zoom(zDelta);
 }
-math::Vector3 EditorCamera::IntersectXZPlane()
+math::intersect_ret EditorCamera::IntersectXZPlane(math::Vector3& target)
 {
 	using namespace math;
 
@@ -86,11 +79,12 @@ math::Vector3 EditorCamera::IntersectXZPlane()
 	Plane p(Vector3(0, 1, 0), Vector3(0, 0, 0));
 
 	Real t = 0;
-	RayIntersectPlane(r, p, t);
 
-	Vector3 target = r.GetPos(t);
+	intersect_ret ret = RayIntersectPlane(r, p, t);
 
-	return target;
+	target = r.GetPos(t);
+
+	return ret;
 }
 void EditorCamera::SetViewPort(int cx, int cy)
 {
@@ -110,8 +104,8 @@ void EditorCamera::Rotate(int dx, int dy)
 	Vector3 axis_x = GetAxisX();
 	Vector3 axis_y = GetAxisY();
 
-	Vector3 t = IntersectXZPlane();
-
+	Vector3 t = GetFocusPos();
+	
 	float factor = 0.5f / 108.0f;
 	e = e - t;
 	Matrix44 rot = MatrixRotationAxisY(dx * factor);
@@ -124,6 +118,8 @@ void EditorCamera::Rotate(int dx, int dy)
 	
 	TransformNormal(axis_y, rot);
 
+	SetEyePos(e);
+
 	LookAtLH(e, t, axis_y);
 }
 
@@ -132,7 +128,8 @@ void EditorCamera::Zoom(int d)
 	using namespace math;
 
 	Vector3 e = GetEyePos();
-	Vector3 t = IntersectXZPlane();
+	Vector3 t = GetFocusPos();
+	
 	Vector3 up = GetAxisY();
 
 	Vector3 v = e - t;
@@ -151,6 +148,7 @@ void EditorCamera::Zoom(int d)
 
 	e = t + v;
 
+	SetEyePos(e);
 	LookAtLH(e, t, up);
 
 }
@@ -161,21 +159,31 @@ void EditorCamera::Move(int dx, int dy)
 	Matrix44 view = GetViewMatrix();
 
 	Vector3 e = GetEyePos();
-	Vector3 t = IntersectXZPlane();
+	Vector3 t = GetFocusPos();
+		
+	Vector3 v = e - t;
+	
+	Real l = v.Length();
 
-	TransformCoord(t, view);
-	TransformCoord(e, view);
-	view.Invert();
+	Real offset_x = dx /120.0f * l * 0.2f;
+	Real offset_z = dy /120.0f * l * 0.2f;
 
-	Vector3 p(-dx * 0.5f, dy * 0.5f, 0);
+	Vector3 axis_x = GetAxisX();
+	Vector3 axis_z = GetAxisZ();
+	Vector3 axis_y = GetAxisY();
+	axis_z.y = 0;
+	axis_z.Normalize();
 
-	t += p;
-	e += p;
+	axis_x = -axis_x * offset_x * 0.5f;
+	axis_z = axis_z * offset_z * 0.5;
 
-	TransformCoord(t, view);
-	TransformCoord(e, view);
+	t += axis_x + axis_z;
+	e += axis_x + axis_z;;
 
-	LookAtLH(e, t, Vector3(0, 1, 0));
+	
+	SetEyePos(e);
+	SetFocusPos(t);
+	LookAtLH(e, t, axis_y);
 }
 
 
@@ -191,8 +199,11 @@ void EditorCamera::OnMouseRButtonUp(UINT nFlags, CPoint point)
 void EditorCamera::Init()
 {
 	using namespace math;
-
-	LookAtLH(Vector3(0, 150, -150), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	
+	SetEyePos(Vector3(0, 150, -150));
+	SetFocusPos(Vector3(0, 0,0));
+	
+	LookAtLH(GetEyePos(), GetFocusPos(), Vector3(0, 1, 0));
 
 }
 math::Ray EditorCamera::PickRay(int x, int y)
@@ -200,4 +211,16 @@ math::Ray EditorCamera::PickRay(int x, int y)
 	using namespace math;
 
 	return UnProject(x, y, m_vpw, m_vph, MatrixIdentity(), GetViewMatrix(), GetProjMatrix());
+}
+math::Vector3 EditorCamera::GetFocusPos()
+{
+	return m_at;
+}
+void EditorCamera::SetFocusPos(const math::Vector3& at)
+{
+	m_at = at;
+}
+void EditorCamera::SetEyePos(const math::Vector3& eye)
+{
+	m_eye = eye;
 }

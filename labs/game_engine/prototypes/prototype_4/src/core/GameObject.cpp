@@ -4,8 +4,9 @@
 
 namespace engine
 {
-	GameObject::GameObject(void)
+	GameObject::GameObject(const std::wstring& name)
 	{
+		m_name							= name;
 		m_LocalTransform.MakeIdentity();
 
 		m_pParent						= GameObjectPtr();
@@ -306,5 +307,9 @@ namespace engine
 	GameObjectPtr GameObject::GetParent()
 	{
 		return m_pParent;
+	}
+	const std::wstring& GameObject::GetName()
+	{
+		return m_name;
 	}
 }

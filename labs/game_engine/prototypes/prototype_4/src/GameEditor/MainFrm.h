@@ -4,7 +4,7 @@
 
 #pragma once
 #include "FileView.h"
-#include "ClassView.h"
+#include "ObjectView.h"
 #include "OutputWnd.h"
 #include "PropertiesWnd.h"
 
@@ -26,6 +26,7 @@ public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual BOOL LoadFrame(UINT nIDResource, DWORD dwDefaultStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, CWnd* pParentWnd = NULL, CCreateContext* pContext = NULL);
 
+	CObjectView*			GetObjectView();
 // 实现
 public:
 	virtual ~CMainFrame();
@@ -40,7 +41,7 @@ protected:  // 控件条嵌入成员
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
 	CFileView         m_wndFileView;
-	CClassView        m_wndClassView;
+	CObjectView        m_wndObjectView;
 	COutputWnd        m_wndOutput;
 	CPropertiesWnd    m_wndProperties;
 	CMFCCaptionBar    m_wndCaptionBar;
