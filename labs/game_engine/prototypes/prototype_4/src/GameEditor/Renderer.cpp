@@ -30,6 +30,7 @@ bool Renderer::Initialize(int vpw, int vph)
 	m_pCamera->Init();
 	m_pCamera->Update();
 	
+	AppContext::GetCoreApi()->GetSysGraphics()->SetClearColor(math::Color4(0.2, 0.2, 0.4, 1.0f));
 	return true;
 }
 void Renderer::ResetViewPort(int vpw, int vph)

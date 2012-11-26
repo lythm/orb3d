@@ -28,8 +28,13 @@ namespace engine
 	typedef boost::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
 	typedef boost::shared_ptr<Sys_Sound>					Sys_SoundPtr;
 
+
+	class DataStream;
+
+	
 	class Mesh;
 
+	typedef boost::shared_ptr<DataStream>					DataStreamPtr;
 	typedef boost::shared_ptr<Mesh>							MeshPtr;
 
 	class DepthStencilBuffer;
