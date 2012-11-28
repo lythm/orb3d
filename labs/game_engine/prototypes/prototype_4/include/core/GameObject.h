@@ -10,7 +10,7 @@ namespace engine
 		virtual ~GameObject(void);
 		
 		void										Update();
-		void										AddComponent(GameObjectComponentPtr pCom);
+		bool										AddComponent(GameObjectComponentPtr pCom);
 		
 		GameObjectComponentPtr						GetComponent(const std::wstring& name);
 		GameObjectPtr								ThisPtr();

@@ -5,12 +5,19 @@ namespace engine
 {
 	class GameObject;
 	class GameObjectManager;
-
 	class GameObjectComponent;
+	
+	namespace object_component
+	{
+		class MeshData;
+		class MeshRenderer;
+	}
 
-	typedef boost::shared_ptr<GameObjectManager>			GameObjectManagerPtr;
-	typedef boost::shared_ptr<GameObject>					GameObjectPtr;
-	typedef boost::shared_ptr<GameObjectComponent>			GameObjectComponentPtr;
+	typedef boost::shared_ptr<object_component::MeshData>						MeshDataPtr;
+	typedef boost::shared_ptr<object_component::MeshRenderer>					MeshRendererPtr;
+	typedef boost::shared_ptr<GameObjectManager>								GameObjectManagerPtr;
+	typedef boost::shared_ptr<GameObject>										GameObjectPtr;
+	typedef boost::shared_ptr<GameObjectComponent>								GameObjectComponentPtr;
 
 
 

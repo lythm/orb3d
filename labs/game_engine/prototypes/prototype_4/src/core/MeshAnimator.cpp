@@ -5,7 +5,7 @@ namespace engine
 {
 	namespace object_component
 	{
-		MeshAnimator::MeshAnimator(void)
+		MeshAnimator::MeshAnimator(void):GameObjectComponent(L"MeshAnimator")
 		{
 		}
 

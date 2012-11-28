@@ -6,20 +6,22 @@ namespace engine
 	class EXPORT_CLASS GameObjectComponent
 	{
 	public:
-		GameObjectComponent(void);
+		GameObjectComponent(const std::wstring& name);
 		virtual ~GameObjectComponent(void);
 		
 		virtual void				Update();
 
-		void						Attach(GameObjectPtr pObject);
-		void						Detach();
+		virtual bool				Attach(GameObjectPtr pObject);
+		virtual void				Detach();
+
+
 		const std::wstring&			GetName();
 
 		void						SetName(const std::wstring& name);
 
 		GameObjectPtr				GetGameObject();
 	private:
-		virtual void				OnAttach();
+		virtual bool				OnAttach();
 		virtual void				OnDetach();
 		
 	protected:

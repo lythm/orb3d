@@ -6,7 +6,7 @@ namespace engine
 {
 	namespace object_component
 	{
-		Camera::Camera(void)
+		Camera::Camera(void) : GameObjectComponent(L"Camera")
 		{
 		}
 

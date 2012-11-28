@@ -31,6 +31,17 @@ bool Renderer::Initialize(int vpw, int vph)
 	m_pCamera->Update();
 	
 	AppContext::GetCoreApi()->GetSysGraphics()->SetClearColor(math::Color4(0.2, 0.2, 0.4, 1.0f));
+
+	m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"TestObject");
+
+	MeshPtr pMesh = MeshPtr(new Mesh());
+
+
+	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
+
+	m_pTestObject->AddComponent(GameObjectComponentPtr(new object_component::MeshData(pMesh)));
+	m_pTestObject->AddComponent(GameObjectComponentPtr(new object_component::MeshRenderer(pRS)));
+
 	return true;
 }
 void Renderer::ResetViewPort(int vpw, int vph)

@@ -49,11 +49,16 @@ namespace engine
 	{
 		return GameObjectPtr(boost::shared_dynamic_cast<GameObject>(shared_from_this()));
 	}
-	void GameObject::AddComponent(GameObjectComponentPtr pCom)
+	bool GameObject::AddComponent(GameObjectComponentPtr pCom)
 	{
-		pCom->Attach(ThisPtr());
+		if(false == pCom->Attach(ThisPtr()))
+		{
+			return false;
+		}
 
 		m_components.push_back(pCom);
+
+		return true;
 	}
 	void GameObject::UpdateComponents()
 	{

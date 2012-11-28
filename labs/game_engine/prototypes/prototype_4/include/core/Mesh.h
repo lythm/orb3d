@@ -38,10 +38,7 @@ namespace engine
 	private:
 		void*										m_pIndexData;
 		void*										m_pVertexData;
-
-		GPUBufferPtr								m_pIndexBuffer;
-		GPUBufferPtr								m_pVertexBuffer;
-
+		
 		std::vector<GFXPtr>							m_materialList;
 	};
 }

@@ -25,5 +25,8 @@ private:
 	engine::MeshPtr						m_pGridMesh;
 
 	EditorCameraPtr						m_pCamera;
+
+
+	engine::GameObjectPtr				m_pTestObject;
 };
 

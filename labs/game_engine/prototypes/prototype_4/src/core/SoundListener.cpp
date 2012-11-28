@@ -5,7 +5,7 @@ namespace engine
 {
 	namespace object_component
 	{
-		SoundListener::SoundListener(void)
+		SoundListener::SoundListener(void) : GameObjectComponent(L"SoundListener")
 		{
 		}
 

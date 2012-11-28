@@ -5,7 +5,7 @@ namespace engine
 {
 	namespace object_component
 	{
-		Behavior::Behavior(void)
+		Behavior::Behavior(void):GameObjectComponent(L"Behavior")
 		{
 		}
 

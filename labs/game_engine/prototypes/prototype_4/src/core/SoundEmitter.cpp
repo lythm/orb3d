@@ -7,7 +7,7 @@ namespace engine
 {
 	namespace object_component
 	{
-		SoundEmitter::SoundEmitter(void)
+		SoundEmitter::SoundEmitter(void):GameObjectComponent(L"SoundEmitter")
 		{
 		}
 

@@ -28,6 +28,7 @@ namespace engine
 
 		GameObjectPtr									GetRoot();
 
+		
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;

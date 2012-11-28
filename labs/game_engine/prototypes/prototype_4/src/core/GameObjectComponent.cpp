@@ -4,9 +4,9 @@
 
 namespace engine
 {
-	GameObjectComponent::GameObjectComponent(void)
+	GameObjectComponent::GameObjectComponent(const std::wstring& name)
 	{
-		
+		SetName(name);	
 	}
 
 
@@ -19,11 +19,11 @@ namespace engine
 	{
 		
 	}
-	void GameObjectComponent::Attach(GameObjectPtr pObject)
+	bool GameObjectComponent::Attach(GameObjectPtr pObject)
 	{
 		m_pObject = pObject;
 
-		OnAttach();
+		return OnAttach();
 	}
 	void GameObjectComponent::Detach()
 	{
@@ -34,8 +34,9 @@ namespace engine
 	{
 		return m_name;
 	}
-	void GameObjectComponent::OnAttach()
+	bool GameObjectComponent::OnAttach()
 	{
+		return true;
 	}
 	void GameObjectComponent::OnDetach()
 	{

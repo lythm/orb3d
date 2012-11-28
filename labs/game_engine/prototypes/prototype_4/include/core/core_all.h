@@ -34,3 +34,6 @@
 #include "core\RenderSystem.h"
 #include "core\coreapi.h"
 
+#include "core\MeshData.h"
+#include "core\MeshRenderer.h"
+#include "core\Mesh.h"
