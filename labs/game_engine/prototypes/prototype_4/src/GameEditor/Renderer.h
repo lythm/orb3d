@@ -17,7 +17,7 @@ public:
 private:
 	void								UpdateSemantics();
 
-	void								CreateGridMesh();
+	engine::MeshPtr						CreateCube(int size);
 private:
 	GridMeshPtr							m_pGrid;
 

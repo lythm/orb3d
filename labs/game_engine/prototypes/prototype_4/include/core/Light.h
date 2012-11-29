@@ -2,17 +2,17 @@
 
 #include "core\GameObjectComponent.h"
 
-
 namespace engine
 {
 	namespace object_component
 	{
-		class MeshAnimator : public GameObjectComponent
+		class Light : public GameObjectComponent
 		{
 		public:
-			MeshAnimator(void);
-			virtual ~MeshAnimator(void);
+			Light(void);
+			virtual ~Light(void);
 		};
+
 
 	}
 }

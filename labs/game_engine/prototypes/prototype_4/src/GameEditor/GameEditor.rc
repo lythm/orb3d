@@ -221,6 +221,49 @@ BEGIN
             END
         END
     END
+    POPUP "Build"
+    BEGIN
+        MENUITEM "Build",                       ID_BUILD_BUILD
+        MENUITEM "Build and Run",               ID_BUILD_BUILDANDRUN
+    END
+    POPUP "GameObject"
+    BEGIN
+        MENUITEM "CreateEmpty",                 ID_GAMEOBJECT_CREATEEMPTY
+        POPUP "CreateFromTemplate"
+        BEGIN
+            MENUITEM "Cube",                        ID_CREATEFROMTEMPLATE_CUBE
+            MENUITEM "Sphere",                      ID_CREATEFROMTEMPLATE_SPHERE
+            MENUITEM "Camera",                      ID_CREATEFROMTEMPLATE_CAMERA
+            MENUITEM SEPARATOR
+            MENUITEM "PointLight",                  ID_CREATEFROMTEMPLATE_POINTLIGHT
+            MENUITEM "DirectionalLight",            ID_Menu
+            MENUITEM "SpotLight",                   ID_CREATEFROMTEMPLATE_SPOTLIGHT
+            MENUITEM SEPARATOR
+            MENUITEM "Templates...",                ID_CREATEFROMTEMPLATE_TEMPLATES
+        END
+        MENUITEM SEPARATOR
+    END
+    POPUP "Component"
+    BEGIN
+        POPUP "Mesh"
+        BEGIN
+            MENUITEM "MeshData",                    ID_MESH_MESHDATA
+            MENUITEM "MeshRenderer",                ID_MESH_MESHRENDERER
+        END
+        POPUP "Sound"
+        BEGIN
+            MENUITEM "SoundEmitter",                ID_SOUND_SOUNDEMITTER
+            MENUITEM "SoundListener",               ID_SOUND_SOUNDLISTENER
+        END
+        POPUP "Rendering"
+        BEGIN
+            MENUITEM "Light",                       ID_RENDERING_LIGHT
+        END
+    END
+    POPUP "Project"
+    BEGIN
+        MENUITEM "Settings",                    ID_32776
+    END
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "关于 GameEditor(&A)...",        ID_APP_ABOUT
@@ -269,10 +312,7 @@ IDR_OUTPUT_POPUP MENU
 BEGIN
     POPUP "弹出项"
     BEGIN
-        MENUITEM "复制(&C)",                      ID_EDIT_COPY
         MENUITEM "清除(&C)",                      ID_EDIT_CLEAR
-        MENUITEM SEPARATOR
-        MENUITEM "隐藏(&H)",                      ID_VIEW_OUTPUTWND
     END
 END
 
@@ -288,6 +328,32 @@ BEGIN
     MENUITEM "Office 2007 (银色样式)(&S)",      ID_VIEW_APPLOOK_OFF_2007_SILVER
     MENUITEM "Office 2007 (水绿色样式)(&A)",     ID_VIEW_APPLOOK_OFF_2007_AQUA
     MENUITEM "Windows 7(&D)",               ID_VIEW_APPLOOK_WINDOWS_7
+END
+
+IDR_OV_CONTEXT MENU
+BEGIN
+    POPUP "OV_CONTEXT"
+    BEGIN
+        MENUITEM "删除对象",                        ID_OV_DELOBJ
+        MENUITEM SEPARATOR
+        POPUP "Component"
+        BEGIN
+            POPUP "Mesh"
+            BEGIN
+                MENUITEM "MeshData",                    ID_MESH_MESHDATA
+                MENUITEM "MeshRenderer",                ID_MESH_MESHRENDERER
+            END
+            POPUP "Sound"
+            BEGIN
+                MENUITEM "SoundEmitter",                ID_SOUND_SOUNDEMITTER
+                MENUITEM "SoundListener",               ID_SOUND_SOUNDLISTENER
+            END
+            POPUP "Rendering"
+            BEGIN
+                MENUITEM "Light",                       ID_RENDERING_LIGHT
+            END
+        END
+    END
 END
 
 

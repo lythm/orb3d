@@ -10,17 +10,23 @@ namespace engine
 		class EXPORT_CLASS MeshData : public GameObjectComponent
 		{
 		public:
-			MeshData(MeshPtr pMesh);
+			MeshData();
 			virtual ~MeshData(void);
 
 
 			void						Update();
-
 			MeshPtr						GetMesh();
+			void						SetMesh(MeshPtr pMesh);
+			bool						OnAttach();
+			void						OnDetach();
+
+			bool						LoadMesh();
+
+			static MeshDataPtr			CreateComponent();
+		private:
+			void						ResetMeshRenderer();
 		private:
 			MeshPtr						m_pMesh;
 		};
-
-
 	}
 }

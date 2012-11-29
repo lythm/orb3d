@@ -70,7 +70,7 @@ namespace engine
 		void										SetNextNode(GameObjectPtr pNode);
 
 		const std::wstring&							GetName();
-
+		void										SetName(const std::wstring& name);
 		// world transform operation
 		const math::Matrix44&						GetWorldTransform();
 

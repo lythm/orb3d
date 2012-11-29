@@ -7,9 +7,9 @@
 
 #include <vector>
 #include <boost\shared_ptr.hpp>
-#include <boost\unordered_map.hpp>
 #include <boost\function.hpp>
 #include <boost\bind.hpp>
+#include <boost\unordered_map.hpp>
 
 #include <string>
 #include <math\math_all.h>

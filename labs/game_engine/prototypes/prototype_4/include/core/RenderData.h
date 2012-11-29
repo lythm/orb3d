@@ -15,8 +15,8 @@ namespace engine
 		virtual GFXPtr											GetGFX()																	= 0;
 		virtual math::Matrix44									GetWorldMatrix()															= 0;
 
-
+		virtual void											DR_RenderDepth(){}
+		virtual void											DR_Render(){}
+		virtual void											DR_PostEffect(){}
 	};
-
-
 }

@@ -6,6 +6,11 @@
 #include "core\GameObjectManager.h"
 #include "core\RenderSystem.h"
 
+
+#include "core\meshdata.h"
+#include "core\meshrenderer.h"
+
+
 #include "WMInput.h"
 
 
@@ -55,12 +60,15 @@ namespace engine
 			return false;
 		}
 		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
-
+		if(m_pObjectManager->Initialize() == false)
+		{
+			return false;
+		}
 		return true;
 	}
 	void CoreApi::Release()
 	{
-		m_pObjectManager->ReleaseAllObject();
+		m_pObjectManager->Release();
 		m_pObjectManager.reset();
 		
 		m_pRenderSystem->Release();
@@ -126,5 +134,9 @@ namespace engine
 	GameObjectPtr CoreApi::GetRoot()
 	{
 		return m_pObjectManager->GetRoot();
+	}
+	GameObjectComponentPtr CoreApi::CreateGameObjectComponent(const std::wstring& name)
+	{
+		return m_pObjectManager->CreateComponent(name);
 	}
 }

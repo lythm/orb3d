@@ -32,15 +32,37 @@ bool Renderer::Initialize(int vpw, int vph)
 	
 	AppContext::GetCoreApi()->GetSysGraphics()->SetClearColor(math::Color4(0.2, 0.2, 0.4, 1.0f));
 
-	m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"TestObject");
+	m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"Box001");
 
 	MeshPtr pMesh = MeshPtr(new Mesh());
 
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
-	m_pTestObject->AddComponent(GameObjectComponentPtr(new object_component::MeshData(pMesh)));
-	m_pTestObject->AddComponent(GameObjectComponentPtr(new object_component::MeshRenderer(pRS)));
+	MeshDataPtr pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
+	pMD->SetMesh(CreateCube(100));
+
+	m_pTestObject->AddComponent(pMD);
+
+	MeshRendererPtr pMR = boost::shared_dynamic_cast<object_component::MeshRenderer>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshRenderer"));
+	pMR->SetRenderSystem(pRS);
+	m_pTestObject->AddComponent(pMR);
+
+	m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"Box002");
+
+	pMesh = MeshPtr(new Mesh());
+
+
+	pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
+	pMD->SetMesh(CreateCube(200));
+
+	m_pTestObject->AddComponent(pMD);
+
+	pMR = boost::shared_dynamic_cast<object_component::MeshRenderer>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshRenderer"));
+	pMR->SetRenderSystem(pRS);
+	m_pTestObject->AddComponent(pMR);
+
+	m_pTestObject->SetTranslation(100, 0, 100);
 
 	return true;
 }
@@ -90,7 +112,70 @@ void Renderer::OnMouseRButtonUp(UINT nFlags, CPoint point)
 {
 	m_pCamera->OnMouseRButtonUp(nFlags, point);
 }
-void Renderer::CreateGridMesh()
+engine::MeshPtr Renderer::CreateCube(int size)
 {
+	using namespace engine;
 
+	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+
+	MeshPtr pMesh = MeshPtr(new Mesh);
+
+	struct Vertex
+	{
+		math::Vector3			pos;
+	};
+
+	Vertex verts[] = 
+	{
+		{ math::Vector3(10, 10, -10)},
+		{ math::Vector3(10, -10, -10)},
+		{ math::Vector3(-10, -10, -10)},
+		{ math::Vector3(-10, 10, -10)},
+
+
+		{ math::Vector3(10, 10, 10)},
+		{ math::Vector3(10, -10, 10)},
+		{ math::Vector3(-10, -10, 10)},
+		{ math::Vector3(-10, 10, 10)},
+	};
+
+	uint16 indice[] = 
+	{
+		0, 1, 2,
+		0, 2, 3,
+
+		4, 6, 5,
+		4, 7, 6,
+
+		0, 3, 4,
+		4, 3, 7,
+
+		1, 5, 6,
+		1, 6, 2,
+
+		0, 4, 5,
+		0, 5, 1,
+
+		3, 2, 6,
+		3, 6, 7,
+	};
+
+	VertexElement vf[] = 
+	{
+		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
+	};
+
+	std::vector<GFXPtr> pMatList;
+	
+	GFXPtr pGFX = pGraphics->CreateGFXFromFile("./assets/gfx/editor_cube.fx");
+	pGFX->SetVertexFormat(vf, 1);
+	pMatList.push_back(pGFX);
+
+	pMesh->Create(36 * sizeof(uint16), indice, sizeof(Vertex) * 8, verts, pMatList);
+
+	SubMeshPtr pSub = SubMeshPtr(new SubMesh());	
+	pSub->Create(pMesh, 0, 36, 0, 8, sizeof(Vertex), 0, 12);
+	pMesh->AddSubMesh(pSub);
+
+	return pMesh;
 }

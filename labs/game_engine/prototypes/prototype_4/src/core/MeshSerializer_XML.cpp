@@ -11,5 +11,12 @@ namespace engine
 	MeshSerializer_XML::~MeshSerializer_XML(void)
 	{
 	}
-
+	bool MeshSerializer_XML::Read(MeshPtr pMesh)
+	{
+		return true;
+	}
+	bool MeshSerializer_XML::Write(MeshPtr pMesh)
+	{
+		return true;
+	}
 }

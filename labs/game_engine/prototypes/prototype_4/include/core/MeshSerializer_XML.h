@@ -9,6 +9,9 @@ namespace engine
 	public:
 		MeshSerializer_XML(DataStreamPtr pStream);
 		virtual ~MeshSerializer_XML(void);
+
+		bool								Read(MeshPtr pMesh);
+		bool								Write(MeshPtr pMesh);
 	};
 
 

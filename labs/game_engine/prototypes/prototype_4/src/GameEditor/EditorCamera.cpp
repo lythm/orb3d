@@ -57,7 +57,7 @@ void EditorCamera::OnMouseMove(UINT nFlags, CPoint point)
 	static CPoint lastpt = point;
 	CPoint delta = point - lastpt;
 
-	if(MK_RBUTTON & nFlags && MK_CONTROL & nFlags)
+	if(MK_MBUTTON & nFlags && MK_CONTROL & nFlags)
 	{
 		Rotate(delta.x, delta.y);
 	}

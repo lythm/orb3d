@@ -100,7 +100,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // 未能创建
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
-
 	// TODO: 如果您不希望工具栏和菜单栏可停靠，请删除这五行
 	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
@@ -161,7 +160,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// 启用菜单个性化(最近使用的命令)
 	// TODO: 定义您自己的基本命令，确保每个下拉菜单至少有一个基本命令。
-	CList<UINT, UINT> lstBasicCommands;
+	/*CList<UINT, UINT> lstBasicCommands;
 
 	lstBasicCommands.AddTail(ID_FILE_NEW);
 	lstBasicCommands.AddTail(ID_FILE_OPEN);
@@ -184,9 +183,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	lstBasicCommands.AddTail(ID_SORTING_SORTALPHABETIC);
 	lstBasicCommands.AddTail(ID_SORTING_SORTBYTYPE);
 	lstBasicCommands.AddTail(ID_SORTING_SORTBYACCESS);
-	lstBasicCommands.AddTail(ID_SORTING_GROUPBYTYPE);
+	lstBasicCommands.AddTail(ID_SORTING_GROUPBYTYPE);*/
 
-	CMFCToolBar::SetBasicCommands(lstBasicCommands);
+//	lstBasicCommands.AddTail(ID_GAMEOBJECT_CREATEEMPTY);
+
+	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
 	return 0;
 }
@@ -479,4 +480,8 @@ void CMainFrame::OnClose()
 CObjectView* CMainFrame::GetObjectView()
 {
 	return &m_wndObjectView;
+}
+COutputWnd* CMainFrame::GetOutput()
+{
+	return &m_wndOutput;
 }

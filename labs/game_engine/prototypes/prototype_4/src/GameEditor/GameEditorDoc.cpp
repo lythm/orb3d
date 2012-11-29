@@ -9,6 +9,7 @@
 #include "GameEditor.h"
 #endif
 
+#include "AppContext.h"
 #include "GameEditorDoc.h"
 
 #include <propkey.h>
@@ -45,23 +46,20 @@ BOOL CGameEditorDoc::OnNewDocument()
 	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)
 
-	if(m_pProject)
-	{
-		m_pProject->Release();
-	}
+	ProjectPtr pProject = Project::Instance();
 
-	m_pProject = ProjectPtr(new Project);
-
-	if(m_pProject->New(_T("未命名")) == false)
+	if(pProject->New(_T("未命名")) == false)
 	{
+		AppContext::OutputInfo(L"Failed to create new project.");
 		return FALSE;
 	}
 
+	AppContext::OutputInfo(L"Project created.");
+
 	UpdateAllViews(NULL);
+
 	return TRUE;
 }
-
-
 
 
 // CGameEditorDoc 序列化

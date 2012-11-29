@@ -15,9 +15,12 @@ namespace engine
 		void									Clear();
 		void									Render();
 
+		void									DR_Render();
+
 		void									SetViewMatrix(const math::Matrix44& view);
 		void									SetProjMatrix(const math::Matrix44& proj);
 
+		Sys_GraphicsPtr							GetSysGraphics();
 	private:
 		void									SetSemanticsValue(RenderDataPtr pData);
 	private:

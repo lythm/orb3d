@@ -45,7 +45,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin\</OutDir>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>D:\sdk\boost_1_47_0\;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>D:\sdk\boost_1_47_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -97,9 +97,11 @@
     <ClInclude Include="..\..\include\core\GameObject.h" />
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
     <ClInclude Include="..\..\include\core\GameObjectManager.h" />
+    <ClInclude Include="..\..\include\core\GameObjectTemplate.h" />
     <ClInclude Include="..\..\include\core\GFX.h" />
     <ClInclude Include="..\..\include\core\GPUBuffer.h" />
     <ClInclude Include="..\..\include\core\g_format.h" />
+    <ClInclude Include="..\..\include\core\Light.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\MeshData.h" />
@@ -115,6 +117,7 @@
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\SoundEmitter.h" />
     <ClInclude Include="..\..\include\core\SoundListener.h" />
+    <ClInclude Include="..\..\include\core\SubMesh.h" />
     <ClInclude Include="..\..\include\core\SysManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
     <ClInclude Include="..\..\include\core\Sys_Input.h" />
@@ -138,6 +141,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameObjectTemplate.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshAnimator.cpp" />
     <ClCompile Include="MeshData.cpp" />
@@ -148,6 +153,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SoundEmitter.cpp" />
     <ClCompile Include="SoundListener.cpp" />
+    <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="WMInput.cpp" />
   </ItemGroup>

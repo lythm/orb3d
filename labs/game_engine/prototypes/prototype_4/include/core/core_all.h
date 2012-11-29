@@ -10,6 +10,12 @@
 
 #include "core\core_ptr.h"
 
+
+
+#include <boost\unordered_map.hpp>
+#include <boost\function.hpp>
+#include <boost\bind.hpp>
+
 #include "core\GameObject.h"
 #include "core\GameObjectComponent.h"
 #include "core\GameObjectManager.h"
@@ -37,3 +43,4 @@
 #include "core\MeshData.h"
 #include "core\MeshRenderer.h"
 #include "core\Mesh.h"
+#include "core\SubMesh.h"

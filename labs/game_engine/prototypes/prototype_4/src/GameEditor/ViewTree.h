@@ -10,6 +10,13 @@ class CViewTree : public CTreeCtrl
 public:
 	CViewTree();
 
+	void							UpdateGameObjectTree();
+	void							DeleteTree();
+	engine::GameObjectPtr			GetGameObject(HTREEITEM hObj);
+	void							EraseItem(HTREEITEM hItem);
+private:
+	void							_update_object_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot);
+	void							_delete_gameobject_tree(HTREEITEM hRoot);
 // ÖØÐ´
 protected:
 	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
@@ -20,4 +27,6 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnDestroy();
 };

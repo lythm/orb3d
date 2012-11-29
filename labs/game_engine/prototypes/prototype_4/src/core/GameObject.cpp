@@ -317,4 +317,8 @@ namespace engine
 	{
 		return m_name;
 	}
+	void GameObject::SetName(const std::wstring& name)
+	{
+		m_name = name;
+	}
 }

@@ -205,6 +205,7 @@ void CGameEditorApp::PreLoadState()
 	bNameValid = strName.LoadString(IDS_EXPLORER);
 	ASSERT(bNameValid);
 	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EXPLORER);
+
 }
 
 void CGameEditorApp::LoadCustomState()

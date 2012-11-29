@@ -1,9 +1,9 @@
 #pragma once
 
-
+#include <boost\enable_shared_from_this.hpp>
 namespace engine
 {
-	class EXPORT_CLASS GameObjectComponent
+	class EXPORT_CLASS GameObjectComponent: public boost::enable_shared_from_this<GameObjectComponent>
 	{
 	public:
 		GameObjectComponent(const std::wstring& name);

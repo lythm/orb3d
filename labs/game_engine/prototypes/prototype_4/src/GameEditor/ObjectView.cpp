@@ -50,15 +50,13 @@ BEGIN_MESSAGE_MAP(CObjectView, CDockablePane)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
-	ON_COMMAND(ID_CLASS_ADD_MEMBER_FUNCTION, OnClassAddMemberFunction)
-	ON_COMMAND(ID_CLASS_ADD_MEMBER_VARIABLE, OnClassAddMemberVariable)
-	ON_COMMAND(ID_CLASS_DEFINITION, OnClassDefinition)
-	ON_COMMAND(ID_CLASS_PROPERTIES, OnClassProperties)
 	ON_COMMAND(ID_NEW_FOLDER, OnNewFolder)
 	ON_WM_PAINT()
 	ON_WM_SETFOCUS()
 	ON_COMMAND_RANGE(ID_SORTING_GROUPBYTYPE, ID_SORTING_SORTBYACCESS, OnSort)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_SORTING_GROUPBYTYPE, ID_SORTING_SORTBYACCESS, OnUpdateSort)
+//	ON_COMMAND(IDR_OV_CONTEXT, &CObjectView::OnIdrOvContext)
+	ON_COMMAND(ID_OV_DELOBJ, &CObjectView::OnOvDelobj)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -80,6 +78,8 @@ int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("未能创建对象视图\n");
 		return -1;      // 未能创建
 	}
+
+
 
 	// 加载图像:
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);
@@ -121,18 +121,12 @@ void CObjectView::OnSize(UINT nType, int cx, int cy)
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
-
-void CObjectView::FillObjectView()
+void CObjectView::UpdateObjectView()
 {
 	using namespace engine;
 
-	GameObjectPtr pRoot = AppContext::GetCoreApi()->GetRoot();
-
-	HTREEITEM hRoot = m_wndObjectView.InsertItem(pRoot->GetName().c_str(), 5, 5);
-	
-	_fill_tree(pRoot, hRoot);
-
-	m_wndObjectView.Expand(hRoot, TVE_EXPAND);
+	m_wndObjectView.UpdateGameObjectTree();
+	m_wndObjectView.Expand(m_wndObjectView.GetRootItem(), TVE_EXPAND);
 }
 
 void CObjectView::OnContextMenu(CWnd* pWnd, CPoint point)
@@ -140,12 +134,20 @@ void CObjectView::OnContextMenu(CWnd* pWnd, CPoint point)
 	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndObjectView;
 	ASSERT_VALID(pWndTree);
 
+
+	bool bShow = false;
+
 	if (pWnd != pWndTree)
 	{
 		CDockablePane::OnContextMenu(pWnd, point);
 		return;
 	}
 
+	CMenu menu;
+	menu.LoadMenu(IDR_OV_CONTEXT);
+	CMenu* pSumMenu = menu.GetSubMenu(0);
+	
+	pSumMenu->EnableMenuItem(ID_OV_DELOBJ, MF_ENABLED);
 	if (point != CPoint(-1, -1))
 	{
 		// 选择已单击的项:
@@ -154,27 +156,24 @@ void CObjectView::OnContextMenu(CWnd* pWnd, CPoint point)
 
 		UINT flags = 0;
 		HTREEITEM hTreeItem = pWndTree->HitTest(ptTree, &flags);
-		if (hTreeItem != NULL)
+		if (hTreeItem != NULL && (TVHT_ONITEMLABEL & flags))
 		{
+			bShow = true;
 			pWndTree->SelectItem(hTreeItem);
 		}
+		
+		if(hTreeItem == pWndTree->GetRootItem())
+		{
+			bShow = true;
+			pSumMenu->EnableMenuItem(ID_OV_DELOBJ, MF_GRAYED);
+		}
 	}
-
+	
 	pWndTree->SetFocus();
-	CMenu menu;
-	menu.LoadMenu(IDR_POPUP_SORT);
-
-	CMenu* pSumMenu = menu.GetSubMenu(0);
-
-	if (AfxGetMainWnd()->IsKindOf(RUNTIME_CLASS(CMDIFrameWndEx)))
+	
+	if(bShow)
 	{
-		CMFCPopupMenu* pPopupMenu = new CMFCPopupMenu;
-
-		if (!pPopupMenu->Create(this, point.x, point.y, (HMENU)pSumMenu->m_hMenu, FALSE, TRUE))
-			return;
-
-		((CMDIFrameWndEx*)AfxGetMainWnd())->OnShowPopupMenu(pPopupMenu);
-		UpdateDialogControls(this, FALSE);
+		pSumMenu->TrackPopupMenu(TPM_LEFTALIGN, point.x, point.y, this);
 	}
 }
 
@@ -221,26 +220,6 @@ void CObjectView::OnSort(UINT id)
 void CObjectView::OnUpdateSort(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(pCmdUI->m_nID == m_nCurrSort);
-}
-
-void CObjectView::OnClassAddMemberFunction()
-{
-	AfxMessageBox(_T("添加成员函数..."));
-}
-
-void CObjectView::OnClassAddMemberVariable()
-{
-	// TODO: 在此处添加命令处理程序代码
-}
-
-void CObjectView::OnClassDefinition()
-{
-	// TODO: 在此处添加命令处理程序代码
-}
-
-void CObjectView::OnClassProperties()
-{
-	// TODO: 在此处添加命令处理程序代码
 }
 
 void CObjectView::OnNewFolder()
@@ -296,58 +275,25 @@ void CObjectView::OnChangeVisualStyle()
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_SORT_24 : IDR_SORT, 0, 0, TRUE /* 锁定*/);
 }
-void CObjectView::_fill_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot)
+
+
+//void CObjectView::OnIdrOvContext()
+//{
+//	// TODO: 在此添加命令处理程序代码
+//}
+
+
+void CObjectView::OnOvDelobj()
 {
-	if(pRoot == NULL)
-	{
-		return;
-	}
-	
+	// TODO: 在此添加命令处理程序代码
 	using namespace engine;
-	GameObjectPtr pObj = pRoot->GetFirstChild();
 
-	while(pObj)
-	{
-		HTREEITEM hObj = m_wndObjectView.InsertItem(pObj->GetName().c_str(), 5, 5, hRoot);
-
-		_fill_tree(pObj, hObj);
-		pObj = pObj->GetNextNode();
-	}
-
-	/*HTREEITEM hRoot = m_wndObjectView.InsertItem(_T("FakeApp 类"), 5, 5);
-	m_wndObjectView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
-
-	HTREEITEM hClass = m_wndObjectView.InsertItem(_T("CFakeAboutDlg"), 5, 5, hRoot);
-	m_wndObjectView.InsertItem(_T("CFakeAboutDlg()"), 5, 5, hClass);
-
-	m_wndObjectView.Expand(hRoot, TVE_EXPAND);
-
-	hClass = m_wndObjectView.InsertItem(_T("CFakeApp"), 5, 5, hRoot);
-	m_wndObjectView.InsertItem(_T("CFakeApp()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("InitInstance()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("OnAppAbout()"), 5, 5, hClass);
-
-	hClass = m_wndObjectView.InsertItem(_T("CFakeAppDoc"), 5, 5, hRoot);
-	m_wndObjectView.InsertItem(_T("CFakeAppDoc()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("~CFakeAppDoc()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("OnNewDocument()"), 5, 5, hClass);
-
-	hClass = m_wndObjectView.InsertItem(_T("CFakeAppView"), 5, 5, hRoot);
-	m_wndObjectView.InsertItem(_T("CFakeAppView()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("~CFakeAppView()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("GetDocument()"), 5, 5, hClass);
-	m_wndObjectView.Expand(hClass, TVE_EXPAND);
-
-	hClass = m_wndObjectView.InsertItem(_T("CFakeAppFrame"), 5, 5, hRoot);
-	m_wndObjectView.InsertItem(_T("CFakeAppFrame()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("~CFakeAppFrame()"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("m_wndMenuBar"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("m_wndToolBar"), 5, 5, hClass);
-	m_wndObjectView.InsertItem(_T("m_wndStatusBar"), 5, 5, hClass);
-
-	hClass = m_wndObjectView.InsertItem(_T("Globals"), 5, 5, hRoot);
-	m_wndObjectView.InsertItem(_T("theFakeApp"), 5, 5, hClass);
-
+	HTREEITEM hItem = m_wndObjectView.GetSelectedItem();
 	
-	m_wndObjectView.Expand(hClass, TVE_EXPAND);*/
+	GameObjectPtr pObj = m_wndObjectView.GetGameObject(hItem);
+
+	pObj->UnLink();
+	
+	m_wndObjectView.EraseItem(hItem);
+
 }

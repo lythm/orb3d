@@ -47,6 +47,29 @@ namespace engine
 
 		m_pGraphics->Present();
 	}
+
+	void RenderSystem::DR_Render()
+	{
+		m_pGraphics->ClearFrameBuffer();
+
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_renderQueue[i]);
+			m_renderQueue[i]->DR_RenderDepth();
+		}
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_renderQueue[i]);
+			m_renderQueue[i]->DR_Render();
+		}
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_renderQueue[i]);
+			m_renderQueue[i]->DR_PostEffect();
+		}
+
+		m_pGraphics->Present();
+	}
 	void RenderSystem::SetViewMatrix(const math::Matrix44& view)
 	{
 		m_viewMatrix = view;
@@ -66,5 +89,9 @@ namespace engine
 		pGFX->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
 		pGFX->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
 
+	}
+	Sys_GraphicsPtr	RenderSystem::GetSysGraphics()
+	{
+		return m_pGraphics;
 	}
 }

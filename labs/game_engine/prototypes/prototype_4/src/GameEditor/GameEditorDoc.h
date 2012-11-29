@@ -27,7 +27,7 @@ public:
 	virtual void InitializeSearchContent();
 	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
 #endif // SHARED_HANDLERS
-	ProjectPtr									m_pProject;
+
 // й╣ож
 public:
 	virtual ~CGameEditorDoc();

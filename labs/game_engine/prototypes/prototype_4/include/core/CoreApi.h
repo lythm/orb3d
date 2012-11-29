@@ -25,9 +25,11 @@ namespace engine
 		RenderSystemPtr									GetRenderSystem();
 
 		GameObjectPtr									CreateGameObject(const std::wstring& name);
-
+		GameObjectComponentPtr							CreateGameObjectComponent(const std::wstring& name);
 		GameObjectPtr									GetRoot();
 
+	private:
+		
 		
 	private:
 		GameObjectManagerPtr							m_pObjectManager;

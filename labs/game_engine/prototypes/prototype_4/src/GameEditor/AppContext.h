@@ -22,6 +22,11 @@ public:
 	static RendererPtr							GetRenderer();
 
 	static CMainFrame*							GetMainFrame();
+
+	static void									UpdateObjectView();
+
+	static void									OutputInfo(const CString& info);
+	static void									OutputBuild(const CString& info);
 private:
 
 	static int									s_RTWidth;
@@ -30,5 +35,6 @@ private:
 	static engine::CoreApiPtr					s_pCore;
 	static engine::Sys_GraphicsPtr				s_pSysGraphics;
 	static RendererPtr							s_pRenderer;
+
 };
 

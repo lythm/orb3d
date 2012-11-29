@@ -2,6 +2,9 @@
 #include "AppContext.h"
 #include "Renderer.h"
 #include "MainFrm.h"
+#include "Project.h"
+#include "OutputWnd.h"
+
 
 engine::CoreApiPtr					AppContext::s_pCore;
 engine::Sys_GraphicsPtr				AppContext::s_pSysGraphics;
@@ -29,17 +32,19 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 
 	s_pCore = CoreApiPtr(new CoreApi());
 
-
 	if(false == s_pCore->Initialize(hwnd, w, h, G_FORMAT_R8G8B8A8_UNORM))
 	{
 		return false;
 	}
+	OutputInfo(L"Engine Initialized.");
 
 	s_pRenderer = RendererPtr(new Renderer);
 	if(s_pRenderer->Initialize(w, h) == false)
 	{
 		return false;
 	}
+
+	OutputInfo(L"Renderer Initialized.");
 	return true;
 }
 engine::Sys_GraphicsPtr AppContext::GetSysGraphics()
@@ -79,7 +84,7 @@ int AppContext::GetRTViewHeight()
 {
 	return s_RTHeight;
 }
-void	AppContext::ResizeRTView(int cx, int cy)
+void AppContext::ResizeRTView(int cx, int cy)
 {
 	s_RTWidth = cx;
 	s_RTHeight = cy;
@@ -96,4 +101,20 @@ RendererPtr AppContext::GetRenderer()
 CMainFrame* AppContext::GetMainFrame()
 {
 	return (CMainFrame*)AfxGetMainWnd();
+}
+void AppContext::UpdateObjectView()
+{
+	CMainFrame* pMain = GetMainFrame();
+	pMain->GetObjectView()->UpdateObjectView();
+}
+
+void AppContext::OutputInfo(const CString& info)
+{
+	CMainFrame* pMain = GetMainFrame();
+	pMain->GetOutput()->OuputInfo(info);
+}
+void AppContext::OutputBuild(const CString& info)
+{
+	CMainFrame* pMain = GetMainFrame();
+	pMain->GetOutput()->OuputBuild(info);
 }

@@ -10,8 +10,10 @@ namespace engine
 		virtual ~GameObjectManager(void);
 
 
-//		typedef boost::function<GameObjectComponentPtr () >			GameObjectComponentCreator;
+		typedef boost::function<GameObjectComponentPtr () >			ComponentCreator;
 
+		bool							Initialize();
+		void							Release();
 
 		GameObjectPtr					CreateGameObject(const std::wstring& name);
 		GameObjectPtr					CreateObjectFromTemplate(const std::string& tpl);
@@ -22,14 +24,14 @@ namespace engine
 
 		GameObjectPtr					GetRoot();
 		
-		void							ReleaseAllObject();
+		GameObjectComponentPtr			CreateComponent(const std::wstring& name);
 
-		GameObjectComponentPtr			CreateObjectComponent(const std::string& name);
-
-		void							RegisterObjectComponent();
-
+		void							RegisterBuildinComponents();
+		void							RegisterComponent(const std::wstring& name, const ComponentCreator& creator);
 		void							WalkObjectTree();
 	private:
+
+		void							ReleaseAllObject();
 
 		void							_tree_walk(GameObject* pObj);
 
@@ -37,8 +39,7 @@ namespace engine
 
 		GameObjectPtr					m_pRoot;
 
-		//boost::unordered_map<std::string, 
+		boost::unordered_map<std::wstring, ComponentCreator>				m_componentCreator;
+		boost::unordered_map<std::string, GameObjectTemplatePtr>			m_templates;
 	};
-
-
 }

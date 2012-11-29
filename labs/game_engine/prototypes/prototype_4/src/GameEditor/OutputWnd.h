@@ -31,13 +31,16 @@ public:
 
 	void UpdateFonts();
 
+	void			OuputInfo(const CString& string);
+	void			OuputBuild(const CString& string);
 // Ьиад
 protected:
 	CMFCTabCtrl	m_wndTabs;
 
+	COutputList m_wndOutputMessage;
 	COutputList m_wndOutputBuild;
-	COutputList m_wndOutputDebug;
-	COutputList m_wndOutputFind;
+	//COutputList m_wndOutputDebug;
+	//COutputList m_wndOutputFind;
 
 protected:
 	void FillBuildWindow();

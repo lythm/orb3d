@@ -153,8 +153,9 @@ void CGameEditorView::OnInitialUpdate()
 	pObj3->LinkTo(pObj2);
 
 	pObj1->LinkTo(pObj4);
-	AppContext::GetMainFrame()->GetObjectView()->FillObjectView();
-	
+
+	AppContext::UpdateObjectView();
+
 	CView::OnInitialUpdate();
 	// TODO: 在此添加专用代码和/或调用基类
 }
