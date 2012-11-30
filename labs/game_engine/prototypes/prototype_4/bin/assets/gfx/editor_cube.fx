@@ -22,25 +22,51 @@ struct ps_out
 	float4 color:SV_TARGET;
 };
 
-ps_out ps_main(vs_out psin)
+ps_out ps_main(vs_out psin) 
 {
 	ps_out psout;
 	
 	psout.color = float4(1,1,1,1);
 	return psout;
 }
-
+float ps_depth(vs_out psin) : SV_DEPTH
+{
+	return psin.pos.z;
+}
 RasterizerState rs
 {
 	CULLMODE = None;
+};
+DepthStencilState ds1
+{
+	DepthEnable = TRUE;
+	DepthFunc = LESS_EQUAL;
+	DepthWriteMask = ZERO;
+	StencilEnable = false;
+
+};
+DepthStencilState ds2
+{
+	DepthEnable = TRUE;
+	DepthFunc = LESS;
+	DepthWriteMask = ALL;
+	StencilEnable = false;
 };
 technique11 test
 {
   pass p1
   {
+	SetDepthStencilState(ds1, 0);
 	SetRasterizerState(rs);
 	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
-	SetPixelShader( CompileShader( ps_4_0, ps_main(  ) ) );
+	SetPixelShader( CompileShader( ps_4_0, ps_main() ) );
+  }
 
+  pass DEPTH_PASS
+  {
+	SetDepthStencilState(ds2, 0);
+	SetRasterizerState(rs);
+	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
+	SetPixelShader( CompileShader( ps_4_0, ps_depth(  ) ) );
   }
 }

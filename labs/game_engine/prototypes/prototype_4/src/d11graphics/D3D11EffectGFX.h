@@ -18,7 +18,7 @@ namespace engine
 		void								ApplyPass(int index);
 		void								EndPass();
 		
-
+		int									FindPath(const std::string& name);
 		void								Release();
 
 		bool								LoadFromFile(const char* szFile);
@@ -55,5 +55,6 @@ namespace engine
 		ID3DX11EffectTechnique*				m_pTech;
 
 		int									m_nPass;
+
 	};
 }

@@ -90,7 +90,15 @@ namespace engine
 
 		MeshRenderer::SubMeshRenderData::SubMeshRenderData(GameObjectPtr pGameObject)
 		{
-			m_pGameObject = pGameObject;
+			m_pGameObject	= pGameObject;
+			m_iDepthPass	= -1;;
+			
+			m_indexCount					= 0;
+			m_baseVertex					= 0;
+			m_vertexOffset					= 0;
+			m_vertexStride					= 0;
+			m_startIndex					= 0;
+
 		}
 		MeshRenderer::SubMeshRenderData::~SubMeshRenderData()
 		{
@@ -113,6 +121,8 @@ namespace engine
 			m_vertexOffset					= vertexOffset;
 			m_vertexStride					= vertexStride;
 			m_startIndex					= startIndex;
+
+			m_iDepthPass					= m_pGFX->FindPath("DEPTH_PASS");
 		}
 		void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics)
 		{
@@ -129,11 +139,34 @@ namespace engine
 
 			for(int i = 0; i < nPass; ++i)
 			{
+				if(m_iDepthPass == i)
+				{
+					continue;
+				}
 				m_pGFX->ApplyPass(i);
 
 				pSysGraphics->DrawPrimitive(m_indexCount, m_startIndex, m_baseVertex);
 			}
 
+			m_pGFX->EndPass();
+		}
+		void MeshRenderer::SubMeshRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
+		{
+			pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT);
+			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
+			pSysGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
+
+			m_pGFX->ApplyVertexFormat();
+
+
+			int nPass = 0;
+
+			m_pGFX->BeginPass(nPass);
+
+			m_pGFX->ApplyPass(m_iDepthPass);
+
+			pSysGraphics->DrawPrimitive(m_indexCount, m_startIndex, m_baseVertex);
+			
 			m_pGFX->EndPass();
 		}
 		GFXPtr MeshRenderer::SubMeshRenderData::GetGFX()

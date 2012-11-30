@@ -15,6 +15,8 @@ namespace engine
 			public:
 				SubMeshRenderData(GameObjectPtr pGameObject);
 				virtual ~SubMeshRenderData();
+
+				void											Render_Depth(Sys_GraphicsPtr pSysGraphics);
 				void											Render(Sys_GraphicsPtr pSysGraphics);
 				GFXPtr											GetGFX();
 				math::Matrix44									GetWorldMatrix();
@@ -38,7 +40,7 @@ namespace engine
 				int												m_indexCount;
 				int												m_startIndex;
 				int												m_baseVertex;
-
+				int												m_iDepthPass;
 			};
 		public:
 			MeshRenderer();

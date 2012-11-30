@@ -11,7 +11,7 @@ namespace engine
 		GFX(void){}
 		virtual ~GFX(void){}
 
-
+		virtual int									FindPath(const std::string& name)							= 0;
 		virtual void								ApplyVertexFormat()											= 0;
 
 		virtual bool								BeginPass(int& nPass)										= 0;

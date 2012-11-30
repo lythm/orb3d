@@ -14,7 +14,6 @@ namespace engine
 		m_pEffect = NULL;
 
 		m_pTech	 = NULL;
-
 	}
 
 
@@ -81,6 +80,7 @@ namespace engine
 			m_pEffect->Release();
 			m_pEffect = NULL;
 			m_pTech = NULL;
+			return false;
 		}
 
 		D3DX11_TECHNIQUE_DESC tech;
@@ -108,6 +108,25 @@ namespace engine
 		nPass = m_nPass;
 
 		return nPass != 0;
+	}
+	int D3D11EffectGFX::FindPath(const std::string& name)
+	{
+		ID3DX11EffectPass* pPass = m_pTech->GetPassByName(name.c_str());
+
+		if(pPass == NULL)
+		{
+			return -1;
+		}
+
+		for(int i = 0; i < m_nPass; ++i)
+		{
+			ID3DX11EffectPass* pFind = m_pTech->GetPassByIndex(i);
+			if(pFind == pPass)
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 	void D3D11EffectGFX::ApplyPass(int index)
 	{

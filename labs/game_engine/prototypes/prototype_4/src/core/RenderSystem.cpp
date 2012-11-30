@@ -42,6 +42,16 @@ namespace engine
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
 		{
 			SetSemanticsValue(m_renderQueue[i]);
+
+
+			m_renderQueue[i]->Render_Depth(m_pGraphics);
+			
+		}
+
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_renderQueue[i]);
+
 			m_renderQueue[i]->Render(m_pGraphics);
 		}
 

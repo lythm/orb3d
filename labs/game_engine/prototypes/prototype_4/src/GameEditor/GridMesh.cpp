@@ -160,3 +160,6 @@ math::Matrix44 GridMesh::GetWorldMatrix()
 	return mat;
 	
 }
+void GridMesh::Render_Depth(engine::Sys_GraphicsPtr pSysGraphics)
+{
+}
