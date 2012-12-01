@@ -48,7 +48,7 @@ BOOL CGameEditorDoc::OnNewDocument()
 
 	ProjectPtr pProject = Project::Instance();
 
-	if(pProject->New(_T("未命名")) == false)
+	if(pProject->New() == false)
 	{
 		AppContext::OutputInfo(L"Failed to create new project.");
 		return FALSE;
@@ -74,6 +74,7 @@ void CGameEditorDoc::Serialize(CArchive& ar)
 	{
 		// TODO: 在此添加加载代码
 	}
+
 }
 
 #ifdef SHARED_HANDLERS
@@ -150,8 +151,13 @@ void CGameEditorDoc::Dump(CDumpContext& dc) const
 
 BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
-	if (!CDocument::OnOpenDocument(lpszPathName))
+
+	if(Project::Instance()->Load(lpszPathName) == false)
+	{
 		return FALSE;
+	}
+	//if (!CDocument::OnOpenDocument(lpszPathName))
+	//	return FALSE;
 
 
 
@@ -164,5 +170,12 @@ BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)
 {
 	// TODO: 在此添加专用代码和/或调用基类
 
-	return CDocument::OnSaveDocument(lpszPathName);
+	if(Project::Instance()->Save(lpszPathName) == false)
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+
+	//return CDocument::OnSaveDocument(lpszPathName);
 }

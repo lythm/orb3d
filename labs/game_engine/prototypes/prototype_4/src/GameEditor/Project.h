@@ -8,15 +8,14 @@ public:
 	Project(void);
 	virtual ~Project(void);
 
-	bool								New(const _TCHAR* name);
-	void								Load();
-	bool								Save();
+	bool								New();
+	bool								Load(const _TCHAR* filename);
+	bool								Save(const _TCHAR* filename);
 	void								Release();
-
+	
 	static ProjectPtr					Instance();
 private:
-	std::wstring						m_name;
-
+	CString								m_filePath;
 	static ProjectPtr					m_pProject;
 };
 

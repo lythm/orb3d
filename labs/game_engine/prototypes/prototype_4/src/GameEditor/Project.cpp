@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "Project.h"
-
+#include <afxconv.h>
 ProjectPtr				Project::m_pProject;
 
 Project::Project(void)
@@ -11,20 +11,39 @@ Project::Project(void)
 Project::~Project(void)
 {
 }
-bool Project::New(const _TCHAR* name)
+bool Project::New()
 {
 	Release();
 	
-	m_name = name;
+	return true;
+}
+bool Project::Load(const _TCHAR* filename)
+{
+	m_filePath = filename;
+
+	USES_CONVERSION;
+
+	TiXmlDocument doc;
+
+	doc.LoadFile(W2A(filename));
+
 
 
 	return true;
 }
-void Project::Load()
+bool Project::Save(const _TCHAR* filename)
 {
-}
-bool Project::Save()
-{
+	TiXmlDocument doc;
+
+	USES_CONVERSION;
+	doc.InsertEndChild(TiXmlElement("Project"));
+
+	if(false == doc.SaveFile(W2A(filename)))
+	{
+		return false;
+	}
+	
+	m_filePath = filename;
 	return true;
 }
 void Project::Release()

@@ -32,7 +32,7 @@ bool Renderer::Initialize(int vpw, int vph)
 	
 	AppContext::GetCoreApi()->GetSysGraphics()->SetClearColor(math::Color4(0.2, 0.2, 0.4, 1.0f));
 
-	m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"Box001");
+	/*m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"Box001");
 
 	MeshPtr pMesh = MeshPtr(new Mesh());
 
@@ -62,7 +62,7 @@ bool Renderer::Initialize(int vpw, int vph)
 	pMR->SetRenderSystem(pRS);
 	m_pTestObject->AddComponent(pMR);
 
-	m_pTestObject->SetTranslation(100, 0, 100);
+	m_pTestObject->SetTranslation(100, 0, 100);*/
 
 	return true;
 }

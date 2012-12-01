@@ -143,17 +143,6 @@ void CGameEditorView::OnInitialUpdate()
 	SetTimer(0, 10, NULL);
 	Render();
 
-	using namespace engine;
-	GameObjectPtr pObj1 = AppContext::GetCoreApi()->CreateGameObject(L"Obj1");
-	GameObjectPtr pObj2 = AppContext::GetCoreApi()->CreateGameObject(L"Obj2");
-	GameObjectPtr pObj3 = AppContext::GetCoreApi()->CreateGameObject(L"Obj3");
-	GameObjectPtr pObj4 = AppContext::GetCoreApi()->CreateGameObject(L"Obj4");
-
-	pObj2->LinkTo(pObj1);
-	pObj3->LinkTo(pObj2);
-
-	pObj1->LinkTo(pObj4);
-
 	AppContext::UpdateObjectView();
 
 	CView::OnInitialUpdate();

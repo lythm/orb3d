@@ -49,7 +49,6 @@ namespace engine
 		if(m_pRoot)
 		{
 			m_pRoot->Clear();
-			m_pRoot.reset();
 		}
 	}
 	GameObjectComponentPtr GameObjectManager::CreateComponent(const std::wstring& name)
