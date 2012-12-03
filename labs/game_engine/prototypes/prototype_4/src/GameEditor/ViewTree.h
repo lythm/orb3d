@@ -32,4 +32,5 @@ public:
 	afx_msg void OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
 //	afx_msg void OnOvRename();
+	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
 };

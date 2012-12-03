@@ -109,7 +109,7 @@ namespace engine
 
 		return nPass != 0;
 	}
-	int D3D11EffectGFX::FindPath(const std::string& name)
+	int D3D11EffectGFX::FindPass(const std::string& name)
 	{
 		ID3DX11EffectPass* pPass = m_pTech->GetPassByName(name.c_str());
 

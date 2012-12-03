@@ -270,3 +270,21 @@ void CPropertiesWnd::SetPropListFont()
 	m_wndPropList.SetFont(&m_fntPropList);
 	m_wndObjectCombo.SetFont(&m_fntPropList);
 }
+void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
+{
+	m_wndPropList.RemoveAll();
+
+	if(pObj == nullptr)
+	{
+		m_wndPropList.Invalidate();
+		
+		return;
+	}
+
+	CMFCPropertyGridProperty* pName = new CMFCPropertyGridProperty(_T("Name"), COleVariant(pObj->GetName().c_str()), _T("Object Name."));
+	//pName->AllowEdit(FALSE);
+
+	m_wndPropList.AddProperty(pName);
+
+	m_wndPropList.Invalidate();
+}

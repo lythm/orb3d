@@ -488,7 +488,10 @@ COutputWnd* CMainFrame::GetOutput()
 {
 	return &m_wndOutput;
 }
-
+CPropertiesWnd*	CMainFrame::GetPropGrid()
+{
+	return &m_wndProperties;
+}
 void CMainFrame::OnCreatefromtemplateCube()
 {
 	AppContext::GetRenderer()->CreateObject_FromTemplate_Cube();

@@ -18,7 +18,7 @@ namespace engine
 		void								ApplyPass(int index);
 		void								EndPass();
 		
-		int									FindPath(const std::string& name);
+		int									FindPass(const std::string& name);
 		void								Release();
 
 		bool								LoadFromFile(const char* szFile);

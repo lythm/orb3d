@@ -4,6 +4,7 @@
 #include "MainFrm.h"
 #include "Project.h"
 #include "OutputWnd.h"
+#include "PropertiesWnd.h"
 
 
 engine::CoreApiPtr					AppContext::s_pCore;
@@ -117,4 +118,9 @@ void AppContext::OutputBuild(const CString& info)
 {
 	CMainFrame* pMain = GetMainFrame();
 	pMain->GetOutput()->OuputBuild(info);
+}
+void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
+{
+	CMainFrame* pMain = GetMainFrame();
+	pMain->GetPropGrid()->UpdateGameObjectProp(pObj);
 }

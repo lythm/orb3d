@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CViewTree, CTreeCtrl)
 	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, &CViewTree::OnTvnBeginlabeledit)
 	ON_NOTIFY_REFLECT(TVN_ENDLABELEDIT, &CViewTree::OnTvnEndlabeledit)
 //	ON_COMMAND(ID_OV_RENAME, &CViewTree::OnOvRename)
+ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CViewTree::OnTvnSelchanged)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -173,6 +174,8 @@ void CViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 	
 	pObj->SetName(pTVDispInfo->item.pszText);
 
+	AppContext::UpdatePropGrid(pObj);
+
 	*pResult = 1;
 }
 
@@ -187,3 +190,16 @@ void CViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 //		return;
 //	}
 //}
+
+
+void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+	
+	engine::GameObjectPtr pObj = GetGameObject(pNMTreeView->itemNew.hItem);
+
+	AppContext::UpdatePropGrid(pObj);
+
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+}

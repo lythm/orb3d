@@ -28,6 +28,8 @@ public:
 		m_wndPropList.SetGroupNameFullWidth(bSet);
 	}
 
+	void UpdateGameObjectProp(engine::GameObjectPtr pObj);
+
 protected:
 	CFont m_fntPropList;
 	CComboBox m_wndObjectCombo;

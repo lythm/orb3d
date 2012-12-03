@@ -24,6 +24,7 @@ public:
 	static CMainFrame*							GetMainFrame();
 
 	static void									UpdateObjectView();
+	static void									UpdatePropGrid(engine::GameObjectPtr pObj);
 
 	static void									OutputInfo(const CString& info);
 	static void									OutputBuild(const CString& info);

@@ -28,6 +28,7 @@ public:
 
 	CObjectView*			GetObjectView();
 	COutputWnd*				GetOutput();
+	CPropertiesWnd*			GetPropGrid();
 // й╣ож
 public:
 	virtual ~CMainFrame();

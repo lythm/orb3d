@@ -122,7 +122,7 @@ namespace engine
 			m_vertexStride					= vertexStride;
 			m_startIndex					= startIndex;
 
-			m_iDepthPass					= m_pGFX->FindPath("DEPTH_PASS");
+			m_iDepthPass					= m_pGFX->FindPass("DEPTH_PASS");
 		}
 		void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics)
 		{
