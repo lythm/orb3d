@@ -1,6 +1,7 @@
 #include "d11graphics_pch.h"
 #include "D3D11RenderTarget.h"
 #include "D3D11Texture.h"
+#include "D3D11DepthStencilBuffer.h"
 
 namespace engine
 {
@@ -49,7 +50,11 @@ namespace engine
 			m_pRenderTargetView->Release();
 			m_pRenderTargetView = NULL;
 		}
-
+		if(m_pDepthBuffer)
+		{
+			m_pDepthBuffer->Release();
+			m_pDepthBuffer.reset();
+		}
 		m_pDevice->Release();
 		m_pContext = NULL;
 	}
@@ -58,12 +63,32 @@ namespace engine
 	{
 		return m_pRenderTargetView;
 	}
+	ID3D11DepthStencilView*	D3D11RenderTarget::GetD3D11DepthStencilView()
+	{
+		if(m_pDepthBuffer == nullptr)
+		{
+			return nullptr;
+		}
+		return ((D3D11DepthStencilBuffer*)m_pDepthBuffer.get())->GetD3D11DepthStencilView();
+	}
 	TexturePtr D3D11RenderTarget::AsTexture()
 	{
 		return m_pTex;
 	}
-	void D3D11RenderTarget::Clear(const math::Color4& clr)
+	void D3D11RenderTarget::Clear(const math::Color4& clr, float d, int s)
 	{
 		m_pContext->ClearRenderTargetView(m_pRenderTargetView, clr.v);
+		if(m_pDepthBuffer)
+		{
+			m_pDepthBuffer->Clear(d, s);
+		}
+	}
+	DepthStencilBufferPtr D3D11RenderTarget::GetDepthStencilBuffer()
+	{
+		return m_pDepthBuffer;
+	}
+	void D3D11RenderTarget::AttachDepthStencilBuffer(DepthStencilBufferPtr pBuffer)
+	{
+		m_pDepthBuffer = pBuffer;
 	}
 }

@@ -15,14 +15,13 @@ namespace engine
 
 		bool										Create(TexturePtr pTex);
 		ID3D11RenderTargetView*						GetD3D11RenderTargetView();
-
+		ID3D11DepthStencilView*						GetD3D11DepthStencilView();
 		TexturePtr									AsTexture();
 
 		void										Release();
-
-		void										Clear(const math::Color4& clr);
-
+		void										Clear(const math::Color4& clr, float d, int s);
 		void										AttachDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
+		DepthStencilBufferPtr						GetDepthStencilBuffer();
 	private:
 
 		ID3D11DeviceContext*						m_pContext;
@@ -30,7 +29,6 @@ namespace engine
 		ID3D11RenderTargetView*						m_pRenderTargetView;
 
 		TexturePtr									m_pTex;
-
 		DepthStencilBufferPtr						m_pDepthBuffer;
 	};
 }

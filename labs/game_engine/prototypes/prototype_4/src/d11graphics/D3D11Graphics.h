@@ -37,14 +37,14 @@ namespace engine
 		GFXPtr									CreateGFXFromFile(const char* szFile);
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
-		void									SetRenderTarget(RenderTargetPtr pRenderTarget, DepthStencilBufferPtr pDS);
+		void									SetRenderTarget(RenderTargetPtr pRenderTarget);
 		void									SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, DepthStencilBufferPtr pDS);
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
 		
 
 		RenderTargetPtr							CreateRenderTarget(int w, int h, G_FORMAT format, int miplvls = 0);
-		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format, bool asTexture = false);
+		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
 
 		void									ResizeFrameBuffer(int cx, int cy);
 	private:

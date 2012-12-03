@@ -171,7 +171,7 @@ void CGameEditorView::OnSize(UINT nType, int cx, int cy)
 		if(cx != 0 && cy != 0)
 		{
 			pGraphics->ResizeFrameBuffer(cx, cy);
-			pGraphics->SetRenderTarget(engine::RenderTargetPtr(), engine::DepthStencilBufferPtr());
+			pGraphics->SetRenderTarget(engine::RenderTargetPtr());
 		}
 	}
 

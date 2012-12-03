@@ -38,8 +38,11 @@ ps_out ps_main(vs_out psin)
 {
 	ps_out psout;
 	
-	psout.color = diff_tex.Sample(diff, psin.uv) * float4(0.5, 1, 1, 1);
+	psout.color = diff_tex.Sample(diff, psin.uv);
 
+	float c = (psin.pos.z / psin.pos.w) * 1;
+
+	//psout.color = float4(c, c, c, 1);
 	//psout.color = float4(1,1,1,1);
 	return psout;
 }

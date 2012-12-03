@@ -92,14 +92,15 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	m_pGFX->SetTextureByName("diff_tex", m_pTex);
 
-	m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(1024, 768, G_FORMAT_R8G8B8A8_UNORM, 1);
+	m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(1024, 1024, G_FORMAT_R8G8B8A8_UNORM, 1);
 
-	m_pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(1024, 768, G_FORMAT_R16_TYPELESS, true);
+	DepthStencilBufferPtr pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(1024, 1024, G_FORMAT_D32_FLOAT);
+
+	m_pRT->AttachDepthStencilBuffer(pDS);
 	return true;
 }
 void Game::Release()
 {
-	m_pDS->Release();
 	m_pRT->Release();
 	m_pTex->Release();
 	m_pIB->Release();
@@ -121,7 +122,7 @@ bool Game::Update()
 	static float rad = 0;
 	rad += angle;
 
-	math::Vector3 eye(0, 20, -30);
+	math::Vector3 eye(0, 0, -30);
 
 	math::Matrix44 mat = math::MatrixRotationAxisY(rad);
 
@@ -136,9 +137,8 @@ bool Game::Update()
 	m_pGFX->SetTextureByName("diff_tex", m_pTex);
 	m_pCore->GetSysGraphics()->ClearFrameBuffer();
 
-	m_pDS->Clear(1, 0);
-	m_pRT->Clear(math::Color4(0.5, 0.5, 0, 0));
-	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT, m_pDS);
+	m_pRT->Clear(math::Color4(0.5, 0.5, 0, 0), 1.0f, 0);
+	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
 
 	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
 	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
@@ -162,9 +162,8 @@ bool Game::Update()
 
 	///////////////////////////////////
 
-	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr(), DepthStencilBufferPtr());
+	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
-	//m_pGFX->SetTextureByName("diff_tex", m_pDS->AsTexture(G_FORMAT_R16_FLOAT));
 	m_pGFX->SetTextureByName("diff_tex", m_pRT->AsTexture());
 	m_pGFX->BeginPass(nPass);
 
@@ -179,14 +178,5 @@ bool Game::Update()
 
 	m_pCore->GetSysGraphics()->Present();
 
-	m_pGFX->SetTextureByName("diff_tex", TexturePtr());
-
-	m_pGFX->BeginPass(nPass);
-
-	for(int i = 0; i < nPass; ++i)
-	{
-		m_pGFX->ApplyPass(i);
-	}
-	
 	return true;
 }
