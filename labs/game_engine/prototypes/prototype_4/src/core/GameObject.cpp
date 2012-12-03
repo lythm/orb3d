@@ -309,6 +309,10 @@ namespace engine
 		m_LocalTransform.SetRow3(1, axis_y);
 		m_LocalTransform.SetRow3(2, axis_z);
 	}
+	bool GameObject::IsRoot()
+	{
+		return m_pParent == nullptr;
+	}
 	GameObjectPtr GameObject::GetParent()
 	{
 		return m_pParent;

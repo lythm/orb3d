@@ -62,22 +62,35 @@ namespace engine
 	{
 		m_pGraphics->ClearFrameBuffer();
 
+		// geometry pass
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
 		{
 			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_RenderDepth();
+			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_GEOMETRY);
 		}
+		// lighting pass
+
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
 		{
 			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_Render();
-		}
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_PostEffect();
+			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_LIGHTING);
 		}
 
+		// posteffect pass
+
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_renderQueue[i]);
+			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_POSTEFFECT);
+		}
+		// merge pass
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_renderQueue[i]);
+			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_MERGE);
+		}
+		
+		
 		m_pGraphics->Present();
 	}
 	void RenderSystem::SetViewMatrix(const math::Matrix44& view)

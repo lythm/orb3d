@@ -7,6 +7,14 @@ namespace engine
 	{
 	public:
 
+		enum DR_STAGE
+		{
+			DR_GEOMETRY,
+			DR_LIGHTING,
+			DR_POSTEFFECT,
+			DR_MERGE,
+		};
+
 		RenderData(void){}
 
 		virtual ~RenderData(void){}
@@ -19,5 +27,7 @@ namespace engine
 		virtual void											DR_RenderDepth(){}
 		virtual void											DR_Render(){}
 		virtual void											DR_PostEffect(){}
+
+		virtual void											DR_Render(Sys_GraphicsPtr pSysGraphics, DR_STAGE stage){}
 	};
 }

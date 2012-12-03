@@ -65,6 +65,8 @@ protected:
 	BOOL CreateCaptionBar();
 public:
 	afx_msg void OnClose();
+	afx_msg void OnCreatefromtemplateCube();
+	afx_msg void OnGameobjectCreateempty();
 };
 
 

@@ -32,37 +32,7 @@ bool Renderer::Initialize(int vpw, int vph)
 	
 	AppContext::GetCoreApi()->GetSysGraphics()->SetClearColor(math::Color4(0.2, 0.2, 0.4, 1.0f));
 
-	/*m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"Box001");
-
-	MeshPtr pMesh = MeshPtr(new Mesh());
-
-
-	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
-
-	MeshDataPtr pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
-	pMD->SetMesh(CreateCube(100));
-
-	m_pTestObject->AddComponent(pMD);
-
-	MeshRendererPtr pMR = boost::shared_dynamic_cast<object_component::MeshRenderer>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshRenderer"));
-	pMR->SetRenderSystem(pRS);
-	m_pTestObject->AddComponent(pMR);
-
-	m_pTestObject = AppContext::GetCoreApi()->CreateGameObject(L"Box002");
-
-	pMesh = MeshPtr(new Mesh());
-
-
-	pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
-	pMD->SetMesh(CreateCube(200));
-
-	m_pTestObject->AddComponent(pMD);
-
-	pMR = boost::shared_dynamic_cast<object_component::MeshRenderer>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshRenderer"));
-	pMR->SetRenderSystem(pRS);
-	m_pTestObject->AddComponent(pMR);
-
-	m_pTestObject->SetTranslation(100, 0, 100);*/
+	
 
 	return true;
 }
@@ -178,4 +148,29 @@ engine::MeshPtr Renderer::CreateCube(int size)
 	pMesh->AddSubMesh(pSub);
 
 	return pMesh;
+}
+void Renderer::CreateObject_FromTemplate_Cube()
+{
+	using namespace engine;
+
+	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Cube");
+
+	MeshPtr pMesh = MeshPtr(new Mesh());
+
+	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
+
+	MeshDataPtr pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
+	pMD->SetMesh(CreateCube(100));
+
+	pObj->AddComponent(pMD);
+
+	MeshRendererPtr pMR = boost::shared_dynamic_cast<object_component::MeshRenderer>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshRenderer"));
+	pMR->SetRenderSystem(pRS);
+	pObj->AddComponent(pMR);
+
+}
+void Renderer::CreateObject_Empty()
+{
+	using namespace engine;
+	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"GameObject");
 }

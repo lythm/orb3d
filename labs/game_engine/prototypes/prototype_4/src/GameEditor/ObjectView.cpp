@@ -5,6 +5,7 @@
 #include "Resource.h"
 #include "GameEditor.h"
 #include "AppContext.h"
+#include "Renderer.h"
 
 class CObjectViewMenuButton : public CMFCToolBarMenuButton
 {
@@ -57,6 +58,9 @@ BEGIN_MESSAGE_MAP(CObjectView, CDockablePane)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_SORTING_GROUPBYTYPE, ID_SORTING_SORTBYACCESS, OnUpdateSort)
 //	ON_COMMAND(IDR_OV_CONTEXT, &CObjectView::OnIdrOvContext)
 	ON_COMMAND(ID_OV_DELOBJ, &CObjectView::OnOvDelobj)
+//	ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CObjectView::OnCreatefromtemplateCube)
+ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CObjectView::OnCreatefromtemplateCube)
+ON_COMMAND(ID_OV_RENAME, &CObjectView::OnOvRename)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -71,7 +75,7 @@ int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	rectDummy.SetRectEmpty();
 
 	// 创建视图:
-	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_EDITLABELS | TVS_LINESATROOT | TVS_HASBUTTONS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
 	if (!m_wndObjectView.Create(dwViewStyle, rectDummy, this, 2))
 	{
@@ -148,6 +152,7 @@ void CObjectView::OnContextMenu(CWnd* pWnd, CPoint point)
 	CMenu* pSumMenu = menu.GetSubMenu(0);
 	
 	pSumMenu->EnableMenuItem(ID_OV_DELOBJ, MF_ENABLED);
+	pSumMenu->EnableMenuItem(ID_OV_RENAME, MF_ENABLED);
 	if (point != CPoint(-1, -1))
 	{
 		// 选择已单击的项:
@@ -166,6 +171,7 @@ void CObjectView::OnContextMenu(CWnd* pWnd, CPoint point)
 		{
 			bShow = true;
 			pSumMenu->EnableMenuItem(ID_OV_DELOBJ, MF_GRAYED);
+			pSumMenu->EnableMenuItem(ID_OV_RENAME, MF_GRAYED);
 		}
 	}
 	
@@ -292,8 +298,26 @@ void CObjectView::OnOvDelobj()
 	
 	GameObjectPtr pObj = m_wndObjectView.GetGameObject(hItem);
 
-	pObj->UnLink();
+	pObj->Clear();
 	
 	m_wndObjectView.EraseItem(hItem);
 
+}
+
+
+void CObjectView::OnCreatefromtemplateCube()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_Cube();
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CObjectView::OnOvRename()
+{
+	HTREEITEM hItem = m_wndObjectView.GetSelectedItem();
+	if(hItem == NULL)
+	{
+		return;
+	}
+	m_wndObjectView.EditLabel(hItem);
 }

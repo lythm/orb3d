@@ -116,13 +116,15 @@
 #define ID_CREATEFROMTEMPLATE_POINTLIGHT 32791
 #define ID_Menu                         32792
 #define ID_CREATEFROMTEMPLATE_SPOTLIGHT 32793
+#define ID_OV_32794                     32794
+#define ID_OV_RENAME                    32795
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32794
+#define _APS_NEXT_COMMAND_VALUE         32796
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

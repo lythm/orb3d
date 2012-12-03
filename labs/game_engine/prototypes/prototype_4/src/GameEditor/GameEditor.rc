@@ -334,6 +334,8 @@ IDR_OV_CONTEXT MENU
 BEGIN
     POPUP "OV_CONTEXT"
     BEGIN
+        MENUITEM "重命名",                         ID_OV_RENAME
+        MENUITEM SEPARATOR
         MENUITEM "删除对象",                        ID_OV_DELOBJ
         MENUITEM SEPARATOR
         POPUP "Component"

@@ -6,6 +6,7 @@
 #include "GameEditor.h"
 
 #include "MainFrm.h"
+#include "Renderer.h"
 
 
 #include "AppContext.h"
@@ -34,6 +35,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
 	ON_WM_SETTINGCHANGE()
 	ON_WM_CLOSE()
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnCreatefromtemplateCube)
+	ON_COMMAND(ID_GAMEOBJECT_CREATEEMPTY, &CMainFrame::OnGameobjectCreateempty)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -484,4 +487,21 @@ CObjectView* CMainFrame::GetObjectView()
 COutputWnd* CMainFrame::GetOutput()
 {
 	return &m_wndOutput;
+}
+
+void CMainFrame::OnCreatefromtemplateCube()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_Cube();
+
+	AppContext::UpdateObjectView();
+}
+
+
+void CMainFrame::OnGameobjectCreateempty()
+{
+	AppContext::GetRenderer()->CreateObject_Empty();
+
+	AppContext::UpdateObjectView();
+
+	// TODO: 在此添加命令处理程序代码
 }

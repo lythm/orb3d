@@ -63,7 +63,7 @@ namespace engine
 		GameObjectPtr								GetFirstChild();
 
 		GameObjectPtr								GetParent();
-
+		bool										IsRoot();
 		GameObjectPtr								GetPrevNode();
 		GameObjectPtr								GetNextNode();
 		void										SetPrevNode(GameObjectPtr pNode);

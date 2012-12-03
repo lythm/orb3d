@@ -29,4 +29,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnDestroy();
+	afx_msg void OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
+//	afx_msg void OnOvRename();
 };

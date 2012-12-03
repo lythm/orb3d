@@ -14,6 +14,9 @@ public:
 	void								OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void								OnMouseRButtonDown(UINT nFlags, CPoint point);
 	void								OnMouseRButtonUp(UINT nFlags, CPoint point);
+
+	void								CreateObject_Empty();
+	void								CreateObject_FromTemplate_Cube();
 private:
 	void								UpdateSemantics();
 
@@ -25,8 +28,5 @@ private:
 	engine::MeshPtr						m_pGridMesh;
 
 	EditorCameraPtr						m_pCamera;
-
-
-	engine::GameObjectPtr				m_pTestObject;
 };
 
