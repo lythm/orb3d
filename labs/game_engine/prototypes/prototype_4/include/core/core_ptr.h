@@ -54,7 +54,9 @@ namespace engine
 	class Texture;
 	class GFX;
 	class GPUBuffer;
+	class MultiRenderTarget;
 
+	typedef boost::shared_ptr<MultiRenderTarget>			MultiRenderTargetPtr;
 	typedef boost::shared_ptr<DepthStencilBuffer>			DepthStencilBufferPtr;
 	typedef boost::shared_ptr<RenderTarget>					RenderTargetPtr;
 	typedef boost::shared_ptr<RenderData>					RenderDataPtr;

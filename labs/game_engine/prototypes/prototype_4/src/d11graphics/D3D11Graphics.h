@@ -18,14 +18,7 @@ namespace engine
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
 		void									DrawPrimitive(int count, int startindex, int basevertex);
 		
-		void									SetClearColor(const math::Color4& clr);
-		void									SetClearDepth(float d);
-		void									SetClearStencil(uint32 val);
-
-		void									ClearFrameBuffer(CLEAR_RENDERTARGET_FLAG flag = 
-																	CLEAR_RENDERTARGET_FLAG(
-																	CLEAR_COLOR_BUFFER 
-																	| CLEAR_DEPTHSTENCIL_BUFFER));
+		void									ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr, float d, int s, CLEAR_RENDERTARGET_FLAG flag); 
 		void									Present();
 
 
@@ -38,11 +31,11 @@ namespace engine
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
 		void									SetRenderTarget(RenderTargetPtr pRenderTarget);
-		void									SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, DepthStencilBufferPtr pDS);
+		void									SetRenderTarget(MultiRenderTargetPtr pRT);
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
 		
-
+		MultiRenderTargetPtr					CreateMultiRenderTarget(int count, int w, int h, G_FORMAT format, int miplvls = 1);
 		RenderTargetPtr							CreateRenderTarget(int w, int h, G_FORMAT format, int miplvls = 0);
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
 
@@ -63,11 +56,6 @@ namespace engine
 		ID3D11RenderTargetView*					m_pFrameBuffer;
 		ID3D11DepthStencilView*					m_pDepthStencilBuffer;
 
-		math::Color4							m_clearColor;
-		float									m_clearDepth;
-		int										m_clearStencil;
-
 		G_FORMAT								m_frameBufferFormat;
-
 	};
 }

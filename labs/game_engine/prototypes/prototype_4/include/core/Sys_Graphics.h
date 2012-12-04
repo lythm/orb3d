@@ -10,11 +10,7 @@ namespace engine
 	{
 	public:
 
-		enum CLEAR_RENDERTARGET_FLAG
-		{
-			CLEAR_COLOR_BUFFER					= 0x01,
-			CLEAR_DEPTHSTENCIL_BUFFER			= 0x02,
-		};
+		
 
 		virtual bool									Initialize(void* app_handle, 
 																uint32 width, 
@@ -28,14 +24,11 @@ namespace engine
 																int basevertex)										= 0;
 		virtual void									SetPrimitiveType(PRIMITIVE_TYPE pt)							= 0;
 		
-		virtual void									SetClearColor(const math::Color4& clr)						= 0;
-		virtual void									SetClearDepth(float d)										= 0;
-		virtual void									SetClearStencil(uint32 val)									= 0;
-
-		virtual void									ClearFrameBuffer(CLEAR_RENDERTARGET_FLAG flag = 
-																	CLEAR_RENDERTARGET_FLAG(
-																	CLEAR_COLOR_BUFFER 
-																	| CLEAR_DEPTHSTENCIL_BUFFER))					= 0;
+		virtual void									ClearRenderTarget(RenderTargetPtr pTarget, 
+																	const math::Color4& clr, 
+																	float d, 
+																	int s, 
+																	CLEAR_RENDERTARGET_FLAG flag)					= 0; 
 
 		virtual void									Present()													= 0;
 
@@ -55,13 +48,18 @@ namespace engine
 
 		virtual void									SetRenderTarget(RenderTargetPtr pRenderTarget)				= 0;
 
-		virtual void									SetRenderTargets(const std::vector<RenderTargetPtr>& pTargets, 
-																	DepthStencilBufferPtr pDS)						= 0;
+		virtual void									SetRenderTarget(MultiRenderTargetPtr pRT)					= 0;
 
 		virtual RenderTargetPtr							CreateRenderTarget(int w, 
 																	int h, 
 																	G_FORMAT format, 
-																	int miplvls = 0)								= 0;
+																	int miplvls = 1)								= 0;
+
+		virtual MultiRenderTargetPtr					CreateMultiRenderTarget(int count,
+																	int w,
+																	int h,
+																	G_FORMAT format,
+																	int miplvls = 1)								= 0;
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
 																	int h, 
 																	G_FORMAT format)								= 0;

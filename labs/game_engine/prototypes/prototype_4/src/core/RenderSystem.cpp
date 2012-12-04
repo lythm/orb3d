@@ -3,6 +3,7 @@
 #include "core\RenderData.h"
 #include "core\Sys_Graphics.h"
 #include "core\GFX.h"
+#include "core\g_format.h"
 
 namespace engine
 {
@@ -10,6 +11,10 @@ namespace engine
 	{
 		m_viewMatrix.MakeIdentity();
 		m_projMatrix.MakeIdentity();
+
+		m_clearClr						= math::Color4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_clearDepth					= 1.0f;
+		m_clearStencil					= 0;
 	}
 
 
@@ -37,7 +42,7 @@ namespace engine
 	}
 	void RenderSystem::Render()
 	{
-		m_pGraphics->ClearFrameBuffer();
+		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr, m_clearDepth, m_clearStencil, CLEAR_ALL);
 
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
 		{
@@ -60,7 +65,7 @@ namespace engine
 
 	void RenderSystem::DR_Render()
 	{
-		m_pGraphics->ClearFrameBuffer();
+		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr, m_clearDepth, m_clearStencil, CLEAR_ALL);
 
 		// geometry pass
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
@@ -116,5 +121,17 @@ namespace engine
 	Sys_GraphicsPtr	RenderSystem::GetSysGraphics()
 	{
 		return m_pGraphics;
+	}
+	void RenderSystem::SetClearColor(const math::Color4& clr)
+	{
+		m_clearClr	 = clr;
+	}
+	void RenderSystem::SetClearDepth(float d)
+	{
+		m_clearDepth = d;
+	}
+	void RenderSystem::SetClearStencil(int s)
+	{
+		m_clearStencil = s;
 	}
 }

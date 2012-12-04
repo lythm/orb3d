@@ -96,11 +96,12 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 
 	DepthStencilBufferPtr pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(1024, 1024, G_FORMAT_D32_FLOAT);
 
-	m_pRT->AttachDepthStencilBuffer(pDS);
+	m_pRT->SetDepthStencilBuffer(pDS);
 	return true;
 }
 void Game::Release()
 {
+	m_pRT->GetDepthStencilBuffer()->Release();
 	m_pRT->Release();
 	m_pTex->Release();
 	m_pIB->Release();
@@ -135,9 +136,8 @@ bool Game::Update()
 	m_pGFX->SetMatrixBySemantic("MATRIX_WVP", view * proj);
 
 	m_pGFX->SetTextureByName("diff_tex", m_pTex);
-	m_pCore->GetSysGraphics()->ClearFrameBuffer();
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT, math::Color4(0.2, 0.2, 0.5, 1), 1, 0, CLEAR_ALL);
 
-	m_pRT->Clear(math::Color4(0.5, 0.5, 0, 0), 1.0f, 0);
 	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
 
 	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
@@ -162,6 +162,7 @@ bool Game::Update()
 
 	///////////////////////////////////
 
+	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(0.0, 0.0, 0.0, 1), 1, 0, CLEAR_ALL);
 	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
 	m_pGFX->SetTextureByName("diff_tex", m_pRT->AsTexture());

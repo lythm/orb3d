@@ -6,16 +6,16 @@ namespace engine
 	{
 	public:
 
-		MultiRenderTarget(void)
-		{
-		}
+		virtual RenderTargetPtr									GetRenderTarget(int index)										= 0;
+		virtual int												GetRenderTargetCount()											= 0;
+		virtual TexturePtr										AsTexture(int index)											= 0;
+		virtual void											SetDepthStencilBuffer(DepthStencilBufferPtr pDepthBuffer)		= 0;
+		virtual DepthStencilBufferPtr							GetDepthStencilBuffer()											= 0;
+		virtual void											Release()														= 0;
 
-		virtual ~MultiRenderTarget(void)
-		{
-		}
+	protected:
 
-		virtual void											Release()									= 0;
+		MultiRenderTarget(void){}
+		virtual ~MultiRenderTarget(void){}
 	};
-
-
 }

@@ -13,14 +13,13 @@ namespace engine
 		D3D11RenderTarget(ID3D11DeviceContext* pContext);
 		virtual ~D3D11RenderTarget(void);
 
-		bool										Create(TexturePtr pTex);
+		bool										Create(int w, int h, G_FORMAT format, int miplvls);
 		ID3D11RenderTargetView*						GetD3D11RenderTargetView();
 		ID3D11DepthStencilView*						GetD3D11DepthStencilView();
 		TexturePtr									AsTexture();
 
 		void										Release();
-		void										Clear(const math::Color4& clr, float d, int s);
-		void										AttachDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
+		void										SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
 		DepthStencilBufferPtr						GetDepthStencilBuffer();
 	private:
 

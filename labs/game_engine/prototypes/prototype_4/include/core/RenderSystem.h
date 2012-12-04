@@ -21,6 +21,10 @@ namespace engine
 		void									SetProjMatrix(const math::Matrix44& proj);
 
 		Sys_GraphicsPtr							GetSysGraphics();
+
+		void									SetClearColor(const math::Color4& clr);
+		void									SetClearDepth(float d);
+		void									SetClearStencil(int s);
 	private:
 		void									SetSemanticsValue(RenderDataPtr pData);
 	private:
@@ -28,5 +32,9 @@ namespace engine
 		math::Matrix44							m_projMatrix;
 		std::vector<RenderDataPtr>				m_renderQueue;
 		Sys_GraphicsPtr							m_pGraphics;
+
+		math::Color4							m_clearClr;
+		float									m_clearDepth;
+		int										m_clearStencil;
 	};
 }

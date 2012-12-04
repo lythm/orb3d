@@ -45,8 +45,6 @@ namespace engine
 			return false;
 		}
 
-		m_pSysGraphics->SetClearColor(math::Color4(0.2f, 0.2f, 0.2f, 1.0f));
-		
 		m_pSysInput = boost::shared_ptr<WMInput>(new WMInput);
 
 		if(false == m_pSysInput->Initialize(app_handle))
