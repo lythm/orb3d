@@ -16,7 +16,8 @@ namespace engine
 
 		virtual void									Release()													= 0;
 		
-		virtual void									DrawPrimitive(int count, 
+		virtual void									Draw(int vertexCount, int baseVertex)						= 0;
+		virtual void									DrawIndexed(int count, 
 																int startindex, 
 																int basevertex)										= 0;
 		virtual void									SetPrimitiveType(PRIMITIVE_TYPE pt)							= 0;

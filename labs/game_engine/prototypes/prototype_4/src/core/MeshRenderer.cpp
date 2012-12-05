@@ -81,7 +81,17 @@ namespace engine
 				SubMeshPtr pSub = pMesh->GetSubMesh(i);
 
 				SubMeshRenderDataPtr pSR = SubMeshRenderDataPtr(new SubMeshRenderData(GetGameObject()));
-				pSR->Create(m_pIndexBuffer, m_pVertexBuffer, pSub->GetMaterial(), pSub->GetIndexCount(), pSub->GetVertexDataOffset(), pSub->GetVertexStride(), 0, 0);
+				pSR->Create(m_pIndexBuffer, 
+						m_pVertexBuffer, 
+						pSub->GetMaterial(), 
+						pSub->GetIndexCount(), 
+						pSub->GetVertexDataOffset(), 
+						pSub->GetVertexStride(), 
+						pSub->GetVertexCount(), 
+						0, 
+						0, 
+						pSub->GetPrimitiveType(), 
+						pSub->IsIndexed());
 
 				m_Subsets.push_back(pSR);
 			}
@@ -110,28 +120,36 @@ namespace engine
 																	int indexCount,
 																	int vertexOffset,
 																	int vertexStride,
+																	int vertexCount,
 																	int startIndex,
-																	int baseVertex)
+																	int baseVertex,
+																	PRIMITIVE_TYPE primType,
+																	bool indexed)
 		{
 			m_pIndexBuffer					= pIndexBuffer;
 			m_pVertexBuffer					= pVertexBuffer;
-			m_pMaterial							= pMaterial;
+			m_pMaterial						= pMaterial;
 			m_indexCount					= indexCount;
 			m_baseVertex					= baseVertex;
 			m_vertexOffset					= vertexOffset;
 			m_vertexStride					= vertexStride;
 			m_startIndex					= startIndex;
-
+			m_vertexCount					= vertexCount;
 			m_iDepthPass					= m_pMaterial->FindPass("DEPTH_PASS");
+			m_primType						= primType;
+			m_indexed						= indexed;
 		}
 		void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics)
 		{
-			pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT);
+			
+			
 			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
-			pSysGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
+			pSysGraphics->SetPrimitiveType(m_primType);
+			
+			m_indexed ? pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT) : 0;
+			
 
 			m_pMaterial->ApplyVertexFormat();
-
 
 			int nPass = 0;
 
@@ -145,19 +163,21 @@ namespace engine
 				}
 				m_pMaterial->ApplyPass(i);
 
-				pSysGraphics->DrawPrimitive(m_indexCount, m_startIndex, m_baseVertex);
+				m_indexed ? 
+					pSysGraphics->DrawIndexed(m_indexCount, m_startIndex, m_baseVertex) :
+					pSysGraphics->Draw(m_vertexCount, m_baseVertex);
 			}
 
 			m_pMaterial->EndPass();
 		}
 		void MeshRenderer::SubMeshRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
 		{
-			pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT);
+			
 			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
-			pSysGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
+			pSysGraphics->SetPrimitiveType(m_primType);
 
 			m_pMaterial->ApplyVertexFormat();
-
+			m_indexed ? pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT) : 0;
 
 			int nPass = 0;
 
@@ -165,8 +185,11 @@ namespace engine
 
 			m_pMaterial->ApplyPass(m_iDepthPass);
 
-			pSysGraphics->DrawPrimitive(m_indexCount, m_startIndex, m_baseVertex);
-			
+			m_indexed ? 
+					pSysGraphics->DrawIndexed(m_indexCount, m_startIndex, m_baseVertex) :
+					pSysGraphics->Draw(m_vertexCount, m_baseVertex);
+
+						
 			m_pMaterial->EndPass();
 		}
 		MaterialPtr MeshRenderer::SubMeshRenderData::GetMaterial()

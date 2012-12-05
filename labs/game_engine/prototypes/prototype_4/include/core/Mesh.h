@@ -14,7 +14,7 @@ namespace engine
 		int											GetVertexDataBytes();
 		void*										GetIndexData();
 		void*										GetVertexData();
-		MaterialPtr										GetMaterialByIndex(int index);
+		MaterialPtr									GetMaterialByIndex(int index);
 		int											GetMaterialCount();
 
 		bool										Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<MaterialPtr>& materialList);
@@ -30,7 +30,7 @@ namespace engine
 		void*										m_pVertexData;
 		int											m_vertexDataBytes;
 		
-		std::vector<MaterialPtr>							m_materialList;
+		std::vector<MaterialPtr>					m_materialList;
 		std::vector<SubMeshPtr>						m_submeshList;
 	};
 }

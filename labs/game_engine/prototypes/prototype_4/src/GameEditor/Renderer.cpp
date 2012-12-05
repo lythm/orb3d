@@ -93,16 +93,16 @@ engine::MeshPtr Renderer::CreateCube(int size)
 
 	Vertex verts[] = 
 	{
-		{ math::Vector3(10, 10, -10)},
-		{ math::Vector3(10, -10, -10)},
-		{ math::Vector3(-10, -10, -10)},
-		{ math::Vector3(-10, 10, -10)},
+		{ math::Vector3(size, size, -size)},
+		{ math::Vector3(size, -size, -size)},
+		{ math::Vector3(-size, -size, -size)},
+		{ math::Vector3(-size, size, -size)},
 
 
-		{ math::Vector3(10, 10, 10)},
-		{ math::Vector3(10, -10, 10)},
-		{ math::Vector3(-10, -10, 10)},
-		{ math::Vector3(-10, 10, 10)},
+		{ math::Vector3(size, size, size)},
+		{ math::Vector3(size, -size, size)},
+		{ math::Vector3(-size, -size, size)},
+		{ math::Vector3(-size, size, size)},
 	};
 
 	uint16 indice[] = 
@@ -140,10 +140,34 @@ engine::MeshPtr Renderer::CreateCube(int size)
 	pMesh->Create(36 * sizeof(uint16), indice, sizeof(Vertex) * 8, verts, pMatList);
 
 	SubMeshPtr pSub = SubMeshPtr(new SubMesh());	
-	pSub->Create(pMesh, 0, 36, 0, 8, sizeof(Vertex), 0, 12);
+	pSub->Create(pMesh, 0, 36, 0, 8, sizeof(Vertex), 0, 12, PT_TRIANGLE_LIST);
 	pMesh->AddSubMesh(pSub);
 
 	return pMesh;
+}
+void Renderer::CreateObject_FromTemplate_Sphere()
+{
+	using namespace engine;
+
+	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+
+
+	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Sphere");
+
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_sphere.fx");
+
+	MeshPtr pMesh = MeshUtil::CreateSphere(20, 100, 100, pMaterial);
+
+	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
+
+	MeshDataPtr pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
+	pMD->SetMesh(pMesh);
+
+	pObj->AddComponent(pMD);
+
+	MeshRendererPtr pMR = boost::shared_dynamic_cast<object_component::MeshRenderer>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshRenderer"));
+	pMR->SetRenderSystem(pRS);
+	pObj->AddComponent(pMR);
 }
 void Renderer::CreateObject_FromTemplate_Cube()
 {
@@ -156,7 +180,7 @@ void Renderer::CreateObject_FromTemplate_Cube()
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
 	MeshDataPtr pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
-	pMD->SetMesh(CreateCube(100));
+	pMD->SetMesh(CreateCube(20));
 
 	pObj->AddComponent(pMD);
 

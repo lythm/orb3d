@@ -14,7 +14,7 @@ namespace engine
 	SubMesh::~SubMesh(void)
 	{
 	}
-	void SubMesh::Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount)
+	void SubMesh::Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType)
 	{
 		m_pMesh						= pMesh;
 
@@ -26,6 +26,9 @@ namespace engine
 		m_primitiveCount			= primCount;
 		m_materialIndex				= matIndex;
 		m_vertexStride				= vertexStride;
+
+		m_indexed					= pMesh->GetIndexData() == NULL ? false : true;
+		m_primitiveType				= primType;
 	}
 	void* SubMesh::GetIndexData()
 	{
@@ -71,5 +74,13 @@ namespace engine
 	int SubMesh::GetPrimitiveCount()
 	{
 		return m_primitiveCount;
+	}
+	PRIMITIVE_TYPE SubMesh::GetPrimitiveType()
+	{
+		return m_primitiveType;
+	}
+	bool SubMesh::IsIndexed()
+	{
+		return m_indexed;
 	}
 }

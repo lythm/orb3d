@@ -143,7 +143,7 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 	{
 		m_pMaterial->ApplyPass(i);
 
-		pGraphics->DrawPrimitive(index_count, 0, 0);
+		pGraphics->DrawIndexed(index_count, 0, 0);
 	}
 
 	m_pMaterial->EndPass();

@@ -40,9 +40,16 @@ namespace engine
 	}
 	bool Mesh::Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<MaterialPtr>& materialList)
 	{
-		m_pIndexData = new uint8[indexBufferSize];
-		memcpy(m_pIndexData, pIndexBuffer, indexBufferSize);
-		m_indexDataBytes = indexBufferSize;
+		if(pIndexBuffer != nullptr)
+		{
+			m_pIndexData = new uint8[indexBufferSize];
+			memcpy(m_pIndexData, pIndexBuffer, indexBufferSize);
+			m_indexDataBytes = indexBufferSize;
+		}
+		else
+		{
+			m_indexDataBytes = 0;
+		}
 
 		m_pVertexData = new uint8[vertexBufferSize];
 		memcpy(m_pVertexData, pVertexBuffer, vertexBufferSize);

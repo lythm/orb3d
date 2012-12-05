@@ -138,6 +138,9 @@ namespace engine
 		case PT_LINE_LIST:
 			tp = D3D_PRIMITIVE_TOPOLOGY_LINELIST;
 			break;
+		case PT_TRIANGLE_STRIP:
+			tp = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
+			break;
 		default:
 			return D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 		}

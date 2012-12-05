@@ -25,16 +25,17 @@ private:
 	engine::GPUBufferPtr							m_pVB;
 	engine::GPUBufferPtr							m_pIB;
 
-	engine::MaterialPtr									m_pGFX;
+	engine::MaterialPtr								m_pMaterial;
 
 	engine::TexturePtr								m_pTex;
 
 	engine::MultiRenderTargetPtr					m_pRT;
 
 
-	engine::GPUBufferPtr							m_pQuadIB;
 	engine::GPUBufferPtr							m_pQuadVB;
-	engine::MaterialPtr								m_pQuadGFX;
+	engine::MaterialPtr								m_pQuadMaterial;
+
+	engine::MeshPtr									m_pMesh;
 
 };
 

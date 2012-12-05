@@ -404,11 +404,14 @@ namespace engine
 		D3D_PRIMITIVE_TOPOLOGY tp = D3D11Format::Convert(pt);
 		m_pContext->IASetPrimitiveTopology(tp);
 	}
-	void D3D11Graphics::DrawPrimitive(int count, int startindex, int basevertex)
+	void D3D11Graphics::DrawIndexed(int count, int startindex, int basevertex)
 	{
 		m_pContext->DrawIndexed(count, startindex, basevertex);
 	}
-
+	void D3D11Graphics::Draw(int vertexCount, int baseVertex)
+	{
+		m_pContext->Draw(vertexCount, baseVertex);
+	}
 	TexturePtr D3D11Graphics::CreateTextureFromFile(const char* szFile)
 	{
 

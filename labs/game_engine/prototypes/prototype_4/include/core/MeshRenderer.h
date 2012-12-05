@@ -2,7 +2,7 @@
 
 #include "core\GameObjectComponent.h"
 #include "core\RenderData.h"
-
+#include "core\g_format.h"
 
 namespace engine
 {
@@ -27,8 +27,11 @@ namespace engine
 																	int indexCount,
 																	int vertexOffset,
 																	int vertexStride,
+																	int vertexCount,
 																	int startIndex,
-																	int baseVertex);
+																	int baseVertex,
+																	PRIMITIVE_TYPE primType,
+																	bool indexed);
 			private:
 				GameObjectPtr									m_pGameObject;
 
@@ -41,6 +44,9 @@ namespace engine
 				int												m_startIndex;
 				int												m_baseVertex;
 				int												m_iDepthPass;
+				bool											m_indexed;
+				PRIMITIVE_TYPE									m_primType;
+				int												m_vertexCount;
 			};
 		public:
 			MeshRenderer();

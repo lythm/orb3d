@@ -37,6 +37,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_CLOSE()
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnCreatefromtemplateCube)
 	ON_COMMAND(ID_GAMEOBJECT_CREATEEMPTY, &CMainFrame::OnGameobjectCreateempty)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_SPHERE, &CMainFrame::OnCreatefromtemplateSphere)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -506,5 +507,14 @@ void CMainFrame::OnGameobjectCreateempty()
 
 	AppContext::UpdateObjectView();
 
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMainFrame::OnCreatefromtemplateSphere()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_Sphere();
+
+	AppContext::UpdateObjectView();
 	// TODO: 在此添加命令处理程序代码
 }

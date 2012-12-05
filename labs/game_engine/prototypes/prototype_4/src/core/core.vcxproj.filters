@@ -1,238 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="ArcBall.cpp" />
+    <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CoreApi.cpp" />
+    <ClCompile Include="core_pch.cpp" />
+    <ClCompile Include="DataStream_File.cpp" />
+    <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectComponent.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameObjectTemplate.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshAnimator.cpp" />
+    <ClCompile Include="MeshData.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MeshSerializer_XML.cpp" />
+    <ClCompile Include="ParticleRenderer.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SoundEmitter.cpp" />
+    <ClCompile Include="SoundListener.cpp" />
+    <ClCompile Include="SubMesh.cpp" />
+    <ClCompile Include="SysManager.cpp" />
+    <ClCompile Include="WMInput.cpp" />
+    <ClCompile Include="MeshUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core_pch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\GameObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\GameObjectManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\GameObjectComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\core_ptr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\core_all.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Sys_Graphics.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Sys_Input.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\MeshRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Mesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Sys_Sound.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\SysManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Sys_Physics.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Scene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\SoundEmitter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\SoundListener.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\ParticleRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\MeshData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\MeshAnimator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Behavior.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Texture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\GPUBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\VertexFormat.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\GameInterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\CoreApi.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="WMInput.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\RenderTarget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\DepthStencilBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\g_format.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\RenderData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\RenderSystem.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\BaseCamera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\MultiRenderTarget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\ArcBall.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\DataStream.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\DataStream_File.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Serializer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\MeshSerializer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\MeshSerializer_XML.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\SubMesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\GameObjectTemplate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Light.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="..\..\include\core\EventDispatcher.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\core\Event.h">
-=======
-    <ClInclude Include="..\..\include\core\Material.h">
->>>>>>> g59.1
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="core_pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SysManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundEmitter.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundListener.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleRenderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshAnimator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Behavior.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CoreApi.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="WMInput.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderSystem.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ArcBall.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DataStream_File.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshSerializer_XML.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SubMesh.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectTemplate.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="EventDispatcher.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="..\..\include\core\ArcBall.h" />
+    <ClInclude Include="..\..\include\core\BaseCamera.h" />
+    <ClInclude Include="..\..\include\core\Behavior.h" />
+    <ClInclude Include="..\..\include\core\Camera.h" />
+    <ClInclude Include="..\..\include\core\CoreApi.h" />
+    <ClInclude Include="..\..\include\core\core_all.h" />
+    <ClInclude Include="..\..\include\core\core_ptr.h" />
+    <ClInclude Include="..\..\include\core\DataStream.h" />
+    <ClInclude Include="..\..\include\core\DataStream_File.h" />
+    <ClInclude Include="..\..\include\core\DepthStencilBuffer.h" />
+    <ClInclude Include="..\..\include\core\Event.h" />
+    <ClInclude Include="..\..\include\core\EventDispatcher.h" />
+    <ClInclude Include="..\..\include\core\GameInterface.h" />
+    <ClInclude Include="..\..\include\core\GameObject.h" />
+    <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
+    <ClInclude Include="..\..\include\core\GameObjectManager.h" />
+    <ClInclude Include="..\..\include\core\GameObjectTemplate.h" />
+    <ClInclude Include="..\..\include\core\GFX.h" />
+    <ClInclude Include="..\..\include\core\GPUBuffer.h" />
+    <ClInclude Include="..\..\include\core\g_format.h" />
+    <ClInclude Include="..\..\include\core\Light.h" />
+    <ClInclude Include="..\..\include\core\Mesh.h" />
+    <ClInclude Include="..\..\include\core\MeshAnimator.h" />
+    <ClInclude Include="..\..\include\core\MeshData.h" />
+    <ClInclude Include="..\..\include\core\MeshRenderer.h" />
+    <ClInclude Include="..\..\include\core\MeshSerializer.h" />
+    <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
+    <ClInclude Include="..\..\include\core\MultiRenderTarget.h" />
+    <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
+    <ClInclude Include="..\..\include\core\RenderData.h" />
+    <ClInclude Include="..\..\include\core\RenderSystem.h" />
+    <ClInclude Include="..\..\include\core\RenderTarget.h" />
+    <ClInclude Include="..\..\include\core\Scene.h" />
+    <ClInclude Include="..\..\include\core\Serializer.h" />
+    <ClInclude Include="..\..\include\core\SoundEmitter.h" />
+    <ClInclude Include="..\..\include\core\SoundListener.h" />
+    <ClInclude Include="..\..\include\core\SubMesh.h" />
+    <ClInclude Include="..\..\include\core\SysManager.h" />
+    <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
+    <ClInclude Include="..\..\include\core\Sys_Input.h" />
+    <ClInclude Include="..\..\include\core\Sys_Physics.h" />
+    <ClInclude Include="..\..\include\core\Sys_Sound.h" />
+    <ClInclude Include="..\..\include\core\Texture.h" />
+    <ClInclude Include="..\..\include\core\VertexFormat.h" />
+    <ClInclude Include="core_pch.h" />
+    <ClInclude Include="WMInput.h" />
+    <ClInclude Include="..\..\include\core\MeshUtil.h" />
   </ItemGroup>
 </Project>

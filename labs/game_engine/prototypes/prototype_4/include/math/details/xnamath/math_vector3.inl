@@ -10,9 +10,9 @@ namespace math
 		void Vector3::Normalize()
 	{
 
-		XMVECTOR v = XMLoadFloat3((const XMFLOAT3*)this);
+		XMVECTOR val = XMLoadFloat3((const XMFLOAT3*)this);
 
-		XMVECTOR r = XMVector3Normalize(v);
+		XMVECTOR r = XMVector3Normalize(val);
 
 		XMStoreFloat3((XMFLOAT3*)this, r);
 

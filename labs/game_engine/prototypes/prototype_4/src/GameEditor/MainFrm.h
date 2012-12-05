@@ -68,6 +68,7 @@ public:
 	afx_msg void OnClose();
 	afx_msg void OnCreatefromtemplateCube();
 	afx_msg void OnGameobjectCreateempty();
+	afx_msg void OnCreatefromtemplateSphere();
 };
 
 

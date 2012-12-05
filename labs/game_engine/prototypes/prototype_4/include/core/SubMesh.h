@@ -10,7 +10,7 @@ namespace engine
 		virtual ~SubMesh(void);
 
 
-		void									Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount);
+		void									Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType);
 
 		void*									GetIndexData();
 		void*									GetVertexData();
@@ -24,9 +24,10 @@ namespace engine
 		int										GetVertexCount();
 		int										GetVertexStride();
 
-		MaterialPtr									GetMaterial();
+		MaterialPtr								GetMaterial();
 		int										GetPrimitiveCount();
-
+		PRIMITIVE_TYPE							GetPrimitiveType();
+		bool									IsIndexed();
 	private:
 
 		MeshPtr									m_pMesh;
@@ -39,6 +40,8 @@ namespace engine
 		int										m_primitiveCount;
 		int										m_materialIndex;
 		int										m_vertexStride;
+		PRIMITIVE_TYPE							m_primitiveType;
+		bool									m_indexed;
 	};
 
 

@@ -17,6 +17,7 @@ public:
 
 	void								CreateObject_Empty();
 	void								CreateObject_FromTemplate_Cube();
+	void								CreateObject_FromTemplate_Sphere();
 private:
 	void								UpdateSemantics();
 

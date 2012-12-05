@@ -16,8 +16,9 @@ namespace engine
 		void									Release();
 
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
-		void									DrawPrimitive(int count, int startindex, int basevertex);
-		
+		void									DrawIndexed(int count, int startindex, int basevertex);
+		void									Draw(int vertexCount, int baseVertex);
+
 		void									ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr, float d, int s, CLEAR_RENDERTARGET_FLAG flag); 
 		void									Present();
 
