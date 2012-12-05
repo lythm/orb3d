@@ -94,7 +94,7 @@ bool GridMesh::Init(int size, int grid_size)
 	
 	m_pIB->Unmap();
 
-	m_pGFX = pGraphics->CreateGFXFromFile("./assets/gfx/editor_grid.fx");
+	m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_grid.fx");
 
 	VertexElement vf[] = 
 	{
@@ -102,7 +102,7 @@ bool GridMesh::Init(int size, int grid_size)
 		VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
 	};
 
-	m_pGFX->SetVertexFormat(vf, 2);
+	m_pMaterial->SetVertexFormat(vf, 2);
 
 
 
@@ -113,7 +113,7 @@ void GridMesh::Release()
 {
 	m_pIB->Release();
 	m_pVB->Release();
-	m_pGFX->Release();
+	m_pMaterial->Release();
 }
 
 void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
@@ -133,25 +133,25 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 	pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 	pGraphics->SetPrimitiveType(PT_LINE_LIST);
 
-	m_pGFX->ApplyVertexFormat();
+	m_pMaterial->ApplyVertexFormat();
 	
 	int nPass = 0;
 
-	m_pGFX->BeginPass(nPass);
+	m_pMaterial->BeginPass(nPass);
 
 	for(int i = 0; i < nPass; ++i)
 	{
-		m_pGFX->ApplyPass(i);
+		m_pMaterial->ApplyPass(i);
 
 		pGraphics->DrawPrimitive(index_count, 0, 0);
 	}
 
-	m_pGFX->EndPass();
+	m_pMaterial->EndPass();
 
 }
-engine::GFXPtr GridMesh::GetGFX()
+engine::MaterialPtr GridMesh::GetMaterial()
 {
-	return m_pGFX;
+	return m_pMaterial;
 }
 math::Matrix44 GridMesh::GetWorldMatrix()
 {

@@ -131,11 +131,11 @@ engine::MeshPtr Renderer::CreateCube(int size)
 		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
 	};
 
-	std::vector<GFXPtr> pMatList;
+	std::vector<MaterialPtr> pMatList;
 	
-	GFXPtr pGFX = pGraphics->CreateGFXFromFile("./assets/gfx/editor_cube.fx");
-	pGFX->SetVertexFormat(vf, 1);
-	pMatList.push_back(pGFX);
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_cube.fx");
+	pMaterial->SetVertexFormat(vf, 1);
+	pMatList.push_back(pMaterial);
 
 	pMesh->Create(36 * sizeof(uint16), indice, sizeof(Vertex) * 8, verts, pMatList);
 

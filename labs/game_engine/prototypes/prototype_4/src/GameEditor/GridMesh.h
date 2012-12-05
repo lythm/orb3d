@@ -12,7 +12,7 @@ public:
 
 	void									Render_Depth(engine::Sys_GraphicsPtr pSysGraphics);
 	void									Render(engine::Sys_GraphicsPtr pSysGraphics);
-	engine::GFXPtr							GetGFX();
+	engine::MaterialPtr							GetMaterial();
 	math::Matrix44							GetWorldMatrix();
 private:
 	int										m_size;
@@ -20,7 +20,7 @@ private:
 	
 	engine::GPUBufferPtr					m_pVB;
 	engine::GPUBufferPtr					m_pIB;
-	engine::GFXPtr							m_pGFX;
+	engine::MaterialPtr						m_pMaterial;
 
 };
 

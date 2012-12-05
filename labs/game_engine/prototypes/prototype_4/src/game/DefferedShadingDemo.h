@@ -25,7 +25,7 @@ private:
 	engine::GPUBufferPtr							m_pVB;
 	engine::GPUBufferPtr							m_pIB;
 
-	engine::GFXPtr									m_pGFX;
+	engine::MaterialPtr									m_pGFX;
 
 	engine::TexturePtr								m_pTex;
 
@@ -34,7 +34,7 @@ private:
 
 	engine::GPUBufferPtr							m_pQuadIB;
 	engine::GPUBufferPtr							m_pQuadVB;
-	engine::GFXPtr									m_pQuadGFX;
+	engine::MaterialPtr								m_pQuadGFX;
 
 };
 

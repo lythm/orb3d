@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "..\..\include\core\Mesh.h"
-#include "core\GFX.h"
+#include "core\Material.h"
 
 namespace engine
 {
@@ -30,7 +30,7 @@ namespace engine
 	{
 		return m_pVertexData;
 	}
-	GFXPtr Mesh::GetMaterialByIndex(int index)
+	MaterialPtr Mesh::GetMaterialByIndex(int index)
 	{
 		return m_materialList[index];
 	}
@@ -38,7 +38,7 @@ namespace engine
 	{
 		return (int)m_materialList.size();
 	}
-	bool Mesh::Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<GFXPtr>& materialList)
+	bool Mesh::Create(int indexBufferSize, void* pIndexBuffer, int vertexBufferSize, void* pVertexBuffer, const std::vector<MaterialPtr>& materialList)
 	{
 		m_pIndexData = new uint8[indexBufferSize];
 		memcpy(m_pIndexData, pIndexBuffer, indexBufferSize);

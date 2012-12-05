@@ -2,7 +2,7 @@
 #include "..\..\include\core\RenderSystem.h"
 #include "core\RenderData.h"
 #include "core\Sys_Graphics.h"
-#include "core\GFX.h"
+#include "core\Material.h"
 #include "core\g_format.h"
 
 namespace engine
@@ -108,14 +108,14 @@ namespace engine
 	}
 	void RenderSystem::SetSemanticsValue(RenderDataPtr pData)
 	{
-		GFXPtr pGFX = pData->GetGFX();
+		MaterialPtr pMaterial = pData->GetMaterial();
 
 		math::Matrix44 world = pData->GetWorldMatrix();
 
-		pGFX->SetMatrixBySemantic("MATRIX_WORLD", world);
-		pGFX->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
-		pGFX->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
-		pGFX->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
+		pMaterial->SetMatrixBySemantic("MATRIX_WORLD", world);
+		pMaterial->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
+		pMaterial->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
+		pMaterial->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
 
 	}
 	Sys_GraphicsPtr	RenderSystem::GetSysGraphics()

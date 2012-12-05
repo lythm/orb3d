@@ -98,7 +98,7 @@ void DefferedShadingDemo::CreateQuad()
 
 	m_pQuadIB = m_pCore->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, sizeof(uint32) * 6, indice, true);
 
-	m_pQuadGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test2.fx");
+	m_pQuadGFX = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/gfx/test2.fx");
 
 	VertexElement vf[] = 
 	{
@@ -159,7 +159,7 @@ void DefferedShadingDemo::CreateScene()
 
 	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, sizeof(uint32) * 36, indice, true);
 
-	m_pGFX = m_pCore->GetSysGraphics()->CreateGFXFromFile("./assets/gfx/test1.fx");
+	m_pGFX = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/gfx/test1.fx");
 
 	VertexElement vf[] = 
 	{

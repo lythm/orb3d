@@ -34,15 +34,19 @@ bool Game::Initialize(engine::CoreApiPtr pCore)
 	}
 
 	
+
 	return true;
 }
 void Game::Release()
 {
+
 	m_pDemo->Release();
 }
 bool Game::Update()
 {
 	m_pDemo->Update();
+	
+
 	
 	return true;
 }

@@ -27,7 +27,7 @@ namespace engine
 
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
 
-		GFXPtr									CreateGFXFromFile(const char* szFile);
+		MaterialPtr									CreateMaterialFromFile(const char* szFile);
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
 		void									SetRenderTarget(RenderTargetPtr pRenderTarget);

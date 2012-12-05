@@ -52,7 +52,7 @@ namespace engine
 	class RenderData;
 	class RenderTarget;
 	class Texture;
-	class GFX;
+	class Material;
 	class GPUBuffer;
 	class MultiRenderTarget;
 
@@ -62,7 +62,7 @@ namespace engine
 	typedef boost::shared_ptr<RenderData>					RenderDataPtr;
 	typedef boost::shared_ptr<GPUBuffer>					GPUBufferPtr;
 	typedef boost::shared_ptr<Texture>						TexturePtr;
-	typedef boost::shared_ptr<GFX>							GFXPtr;
+	typedef boost::shared_ptr<Material>							MaterialPtr;
 
 
 	class CoreApi;

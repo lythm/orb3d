@@ -13,6 +13,8 @@ public:
 	bool									Update();
 
 private:
+
 	DefferedShadingDemo*					m_pDemo;
+
 };
 

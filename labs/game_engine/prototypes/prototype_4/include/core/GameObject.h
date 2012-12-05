@@ -11,8 +11,10 @@ namespace engine
 		
 		void										Update();
 		bool										AddComponent(GameObjectComponentPtr pCom);
-		
 		GameObjectComponentPtr						GetComponent(const std::wstring& name);
+		int											GetComponentCount();
+		GameObjectComponentPtr						GetComponent(int index);
+
 		GameObjectPtr								ThisPtr();
 
 		void										ClearComponents();

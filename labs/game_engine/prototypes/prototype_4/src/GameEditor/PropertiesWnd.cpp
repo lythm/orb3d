@@ -5,6 +5,7 @@
 #include "Resource.h"
 #include "MainFrm.h"
 #include "GameEditor.h"
+#include "VectorProperty.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -234,6 +235,18 @@ void CPropertiesWnd::InitPropList()
 	pGroup411->AddSubItem(new CMFCPropertyGridProperty(_T("项 3"), (_variant_t) _T("值 3"), _T("此为说明")));
 
 	pGroup4->Expand(FALSE);
+
+
+	CMFCPropertyGridProperty* pTest = new CMFCPropertyGridProperty(_T("Test"));
+
+	CMFCPropertyGridProperty* pTestProp = new custom_property::VectorProperty(_T("A"), (_variant_t)(100), _T("testtest"));
+
+	
+	pTest->AddSubItem(pTestProp);
+
+
+	m_wndPropList.AddProperty(pTest);
+
 	m_wndPropList.AddProperty(pGroup4);
 }
 
@@ -272,6 +285,10 @@ void CPropertiesWnd::SetPropListFont()
 }
 void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 {
+
+	return;
+
+
 	m_wndPropList.RemoveAll();
 
 	if(pObj == nullptr)
@@ -281,10 +298,36 @@ void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 		return;
 	}
 
+	CMFCPropertyGridProperty* pCommon = new CMFCPropertyGridProperty(_T("General"));
 	CMFCPropertyGridProperty* pName = new CMFCPropertyGridProperty(_T("Name"), COleVariant(pObj->GetName().c_str()), _T("Object Name."));
-	//pName->AllowEdit(FALSE);
+	pCommon->AddSubItem(pName);
+	m_wndPropList.AddProperty(pCommon);
+	
+	CMFCPropertyGridProperty* pTM = new CMFCPropertyGridProperty(_T("Transform"));
 
-	m_wndPropList.AddProperty(pName);
+	CMFCPropertyGridProperty* pPos = new CMFCPropertyGridProperty(_T("Pos"));
 
+	math::Vector3 pos = pObj->GetTranslation();
+
+	CMFCPropertyGridProperty* pPosX = new CMFCPropertyGridProperty(_T("x"), _variant_t(pos.x), _T("x"));
+	CMFCPropertyGridProperty* pPosY = new CMFCPropertyGridProperty(_T("y"), _variant_t(pos.y), _T("y"));
+	CMFCPropertyGridProperty* pPosZ = new CMFCPropertyGridProperty(_T("z"), _variant_t(pos.z), _T("z"));
+
+	pPos->AddSubItem(pPosX);
+	pPos->AddSubItem(pPosY);
+	pPos->AddSubItem(pPosZ);
+
+	pTM->AddSubItem(pPos);
+	m_wndPropList.AddProperty(pTM);
+
+	for(int i = 0; i < pObj->GetComponentCount(); ++i)
+	{
+		engine::GameObjectComponentPtr pCom = pObj->GetComponent(i);
+
+		CMFCPropertyGridProperty* pComProp = new CMFCPropertyGridProperty(pCom->GetName().c_str());
+
+		m_wndPropList.AddProperty(pComProp);
+	}
+	
 	m_wndPropList.Invalidate();
 }

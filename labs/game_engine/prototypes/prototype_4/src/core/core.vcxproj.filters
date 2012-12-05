@@ -81,9 +81,6 @@
     <ClInclude Include="..\..\include\core\Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\GFX.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\core\GPUBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -147,10 +144,14 @@
     <ClInclude Include="..\..\include\core\Light.h">
       <Filter>头文件</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\..\include\core\EventDispatcher.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\core\Event.h">
+=======
+    <ClInclude Include="..\..\include\core\Material.h">
+>>>>>>> g59.1
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

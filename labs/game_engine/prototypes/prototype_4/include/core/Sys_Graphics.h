@@ -39,7 +39,7 @@ namespace engine
 																	unsigned int offset, 
 																	unsigned int stride)							= 0;
 
-		virtual GFXPtr									CreateGFXFromFile(const char* szFile)						= 0;
+		virtual MaterialPtr								CreateMaterialFromFile(const char* szFile)						= 0;
 		
 		virtual TexturePtr								CreateTextureFromFile(const char* szFile)					= 0;
 

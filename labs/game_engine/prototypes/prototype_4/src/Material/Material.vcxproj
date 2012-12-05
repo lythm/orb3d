@@ -11,15 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{345E5016-6171-456E-AC63-0026F0997D9A}</ProjectGuid>
+    <ProjectGuid>{4C114001-F71E-4D21-8B9C-F0CFF3AD2E7A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>d11graphics</RootNamespace>
+    <RootNamespace>Material</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -43,8 +43,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>D:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -54,15 +52,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;D11GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>d11graphics_pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\include;.\effect11;.\effect11\inc;.\effect11\binary;.\</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MATERIAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>material_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3dcompiler.lib;d3d11.lib;dxguid.lib;d3dx11.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,7 +68,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;D11GRAPHICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MATERIAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,42 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="d11graphics_pch.h" />
-    <ClInclude Include="D3D11Buffer.h" />
-    <ClInclude Include="D3D11DepthStencilBuffer.h" />
-    <ClInclude Include="D3D11EffectMaterial.h" />
-    <ClInclude Include="D3D11Format.h" />
-    <ClInclude Include="D3D11Graphics.h" />
-    <ClInclude Include="D3D11MultiRenderTarget.h" />
-    <ClInclude Include="D3D11RenderTarget.h" />
-    <ClInclude Include="D3D11Texture.h" />
-    <ClInclude Include="effect11\Effect.h" />
-    <ClInclude Include="effect11\EffectLoad.h" />
-    <ClInclude Include="effect11\pchfx.h" />
+    <ClInclude Include="Material_impl.h" />
+    <ClInclude Include="Material_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="d11graphics_pch.cpp">
+    <ClCompile Include="Material_impl.cpp" />
+    <ClCompile Include="Material_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">d11graphics_pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="D3D11Buffer.cpp" />
-    <ClCompile Include="D3D11DepthStencilBuffer.cpp" />
-    <ClCompile Include="D3D11EffectMaterial.cpp" />
-    <ClCompile Include="D3D11Format.cpp" />
-    <ClCompile Include="D3D11Graphics.cpp" />
-    <ClCompile Include="D3D11MultiRenderTarget.cpp" />
-    <ClCompile Include="D3D11RenderTarget.cpp" />
-    <ClCompile Include="D3D11Texture.cpp" />
-    <ClCompile Include="effect11\d3dx11dbg.cpp" />
-    <ClCompile Include="effect11\d3dxGlobal.cpp" />
-    <ClCompile Include="effect11\EffectAPI.cpp" />
-    <ClCompile Include="effect11\EffectLoad.cpp" />
-    <ClCompile Include="effect11\EffectNonRuntime.cpp" />
-    <ClCompile Include="effect11\EffectReflection.cpp" />
-    <ClCompile Include="effect11\EffectRuntime.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="effect11\EffectVariable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,7 +3,7 @@
 #include "D3D11Graphics.h"
 #include "D3D11Buffer.h"
 #include "D3D11Texture.h"
-#include "D3D11EffectGFX.h"
+#include "D3D11EffectMaterial.h"
 #include "D3D11RenderTarget.h"
 #include "D3D11DepthStencilBuffer.h"
 #include "D3D11Format.h"
@@ -387,17 +387,17 @@ namespace engine
 
 	}
 	
-	GFXPtr D3D11Graphics::CreateGFXFromFile(const char* szFile)
+	MaterialPtr D3D11Graphics::CreateMaterialFromFile(const char* szFile)
 	{
-		D3D11EffectGFX* pFX = new D3D11EffectGFX(m_pContext);
+		D3D11EffectMaterial* pFX = new D3D11EffectMaterial(m_pContext);
 
 		if(false == pFX->LoadFromFile(szFile))
 		{
 			pFX->Release();
-			return GFXPtr();
+			return MaterialPtr();
 		}
 
-		return GFXPtr(pFX);
+		return MaterialPtr(pFX);
 	}
 	void D3D11Graphics::SetPrimitiveType(PRIMITIVE_TYPE pt)
 	{

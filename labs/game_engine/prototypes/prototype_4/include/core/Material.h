@@ -5,11 +5,11 @@
 
 namespace engine
 {
-	class EXPORT_CLASS GFX
+	class EXPORT_CLASS Material
 	{
 	public:
-		GFX(void){}
-		virtual ~GFX(void){}
+		Material(void){}
+		virtual ~Material(void){}
 
 		virtual int									FindPass(const std::string& name)							= 0;
 		virtual void								ApplyVertexFormat()											= 0;

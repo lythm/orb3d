@@ -79,7 +79,14 @@ namespace engine
 
 		return GameObjectComponentPtr();
 	}
-
+	int	GameObject::GetComponentCount()
+	{
+		return (int)m_components.size();
+	}
+	GameObjectComponentPtr GameObject::GetComponent(int index)
+	{
+		return m_components[index];
+	}
 	void GameObject::Clear()
 	{
 		GameObjectPtr pObj = GetFirstChild();

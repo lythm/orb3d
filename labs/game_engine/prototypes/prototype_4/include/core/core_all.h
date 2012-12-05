@@ -30,7 +30,7 @@
 #include "core\BaseCamera.h"
 #include "core\Texture.h"
 
-#include "core\GFX.h"
+#include "core\Material.h"
 #include "core\GPUBuffer.h"
 #include "core\VertexFormat.h"
 #include "core\RenderTarget.h"

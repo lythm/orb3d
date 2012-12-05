@@ -18,12 +18,12 @@ namespace engine
 
 				void											Render_Depth(Sys_GraphicsPtr pSysGraphics);
 				void											Render(Sys_GraphicsPtr pSysGraphics);
-				GFXPtr											GetGFX();
+				MaterialPtr										GetMaterial();
 				math::Matrix44									GetWorldMatrix();
 
 				void											Create(GPUBufferPtr pIndexBuffer, 
 																	GPUBufferPtr pVertexBuffer, 
-																	GFXPtr pGFX, 
+																	MaterialPtr pMaterial, 
 																	int indexCount,
 																	int vertexOffset,
 																	int vertexStride,
@@ -32,7 +32,7 @@ namespace engine
 			private:
 				GameObjectPtr									m_pGameObject;
 
-				GFXPtr											m_pGFX;
+				MaterialPtr										m_pMaterial;
 				GPUBufferPtr									m_pIndexBuffer;
 				GPUBufferPtr									m_pVertexBuffer;
 				int												m_vertexStride;

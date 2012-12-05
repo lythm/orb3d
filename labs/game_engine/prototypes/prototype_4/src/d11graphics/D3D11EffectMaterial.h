@@ -1,16 +1,16 @@
 #pragma once
 
-#include "core\GFX.h"
+#include "core\Material.h"
 
 #include "core\VertexFormat.h"
 
 namespace engine
 {
-	class D3D11EffectGFX : public GFX
+	class D3D11EffectMaterial : public Material
 	{
 	public:
-		D3D11EffectGFX(ID3D11DeviceContext* pContext);
-		virtual ~D3D11EffectGFX(void);
+		D3D11EffectMaterial(ID3D11DeviceContext* pContext);
+		virtual ~D3D11EffectMaterial(void);
 
 		void								ApplyVertexFormat();
 

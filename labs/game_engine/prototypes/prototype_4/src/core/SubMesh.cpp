@@ -64,7 +64,7 @@ namespace engine
 		return m_vertexStride;
 	}
 
-	GFXPtr SubMesh::GetMaterial()
+	MaterialPtr SubMesh::GetMaterial()
 	{
 		return m_pMesh->GetMaterialByIndex(m_materialIndex);
 	}

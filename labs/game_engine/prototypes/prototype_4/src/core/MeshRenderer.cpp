@@ -6,7 +6,7 @@
 #include "core\Sys_Graphics.h"
 #include "core\Mesh.h"
 #include "core\GPUBuffer.h"
-#include "core\GFX.h"
+#include "core\Material.h"
 #include "core\SubMesh.h"
 
 namespace engine
@@ -106,7 +106,7 @@ namespace engine
 		}
 		void MeshRenderer::SubMeshRenderData::Create(GPUBufferPtr pIndexBuffer, 
 																	GPUBufferPtr pVertexBuffer, 
-																	GFXPtr pGFX, 
+																	MaterialPtr pMaterial, 
 																	int indexCount,
 																	int vertexOffset,
 																	int vertexStride,
@@ -115,14 +115,14 @@ namespace engine
 		{
 			m_pIndexBuffer					= pIndexBuffer;
 			m_pVertexBuffer					= pVertexBuffer;
-			m_pGFX							= pGFX;
+			m_pMaterial							= pMaterial;
 			m_indexCount					= indexCount;
 			m_baseVertex					= baseVertex;
 			m_vertexOffset					= vertexOffset;
 			m_vertexStride					= vertexStride;
 			m_startIndex					= startIndex;
 
-			m_iDepthPass					= m_pGFX->FindPass("DEPTH_PASS");
+			m_iDepthPass					= m_pMaterial->FindPass("DEPTH_PASS");
 		}
 		void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics)
 		{
@@ -130,12 +130,12 @@ namespace engine
 			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
 			pSysGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
 
-			m_pGFX->ApplyVertexFormat();
+			m_pMaterial->ApplyVertexFormat();
 
 
 			int nPass = 0;
 
-			m_pGFX->BeginPass(nPass);
+			m_pMaterial->BeginPass(nPass);
 
 			for(int i = 0; i < nPass; ++i)
 			{
@@ -143,12 +143,12 @@ namespace engine
 				{
 					continue;
 				}
-				m_pGFX->ApplyPass(i);
+				m_pMaterial->ApplyPass(i);
 
 				pSysGraphics->DrawPrimitive(m_indexCount, m_startIndex, m_baseVertex);
 			}
 
-			m_pGFX->EndPass();
+			m_pMaterial->EndPass();
 		}
 		void MeshRenderer::SubMeshRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
 		{
@@ -156,22 +156,22 @@ namespace engine
 			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
 			pSysGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
 
-			m_pGFX->ApplyVertexFormat();
+			m_pMaterial->ApplyVertexFormat();
 
 
 			int nPass = 0;
 
-			m_pGFX->BeginPass(nPass);
+			m_pMaterial->BeginPass(nPass);
 
-			m_pGFX->ApplyPass(m_iDepthPass);
+			m_pMaterial->ApplyPass(m_iDepthPass);
 
 			pSysGraphics->DrawPrimitive(m_indexCount, m_startIndex, m_baseVertex);
 			
-			m_pGFX->EndPass();
+			m_pMaterial->EndPass();
 		}
-		GFXPtr MeshRenderer::SubMeshRenderData::GetGFX()
+		MaterialPtr MeshRenderer::SubMeshRenderData::GetMaterial()
 		{
-			return m_pGFX;
+			return m_pMaterial;
 		}
 		math::Matrix44 MeshRenderer::SubMeshRenderData::GetWorldMatrix()
 		{

@@ -1,11 +1,11 @@
 #include "d11graphics_pch.h"
-#include "D3D11EffectGFX.h"
+#include "D3D11EffectMaterial.h"
 #include "D3D11Texture.h"
 #include "D3D11Format.h"
 
 namespace engine
 {
-	D3D11EffectGFX::D3D11EffectGFX(ID3D11DeviceContext* pContext)
+	D3D11EffectMaterial::D3D11EffectMaterial(ID3D11DeviceContext* pContext)
 	{
 		m_pContext = pContext;
 
@@ -17,12 +17,12 @@ namespace engine
 	}
 
 
-	D3D11EffectGFX::~D3D11EffectGFX(void)
+	D3D11EffectMaterial::~D3D11EffectMaterial(void)
 	{
 
 	}
 
-	bool D3D11EffectGFX::LoadFromFile(const char* szFile)
+	bool D3D11EffectMaterial::LoadFromFile(const char* szFile)
 	{
 		ID3D10Blob* pBlob = NULL;
 		ID3D10Blob* pErrorBlob = NULL;
@@ -97,19 +97,19 @@ namespace engine
 	}
 
 
-	void D3D11EffectGFX::ApplyVertexFormat()
+	void D3D11EffectMaterial::ApplyVertexFormat()
 	{
 		m_pContext->IASetInputLayout(m_pIL);
 	}
 
-	bool D3D11EffectGFX::BeginPass(int& nPass)
+	bool D3D11EffectMaterial::BeginPass(int& nPass)
 	{
 
 		nPass = m_nPass;
 
 		return nPass != 0;
 	}
-	int D3D11EffectGFX::FindPass(const std::string& name)
+	int D3D11EffectMaterial::FindPass(const std::string& name)
 	{
 		ID3DX11EffectPass* pPass = m_pTech->GetPassByName(name.c_str());
 
@@ -128,18 +128,18 @@ namespace engine
 		}
 		return -1;
 	}
-	void D3D11EffectGFX::ApplyPass(int index)
+	void D3D11EffectMaterial::ApplyPass(int index)
 	{
 		ID3DX11EffectPass* pPass = m_pTech->GetPassByIndex(index);
 		
 		pPass->Apply(0, m_pContext);
 
 	}
-	void D3D11EffectGFX::EndPass()
+	void D3D11EffectMaterial::EndPass()
 	{
 	}
 		
-	void D3D11EffectGFX::Release()
+	void D3D11EffectMaterial::Release()
 	{
 		m_pTech = NULL;
 		if(m_pEffect)
@@ -162,11 +162,11 @@ namespace engine
 		m_pContext = NULL;
 	}
 		
-	void D3D11EffectGFX::SetMatrixByName(const char* szParam, const math::Matrix44& mat)
+	void D3D11EffectMaterial::SetMatrixByName(const char* szParam, const math::Matrix44& mat)
 	{
 		m_pEffect->GetVariableByName(szParam)->AsMatrix()->SetMatrix(mat.m);
 	}
-	void D3D11EffectGFX::SetTextureByName(const char* szName, TexturePtr pTex)
+	void D3D11EffectMaterial::SetTextureByName(const char* szName, TexturePtr pTex)
 	{
 		ID3D11ShaderResourceView* pView = NULL;
 
@@ -181,28 +181,28 @@ namespace engine
 			m_pContext->PSSetShaderResources(0, _countof(pTmp), pTmp);
 		}*/
 	}
-	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector3& v)
+	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector3& v)
 	{
 		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 3);
 	}
-	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector4& v)
+	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector4& v)
 	{
 		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 4);
 	}
-	void D3D11EffectGFX::SetVectorByName(const char* szName, const math::Vector2& v)
+	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector2& v)
 	{
 		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 2);
 	}
-	void D3D11EffectGFX::SetFloatByName(const char* szName, float v)
+	void D3D11EffectMaterial::SetFloatByName(const char* szName, float v)
 	{
 		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloat(v);
 	}
-	void D3D11EffectGFX::SetIntByName(const char* szName, int v)
+	void D3D11EffectMaterial::SetIntByName(const char* szName, int v)
 	{
 		m_pEffect->GetVariableByName(szName)->AsScalar()->SetInt(v);
 	}
 
-	void D3D11EffectGFX::SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat)
+	void D3D11EffectMaterial::SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szSemantic);
 		
@@ -211,7 +211,7 @@ namespace engine
 			pVal->AsMatrix()->SetMatrix(mat.m);
 		}
 	}
-	void D3D11EffectGFX::SetTextureBySemantic(const char* szName, TexturePtr pTex)
+	void D3D11EffectMaterial::SetTextureBySemantic(const char* szName, TexturePtr pTex)
 	{
 		ID3D11ShaderResourceView* pView = NULL;
 
@@ -223,7 +223,7 @@ namespace engine
 			pVal->AsShaderResource()->SetResource(pView);
 		}
 	}
-	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector3& v)
+	void D3D11EffectMaterial::SetVectorBySemantic(const char* szName, const math::Vector3& v)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
@@ -231,7 +231,7 @@ namespace engine
 			pVal->AsScalar()->SetFloatArray(v.v, 0, 3);
 		}
 	}
-	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector4& v)
+	void D3D11EffectMaterial::SetVectorBySemantic(const char* szName, const math::Vector4& v)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
@@ -239,7 +239,7 @@ namespace engine
 			pVal->AsScalar()->SetFloatArray(v.v, 0, 4);
 		}
 	}
-	void D3D11EffectGFX::SetVectorBySemantic(const char* szName, const math::Vector2& v)
+	void D3D11EffectMaterial::SetVectorBySemantic(const char* szName, const math::Vector2& v)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
@@ -247,7 +247,7 @@ namespace engine
 			pVal->AsScalar()->SetFloatArray(v.v, 0, 2);
 		}
 	}
-	void D3D11EffectGFX::SetFloatBySemantic(const char* szName, float v)
+	void D3D11EffectMaterial::SetFloatBySemantic(const char* szName, float v)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
@@ -255,7 +255,7 @@ namespace engine
 			pVal->AsScalar()->SetFloat(v);
 		}
 	}
-	void D3D11EffectGFX::SetIntBySemantic(const char* szName, int v)
+	void D3D11EffectMaterial::SetIntBySemantic(const char* szName, int v)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
@@ -264,7 +264,7 @@ namespace engine
 		}
 	}
 
-	bool D3D11EffectGFX::SetVertexFormat(VertexElement format[], uint32 nElem)
+	bool D3D11EffectMaterial::SetVertexFormat(VertexElement format[], uint32 nElem)
 	{
 		if(m_pIL != NULL)
 		{

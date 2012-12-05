@@ -24,7 +24,7 @@ namespace engine
 		int										GetVertexCount();
 		int										GetVertexStride();
 
-		GFXPtr									GetMaterial();
+		MaterialPtr									GetMaterial();
 		int										GetPrimitiveCount();
 
 	private:
