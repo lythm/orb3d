@@ -12,7 +12,7 @@ namespace engine
 		virtual ~D3D11Graphics(void);
 
 
-		bool									Initialize(void* app_handle, uint32 width, uint32 height, G_FORMAT format);
+		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();
 
 		void									SetPrimitiveType(PRIMITIVE_TYPE pt);
@@ -35,7 +35,7 @@ namespace engine
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
 		
-		MultiRenderTargetPtr					CreateMultiRenderTarget(int count, int w, int h, G_FORMAT format, int miplvls = 1);
+		MultiRenderTargetPtr					CreateMultiRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls = 1);
 		RenderTargetPtr							CreateRenderTarget(int w, int h, G_FORMAT format, int miplvls = 0);
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
 
@@ -46,7 +46,7 @@ namespace engine
 		GPUBufferPtr							CreateConstantBuffer(int bytes, void* pInitData);
 
 		bool									CreateFrameBuffer();
-		bool									CreateDepthStencilBuffer(int w, int h);
+		bool									CreateDepthStencilBuffer(const GraphicsSetting& setting);
 		void									SetupViewport(int w, int h);
 	private:
 
@@ -56,6 +56,6 @@ namespace engine
 		ID3D11RenderTargetView*					m_pFrameBuffer;
 		ID3D11DepthStencilView*					m_pDepthStencilBuffer;
 
-		G_FORMAT								m_frameBufferFormat;
+		GraphicsSetting							m_setting;
 	};
 }

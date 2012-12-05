@@ -10,7 +10,7 @@ namespace engine
 		D3D11MultiRenderTarget(ID3D11DeviceContext* pContext);
 		virtual ~D3D11MultiRenderTarget(void);
 
-		bool											Create(int count, int w, int h, G_FORMAT format, int miplvls);
+		bool											Create(int count, int w, int h, G_FORMAT formats[], int miplvls);
 		RenderTargetPtr									GetRenderTarget(int index);
 		int												GetRenderTargetCount();
 		TexturePtr										AsTexture(int index);

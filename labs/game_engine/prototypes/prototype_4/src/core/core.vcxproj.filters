@@ -147,6 +147,12 @@
     <ClInclude Include="..\..\include\core\Light.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\EventDispatcher.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\Event.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_pch.cpp">
@@ -222,6 +228,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EventDispatcher.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

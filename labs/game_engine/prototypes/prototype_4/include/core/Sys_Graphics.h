@@ -12,10 +12,7 @@ namespace engine
 
 		
 
-		virtual bool									Initialize(void* app_handle, 
-																uint32 width, 
-																uint32 height,
-																G_FORMAT format)									= 0;
+		virtual bool									Initialize(const GraphicsSetting& setting)					= 0;
 
 		virtual void									Release()													= 0;
 		
@@ -58,7 +55,7 @@ namespace engine
 		virtual MultiRenderTargetPtr					CreateMultiRenderTarget(int count,
 																	int w,
 																	int h,
-																	G_FORMAT format,
+																	G_FORMAT formats[],
 																	int miplvls = 1)								= 0;
 		virtual DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, 
 																	int h, 

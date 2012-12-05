@@ -34,6 +34,7 @@
 #include "core\GPUBuffer.h"
 #include "core\VertexFormat.h"
 #include "core\RenderTarget.h"
+#include "core\MultiRenderTarget.h"
 #include "core\DepthStencilBuffer.h"
 #include "core\GameInterface.h"
 #include "core\RenderData.h"
@@ -44,3 +45,4 @@
 #include "core\MeshRenderer.h"
 #include "core\Mesh.h"
 #include "core\SubMesh.h"
+#include "core\Event.h"

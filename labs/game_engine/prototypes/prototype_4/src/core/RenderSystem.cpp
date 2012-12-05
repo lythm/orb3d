@@ -49,7 +49,7 @@ namespace engine
 			SetSemanticsValue(m_renderQueue[i]);
 
 
-			m_renderQueue[i]->Render_Depth(m_pGraphics);
+			//m_renderQueue[i]->Render_Depth(m_pGraphics);
 			
 		}
 

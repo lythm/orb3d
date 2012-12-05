@@ -160,4 +160,18 @@ namespace engine
 		CLEAR_DEPTHSTENCIL_BUFFER			= 0x02,
 		CLEAR_ALL							= CLEAR_COLOR_BUFFER | CLEAR_DEPTHSTENCIL_BUFFER,
 	};
+
+	struct GraphicsSetting
+	{
+		void*				wnd;
+		bool				windowed;
+		int					frameBufferWidth;
+		int					frameBufferHeight;
+		G_FORMAT			frameBufferFormat;
+		G_FORMAT			depthStencilFormat;
+		int					multiSampleCount;
+		int					multiSampleQuality;
+		int					backBufferCount;
+
+	};
 }

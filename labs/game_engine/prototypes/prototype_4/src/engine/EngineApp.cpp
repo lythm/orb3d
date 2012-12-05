@@ -31,14 +31,22 @@ namespace engine
 
 		m_pCore = CoreApiPtr(new CoreApi);
 
-		if(false == m_pCore->Initialize(GetWnd(), GetClientWidth(), GetClientHeight(), G_FORMAT_R8G8B8A8_UNORM))
+		GraphicsSetting setting;
+		setting.backBufferCount = 2;
+		setting.depthStencilFormat = G_FORMAT_D32_FLOAT;
+		setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
+		setting.frameBufferHeight = GetClientHeight();
+		setting.frameBufferWidth = GetClientWidth();
+		setting.multiSampleCount = 1;
+		setting.multiSampleQuality = 0;
+		setting.windowed = true;
+		setting.wnd = GetWnd();
+
+		if(false == m_pCore->Initialize(setting))
 		{
 			return false;
 		}
-
 		
-
-
 		m_pGameManager = GameManagerPtr(new GameManager);
 
 		if(false == m_pGameManager->Initialize(L"./game.dll"))
@@ -120,7 +128,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace engine;
 	EngineApp app;
 
-	if(false == app.Initialize(hInstance, L"Main Window", 1024, 768))
+	if(false == app.Initialize(hInstance, L"Main Window", 800, 600))
 	{
 		return -1;
 	}

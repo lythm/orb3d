@@ -125,7 +125,7 @@ struct TiXmlCursor
 
 	@sa TiXmlNode::Accept()
 */
-class EXPORT_CLASS TiXmlVisitor
+class TiXmlVisitor
 {
 public:
 	virtual ~TiXmlVisitor() {}
@@ -191,7 +191,7 @@ const TiXmlEncoding TIXML_DEFAULT_ENCODING = TIXML_ENCODING_UNKNOWN;
 	A Decleration contains: Attributes (not on tree)
 	@endverbatim
 */
-class EXPORT_CLASS TiXmlBase
+class TiXmlBase
 {
 	friend class TiXmlNode;
 	friend class TiXmlElement;
@@ -420,7 +420,7 @@ private:
 	in a document, or stand on its own. The type of a TiXmlNode
 	can be queried, and it can be cast to its more defined type.
 */
-class EXPORT_CLASS TiXmlNode : public TiXmlBase
+class TiXmlNode : public TiXmlBase
 {
 	friend class TiXmlDocument;
 	friend class TiXmlElement;
@@ -776,7 +776,7 @@ private:
 		  part of the tinyXML document object model. There are other
 		  suggested ways to look at this problem.
 */
-class EXPORT_CLASS TiXmlAttribute : public TiXmlBase
+class TiXmlAttribute : public TiXmlBase
 {
 	friend class TiXmlAttributeSet;
 
@@ -900,7 +900,7 @@ private:
 		- I like circular lists
 		- it demonstrates some independence from the (typical) doubly linked list.
 */
-class EXPORT_CLASS TiXmlAttributeSet
+class TiXmlAttributeSet
 {
 public:
 	TiXmlAttributeSet();
@@ -937,7 +937,7 @@ private:
 	and can contain other elements, text, comments, and unknowns.
 	Elements also contain an arbitrary number of attributes.
 */
-class EXPORT_CLASS TiXmlElement : public TiXmlNode
+class TiXmlElement : public TiXmlNode
 {
 public:
 	/// Construct an element.
@@ -1159,7 +1159,7 @@ private:
 
 /**	An XML comment.
 */
-class EXPORT_CLASS TiXmlComment : public TiXmlNode
+class TiXmlComment : public TiXmlNode
 {
 public:
 	/// Constructs an empty comment.
@@ -1209,7 +1209,7 @@ private:
 	you generally want to leave it alone, but you can change the output mode with 
 	SetCDATA() and query it with CDATA().
 */
-class EXPORT_CLASS TiXmlText : public TiXmlNode
+class TiXmlText : public TiXmlNode
 {
 	friend class TiXmlElement;
 public:
@@ -1282,7 +1282,7 @@ private:
 	handled as special cases, not generic attributes, simply
 	because there can only be at most 3 and they are always the same.
 */
-class EXPORT_CLASS TiXmlDeclaration : public TiXmlNode
+class TiXmlDeclaration : public TiXmlNode
 {
 public:
 	/// Construct an empty declaration.
@@ -1351,7 +1351,7 @@ private:
 
 	DTD tags get thrown into TiXmlUnknowns.
 */
-class EXPORT_CLASS TiXmlUnknown : public TiXmlNode
+class TiXmlUnknown : public TiXmlNode
 {
 public:
 	TiXmlUnknown() : TiXmlNode( TiXmlNode::TINYXML_UNKNOWN )	{}
@@ -1390,7 +1390,7 @@ private:
 	XML pieces. It can be saved, loaded, and printed to the screen.
 	The 'value' of a document node is the xml file name.
 */
-class EXPORT_CLASS TiXmlDocument : public TiXmlNode
+class TiXmlDocument : public TiXmlNode
 {
 public:
 	/// Create an empty document, that has no name.
@@ -1635,7 +1635,7 @@ private:
 	}
 	@endverbatim
 */
-class EXPORT_CLASS TiXmlHandle
+class TiXmlHandle
 {
 public:
 	/// Create a handle from any node (at any depth of the tree.) This can be a null pointer.
@@ -1734,7 +1734,7 @@ private:
 	fprintf( stdout, "%s", printer.CStr() );
 	@endverbatim
 */
-class EXPORT_CLASS TiXmlPrinter : public TiXmlVisitor
+class TiXmlPrinter : public TiXmlVisitor
 {
 public:
 	TiXmlPrinter() : depth( 0 ), simpleTextPrint( false ),

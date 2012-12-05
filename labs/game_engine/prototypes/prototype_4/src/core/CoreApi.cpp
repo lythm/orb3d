@@ -9,6 +9,8 @@
 
 #include "core\meshdata.h"
 #include "core\meshrenderer.h"
+#include "core\Event.h"
+
 
 
 #include "WMInput.h"
@@ -29,8 +31,9 @@ namespace engine
 	{
 		m_pObjectManager->UpdateObjects();
 	}
-	bool CoreApi::Initialize(void* app_handle, int w, int h, G_FORMAT format)
+	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting)
 	{
+		m_pEventDispatcher = EventDispatcherPtr(new EventDispatcher);
 
 		m_pSysManager = SysManagerPtr(new SysManager);
 		
@@ -40,14 +43,14 @@ namespace engine
 		{
 			return false;
 		}
-		if(false == m_pSysGraphics->Initialize(app_handle, w, h, format))
+		if(false == m_pSysGraphics->Initialize(graphicsSetting))
 		{
 			return false;
 		}
 
 		m_pSysInput = boost::shared_ptr<WMInput>(new WMInput);
 
-		if(false == m_pSysInput->Initialize(app_handle))
+		if(false == m_pSysInput->Initialize(graphicsSetting.wnd))
 		{
 			return false;
 		}
@@ -95,6 +98,10 @@ namespace engine
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
+		EventPtr pEvent = EventPtr(new WMEvent(msg));
+
+		DispatchEvent(pEvent);
+
 		if(m_pSysInput)
 		{
 			m_pSysInput->HandleMessage(msg);
@@ -136,5 +143,13 @@ namespace engine
 	GameObjectComponentPtr CoreApi::CreateGameObjectComponent(const std::wstring& name)
 	{
 		return m_pObjectManager->CreateComponent(name);
+	}
+	void CoreApi::DispatchEvent(EventPtr pEvent)
+	{
+		m_pEventDispatcher->DispatchEvent(pEvent);
+	}
+	void CoreApi::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
+	{
+		m_pEventDispatcher->AddEventHandler(id, handler);
 	}
 }

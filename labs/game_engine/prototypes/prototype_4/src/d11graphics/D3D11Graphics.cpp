@@ -29,17 +29,15 @@ namespace engine
 		m_pSwapChain					= NULL;
 		m_pFrameBuffer					= NULL;
 		m_pDepthStencilBuffer			= NULL;
-
-		m_frameBufferFormat				= G_FORMAT_UNKNOWN;
 	}
 
 
 	D3D11Graphics::~D3D11Graphics(void)
 	{
 	}
-	bool D3D11Graphics::Initialize(void* app_handle, uint32 width, uint32 height, G_FORMAT format)
+	bool D3D11Graphics::Initialize(const GraphicsSetting& setting)
 	{
-		m_frameBufferFormat = format;
+		m_setting = setting;
 
 		//D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_0;
 
@@ -64,17 +62,17 @@ namespace engine
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory( &sd, sizeof(sd) );
 
-		sd.BufferCount										= 2;
-		sd.BufferDesc.Width									= width;
-		sd.BufferDesc.Height								= height;
-		sd.BufferDesc.Format								= D3D11Format::Convert(m_frameBufferFormat);
+		sd.BufferCount										= m_setting.backBufferCount;
+		sd.BufferDesc.Width									= m_setting.frameBufferWidth;
+		sd.BufferDesc.Height								= m_setting.frameBufferHeight;
+		sd.BufferDesc.Format								= D3D11Format::Convert(m_setting.frameBufferFormat);
 		sd.BufferDesc.RefreshRate.Numerator					= 60;
 		sd.BufferDesc.RefreshRate.Denominator				= 1;
 		sd.BufferUsage										= DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		sd.OutputWindow										= (HWND)app_handle;
-		sd.SampleDesc.Count									= 1;
-		sd.SampleDesc.Quality								= 0;
-		sd.Windowed											= TRUE;
+		sd.OutputWindow										= (HWND)m_setting.wnd;
+		sd.SampleDesc.Count									= m_setting.multiSampleCount;
+		sd.SampleDesc.Quality								= m_setting.multiSampleQuality;
+		sd.Windowed											= m_setting.windowed;
 		sd.SwapEffect										= DXGI_SWAP_EFFECT_DISCARD;
 		//sd.Flags											= DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
@@ -120,7 +118,7 @@ namespace engine
 		{
 			return false;
 		}
-		if(CreateDepthStencilBuffer(width, height) == false)
+		if(CreateDepthStencilBuffer(setting) == false)
 		{
 			return false;
 		}
@@ -128,7 +126,7 @@ namespace engine
 		m_pContext->OMSetRenderTargets(1, &m_pFrameBuffer, m_pDepthStencilBuffer);
 		m_pContext->OMSetBlendState(NULL, 0, -1);
 
-		SetupViewport(width , height);
+		SetupViewport(m_setting.frameBufferWidth , m_setting.frameBufferHeight);
 		
 		return true;
 	}
@@ -160,7 +158,7 @@ namespace engine
 
 		return true;
 	}
-	bool D3D11Graphics::CreateDepthStencilBuffer(int w, int h)
+	bool D3D11Graphics::CreateDepthStencilBuffer(const GraphicsSetting& setting)
 	{
 		// Create depth stencil texture
 		ID3D11Texture2D* pDepthStencil = NULL;
@@ -168,13 +166,13 @@ namespace engine
 
 		ZeroMemory(&descDepth, sizeof(descDepth));
 
-		descDepth.Width = w;
-		descDepth.Height = h;
+		descDepth.Width = setting.frameBufferWidth;
+		descDepth.Height = setting.frameBufferHeight;
 		descDepth.MipLevels = 1;
 		descDepth.ArraySize = 1;
-		descDepth.Format = DXGI_FORMAT_D32_FLOAT;
-		descDepth.SampleDesc.Count = 1;
-		descDepth.SampleDesc.Quality = 0;
+		descDepth.Format = D3D11Format::Convert(setting.depthStencilFormat);
+		descDepth.SampleDesc.Count = setting.multiSampleCount;
+		descDepth.SampleDesc.Quality = setting.multiSampleQuality;
 		descDepth.Usage = D3D11_USAGE_DEFAULT;
 		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 		descDepth.CPUAccessFlags = 0;
@@ -488,18 +486,20 @@ namespace engine
 			m_pDepthStencilBuffer->Release();
 			m_pDepthStencilBuffer = NULL;
 		}
+		m_setting.frameBufferWidth = cx;
+		m_setting.frameBufferHeight = cy;
 
-		m_pSwapChain->ResizeBuffers(2, cx, cy, D3D11Format::Convert(m_frameBufferFormat), 0);
+		m_pSwapChain->ResizeBuffers(2, cx, cy, D3D11Format::Convert(m_setting.frameBufferFormat), 0);
 
 		CreateFrameBuffer();
-		CreateDepthStencilBuffer(cx, cy);
+		CreateDepthStencilBuffer(m_setting);
 		SetupViewport(cx, cy);
 
 	}
-	MultiRenderTargetPtr D3D11Graphics::CreateMultiRenderTarget(int count, int w, int h, G_FORMAT format, int miplvls)
+	MultiRenderTargetPtr D3D11Graphics::CreateMultiRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls)
 	{
 		D3D11MultiRenderTarget* pTarget = new D3D11MultiRenderTarget(m_pContext);
-		if(pTarget->Create(count, w, h, format, miplvls) == false)
+		if(pTarget->Create(count, w, h, formats, miplvls) == false)
 		{
 			delete pTarget;
 			return MultiRenderTargetPtr();

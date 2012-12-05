@@ -3,6 +3,8 @@
 #include <types\types.h>
 #include <types\dllexport.h>
 
+#include <utils\utils_all.h>
+
 #include <core\core_ptr.h>
 
 #include <vector>

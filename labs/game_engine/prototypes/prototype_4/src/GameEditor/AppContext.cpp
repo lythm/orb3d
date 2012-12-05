@@ -33,7 +33,18 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 
 	s_pCore = CoreApiPtr(new CoreApi());
 
-	if(false == s_pCore->Initialize(hwnd, w, h, G_FORMAT_R8G8B8A8_UNORM))
+	GraphicsSetting setting;
+	setting.backBufferCount = 2;
+	setting.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
+	setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
+	setting.frameBufferHeight = h;
+	setting.frameBufferWidth = w;
+	setting.multiSampleCount = 1;
+	setting.multiSampleQuality = 0;
+	setting.windowed = true;
+	setting.wnd = hwnd;
+
+	if(false == s_pCore->Initialize(setting))
 	{
 		return false;
 	}

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "core\EventDispatcher.h"
 
 namespace engine
 {
@@ -10,7 +10,7 @@ namespace engine
 		virtual ~CoreApi(void);
 
 		void											Update();
-		bool											Initialize(void* app_handle, int w, int h, G_FORMAT format);
+		bool											Initialize(const GraphicsSetting& graphicsSetting);
 		void											Release();
 		void											HandleMessage(MSG& msg);
 		
@@ -28,6 +28,8 @@ namespace engine
 		GameObjectComponentPtr							CreateGameObjectComponent(const std::wstring& name);
 		GameObjectPtr									GetRoot();
 
+		void											DispatchEvent(EventPtr pEvent);
+		void											AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
 	private:
 		
 		
@@ -36,6 +38,7 @@ namespace engine
 		SysManagerPtr									m_pSysManager;
 		Sys_GraphicsPtr									m_pSysGraphics;
 		Sys_InputPtr									m_pSysInput;
+		EventDispatcherPtr								m_pEventDispatcher;
 
 		RenderSystemPtr									m_pRenderSystem;
 	};

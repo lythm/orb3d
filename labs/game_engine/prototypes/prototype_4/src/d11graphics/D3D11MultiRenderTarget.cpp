@@ -46,7 +46,7 @@ namespace engine
 		}
 		m_RTs.clear();
 	}
-	bool D3D11MultiRenderTarget::Create(int count, int w, int h, G_FORMAT format, int miplvls)
+	bool D3D11MultiRenderTarget::Create(int count, int w, int h, G_FORMAT formats[], int miplvls)
 	{
 		if(count == 0)
 		{
@@ -57,7 +57,7 @@ namespace engine
 		for(int i = 0; i < count; ++i)
 		{
 			D3D11RenderTarget* pTarget = new D3D11RenderTarget(m_pContext);
-			if(pTarget->Create(w, h , format, miplvls) == false)
+			if(pTarget->Create(w, h , formats[i], miplvls) == false)
 			{
 				return false;
 			}
@@ -67,6 +67,7 @@ namespace engine
 
 		return true;
 	}
+	
 	ID3D11DepthStencilView* D3D11MultiRenderTarget::GetD3D11DepthStencilView()
 	{
 		if(m_pDepthBuffer == nullptr)

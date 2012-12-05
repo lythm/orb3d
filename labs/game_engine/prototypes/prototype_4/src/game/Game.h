@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DefferedShadingDemo.h"
 
 class Game : public engine::GameInterface
 {
@@ -12,17 +13,6 @@ public:
 	bool									Update();
 
 private:
-	
-	engine::CoreApiPtr								m_pCore;
-
-	engine::GPUBufferPtr							m_pVB;
-	engine::GPUBufferPtr							m_pIB;
-
-	engine::GFXPtr									m_pGFX;
-
-	engine::TexturePtr								m_pTex;
-
-	engine::RenderTargetPtr							m_pRT;
-	
+	DefferedShadingDemo*					m_pDemo;
 };
 

@@ -71,4 +71,11 @@ namespace engine
 	typedef boost::shared_ptr<RenderSystem>					RenderSystemPtr;
 	typedef boost::shared_ptr<CoreApi>						CoreApiPtr;
 
+
+	class EventDispatcher;
+	class Event;
+
+	typedef boost::shared_ptr<Event>						EventPtr;
+	typedef boost::shared_ptr<EventDispatcher>				EventDispatcherPtr;
+
 }

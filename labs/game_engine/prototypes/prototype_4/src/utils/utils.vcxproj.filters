@@ -30,6 +30,9 @@
     <ClCompile Include="utils_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MemPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\utils\tinystr.h">
@@ -42,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\utils\utils_all.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\MemPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -52,7 +52,7 @@ distribution.
    The buffer allocation is made by a simplistic power of 2 like mechanism : if we increase
    a string and there's no more room, we allocate a buffer twice as big as we need.
 */
-class EXPORT_CLASS TiXmlString
+class TiXmlString
 {
   public :
 	// The size type used
@@ -281,7 +281,7 @@ TiXmlString operator + (const char* a, const TiXmlString & b);
    TiXmlOutStream is an emulation of std::ostream. It is based on TiXmlString.
    Only the operators that we need for TinyXML have been developped.
 */
-class EXPORT_CLASS TiXmlOutStream : public TiXmlString
+class TiXmlOutStream : public TiXmlString
 {
 public :
 
