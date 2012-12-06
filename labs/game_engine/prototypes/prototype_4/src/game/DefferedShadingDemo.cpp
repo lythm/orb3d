@@ -117,10 +117,11 @@ void DefferedShadingDemo::CreateScene()
 	};
 
 
-	m_pMesh = MeshUtil::CreateSphere(20, 100, 100, m_pMaterial);
-
+	//m_pMesh = MeshUtil::CreateSphere(20, 100, 100, m_pMaterial);
+	m_pMesh = MeshUtil::CreateCube(10, m_pMaterial);
+	
 	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, m_pMesh->GetVertexDataBytes(), m_pMesh->GetVertexData(), false);
-
+	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, m_pMesh->GetIndexDataBytes(), m_pMesh->GetIndexData(), false);
 	//m_pMaterial->SetTextureByName("diff_tex", m_pTex);
 }
 
@@ -167,7 +168,7 @@ void DefferedShadingDemo::DrawScene()
 
 	int dt = GetTickCount() - tick;
 
-	float angle = 3.14 * (dt / 2000.0f);
+	float angle = 3.14 * (dt / 20000.0f);
 
 	tick = GetTickCount();
 	using namespace engine;
@@ -175,20 +176,19 @@ void DefferedShadingDemo::DrawScene()
 	static float rad = 0;
 	rad += angle;
 
-	math::Vector3 eye(0, 0, 30);
+	math::Vector3 eye(0, 30, -30);
 
 	math::Matrix44 mat = math::MatrixRotationAxisY(rad);
 
 	math::TransformCoord(eye, mat);
-
-
+	
 	math::Matrix44 view = math::MatrixLookAtLH(eye, math::Vector3(0, 0, 0), math::Vector3(0, 1, 0));
 	math::Matrix44 proj = math::MatrixPerspectiveFovLH(1.0f/2.0f * 3.14f, 4.0f/ 3.0f, 0.0001f, 10000.0f);
 
 	m_pMaterial->SetMatrixBySemantic("MATRIX_WVP", view * proj);
 	m_pMaterial->SetMatrixBySemantic("MATRIX_WV", view);
 
-	//m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R32_UINT);
+	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R16_UINT);
 	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, m_pMesh->GetSubMesh(0)->GetVertexStride());
 	m_pCore->GetSysGraphics()->SetPrimitiveType(PT_TRIANGLE_STRIP);
 	
@@ -207,8 +207,9 @@ void DefferedShadingDemo::DrawScene()
 	for(int i = 0; i < nPass; ++i)
 	{
 		m_pMaterial->ApplyPass(i);
-		//m_pCore->GetSysGraphics()->DrawIndexed(36, 0, 0);
-		m_pCore->GetSysGraphics()->Draw(m_pMesh->GetSubMesh(0)->GetVertexCount(), 0);
+		//m_pCore->GetSysGraphics()->DrawIndexed(m_pMesh->GetSubMesh(0)->GetIndexCount(),0, 0);
+		m_pCore->GetSysGraphics()->DrawIndexed(3, 6, 0);
+		//m_pCore->GetSysGraphics()->Draw(m_pMesh->GetSubMesh(0)->GetVertexCount(), 0);
 	}
 
 	m_pMaterial->EndPass();

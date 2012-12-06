@@ -24,7 +24,6 @@ vs_out vs_main(vs_in vsin)
 {
 	vs_out vsout;
 	vsout.pos = mul(float4(vsin.pos, 1), mat);
-
 	vsout.normal = mul(float4(vsin.normal.xyz, 0), matView);
 	return vsout;
 }
@@ -46,7 +45,8 @@ ps_out ps_main(vs_out psin)
 	psout.pos.w = 1;
 	
 	psout.normal.xyz = normalize(psin.normal);
-	psout.normal.w = 1;
+	psout.normal.w = 0;
+
 
 	return psout;
 }

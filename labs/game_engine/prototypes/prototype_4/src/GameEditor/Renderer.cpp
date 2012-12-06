@@ -78,73 +78,7 @@ void Renderer::OnMouseRButtonUp(UINT nFlags, CPoint point)
 {
 	m_pCamera->OnMouseRButtonUp(nFlags, point);
 }
-engine::MeshPtr Renderer::CreateCube(int size)
-{
-	using namespace engine;
 
-	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
-
-	MeshPtr pMesh = MeshPtr(new Mesh);
-
-	struct Vertex
-	{
-		math::Vector3			pos;
-	};
-
-	Vertex verts[] = 
-	{
-		{ math::Vector3(size, size, -size)},
-		{ math::Vector3(size, -size, -size)},
-		{ math::Vector3(-size, -size, -size)},
-		{ math::Vector3(-size, size, -size)},
-
-
-		{ math::Vector3(size, size, size)},
-		{ math::Vector3(size, -size, size)},
-		{ math::Vector3(-size, -size, size)},
-		{ math::Vector3(-size, size, size)},
-	};
-
-	uint16 indice[] = 
-	{
-		0, 1, 2,
-		0, 2, 3,
-
-		4, 6, 5,
-		4, 7, 6,
-
-		0, 3, 4,
-		4, 3, 7,
-
-		1, 5, 6,
-		1, 6, 2,
-
-		0, 4, 5,
-		0, 5, 1,
-
-		3, 2, 6,
-		3, 6, 7,
-	};
-
-	VertexElement vf[] = 
-	{
-		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-	};
-
-	std::vector<MaterialPtr> pMatList;
-	
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_cube.fx");
-	pMaterial->SetVertexFormat(vf, 1);
-	pMatList.push_back(pMaterial);
-
-	pMesh->Create(36 * sizeof(uint16), indice, sizeof(Vertex) * 8, verts, pMatList);
-
-	SubMeshPtr pSub = SubMeshPtr(new SubMesh());	
-	pSub->Create(pMesh, 0, 36, 0, 8, sizeof(Vertex), 0, 12, PT_TRIANGLE_LIST);
-	pMesh->AddSubMesh(pSub);
-
-	return pMesh;
-}
 void Renderer::CreateObject_FromTemplate_Sphere()
 {
 	using namespace engine;
@@ -175,12 +109,15 @@ void Renderer::CreateObject_FromTemplate_Cube()
 
 	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Cube");
 
-	MeshPtr pMesh = MeshPtr(new Mesh());
+	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_cube.fx");
+	MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
 	MeshDataPtr pMD = boost::shared_dynamic_cast<object_component::MeshData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"MeshData"));
-	pMD->SetMesh(CreateCube(20));
+	pMD->SetMesh(pMesh);
 
 	pObj->AddComponent(pMD);
 

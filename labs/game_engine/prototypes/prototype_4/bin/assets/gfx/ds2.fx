@@ -61,6 +61,10 @@ ps_out ps_main(vs_out psin)
 	c = max(c, 0);
 	psout.color = float4(c, c, c, 1);
 	
+
+	normal = ((normal + 1) / 2);
+	psout.color = float4(normal.xyz, 1);
+
 	return psout;
 }
 

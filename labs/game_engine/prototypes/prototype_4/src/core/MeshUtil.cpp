@@ -16,6 +16,106 @@ namespace engine
 	MeshUtil::~MeshUtil(void)
 	{
 	}
+	MeshPtr MeshUtil::CreateCube(float size, MaterialPtr pMat)
+	{
+		MeshPtr pMesh = MeshPtr(new Mesh);
+
+
+		VertexElement ve[] = 
+		{
+			VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32A32_FLOAT),
+			VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32A32_FLOAT),
+		};
+		pMat->SetVertexFormat(ve, 2);
+
+		struct Vertex
+		{
+			math::Vector3 pos;
+			math::Vector3 normal;
+		};
+
+		Vertex pVerts[] = 
+		{
+			// front
+			{math::Vector3(-size, size, -size), math::Vector3(0, 0, -1),},
+			{math::Vector3(size, size, -size), math::Vector3(0, 0, -1),},
+			{math::Vector3(size, -size, -size), math::Vector3(0, 0, -1),},
+			{math::Vector3(-size, -size, -size), math::Vector3(0, 0, -1),},
+
+			// back
+			{math::Vector3(-size, size, size), math::Vector3(0, 0, 1),},
+			{math::Vector3(size, size, size), math::Vector3(0, 0, 1),},
+			{math::Vector3(size, -size, size), math::Vector3(0, 0, 1),},
+			{math::Vector3(-size, -size, size), math::Vector3(0, 0, 1),},
+
+			// top
+			{math::Vector3(-size, size, size), math::Vector3(0, 1, 0),},
+			{math::Vector3(size, size, size), math::Vector3(0, 1, 0),},
+			{math::Vector3(size, size, -size), math::Vector3(0, 1, 0),},
+			{math::Vector3(-size, size, -size), math::Vector3(0, 1, 0),},
+			// bottom
+			{math::Vector3(-size, -size, size), math::Vector3(0, -1, 0),},
+			{math::Vector3(size, -size, size), math::Vector3(0, -1, 0),},
+			{math::Vector3(size, -size, -size), math::Vector3(0, -1, 0),},
+			{math::Vector3(-size, -size, -size), math::Vector3(0, -1, 0),},
+
+			// left
+			{math::Vector3(-size, size, size), math::Vector3(-1, 0, 0),},
+			{math::Vector3(-size, size, -size), math::Vector3(-1, 0, 0),},
+			{math::Vector3(-size, -size, -size), math::Vector3(-1, 0, 0),},
+			{math::Vector3(-size, -size, size), math::Vector3(-1, 0, 0),},
+			// right
+			{math::Vector3(size, size, size), math::Vector3(1, 0, 0),},
+			{math::Vector3(size, size, -size), math::Vector3(1, 0, 0),},
+			{math::Vector3(size, -size, -size), math::Vector3(1, 0, 0),},
+			{math::Vector3(size, -size, size), math::Vector3(1, 0, 0),},
+		};
+
+		uint16 pIndice[] = 
+		{
+			// front
+			0, 1, 2,
+			0, 2, 3,
+
+			// back
+			4, 6, 5, 
+			4, 7, 6,
+
+
+			//top
+			8, 9, 10,
+			8, 10, 11,
+
+			// bottom
+			12, 14, 13,
+			12, 15, 14,
+
+			// left
+			16, 17, 18,
+			16, 18, 19,
+
+			// right
+			20, 22, 21,
+			20, 23, 22,
+
+		};
+		
+
+		std::vector<MaterialPtr> mats;
+		mats.push_back(pMat);
+
+		if(false == pMesh->Create(sizeof(uint16) * 36, pIndice, sizeof(Vertex) * 24, pVerts, mats))
+		{
+			return MeshPtr();
+		}
+
+		SubMeshPtr pSub = SubMeshPtr(new SubMesh);
+
+		pSub->Create(pMesh, 0, 36, 0, 24, sizeof(Vertex), 0, 12, PT_TRIANGLE_LIST);
+		pMesh->AddSubMesh(pSub);
+		
+		return pMesh;
+	}
 	MeshPtr MeshUtil::CreateSphere(float radius, float slice, float stack, MaterialPtr pMat)
 	{
 		MeshPtr pMesh = MeshPtr(new Mesh);
