@@ -3,8 +3,9 @@
 
 namespace engine
 {
-	class EXPORT_CLASS CoreApi
+	class EXPORT_CLASS CoreApi 
 	{
+		typedef boost::shared_ptr<utils::MemPool>		MemPoolPtr;
 	public:
 		CoreApi(void);
 		virtual ~CoreApi(void);
@@ -30,6 +31,18 @@ namespace engine
 
 		void											DispatchEvent(EventPtr pEvent);
 		void											AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
+
+
+		static void*									MemAlloc(uint64 bytes);
+		static void										MemFree(void* mem);
+
+
+		template<typename T>
+		static
+		boost::shared_ptr<T>							AllocObject()
+		{
+			return s_pMemPool->AllocObject<T>();
+		}
 	private:
 		
 		
@@ -41,5 +54,7 @@ namespace engine
 		EventDispatcherPtr								m_pEventDispatcher;
 
 		RenderSystemPtr									m_pRenderSystem;
+
+		static MemPoolPtr								s_pMemPool;						
 	};
 }

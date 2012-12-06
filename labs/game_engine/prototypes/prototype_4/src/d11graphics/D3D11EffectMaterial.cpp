@@ -264,18 +264,21 @@ namespace engine
 		}
 	}
 
-	bool D3D11EffectMaterial::SetVertexFormat(VertexElement format[], uint32 nElem)
+	bool D3D11EffectMaterial::SetVertexFormat(const VertexFormat& format)
 	{
 		if(m_pIL != NULL)
 		{
 			m_pIL->Release();
 		}
 
+		int nElem = format.GetElementCount();
 		D3D11_INPUT_ELEMENT_DESC* layout = new D3D11_INPUT_ELEMENT_DESC[nElem];
 
-		for(uint32 i = 0; i < nElem; ++i)
+		for(int i = 0; i < nElem; ++i)
 		{
-			switch(format[i].semantic)
+			const VertexElement& e = format.GetElement(i);
+
+			switch(e.semantic)
 			{
 			case VertexElement::POSITION:
 				layout[i].SemanticName							= "POSITION";
@@ -302,8 +305,8 @@ namespace engine
 
 			}
 
-			layout[i].Format = D3D11Format::Convert(format[i].type);
-			layout[i].SemanticIndex							= format[i].element_slot;
+			layout[i].Format								= D3D11Format::Convert(e.type);
+			layout[i].SemanticIndex							= e.element_slot;
 
 			layout[i].InputSlot								= 0;
 			layout[i].AlignedByteOffset						= D3D11_APPEND_ALIGNED_ELEMENT ;
@@ -326,9 +329,10 @@ namespace engine
 
 		if(FAILED(hr))
 		{
+			delete[] layout;
 			return false;
 		}
-
+		delete[] layout;
 		return true;
 	}
 }

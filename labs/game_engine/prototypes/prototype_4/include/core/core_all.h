@@ -7,6 +7,7 @@
 
 #include "math\math_all.h"
 
+#include "utils\utils_all.h"
 
 #include "core\core_ptr.h"
 
@@ -47,3 +48,5 @@
 #include "core\SubMesh.h"
 #include "core\Event.h"
 #include "core\MeshUtil.h"
+
+

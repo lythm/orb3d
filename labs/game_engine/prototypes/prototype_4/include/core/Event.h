@@ -19,10 +19,9 @@ namespace engine
 	class WMEvent : public Event
 	{
 	public:
-		WMEvent(const MSG& _msg)
+		WMEvent()
 		{
 			id = EV_WINDOWSMSG;
-			msg = _msg;
 		}
 		virtual ~WMEvent(){}
 

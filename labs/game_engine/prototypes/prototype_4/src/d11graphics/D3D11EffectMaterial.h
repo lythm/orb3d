@@ -41,7 +41,7 @@ namespace engine
 		void								SetFloatBySemantic(const char* szName, float v);
 		void								SetIntBySemantic(const char* szName, int v);
 
-		bool								SetVertexFormat(VertexElement format[], uint32 nElem);
+		bool								SetVertexFormat(const VertexFormat& format);
 
 	private:
 		

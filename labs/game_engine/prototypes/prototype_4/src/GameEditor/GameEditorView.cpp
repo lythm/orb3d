@@ -40,6 +40,7 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_MOUSEHWHEEL()
 	ON_WM_MOUSEWHEEL()
 	ON_WM_RBUTTONDOWN()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -259,4 +260,16 @@ void CGameEditorView::OnRButtonDown(UINT nFlags, CPoint point)
 	}
 
 	CView::OnRButtonDown(nFlags, point);
+}
+
+
+BOOL CGameEditorView::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	CRect rc;
+	GetClientRect(rc);
+	CBrush br(RGB(0, 0,0));
+	pDC->FillRect(rc, &br);
+
+	return TRUE;
 }

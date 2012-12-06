@@ -15,7 +15,17 @@ namespace engine
 		m_pNext							= GameObjectPtr();
 		m_pPrev							= GameObjectPtr();
 	}
+	GameObject::GameObject()
+	{
+		m_name							= L"GameObject";
+		m_LocalTransform.MakeIdentity();
 
+		m_pParent						= GameObjectPtr();
+		m_pFirstChild					= GameObjectPtr();
+
+		m_pNext							= GameObjectPtr();
+		m_pPrev							= GameObjectPtr();
+	}
 
 	GameObject::~GameObject(void)
 	{

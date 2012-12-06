@@ -5,11 +5,7 @@
 #include <boost\function.hpp>
 #include <boost\bind.hpp>
 
-#ifndef CONTAINING_RECORD	
-#define CONTAINING_RECORD(address, type, field) ((type *)( \
-    (char *)(address) - \
-    (ptrdiff_t)(&((type *)0)->field)))
-#endif
+
 
 namespace utils
 {
@@ -85,9 +81,9 @@ namespace utils
 		{
 			pObj->~T();
 			Free(pObj);
-			
 		}
 		
+		void										WarmSlot(uint64 bytes, int count);
 
 	private:
 		static bool slot_find(const Slot& s1, const Slot&s2);

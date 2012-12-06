@@ -18,6 +18,7 @@
 
 namespace engine
 {
+	CoreApi::MemPoolPtr								CoreApi::s_pMemPool;		
 
 	CoreApi::CoreApi(void)
 	{
@@ -33,9 +34,16 @@ namespace engine
 	}
 	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting)
 	{
-		m_pEventDispatcher = EventDispatcherPtr(new EventDispatcher);
+		s_pMemPool = MemPoolPtr(new utils::MemPool);
+		if(s_pMemPool->Initialize() == false)
+		{
+			return false;
+		}
 
-		m_pSysManager = SysManagerPtr(new SysManager);
+		m_pEventDispatcher = AllocObject<EventDispatcher>();
+		 
+
+		m_pSysManager = AllocObject<SysManager>();
 		
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(L"./d11graphics.dll");
 
@@ -48,19 +56,19 @@ namespace engine
 			return false;
 		}
 
-		m_pSysInput = boost::shared_ptr<WMInput>(new WMInput);
+		m_pSysInput = AllocObject<WMInput>();
 
 		if(false == m_pSysInput->Initialize(graphicsSetting.wnd))
 		{
 			return false;
 		}
 
-		m_pRenderSystem = RenderSystemPtr(new RenderSystem);
+		m_pRenderSystem = AllocObject<RenderSystem>();
 		if(m_pRenderSystem->Initialize(m_pSysGraphics) == false)
 		{
 			return false;
 		}
-		m_pObjectManager = GameObjectManagerPtr(new engine::GameObjectManager);
+		m_pObjectManager = AllocObject<GameObjectManager>();
 		if(m_pObjectManager->Initialize() == false)
 		{
 			return false;
@@ -81,6 +89,13 @@ namespace engine
 		m_pSysGraphics->Release();
 		m_pSysGraphics.reset();
 
+		m_pSysManager.reset();
+
+		m_pEventDispatcher->Clear();
+		m_pEventDispatcher.reset();
+		
+		s_pMemPool->Release();
+		s_pMemPool.reset();
 	}
 
 
@@ -98,10 +113,13 @@ namespace engine
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
-		EventPtr pEvent = EventPtr(new WMEvent(msg));
+		boost::shared_ptr<WMEvent> pEvent = AllocObject<WMEvent>();
+		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);
-
+		
+		
+		
 		if(m_pSysInput)
 		{
 			m_pSysInput->HandleMessage(msg);
@@ -151,5 +169,13 @@ namespace engine
 	void CoreApi::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
 	{
 		m_pEventDispatcher->AddEventHandler(id, handler);
+	}
+	void* CoreApi::MemAlloc(uint64 bytes)
+	{
+		return s_pMemPool->Alloc(bytes);
+	}
+	void CoreApi::MemFree(void* mem)
+	{
+		s_pMemPool->Free(mem);
 	}
 }

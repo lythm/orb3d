@@ -36,7 +36,6 @@ namespace engine
 		void							_tree_walk(GameObject* pObj);
 
 	private:
-
 		GameObjectPtr					m_pRoot;
 
 		boost::unordered_map<std::wstring, ComponentCreator>				m_componentCreator;

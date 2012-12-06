@@ -18,8 +18,7 @@ namespace engine
 		virtual void								EndPass()													= 0;
 		virtual void								ApplyPass(int index)										= 0;
 		
-		virtual bool								SetVertexFormat(VertexElement format[], 
-																uint32 nElem)									= 0;
+		virtual bool								SetVertexFormat(const VertexFormat& format)					= 0;
 		virtual void								Release()													= 0;
 
 		virtual void								SetMatrixByName(const char* szParam, 

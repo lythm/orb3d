@@ -21,12 +21,11 @@ namespace engine
 		MeshPtr pMesh = MeshPtr(new Mesh);
 
 
-		VertexElement ve[] = 
-		{
-			VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32A32_FLOAT),
-			VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32A32_FLOAT),
-		};
-		pMat->SetVertexFormat(ve, 2);
+		VertexFormat format;
+		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
+		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
+
+		pMat->SetVertexFormat(format);
 
 		struct Vertex
 		{
@@ -120,13 +119,12 @@ namespace engine
 	{
 		MeshPtr pMesh = MeshPtr(new Mesh);
 
-		VertexElement ve[] = 
-		{
-			VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32A32_FLOAT),
-			VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32A32_FLOAT),
-		};
+		
+		VertexFormat format;
+		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
+		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
 
-		pMat->SetVertexFormat(ve, 2);
+		pMat->SetVertexFormat(format);
 
 #define DTOR (3.14f / 180.f)
 		int theta, phi; 

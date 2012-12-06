@@ -21,6 +21,8 @@ namespace engine
 
 		void									DispatchEvent(EventPtr pEvent);
 		void									AddEventHandler(uint32 id, const EventHandler& handler);
+
+		void									Clear();
 	private:
 
 

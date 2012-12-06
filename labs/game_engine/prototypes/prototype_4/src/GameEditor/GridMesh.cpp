@@ -96,16 +96,12 @@ bool GridMesh::Init(int size, int grid_size)
 
 	m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_grid.fx");
 
-	VertexElement vf[] = 
-	{
-		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-		VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
-	};
 
-	m_pMaterial->SetVertexFormat(vf, 2);
+	
+	VertexFormat format;
+	format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
 
-
-
+	m_pMaterial->SetVertexFormat(format);
 
 	return true;
 }

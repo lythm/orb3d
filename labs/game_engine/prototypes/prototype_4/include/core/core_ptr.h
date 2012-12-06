@@ -62,7 +62,7 @@ namespace engine
 	typedef boost::shared_ptr<RenderData>					RenderDataPtr;
 	typedef boost::shared_ptr<GPUBuffer>					GPUBufferPtr;
 	typedef boost::shared_ptr<Texture>						TexturePtr;
-	typedef boost::shared_ptr<Material>							MaterialPtr;
+	typedef boost::shared_ptr<Material>						MaterialPtr;
 
 
 	class CoreApi;

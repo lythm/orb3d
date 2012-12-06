@@ -29,4 +29,8 @@ namespace engine
 
 		handlers.push_back(handler);
 	}
+	void EventDispatcher::Clear()
+	{
+		m_HandlerMap.clear();
+	}
 }

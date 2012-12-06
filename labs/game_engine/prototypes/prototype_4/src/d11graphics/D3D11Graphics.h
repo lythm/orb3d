@@ -19,7 +19,8 @@ namespace engine
 		void									DrawIndexed(int count, int startindex, int basevertex);
 		void									Draw(int vertexCount, int baseVertex);
 
-		void									ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr, float d, int s, CLEAR_RENDERTARGET_FLAG flag); 
+		void									ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr); 
+		void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, float d, int s); 
 		void									Present();
 
 

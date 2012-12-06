@@ -233,26 +233,24 @@ namespace engine
 		}
 
 	}
-
-	void D3D11Graphics::ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr, float d, int s, CLEAR_RENDERTARGET_FLAG flag)
+	void D3D11Graphics::ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, float d, int s)
 	{
-		ID3D11RenderTargetView* pRTView = NULL;
 		ID3D11DepthStencilView* pDV = NULL;
 		if(pTarget != nullptr)
 		{
+			pDV = ((D3D11DepthStencilBuffer*)pTarget.get())->GetD3D11DepthStencilView();
+		}
+
+		m_pContext->ClearDepthStencilView(pDV == NULL ? m_pDepthStencilBuffer : pDV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , d, s);
+	}
+	void D3D11Graphics::ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr)
+	{
+		ID3D11RenderTargetView* pRTView = NULL;
+		if(pTarget != nullptr)
+		{
 			pRTView = ((D3D11RenderTarget*)pTarget.get())->GetD3D11RenderTargetView();
-			pDV = ((D3D11RenderTarget*)pTarget.get())->GetD3D11DepthStencilView();
 		}
-
-		if(flag & CLEAR_COLOR_BUFFER)
-		{
-			m_pContext->ClearRenderTargetView(pRTView == NULL ? m_pFrameBuffer : pRTView, clr.v);
-		}
-
-		if(flag & CLEAR_DEPTHSTENCIL_BUFFER)
-		{
-			m_pContext->ClearDepthStencilView(pDV == NULL ? m_pDepthStencilBuffer : pDV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , d, s);
-		}
+		m_pContext->ClearRenderTargetView(pRTView == NULL ? m_pFrameBuffer : pRTView, clr.v);
 	}
 	void D3D11Graphics::Present()
 	{

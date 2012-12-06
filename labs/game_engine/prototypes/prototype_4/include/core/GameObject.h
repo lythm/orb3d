@@ -7,6 +7,7 @@ namespace engine
 	{
 	public:
 		GameObject(const std::wstring& name);
+		GameObject();
 		virtual ~GameObject(void);
 		
 		void										Update();

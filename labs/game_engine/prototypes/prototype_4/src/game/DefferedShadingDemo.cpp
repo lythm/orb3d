@@ -26,6 +26,11 @@ bool DefferedShadingDemo::Init(engine::CoreApiPtr pCore)
 
 	m_pRT = m_pCore->GetSysGraphics()->CreateMultiRenderTarget(3, 800, 600, formats);
 
+	//DepthStencilBufferPtr pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(800, 600, G_FORMAT_D32_FLOAT);
+
+	//m_pRT->SetDepthStencilBuffer(pDS);
+
+
 	CreateScene();
 	CreateQuad();
 
@@ -36,7 +41,12 @@ void DefferedShadingDemo::Release()
 {
 	m_pTex->Release();
 	
-	//m_pIB->Release();
+	if(m_pIB)
+	{
+
+		m_pIB->Release();
+	}
+
 	
 	m_pVB->Release();
 	m_pMaterial->Release();
@@ -100,8 +110,11 @@ void DefferedShadingDemo::CreateQuad()
 		VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
 		VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
 	};
+	VertexFormat format;
 
-	m_pQuadMaterial->SetVertexFormat(vf, 2);
+	format.SetElement(vf, 2);
+
+	m_pQuadMaterial->SetVertexFormat(format);
 }
 void DefferedShadingDemo::CreateScene()
 {
@@ -117,12 +130,16 @@ void DefferedShadingDemo::CreateScene()
 	};
 
 
-	//m_pMesh = MeshUtil::CreateSphere(20, 100, 100, m_pMaterial);
-	m_pMesh = MeshUtil::CreateCube(10, m_pMaterial);
+	m_pMesh = MeshUtil::CreateSphere(20, 100, 100, m_pMaterial);
+	//m_pMesh = MeshUtil::CreateCube(10, m_pMaterial);
 	
 	m_pVB = m_pCore->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, m_pMesh->GetVertexDataBytes(), m_pMesh->GetVertexData(), false);
-	m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, m_pMesh->GetIndexDataBytes(), m_pMesh->GetIndexData(), false);
-	//m_pMaterial->SetTextureByName("diff_tex", m_pTex);
+	
+	if(m_pMesh->GetSubMesh(0)->IsIndexed())
+	{
+		m_pIB = m_pCore->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, m_pMesh->GetIndexDataBytes(), m_pMesh->GetIndexData(), false);
+	}
+	m_pMaterial->SetTextureByName("diff_tex", m_pTex);
 }
 
 
@@ -138,7 +155,8 @@ void DefferedShadingDemo::DrawQuad()
 	using namespace engine;
 	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
-	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(0.0, 0.0, 0.0, 1), 1, 0, CLEAR_ALL);
+	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(0.0, 0.0, 0.3, 1));
+	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1, 0);
 
 	m_pQuadMaterial->SetTextureByName("pos_tex", m_pRT->AsTexture(0));
 	m_pQuadMaterial->SetTextureByName("normal_tex", m_pRT->AsTexture(1));
@@ -164,11 +182,19 @@ void DefferedShadingDemo::DrawQuad()
 void DefferedShadingDemo::DrawScene()
 {
 	using namespace engine;
+
+	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
+	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), 0.999999, 0);
+	
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(0), math::Color4(0.0, 0.0, 0.0, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(1), math::Color4(0.0, 0.0, -1.0, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(2), math::Color4(1.0, 1, 1, 1));
+
 	static int tick = GetTickCount();
 
 	int dt = GetTickCount() - tick;
 
-	float angle = 3.14 * (dt / 20000.0f);
+	float angle = 3.14 * (dt / 2000.0f);
 
 	tick = GetTickCount();
 	using namespace engine;
@@ -187,19 +213,17 @@ void DefferedShadingDemo::DrawScene()
 
 	m_pMaterial->SetMatrixBySemantic("MATRIX_WVP", view * proj);
 	m_pMaterial->SetMatrixBySemantic("MATRIX_WV", view);
+	m_pQuadMaterial->SetMatrixBySemantic("MATRIX_WV", view);
 
-	m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R16_UINT);
+	if(m_pMesh->GetSubMesh(0)->IsIndexed())
+	{
+		m_pCore->GetSysGraphics()->SetIndexBuffer(m_pIB, G_FORMAT_R16_UINT);
+	}
 	m_pCore->GetSysGraphics()->SetVertexBuffer(m_pVB, 0, m_pMesh->GetSubMesh(0)->GetVertexStride());
-	m_pCore->GetSysGraphics()->SetPrimitiveType(PT_TRIANGLE_STRIP);
+	m_pCore->GetSysGraphics()->SetPrimitiveType(m_pMesh->GetSubMesh(0)->GetPrimitiveType());
 	
 	m_pMaterial->ApplyVertexFormat();
 	
-	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
-
-	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(0), math::Color4(0.0, 0.0, 1.0, 1), 1, 0, CLEAR_ALL);
-	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(1), math::Color4(0.0, 0.0, 0.0, 1), 1, 0, CLEAR_ALL);
-	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(2), math::Color4(1.0, 0.0, 0.0, 1), 1, 0, CLEAR_ALL);
-
 	int nPass = 0;
 
 	m_pMaterial->BeginPass(nPass);
@@ -207,9 +231,19 @@ void DefferedShadingDemo::DrawScene()
 	for(int i = 0; i < nPass; ++i)
 	{
 		m_pMaterial->ApplyPass(i);
-		//m_pCore->GetSysGraphics()->DrawIndexed(m_pMesh->GetSubMesh(0)->GetIndexCount(),0, 0);
-		m_pCore->GetSysGraphics()->DrawIndexed(3, 6, 0);
-		//m_pCore->GetSysGraphics()->Draw(m_pMesh->GetSubMesh(0)->GetVertexCount(), 0);
+
+		if(m_pMesh->GetSubMesh(0)->IsIndexed())
+		{
+			m_pCore->GetSysGraphics()->DrawIndexed(m_pMesh->GetSubMesh(0)->GetIndexCount(),0, 0);
+		}
+		else
+		{
+			m_pCore->GetSysGraphics()->Draw(m_pMesh->GetSubMesh(0)->GetVertexCount(), 0);
+		}
+
+
+		//m_pCore->GetSysGraphics()->DrawIndexed(6, 0, 0);
+		
 	}
 
 	m_pMaterial->EndPass();

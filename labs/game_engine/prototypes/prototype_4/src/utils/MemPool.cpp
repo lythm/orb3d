@@ -1,6 +1,11 @@
 #include "utils_pch.h"
 #include "..\..\include\utils\MemPool.h"
 
+#ifndef CONTAINING_RECORD	
+#define CONTAINING_RECORD(address, type, field) ((type *)( \
+    (char *)(address) - \
+    (ptrdiff_t)(&((type *)0)->field)))
+#endif
 
 namespace utils
 {
@@ -86,9 +91,27 @@ namespace utils
 			s.blockBytes = v_list[i];
 			s.pSlot = pSlot;
 			m_Slots.push_back(s);
+
+			WarmSlot(v_list[i], 100);
 		}
 
 		return true;
+	}
+	void MemPool::WarmSlot(uint64 bytes, int count)
+	{
+		std::vector<void*> l;
+		for(int i = 0; i < count; ++i)
+		{
+			void* pMem = Alloc(bytes);
+			l.push_back(pMem);
+		}
+
+		for(int i = 0; i < count; ++i)
+		{
+			Free(l[i]);
+		}
+
+		l.clear();
 	}
 	void MemPool::Release()
 	{

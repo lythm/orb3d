@@ -42,6 +42,7 @@ namespace engine
 		int										m_vertexStride;
 		PRIMITIVE_TYPE							m_primitiveType;
 		bool									m_indexed;
+		
 	};
 
 

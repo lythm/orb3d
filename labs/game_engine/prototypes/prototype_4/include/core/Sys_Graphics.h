@@ -18,15 +18,16 @@ namespace engine
 		
 		virtual void									Draw(int vertexCount, int baseVertex)						= 0;
 		virtual void									DrawIndexed(int count, 
-																int startindex, 
-																int basevertex)										= 0;
+																	int startindex,
+																	int basevertex)									= 0;
 		virtual void									SetPrimitiveType(PRIMITIVE_TYPE pt)							= 0;
 		
 		virtual void									ClearRenderTarget(RenderTargetPtr pTarget, 
-																	const math::Color4& clr, 
+																	const math::Color4& clr)						= 0; 
+
+		virtual void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, 
 																	float d, 
-																	int s, 
-																	CLEAR_RENDERTARGET_FLAG flag)					= 0; 
+																	int s)											= 0; 
 
 		virtual void									Present()													= 0;
 

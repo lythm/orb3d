@@ -47,7 +47,7 @@ namespace engine
 			return false;
 		}
 		
-		m_pGameManager = GameManagerPtr(new GameManager);
+		m_pGameManager = m_pCore->AllocObject<GameManager>();
 
 		if(false == m_pGameManager->Initialize(L"./game.dll"))
 		{

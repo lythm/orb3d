@@ -42,7 +42,8 @@ namespace engine
 	}
 	void RenderSystem::Render()
 	{
-		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr, m_clearDepth, m_clearStencil, CLEAR_ALL);
+		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
+		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), m_clearDepth, m_clearStencil);
 
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)
 		{
@@ -65,7 +66,8 @@ namespace engine
 
 	void RenderSystem::DR_Render()
 	{
-		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr, m_clearDepth, m_clearStencil, CLEAR_ALL);
+		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
+		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), m_clearDepth, m_clearStencil);
 
 		// geometry pass
 		for(size_t i = 0; i < m_renderQueue.size(); ++i)

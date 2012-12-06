@@ -44,6 +44,8 @@ ps_out ps_main(vs_out psin)
 	psout.pos.z = psin.pos.z / psin.pos.w;
 	psout.pos.w = 1;
 	
+	psout.depth = psin.pos.z / psin.pos.w;
+
 	psout.normal.xyz = normalize(psin.normal);
 	psout.normal.w = 0;
 
@@ -62,7 +64,6 @@ DepthStencilState ds
 	DepthFunc = LESS;
 	DepthWriteMask = ALL;
 	StencilEnable = false;
-
 };
 technique11 test
 {

@@ -30,4 +30,39 @@ namespace engine
 		int								element_slot;
 	};
 
+	class VertexFormat
+	{
+	public:
+		VertexFormat(){}
+		
+		void							SetElement(VertexElement e[], int c)
+		{
+			Clear();
+			for(int i = 0; i < c; ++i)
+			{
+				AddElement(e[i]);
+			}
+		}
+		void							AddElement(const VertexElement& e)
+		{
+			elems.push_back(e);
+		}
+		void							Clear()
+		{
+			elems.clear();
+		}
+		int								GetElementCount() const
+		{
+			return (int)elems.size();
+		}
+
+		const VertexElement&			GetElement(int index) const
+		{
+			return elems[index];
+		}
+
+
+	private:
+		std::vector<VertexElement>		elems;
+	};
 }
