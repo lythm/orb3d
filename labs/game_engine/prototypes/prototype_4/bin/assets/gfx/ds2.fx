@@ -44,7 +44,7 @@ float4 DepthColor(float depth)
 	depth = depth * 15;
 	clamp(depth, 0, 1);
 	
-	depth = 1 - depth;
+	//depth = 1 - depth;
 
 	return float4(depth, depth, depth, 1);
 }
