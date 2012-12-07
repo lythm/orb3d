@@ -23,6 +23,4 @@ namespace engine
 		ID3D11Buffer*									m_pBuffer;
 		ID3D11DeviceContext*							m_pContext;
 	};
-
-
 }
