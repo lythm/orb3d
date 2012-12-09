@@ -5,6 +5,7 @@ namespace engine
 {
 	class EXPORT_CLASS CoreApi 
 	{
+	public:
 		typedef boost::shared_ptr<utils::MemPool>		MemPoolPtr;
 	public:
 		CoreApi(void);
@@ -43,6 +44,9 @@ namespace engine
 		{
 			return s_pMemPool->AllocObject<T>();
 		}
+
+		static MemPoolPtr								GetMemPool();
+
 	private:
 		
 		

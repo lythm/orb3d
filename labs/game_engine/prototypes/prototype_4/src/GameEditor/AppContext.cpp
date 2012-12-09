@@ -96,14 +96,14 @@ int AppContext::GetRTViewHeight()
 {
 	return s_RTHeight;
 }
-void AppContext::ResizeRTView(int cx, int cy)
+void AppContext::ResizeRenderer(int cx, int cy)
 {
 	s_RTWidth = cx;
 	s_RTHeight = cy;
 
 	if(s_pRenderer)
 	{
-		s_pRenderer->ResetViewPort(cx, cy);
+		s_pRenderer->Resize(cx, cy);
 	}
 }
 RendererPtr AppContext::GetRenderer()

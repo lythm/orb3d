@@ -17,8 +17,8 @@ public:
 
 	static int									GetRTViewWidth();
 	static int									GetRTViewHeight();
-	static void									ResizeRTView(int cx, int cy);
-
+	
+	static void									ResizeRenderer(int cx, int cy);
 	static RendererPtr							GetRenderer();
 
 	static CMainFrame*							GetMainFrame();

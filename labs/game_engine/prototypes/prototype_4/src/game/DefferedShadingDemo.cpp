@@ -155,7 +155,7 @@ void DefferedShadingDemo::DrawQuad()
 	using namespace engine;
 	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
-	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(0.0, 0.0, 0.3, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(1.0, 1.0, 1.0, 1));
 	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1, 0);
 
 	m_pQuadMaterial->SetTextureByName("pos_tex", m_pRT->AsTexture(0));

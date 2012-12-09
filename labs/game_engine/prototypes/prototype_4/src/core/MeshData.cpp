@@ -3,7 +3,7 @@
 #include "core\Mesh.h"
 #include "core\MeshRenderer.h"
 #include "core\GameObject.h"
-#include "core\coreapi.h"
+#include "core_utils.h"
 
 
 namespace engine
@@ -12,7 +12,7 @@ namespace engine
 	{
 		MeshDataPtr MeshData::CreateComponent()
 		{
-			return CoreApi::AllocObject<MeshData>();
+			return alloc_object<MeshData>();
 		}
 
 

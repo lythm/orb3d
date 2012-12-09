@@ -28,6 +28,7 @@
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="WMInput.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
+    <ClCompile Include="core_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -77,5 +78,6 @@
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="WMInput.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
+    <ClInclude Include="core_utils.h" />
   </ItemGroup>
 </Project>

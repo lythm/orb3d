@@ -165,19 +165,11 @@ void CGameEditorView::OnSize(UINT nType, int cx, int cy)
 {
 	CView::OnSize(nType, cx, cy);
 
-	engine::Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
-	if(pGraphics != NULL)
+	if(cx != 0 && cy != 0)
 	{
-
-		if(cx != 0 && cy != 0)
-		{
-			pGraphics->ResizeFrameBuffer(cx, cy);
-			pGraphics->SetRenderTarget(engine::RenderTargetPtr());
-		}
+		AppContext::ResizeRenderer(cx, cy);
 	}
 
-	AppContext::ResizeRTView(cx, cy);
-	// TODO: 在此处添加消息处理程序代码
 }
 
 

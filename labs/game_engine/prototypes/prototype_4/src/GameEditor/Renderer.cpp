@@ -25,17 +25,26 @@ bool Renderer::Initialize(int vpw, int vph)
 		return false;
 	}
 	m_pCamera = EditorCameraPtr(new EditorCamera);
-	ResetViewPort(vpw, vph);
+	m_pCamera->SetViewPort(vpw, vph);
 
 	m_pCamera->Init();
 	m_pCamera->Update();
 	
 	return true;
 }
-void Renderer::ResetViewPort(int vpw, int vph)
+void Renderer::Resize(int cx, int cy)
 {
-	m_pCamera->SetViewPort(vpw, vph);
+	engine::Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+	if(pGraphics != NULL)
+	{
+		if(cx != 0 && cy != 0)
+		{
+			pGraphics->ResizeFrameBuffer(cx, cy);
+			pGraphics->SetRenderTarget(engine::RenderTargetPtr());
+		}
+	}
 
+	m_pCamera->SetViewPort(cx, cy);
 }
 void Renderer::Release()
 {

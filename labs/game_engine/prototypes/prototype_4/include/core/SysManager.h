@@ -11,11 +11,36 @@ namespace engine
 		{
 			typedef Sys*					(*Fn_CreateSys)();
 			typedef void					(*Fn_DestroySys)(Sys*);
-			
+
 			boost::shared_ptr<Sys>			pSys;
 
 			HMODULE							hLib;
 			std::wstring					filename;
+
+
+			bool							load_sys(const wchar_t* file)
+			{
+				hLib = ::LoadLibrary(file);
+				if(hLib == NULL)
+				{
+					return false;
+				}
+
+
+				Fn_CreateSys CreateSys = (Fn_CreateSys)GetProcAddress(hLib, "CreateSys");
+				if(CreateSys == NULL)
+				{
+					FreeLibrary(hLib);
+					return false;
+				}
+
+				filename = file;
+				pSys = boost::shared_ptr<Sys>(CreateSys(), boost::bind(&Sys_Mod_T<Sys>::delete_sys, this, _1));
+
+
+
+				return pSys;
+			}
 
 			void							delete_sys(Sys* pSys)
 			{
@@ -42,14 +67,14 @@ namespace engine
 		typedef Sys_Mod_T<Sys_Input>			Sys_InputMod;
 
 		typedef Sys_Mod_T<Sys_Graphics>			Sys_GraphicsMod;
-				
+
 	public:
 		SysManager(void);
 		virtual ~SysManager(void);
 
 
 		Sys_GraphicsPtr							LoadSysGraphics(const wchar_t* szFile);
-	
+
 		Sys_InputPtr							LoadSysInput(const wchar_t* szFile);
 
 
@@ -62,7 +87,7 @@ namespace engine
 
 		Sys_GraphicsMod							m_graphicsMod;
 		Sys_InputMod							m_inputMod;
-		
+
 	};
 
 }

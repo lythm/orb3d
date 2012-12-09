@@ -178,4 +178,8 @@ namespace engine
 	{
 		s_pMemPool->Free(mem);
 	}
+	CoreApi::MemPoolPtr CoreApi::GetMemPool()
+	{
+		return s_pMemPool;
+	}
 }

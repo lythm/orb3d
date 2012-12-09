@@ -5,7 +5,7 @@ public:
 	Renderer(void);
 	virtual ~Renderer(void);
 
-	void								ResetViewPort(int vpw, int vph);
+	void								Resize(int vpw, int vph);
 	bool								Initialize(int vpw, int vph);
 	void								Release();
 	void								Render();

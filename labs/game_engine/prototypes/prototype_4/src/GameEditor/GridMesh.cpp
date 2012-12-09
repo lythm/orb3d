@@ -118,7 +118,6 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
 
 	using namespace math;
 
-
 	int size = m_size;
 	int grid_size = m_gridSize;
 

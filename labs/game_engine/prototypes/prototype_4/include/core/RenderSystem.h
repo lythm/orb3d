@@ -5,6 +5,19 @@ namespace engine
 {
 	class EXPORT_CLASS RenderSystem
 	{
+		class ScreenQuad
+		{
+		public:
+			
+			bool									Init(Sys_GraphicsPtr pGraphics);
+			void									Release();
+			void									Render(Sys_GraphicsPtr pGraphics, MultiRenderTargetPtr pGBuffer);
+		private:
+			GPUBufferPtr							m_pVB;
+			MaterialPtr								m_pMaterial;
+		};
+
+		typedef boost::shared_ptr<ScreenQuad>		ScreenQuadPtr;
 	public:
 		RenderSystem(void);
 		virtual ~RenderSystem(void);
@@ -25,7 +38,10 @@ namespace engine
 		void									SetClearColor(const math::Color4& clr);
 		void									SetClearDepth(float d);
 		void									SetClearStencil(int s);
+
+		void									ResizeFrameBuffer(int cx, int cy);
 	private:
+		bool									CreateGBuffer();
 		void									SetSemanticsValue(RenderDataPtr pData);
 	private:
 		math::Matrix44							m_viewMatrix;
@@ -36,5 +52,9 @@ namespace engine
 		math::Color4							m_clearClr;
 		float									m_clearDepth;
 		int										m_clearStencil;
+
+		MultiRenderTargetPtr					m_pGBuffer;
+
+		ScreenQuadPtr							m_pScreenQuad;
 	};
 }

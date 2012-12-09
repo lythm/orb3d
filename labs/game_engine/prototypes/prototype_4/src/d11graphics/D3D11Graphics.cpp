@@ -508,5 +508,9 @@ namespace engine
 
 		return MultiRenderTargetPtr(pTarget);
 	}
+	const GraphicsSetting& D3D11Graphics::GetGraphicsSetting()
+	{
+		return m_setting;
+	}
 }
 

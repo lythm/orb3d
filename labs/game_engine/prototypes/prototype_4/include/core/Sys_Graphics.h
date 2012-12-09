@@ -10,7 +10,7 @@ namespace engine
 	{
 	public:
 
-		
+		virtual const GraphicsSetting&					GetGraphicsSetting()										= 0;
 
 		virtual bool									Initialize(const GraphicsSetting& setting)					= 0;
 

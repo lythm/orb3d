@@ -11,6 +11,7 @@ namespace engine
 		D3D11Graphics(void);
 		virtual ~D3D11Graphics(void);
 
+		const GraphicsSetting&					GetGraphicsSetting();
 
 		bool									Initialize(const GraphicsSetting& setting);
 		void									Release();

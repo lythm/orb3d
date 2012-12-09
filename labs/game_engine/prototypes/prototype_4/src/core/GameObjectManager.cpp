@@ -4,7 +4,8 @@
 
 #include "core\meshdata.h"
 #include "core\meshrenderer.h"
-#include "core\coreapi.h"
+#include "core_utils.h"
+
 
 namespace engine
 {
@@ -69,7 +70,7 @@ namespace engine
 	}
 	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
 	{
-		GameObjectPtr pObj = CoreApi::AllocObject<GameObject>();
+		GameObjectPtr pObj = alloc_object<GameObject>();
 		pObj->SetName(name);
 
 		pObj->LinkTo(m_pRoot);

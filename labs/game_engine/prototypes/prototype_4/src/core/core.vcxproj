@@ -131,6 +131,7 @@
     <ClInclude Include="..\..\include\core\Texture.h" />
     <ClInclude Include="..\..\include\core\VertexFormat.h" />
     <ClInclude Include="core_pch.h" />
+    <ClInclude Include="core_utils.h" />
     <ClInclude Include="WMInput.h" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +143,7 @@
     <ClCompile Include="core_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="core_utils.cpp" />
     <ClCompile Include="DataStream_File.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="GameObject.cpp" />

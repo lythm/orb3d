@@ -8,7 +8,8 @@
 #include "core\GPUBuffer.h"
 #include "core\Material.h"
 #include "core\SubMesh.h"
-#include "core\CoreApi.h"
+#include "core_utils.h"
+
 
 namespace engine
 {
@@ -17,7 +18,7 @@ namespace engine
 
 		MeshRendererPtr MeshRenderer::CreateComponent()
 		{
-			return CoreApi::AllocObject<MeshRenderer>();
+			return alloc_object<MeshRenderer>();
 		}
 
 		MeshRenderer::MeshRenderer() : GameObjectComponent(L"MeshRenderer")
