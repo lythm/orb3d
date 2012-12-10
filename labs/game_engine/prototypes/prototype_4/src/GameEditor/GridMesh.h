@@ -11,9 +11,11 @@ public:
 	void									Release();
 
 	void									Render_Depth(engine::Sys_GraphicsPtr pSysGraphics);
-	void									Render(engine::Sys_GraphicsPtr pSysGraphics);
-	engine::MaterialPtr							GetMaterial();
+	void									Render(engine::Sys_GraphicsPtr pSysGraphics, engine::MaterialPtr pMaterial = engine::MaterialPtr());
+	engine::MaterialPtr						GetMaterial();
 	math::Matrix44							GetWorldMatrix();
+
+	bool									IsDeferred();
 private:
 	int										m_size;
 	int										m_gridSize;

@@ -37,12 +37,19 @@ RasterizerState rs
 	CULLMODE = None;
 	FILLMODE=SOLID;
 };
+DepthStencilState ds
+{
+	DepthEnable = TRUE;
+	DepthFunc = LESS;
+	DepthWriteMask = ALL;
+	StencilEnable = false;
+};
 technique11 test
 {
   pass p1
   {
-	//rs.FILLMODE=wireframe;
 	SetRasterizerState(rs);
+	SetDepthStencilState(ds, 0);
 	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 	SetPixelShader( CompileShader( ps_4_0, ps_main(  ) ) );
   }

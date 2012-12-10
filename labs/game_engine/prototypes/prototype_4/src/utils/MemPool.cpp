@@ -38,6 +38,10 @@ namespace utils
 	}
 	void MemPool::Free(void* mem)
 	{
+		if(mem == nullptr)
+		{
+			return;
+		}
 		MemSlot::_MemNode* pNode = CONTAINING_RECORD(mem, MemSlot::_MemNode, data);
 
 

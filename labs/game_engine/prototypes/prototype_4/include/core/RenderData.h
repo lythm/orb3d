@@ -20,8 +20,9 @@ namespace engine
 		virtual ~RenderData(void){}
 
 		virtual void											Render_Depth(Sys_GraphicsPtr pSysGraphics)									= 0;
-		virtual void											Render(Sys_GraphicsPtr pSysGraphics)										= 0;
-		virtual MaterialPtr											GetMaterial()																	= 0;
+		
+		virtual void											Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr())	= 0;
+		virtual MaterialPtr											GetMaterial()															= 0;
 		virtual math::Matrix44									GetWorldMatrix()															= 0;
 
 		virtual void											DR_RenderDepth(){}
@@ -29,5 +30,6 @@ namespace engine
 		virtual void											DR_PostEffect(){}
 
 		virtual void											DR_Render(Sys_GraphicsPtr pSysGraphics, DR_STAGE stage){}
+
 	};
 }

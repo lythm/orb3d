@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core\VertexFormat.h"
 
 namespace engine
 {
@@ -10,7 +11,7 @@ namespace engine
 		virtual ~SubMesh(void);
 
 
-		void									Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType);
+		void									Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType, const VertexFormat& vf, G_FORMAT indexFormat);
 
 		void*									GetIndexData();
 		void*									GetVertexData();
@@ -28,6 +29,9 @@ namespace engine
 		int										GetPrimitiveCount();
 		PRIMITIVE_TYPE							GetPrimitiveType();
 		bool									IsIndexed();
+
+		const VertexFormat&						GetVertexFormat();
+		G_FORMAT								GetIndexFormat();
 	private:
 
 		MeshPtr									m_pMesh;
@@ -42,6 +46,10 @@ namespace engine
 		int										m_vertexStride;
 		PRIMITIVE_TYPE							m_primitiveType;
 		bool									m_indexed;
+
+		VertexFormat							m_vertexFormat;
+
+		G_FORMAT								m_indexFormat;
 		
 	};
 

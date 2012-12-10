@@ -75,26 +75,18 @@ namespace engine
 
 			MeshPtr pMesh = pMD->GetMesh();
 
-			m_pIndexBuffer = m_pRS->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, pMesh->GetIndexDataBytes(), pMesh->GetIndexData(), false);
+			if(pMesh->GetIndexData() != nullptr)
+			{
+				m_pIndexBuffer = m_pRS->GetSysGraphics()->CreateBuffer(BT_INDEX_BUFFER, pMesh->GetIndexDataBytes(), pMesh->GetIndexData(), false);
+			}
 			m_pVertexBuffer = m_pRS->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, pMesh->GetVertexDataBytes(), pMesh->GetVertexData(), false);
 
 			for(int i = 0; i < pMesh->GetSubMeshCount(); ++i)
 			{
 				SubMeshPtr pSub = pMesh->GetSubMesh(i);
 
-				SubMeshRenderDataPtr pSR = SubMeshRenderDataPtr(new SubMeshRenderData(GetGameObject()));
-				pSR->Create(m_pIndexBuffer, 
-						m_pVertexBuffer, 
-						pSub->GetMaterial(), 
-						pSub->GetIndexCount(), 
-						pSub->GetVertexDataOffset(), 
-						pSub->GetVertexStride(), 
-						pSub->GetVertexCount(), 
-						0, 
-						0, 
-						pSub->GetPrimitiveType(), 
-						pSub->IsIndexed());
-
+				SubMeshRenderDataPtr pSR = alloc_object<SubMeshRenderData, GameObjectPtr>(GetGameObject());
+				pSR->Create(pSub, m_pIndexBuffer, m_pVertexBuffer);
 				m_Subsets.push_back(pSR);
 			}
 		}
@@ -116,46 +108,37 @@ namespace engine
 		{
 			m_pGameObject.reset();
 		}
-		void MeshRenderer::SubMeshRenderData::Create(GPUBufferPtr pIndexBuffer, 
-																	GPUBufferPtr pVertexBuffer, 
-																	MaterialPtr pMaterial, 
-																	int indexCount,
-																	int vertexOffset,
-																	int vertexStride,
-																	int vertexCount,
-																	int startIndex,
-																	int baseVertex,
-																	PRIMITIVE_TYPE primType,
-																	bool indexed)
+		void MeshRenderer::SubMeshRenderData::Create(SubMeshPtr pSub, GPUBufferPtr pIndexBuffer, GPUBufferPtr pVertexBuffer)
 		{
 			m_pIndexBuffer					= pIndexBuffer;
 			m_pVertexBuffer					= pVertexBuffer;
-			m_pMaterial						= pMaterial;
-			m_indexCount					= indexCount;
-			m_baseVertex					= baseVertex;
-			m_vertexOffset					= vertexOffset;
-			m_vertexStride					= vertexStride;
-			m_startIndex					= startIndex;
-			m_vertexCount					= vertexCount;
+			m_pMaterial						= pSub->GetMaterial();
+			m_indexCount					= pSub->GetIndexCount();
+			m_baseVertex					= 0;
+			m_vertexOffset					= pSub->GetVertexDataOffset();
+			m_vertexStride					= pSub->GetVertexStride();
+			m_startIndex					= 0;
+			m_vertexCount					= pSub->GetVertexCount();
 			m_iDepthPass					= m_pMaterial->FindPass("DEPTH_PASS");
-			m_primType						= primType;
-			m_indexed						= indexed;
+			m_primType						= pSub->GetPrimitiveType();
+			m_indexed						= pSub->IsIndexed();
+			m_vertexFormat					= pSub->GetVertexFormat();
+			m_indexFormat					= pSub->GetIndexFormat();
 		}
-		void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics)
+		void MeshRenderer::SubMeshRenderData::Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial)
 		{
-			
-			
 			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
 			pSysGraphics->SetPrimitiveType(m_primType);
 			
-			m_indexed ? pSysGraphics->SetIndexBuffer(m_pIndexBuffer, G_FORMAT_R16_UINT) : 0;
+			m_indexed ? pSysGraphics->SetIndexBuffer(m_pIndexBuffer, m_indexFormat) : 0;
 			
+			MaterialPtr pMat = pMaterial == nullptr ? m_pMaterial : pMaterial;
 
-			m_pMaterial->ApplyVertexFormat();
+			pMat->ApplyVertexFormat();
 
 			int nPass = 0;
 
-			m_pMaterial->BeginPass(nPass);
+			pMat->BeginPass(nPass);
 
 			for(int i = 0; i < nPass; ++i)
 			{
@@ -163,18 +146,17 @@ namespace engine
 				{
 					continue;
 				}
-				m_pMaterial->ApplyPass(i);
+				pMat->ApplyPass(i);
 
 				m_indexed ? 
 					pSysGraphics->DrawIndexed(m_indexCount, m_startIndex, m_baseVertex) :
 					pSysGraphics->Draw(m_vertexCount, m_baseVertex);
 			}
 
-			m_pMaterial->EndPass();
+			pMat->EndPass();
 		}
 		void MeshRenderer::SubMeshRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
 		{
-			
 			pSysGraphics->SetVertexBuffer(m_pVertexBuffer, m_vertexOffset, m_vertexStride);
 			pSysGraphics->SetPrimitiveType(m_primType);
 

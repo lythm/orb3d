@@ -1,6 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\Mesh.h"
 #include "core\Material.h"
+#include "core_utils.h"
 
 namespace engine
 {
@@ -42,7 +43,7 @@ namespace engine
 	{
 		if(pIndexBuffer != nullptr)
 		{
-			m_pIndexData = new uint8[indexBufferSize];
+			m_pIndexData = mem_alloc(indexBufferSize);
 			memcpy(m_pIndexData, pIndexBuffer, indexBufferSize);
 			m_indexDataBytes = indexBufferSize;
 		}
@@ -51,7 +52,7 @@ namespace engine
 			m_indexDataBytes = 0;
 		}
 
-		m_pVertexData = new uint8[vertexBufferSize];
+		m_pVertexData = mem_alloc(vertexBufferSize);
 		memcpy(m_pVertexData, pVertexBuffer, vertexBufferSize);
 		m_vertexDataBytes = vertexBufferSize;
 
@@ -61,10 +62,9 @@ namespace engine
 	}
 	void Mesh::Destroy()
 	{
-		
-		delete m_pIndexData;
+		mem_free(m_pIndexData);
 		m_indexDataBytes = 0;
-		delete m_pVertexData;
+		mem_free(m_pVertexData);
 		m_vertexDataBytes = 0;
 		
 		for(size_t i = 0; i < m_materialList.size(); ++i)

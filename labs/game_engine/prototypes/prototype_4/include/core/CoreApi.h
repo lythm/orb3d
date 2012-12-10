@@ -21,6 +21,7 @@ namespace engine
 		Sys_InputPtr									GetSysInput();
 
 		void											Render();
+		void											Present();
 		void											AddRenderData(RenderDataPtr pData);
 		void											ClearRenderQueue();
 
@@ -43,6 +44,13 @@ namespace engine
 		boost::shared_ptr<T>							AllocObject()
 		{
 			return s_pMemPool->AllocObject<T>();
+		}
+
+		template<typename T, typename TP>
+		static
+		boost::shared_ptr<T>							AllocObject(TP param)
+		{
+			return s_pMemPool->AllocObject<T, TP>(param);
 		}
 
 		static MemPoolPtr								GetMemPool();

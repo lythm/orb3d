@@ -12,6 +12,7 @@ namespace engine
 			bool									Init(Sys_GraphicsPtr pGraphics);
 			void									Release();
 			void									Render(Sys_GraphicsPtr pGraphics, MultiRenderTargetPtr pGBuffer);
+			MaterialPtr								GetMaterial();
 		private:
 			GPUBufferPtr							m_pVB;
 			MaterialPtr								m_pMaterial;
@@ -27,8 +28,7 @@ namespace engine
 		void									AddRenderData(RenderDataPtr pData);
 		void									Clear();
 		void									Render();
-
-		void									DR_Render();
+		void									Present();
 
 		void									SetViewMatrix(const math::Matrix44& view);
 		void									SetProjMatrix(const math::Matrix44& proj);
@@ -40,9 +40,13 @@ namespace engine
 		void									SetClearStencil(int s);
 
 		void									ResizeFrameBuffer(int cx, int cy);
+
+		void									SetSemanticsValue(RenderDataPtr pData);
+
 	private:
 		bool									CreateGBuffer();
-		void									SetSemanticsValue(RenderDataPtr pData);
+		void									RenderGBuffer();
+		void									RenderScreenQuad();
 	private:
 		math::Matrix44							m_viewMatrix;
 		math::Matrix44							m_projMatrix;
@@ -56,5 +60,7 @@ namespace engine
 		MultiRenderTargetPtr					m_pGBuffer;
 
 		ScreenQuadPtr							m_pScreenQuad;
+
+		MaterialPtr								m_pGBufferMaterial;
 	};
 }

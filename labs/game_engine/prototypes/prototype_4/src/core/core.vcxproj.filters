@@ -79,5 +79,6 @@
     <ClInclude Include="WMInput.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="core_utils.h" />
+    <ClInclude Include="..\..\include\core\RenderData2.h" />
   </ItemGroup>
 </Project>

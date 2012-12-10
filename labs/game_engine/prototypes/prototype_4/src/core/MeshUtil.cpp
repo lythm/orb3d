@@ -4,7 +4,7 @@
 #include "core\Material.h"
 #include "core\VertexFormat.h"
 #include "core\SubMesh.h"
-
+#include "core_utils.h"
 
 namespace engine
 {
@@ -18,7 +18,7 @@ namespace engine
 	}
 	MeshPtr MeshUtil::CreateCube(float size, MaterialPtr pMat)
 	{
-		MeshPtr pMesh = MeshPtr(new Mesh);
+		MeshPtr pMesh = alloc_object<Mesh>();
 
 
 		VertexFormat format;
@@ -108,16 +108,16 @@ namespace engine
 			return MeshPtr();
 		}
 
-		SubMeshPtr pSub = SubMeshPtr(new SubMesh);
+		SubMeshPtr pSub = alloc_object<SubMesh>();
 
-		pSub->Create(pMesh, 0, 36, 0, 24, sizeof(Vertex), 0, 12, PT_TRIANGLE_LIST);
+		pSub->Create(pMesh, 0, 36, 0, 24, sizeof(Vertex), 0, 12, PT_TRIANGLE_LIST, format, G_FORMAT_R16_UINT);
 		pMesh->AddSubMesh(pSub);
 		
 		return pMesh;
 	}
 	MeshPtr MeshUtil::CreateSphere(float radius, float slice, float stack, MaterialPtr pMat)
 	{
-		MeshPtr pMesh = MeshPtr(new Mesh);
+		MeshPtr pMesh = alloc_object<Mesh>();
 
 		
 		VertexFormat format;
@@ -140,7 +140,7 @@ namespace engine
 			math::Vector3 normal;
 		};
 
-		Vertex* pVerts = new Vertex[NumVertices];
+		Vertex* pVerts = (Vertex*)mem_alloc(sizeof(Vertex) * NumVertices);
 
 		int n = 0; 
 
@@ -206,14 +206,14 @@ namespace engine
 
 		if(false == pMesh->Create(0, NULL, sizeof(Vertex) * NumVertices, pVerts, mats))
 		{
-			delete[] pVerts;
+			mem_free(pVerts);
 			return MeshPtr();
 		}
-		delete [] pVerts;
+		mem_free(pVerts);
 
-		SubMeshPtr pSub = SubMeshPtr(new SubMesh);
+		SubMeshPtr pSub = alloc_object<SubMesh>();
 
-		pSub->Create(pMesh, 0, 0, 0, NumVertices, sizeof(Vertex), 0, NumVertices - 2, PT_TRIANGLE_STRIP);
+		pSub->Create(pMesh, 0, 0, 0, NumVertices, sizeof(Vertex), 0, NumVertices - 2, PT_TRIANGLE_STRIP, format, G_FORMAT_R16_UINT);
 
 		pMesh->AddSubMesh(pSub);
 

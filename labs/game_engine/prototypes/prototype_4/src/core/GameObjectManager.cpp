@@ -11,7 +11,7 @@ namespace engine
 {
 	GameObjectManager::GameObjectManager(void)
 	{
-		m_pRoot = GameObjectPtr(new GameObject(L"_root"));
+		m_pRoot = alloc_object<GameObject, wchar_t*>(L"_root");
 	}
 
 	GameObjectManager::~GameObjectManager(void)

@@ -38,6 +38,15 @@ namespace engine
 		{
 			return false;
 		}
+
+		m_pGBufferMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/dr_render_gbuffer.fx");
+
+		VertexFormat format;
+		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
+		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
+
+		m_pGBufferMaterial->SetVertexFormat(format);
+
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer()
@@ -52,7 +61,7 @@ namespace engine
 		{
 			G_FORMAT_R16G16B16A16_FLOAT,				// position
 			G_FORMAT_R16G16B16A16_FLOAT,				// normal
-			G_FORMAT_R16G16B16A16_FLOAT,				// specular parameters
+			G_FORMAT_R16G16B16A16_FLOAT,				// diffuse color : specular
 		};
 
 		const GraphicsSetting& setting = m_pGraphics->GetGraphicsSetting();
@@ -66,6 +75,11 @@ namespace engine
 	{
 		m_renderQueue.clear();
 
+		if(m_pGBufferMaterial)
+		{
+			m_pGBufferMaterial->Release();
+			m_pGBufferMaterial.reset();
+		}
 		if(m_pScreenQuad)
 		{
 			m_pScreenQuad->Release();
@@ -86,66 +100,57 @@ namespace engine
 	{
 		m_renderQueue.clear();
 	}
+	void RenderSystem::RenderGBuffer()
+	{
+		m_pGraphics->SetRenderTarget(m_pGBuffer);
+		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(0), math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(1), math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(2), math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1.0f, 0);
+
+
+		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		{
+			//SetSemanticsValue(m_renderQueue[i]);
+			//SetSemanticsValue(m_pGBufferMaterial);
+
+			math::Matrix44 world = m_renderQueue[i]->GetWorldMatrix();
+
+			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WORLD", world);
+			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
+			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
+			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
+			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WV", world * m_viewMatrix);
+			m_renderQueue[i]->Render(m_pGraphics, m_pGBufferMaterial);
+		}
+
+
+
+	}
+	void RenderSystem::RenderScreenQuad()
+	{
+		m_pGraphics->SetRenderTarget(RenderTargetPtr());
+		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
+
+		MaterialPtr pMat = m_pScreenQuad->GetMaterial();
+
+		pMat->SetMatrixBySemantic("MATRIX_WORLD", math::MatrixIdentity());
+		pMat->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
+		pMat->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
+		pMat->SetMatrixBySemantic("MATRIX_WVP", m_viewMatrix * m_projMatrix);
+		pMat->SetMatrixBySemantic("MATRIX_WV", m_viewMatrix);
+
+
+		m_pScreenQuad->Render(m_pGraphics, m_pGBuffer);
+	}
 	void RenderSystem::Render()
 	{
-		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
-		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), m_clearDepth, m_clearStencil);
-
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-
-
-			//m_renderQueue[i]->Render_Depth(m_pGraphics);
-
-		}
-
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-
-			m_renderQueue[i]->Render(m_pGraphics);
-		}
-
-		//m_pScreenQuad->Render(m_pGraphics, m_pGBuffer);
-
-		m_pGraphics->Present();
+		RenderGBuffer();
+		RenderScreenQuad();
+		
 	}
-
-	void RenderSystem::DR_Render()
+	void RenderSystem::Present()
 	{
-		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
-		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), m_clearDepth, m_clearStencil);
-
-		// geometry pass
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_GEOMETRY);
-		}
-		// lighting pass
-
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_LIGHTING);
-		}
-
-		// posteffect pass
-
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_POSTEFFECT);
-		}
-		// merge pass
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
-		{
-			SetSemanticsValue(m_renderQueue[i]);
-			m_renderQueue[i]->DR_Render(m_pGraphics, RenderData::DR_MERGE);
-		}
-
-
 		m_pGraphics->Present();
 	}
 	void RenderSystem::SetViewMatrix(const math::Matrix44& view)
@@ -166,6 +171,7 @@ namespace engine
 		pMaterial->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
 		pMaterial->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
 		pMaterial->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
+		pMaterial->SetMatrixBySemantic("MATRIX_WV", world * m_viewMatrix);
 
 	}
 	Sys_GraphicsPtr	RenderSystem::GetSysGraphics()
@@ -220,7 +226,7 @@ namespace engine
 		};
 
 		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 6, verts, true);
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/ds2.fx");
+		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/dr_render_screenquad.fx");
 
 		VertexElement vf[] = 
 		{
@@ -249,14 +255,9 @@ namespace engine
 	}
 	void RenderSystem::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MultiRenderTargetPtr pGBuffer)
 	{
-		pGraphics->SetRenderTarget(RenderTargetPtr());
-
-		pGraphics->ClearRenderTarget(RenderTargetPtr(), math::Color4(0.0, 0.0, 0.3, 1));
-		pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1, 0);
-
 		m_pMaterial->SetTextureByName("pos_tex", pGBuffer->AsTexture(0));
 		m_pMaterial->SetTextureByName("normal_tex", pGBuffer->AsTexture(1));
-		m_pMaterial->SetTextureByName("depth_tex", pGBuffer->AsTexture(2));
+		m_pMaterial->SetTextureByName("diff_tex", pGBuffer->AsTexture(2));
 
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
@@ -274,5 +275,9 @@ namespace engine
 		}
 
 		m_pMaterial->EndPass();
+	}
+	MaterialPtr RenderSystem::ScreenQuad::GetMaterial()
+	{
+		return m_pMaterial;
 	}
 }

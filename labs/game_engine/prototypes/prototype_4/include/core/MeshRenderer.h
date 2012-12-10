@@ -3,6 +3,7 @@
 #include "core\GameObjectComponent.h"
 #include "core\RenderData.h"
 #include "core\g_format.h"
+#include "core\VertexFormat.h"
 
 namespace engine
 {
@@ -17,21 +18,11 @@ namespace engine
 				virtual ~SubMeshRenderData();
 
 				void											Render_Depth(Sys_GraphicsPtr pSysGraphics);
-				void											Render(Sys_GraphicsPtr pSysGraphics);
+				void											Render(Sys_GraphicsPtr pSysGraphics, MaterialPtr pMaterial = MaterialPtr());
 				MaterialPtr										GetMaterial();
 				math::Matrix44									GetWorldMatrix();
 
-				void											Create(GPUBufferPtr pIndexBuffer, 
-																	GPUBufferPtr pVertexBuffer, 
-																	MaterialPtr pMaterial, 
-																	int indexCount,
-																	int vertexOffset,
-																	int vertexStride,
-																	int vertexCount,
-																	int startIndex,
-																	int baseVertex,
-																	PRIMITIVE_TYPE primType,
-																	bool indexed);
+				void											Create(SubMeshPtr pSub, GPUBufferPtr pIndexBuffer, GPUBufferPtr pVertexBuffer);
 			private:
 				GameObjectPtr									m_pGameObject;
 
@@ -47,6 +38,9 @@ namespace engine
 				bool											m_indexed;
 				PRIMITIVE_TYPE									m_primType;
 				int												m_vertexCount;
+
+				VertexFormat									m_vertexFormat;
+				G_FORMAT										m_indexFormat;
 			};
 		public:
 			MeshRenderer();
@@ -70,6 +64,8 @@ namespace engine
 
 			typedef boost::shared_ptr<SubMeshRenderData>				SubMeshRenderDataPtr;
 			std::vector<SubMeshRenderDataPtr>	m_Subsets;
+
+			
 		};
 
 	}

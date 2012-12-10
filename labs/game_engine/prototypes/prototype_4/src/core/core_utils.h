@@ -21,4 +21,10 @@ namespace engine
 		return CoreApi::AllocObject<T>();
 	}
 
+	template<typename T, typename TP> inline
+		boost::shared_ptr<T>								alloc_object(TP p)
+	{
+		return CoreApi::AllocObject<T, TP>(p);
+	}
+
 }

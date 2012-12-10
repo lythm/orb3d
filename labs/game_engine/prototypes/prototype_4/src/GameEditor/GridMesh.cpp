@@ -112,7 +112,7 @@ void GridMesh::Release()
 	m_pMaterial->Release();
 }
 
-void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics)
+void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics, engine::MaterialPtr pMaterial)
 {
 	using namespace engine;
 
@@ -158,3 +158,8 @@ math::Matrix44 GridMesh::GetWorldMatrix()
 void GridMesh::Render_Depth(engine::Sys_GraphicsPtr pSysGraphics)
 {
 }
+bool GridMesh::IsDeferred()
+{
+	return false;
+}
+

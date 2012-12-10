@@ -14,7 +14,7 @@ namespace engine
 	SubMesh::~SubMesh(void)
 	{
 	}
-	void SubMesh::Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType)
+	void SubMesh::Create(MeshPtr pMesh, int indexOffset, int indexCount, int vertexOffset, int vertexCount, int vertexStride, int matIndex, int primCount, PRIMITIVE_TYPE primType, const VertexFormat& vf, G_FORMAT indexFormat)
 	{
 		m_pMesh						= pMesh;
 
@@ -29,6 +29,17 @@ namespace engine
 
 		m_indexed					= pMesh->GetIndexData() == NULL ? false : true;
 		m_primitiveType				= primType;
+
+		m_vertexFormat				= vf;
+		m_indexFormat				= indexFormat;
+	}
+	G_FORMAT SubMesh::GetIndexFormat()
+	{
+		return m_indexFormat;
+	}
+	const VertexFormat& SubMesh::GetVertexFormat()
+	{
+		return m_vertexFormat;
 	}
 	void* SubMesh::GetIndexData()
 	{

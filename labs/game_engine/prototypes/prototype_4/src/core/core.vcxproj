@@ -116,6 +116,7 @@
     <ClInclude Include="..\..\include\core\MultiRenderTarget.h" />
     <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
+    <ClInclude Include="..\..\include\core\RenderData2.h" />
     <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />

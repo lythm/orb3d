@@ -182,4 +182,11 @@ namespace engine
 	{
 		return s_pMemPool;
 	}
+	void CoreApi::Present()
+	{
+		if(m_pRenderSystem)
+		{
+			m_pRenderSystem->Present();
+		}
+	}
 }

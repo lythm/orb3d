@@ -93,7 +93,7 @@ void EditorCamera::SetViewPort(int cx, int cy)
 	m_vpw = cx;
 	m_vph = cy;
 	float aspect = float(m_vpw) / float(m_vph);
-	PerspectiveFovLH(1.0f/ 4.0f * MATH_PI, aspect, 0.001f, 10000000);
+	PerspectiveFovLH(1.0f/ 4.0f * MATH_PI, aspect, 0.1f, 10000);
 
 }
 void EditorCamera::Rotate(int dx, int dy)
