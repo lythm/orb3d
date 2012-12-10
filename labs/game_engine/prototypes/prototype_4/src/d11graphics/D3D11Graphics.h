@@ -24,7 +24,8 @@ namespace engine
 		void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, float d, int s); 
 		void									Present();
 
-
+		void									VSSetConstantBuffer(GPUBufferPtr pBuffer);
+		void									PSSetConstantBuffer(GPUBufferPtr pBuffer);
 		void									SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type);
 		void									SetVertexBuffer(GPUBufferPtr pBuffer, unsigned int offset, unsigned int stride);
 

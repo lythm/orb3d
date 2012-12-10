@@ -58,16 +58,12 @@ void Renderer::Render()
 {
 	AppContext::GetCoreApi()->Update();
 
-	//AppContext::GetCoreApi()->AddRenderData(m_pGrid);
+	AppContext::GetCoreApi()->AddRenderData(m_pGrid);
 
 	m_pCamera->Update();
 
 	AppContext::GetCoreApi()->Render();
 	AppContext::GetCoreApi()->ClearRenderQueue();
-
-	AppContext::GetCoreApi()->GetRenderSystem()->SetSemanticsValue(m_pGrid);
-
-	m_pGrid->Render(AppContext::GetSysGraphics());
 
 	AppContext::GetCoreApi()->Present();
 

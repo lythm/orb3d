@@ -350,6 +350,16 @@ namespace engine
 
 		return GPUBufferPtr(new D3D11Buffer(pBuffer, m_pContext));
 	}
+	void D3D11Graphics::VSSetConstantBuffer(GPUBufferPtr pBuffer)
+	{
+		ID3D11Buffer* pCB = ((D3D11Buffer*)pBuffer.get())->GetD3D11BufferInterface(); 
+		m_pContext->VSSetConstantBuffers(0, 1, &pCB);
+	}
+	void D3D11Graphics::PSSetConstantBuffer(GPUBufferPtr pBuffer)
+	{
+		ID3D11Buffer* pCB = ((D3D11Buffer*)pBuffer.get())->GetD3D11BufferInterface(); 
+		m_pContext->PSSetConstantBuffers(0, 1, &pCB);
+	}
 	void D3D11Graphics::SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)
 	{
 		ID3D11Buffer* pD3DBuffer = boost::shared_dynamic_cast<D3D11Buffer>(pBuffer)->GetD3D11BufferInterface();

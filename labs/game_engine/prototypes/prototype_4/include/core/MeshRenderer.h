@@ -23,6 +23,7 @@ namespace engine
 				math::Matrix44									GetWorldMatrix();
 
 				void											Create(SubMeshPtr pSub, GPUBufferPtr pIndexBuffer, GPUBufferPtr pVertexBuffer);
+				bool											IsDeferred();
 			private:
 				GameObjectPtr									m_pGameObject;
 

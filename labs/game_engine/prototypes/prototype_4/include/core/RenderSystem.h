@@ -5,6 +5,14 @@ namespace engine
 {
 	class EXPORT_CLASS RenderSystem
 	{
+		struct ShaderConstants
+		{
+			math::Matrix44	MATRIX_WORLD;
+			math::Matrix44	MATRIX_VIEW;
+			math::Matrix44	MATRIX_PROJ;
+			math::Matrix44	MATRIX_WV;
+			math::Matrix44	MATRIX_WVP;
+		};
 		class ScreenQuad
 		{
 		public:
@@ -47,10 +55,15 @@ namespace engine
 		bool									CreateGBuffer();
 		void									RenderGBuffer();
 		void									RenderScreenQuad();
+		void									RenderForward();
+
 	private:
 		math::Matrix44							m_viewMatrix;
 		math::Matrix44							m_projMatrix;
-		std::vector<RenderDataPtr>				m_renderQueue;
+
+		std::vector<RenderDataPtr>				m_forwardQueue;
+		std::vector<RenderDataPtr>				m_deferredQueue;
+		
 		Sys_GraphicsPtr							m_pGraphics;
 
 		math::Color4							m_clearClr;
@@ -62,5 +75,7 @@ namespace engine
 		ScreenQuadPtr							m_pScreenQuad;
 
 		MaterialPtr								m_pGBufferMaterial;
+
+		GPUBufferPtr							m_pShaderConstants;
 	};
 }

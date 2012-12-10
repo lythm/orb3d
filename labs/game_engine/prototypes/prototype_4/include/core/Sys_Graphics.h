@@ -36,6 +36,9 @@ namespace engine
 																	void* pInitData, 
 																	bool dynamic)									= 0;
 
+		virtual void									VSSetConstantBuffer(GPUBufferPtr pBuffer)					= 0;
+		virtual void									PSSetConstantBuffer(GPUBufferPtr pBuffer)					= 0;
+
 		virtual void									SetIndexBuffer(GPUBufferPtr pBuffer, G_FORMAT type)			= 0;
 		virtual void									SetVertexBuffer(GPUBufferPtr pBuffer, 
 																	unsigned int offset, 

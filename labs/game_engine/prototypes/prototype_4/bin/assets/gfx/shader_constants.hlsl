@@ -1,5 +1,5 @@
 
-cbuffer ShaderConstants : register(cb0)
+struct ShaderConstants
 {
 	float4x4	MATRIX_WORLD;
 	float4x4	MATRIX_VIEW;

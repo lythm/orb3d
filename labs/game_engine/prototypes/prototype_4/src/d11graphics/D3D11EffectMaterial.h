@@ -31,7 +31,7 @@ namespace engine
 		void								SetVectorByName(const char* szName, const math::Vector2& v);
 		void								SetFloatByName(const char* szName, float v);
 		void								SetIntByName(const char* szName, int v);
-
+		void								SetCBByName(const char* szName, GPUBufferPtr pCB);
 		// parameter by semantic
 		void								SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat);
 		void								SetTextureBySemantic(const char* szName, TexturePtr pTex);
@@ -40,6 +40,7 @@ namespace engine
 		void								SetVectorBySemantic(const char* szName, const math::Vector2& v);
 		void								SetFloatBySemantic(const char* szName, float v);
 		void								SetIntBySemantic(const char* szName, int v);
+		void								SetCBBySemantic(const char* szName, GPUBufferPtr pCB);
 
 		bool								SetVertexFormat(const VertexFormat& format);
 

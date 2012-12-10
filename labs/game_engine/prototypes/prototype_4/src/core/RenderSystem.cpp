@@ -47,6 +47,10 @@ namespace engine
 
 		m_pGBufferMaterial->SetVertexFormat(format);
 
+
+		m_pShaderConstants = pGraphics->CreateBuffer(BT_CONSTANT_BUFFER, sizeof(ShaderConstants), NULL, true);
+
+
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer()
@@ -73,7 +77,8 @@ namespace engine
 	}
 	void RenderSystem::Release()
 	{
-		m_renderQueue.clear();
+		m_forwardQueue.clear();
+		m_deferredQueue.clear();
 
 		if(m_pGBufferMaterial)
 		{
@@ -94,11 +99,19 @@ namespace engine
 
 	void RenderSystem::AddRenderData(RenderDataPtr pData)
 	{
-		m_renderQueue.push_back(pData);
+		if(pData->IsDeferred())
+		{
+			m_deferredQueue.push_back(pData);
+		}
+		else
+		{
+			m_forwardQueue.push_back(pData);
+		}
 	}
 	void RenderSystem::Clear()
 	{
-		m_renderQueue.clear();
+		m_forwardQueue.clear();
+		m_deferredQueue.clear();
 	}
 	void RenderSystem::RenderGBuffer()
 	{
@@ -109,19 +122,19 @@ namespace engine
 		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1.0f, 0);
 
 
-		for(size_t i = 0; i < m_renderQueue.size(); ++i)
+		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
 			//SetSemanticsValue(m_renderQueue[i]);
 			//SetSemanticsValue(m_pGBufferMaterial);
 
-			math::Matrix44 world = m_renderQueue[i]->GetWorldMatrix();
+			math::Matrix44 world = m_deferredQueue[i]->GetWorldMatrix();
 
 			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WORLD", world);
 			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
 			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
 			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
 			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WV", world * m_viewMatrix);
-			m_renderQueue[i]->Render(m_pGraphics, m_pGBufferMaterial);
+			m_deferredQueue[i]->Render(m_pGraphics, m_pGBufferMaterial);
 		}
 
 
@@ -143,11 +156,20 @@ namespace engine
 
 		m_pScreenQuad->Render(m_pGraphics, m_pGBuffer);
 	}
+	void RenderSystem::RenderForward()
+	{
+		for(size_t i = 0; i < m_forwardQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_forwardQueue[i]);
+			
+			m_forwardQueue[i]->Render(m_pGraphics);
+		}
+	}
 	void RenderSystem::Render()
 	{
 		RenderGBuffer();
 		RenderScreenQuad();
-		
+		RenderForward();
 	}
 	void RenderSystem::Present()
 	{
@@ -202,6 +224,7 @@ namespace engine
 
 		CreateGBuffer();
 	}
+
 }
 
 

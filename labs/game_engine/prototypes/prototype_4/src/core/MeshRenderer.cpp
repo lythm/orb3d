@@ -184,6 +184,10 @@ namespace engine
 		{
 			return m_pGameObject->GetWorldTransform();
 		}
+		bool MeshRenderer::SubMeshRenderData::IsDeferred()
+		{
+			return true;
+		}
 
 	}
 }

@@ -2,6 +2,7 @@
 #include "D3D11EffectMaterial.h"
 #include "D3D11Texture.h"
 #include "D3D11Format.h"
+#include "D3D11Buffer.h"
 
 namespace engine
 {
@@ -263,7 +264,22 @@ namespace engine
 			pVal->AsScalar()->SetInt(v);
 		}
 	}
-
+	void D3D11EffectMaterial::SetCBBySemantic(const char* szName, GPUBufferPtr pCB)
+	{
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
+		if(pVal)
+		{
+			pVal->AsConstantBuffer()->SetConstantBuffer(((D3D11Buffer*)pCB.get())->GetD3D11BufferInterface());
+		}
+	}
+	void D3D11EffectMaterial::SetCBByName(const char* szName, GPUBufferPtr pCB)
+	{
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableByName(szName);
+		if(pVal)
+		{
+			pVal->AsConstantBuffer()->SetConstantBuffer(((D3D11Buffer*)pCB.get())->GetD3D11BufferInterface());
+		}
+	}
 	bool D3D11EffectMaterial::SetVertexFormat(const VertexFormat& format)
 	{
 		if(m_pIL != NULL)
