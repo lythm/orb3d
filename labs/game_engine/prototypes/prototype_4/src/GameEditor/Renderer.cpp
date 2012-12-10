@@ -39,12 +39,10 @@ void Renderer::Resize(int cx, int cy)
 	{
 		if(cx != 0 && cy != 0)
 		{
-			pGraphics->ResizeFrameBuffer(cx, cy);
-			pGraphics->SetRenderTarget(engine::RenderTargetPtr());
+			AppContext::GetCoreApi()->GetRenderSystem()->ResizeFrameBuffer(cx, cy);
+			m_pCamera->SetViewPort(cx, cy);
 		}
 	}
-
-	m_pCamera->SetViewPort(cx, cy);
 }
 void Renderer::Release()
 {
@@ -99,7 +97,8 @@ void Renderer::CreateObject_FromTemplate_Sphere()
 
 	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Sphere");
 
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_sphere.fx");
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+	pMaterial->SelectTechByName("dr_render_gbuffer");
 
 	MeshPtr pMesh = MeshUtil::CreateSphere(20, 100, 100, pMaterial);
 
@@ -122,7 +121,7 @@ void Renderer::CreateObject_FromTemplate_Cube()
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_cube.fx");
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();

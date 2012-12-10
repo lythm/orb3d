@@ -34,7 +34,7 @@ namespace engine
 	}
 	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting)
 	{
-		s_pMemPool = MemPoolPtr(new utils::MemPool);
+		s_pMemPool = MemPoolPtr(new MemPool);
 		if(s_pMemPool->Initialize() == false)
 		{
 			return false;
@@ -117,8 +117,6 @@ namespace engine
 		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);
-		
-		
 		
 		if(m_pSysInput)
 		{

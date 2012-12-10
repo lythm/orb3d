@@ -12,10 +12,14 @@ namespace engine
 	{
 		class MeshData;
 		class MeshRenderer;
+		class WorldMeshRenderer;
+		class LightData;
 	}
 
 	typedef boost::shared_ptr<GameObjectTemplate>								GameObjectTemplatePtr;
 	typedef boost::shared_ptr<object_component::MeshData>						MeshDataPtr;
+	typedef boost::shared_ptr<object_component::LightData>						LightDataPtr;
+	typedef boost::shared_ptr<object_component::WorldMeshRenderer>				WorldMeshRendererPtr;
 	typedef boost::shared_ptr<object_component::MeshRenderer>					MeshRendererPtr;
 	typedef boost::shared_ptr<GameObjectManager>								GameObjectManagerPtr;
 	typedef boost::shared_ptr<GameObject>										GameObjectPtr;

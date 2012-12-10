@@ -7,7 +7,7 @@
     (ptrdiff_t)(&((type *)0)->field)))
 #endif
 
-namespace utils
+namespace engine
 {
 	MemPool::MemPool(void)
 	{
@@ -129,7 +129,7 @@ namespace utils
 	}
 }
 
-namespace utils
+namespace engine
 {
 	MemSlot::MemSlot()
 	{

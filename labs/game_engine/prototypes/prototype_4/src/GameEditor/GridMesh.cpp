@@ -94,7 +94,7 @@ bool GridMesh::Init(int size, int grid_size)
 	
 	m_pIB->Unmap();
 
-	m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/editor_grid.fx");
+	m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_grid.fx");
 
 
 	
@@ -132,7 +132,7 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics, engine::MaterialPtr pMa
 	
 	int nPass = 0;
 
-	m_pMaterial->BeginPass(nPass);
+	m_pMaterial->Begin(nPass);
 
 	for(int i = 0; i < nPass; ++i)
 	{
@@ -141,7 +141,7 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics, engine::MaterialPtr pMa
 		pGraphics->DrawIndexed(index_count, 0, 0);
 	}
 
-	m_pMaterial->EndPass();
+	m_pMaterial->End();
 
 }
 engine::MaterialPtr GridMesh::GetMaterial()

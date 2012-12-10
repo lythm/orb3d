@@ -18,11 +18,14 @@ void EditorCamera::Update()
 {
 	using namespace engine;
 
+	UpdateViewFrustum();
+
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
 	pRS->SetViewMatrix(GetViewMatrix());
 	pRS->SetProjMatrix(GetProjMatrix());
 
+	
 	return;
 }
 math::Vector3 EditorCamera::GetEyePos()

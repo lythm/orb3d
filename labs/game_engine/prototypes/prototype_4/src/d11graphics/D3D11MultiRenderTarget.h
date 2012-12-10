@@ -28,6 +28,4 @@ namespace engine
 		std::vector<RenderTargetPtr>					m_RTs;
 		DepthStencilBufferPtr							m_pDepthBuffer;
 	};
-
-
 }

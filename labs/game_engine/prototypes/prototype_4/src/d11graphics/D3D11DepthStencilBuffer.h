@@ -15,7 +15,6 @@ namespace engine
 		void										Release();
 		ID3D11DepthStencilView*						GetD3D11DepthStencilView();
 
-		void										Clear(float depth, int stencil);
 	private:
 
 		TexturePtr									CreateTexture(G_FORMAT format);

@@ -14,8 +14,8 @@ namespace engine
 		virtual int									FindPass(const std::string& name)							= 0;
 		virtual void								ApplyVertexFormat()											= 0;
 
-		virtual bool								BeginPass(int& nPass)										= 0;
-		virtual void								EndPass()													= 0;
+		virtual bool								Begin(int& nPass)											= 0;
+		virtual void								End()														= 0;
 		virtual void								ApplyPass(int index)										= 0;
 		
 		virtual bool								SetVertexFormat(const VertexFormat& format)					= 0;
@@ -58,6 +58,13 @@ namespace engine
 																float v)										= 0;
 		virtual void								SetIntBySemantic(const char* szName, 
 																int v)											= 0;
+
+		virtual bool								SelectTechByName(const char* szName)						= 0;
+
+		virtual void								SetViewMatrix(const math::Matrix44& val)					= 0;
+		virtual void								SetProjMatrix(const math::Matrix44& val)					= 0;
+		virtual void								SetWorldMatrix(const math::Matrix44& val)					= 0;
+		virtual void								SetGBuffer(MultiRenderTargetPtr pGBuffer)					= 0;
 	};
 
 

@@ -5,14 +5,7 @@ namespace engine
 {
 	class EXPORT_CLASS RenderSystem
 	{
-		struct ShaderConstants
-		{
-			math::Matrix44	MATRIX_WORLD;
-			math::Matrix44	MATRIX_VIEW;
-			math::Matrix44	MATRIX_PROJ;
-			math::Matrix44	MATRIX_WV;
-			math::Matrix44	MATRIX_WVP;
-		};
+		
 		class ScreenQuad
 		{
 		public:
@@ -74,8 +67,5 @@ namespace engine
 
 		ScreenQuadPtr							m_pScreenQuad;
 
-		MaterialPtr								m_pGBufferMaterial;
-
-		GPUBufferPtr							m_pShaderConstants;
 	};
 }

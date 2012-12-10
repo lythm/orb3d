@@ -39,18 +39,6 @@ namespace engine
 			return false;
 		}
 
-		m_pGBufferMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/dr_render_gbuffer.fx");
-
-		VertexFormat format;
-		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
-
-		m_pGBufferMaterial->SetVertexFormat(format);
-
-
-		m_pShaderConstants = pGraphics->CreateBuffer(BT_CONSTANT_BUFFER, sizeof(ShaderConstants), NULL, true);
-
-
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer()
@@ -80,11 +68,7 @@ namespace engine
 		m_forwardQueue.clear();
 		m_deferredQueue.clear();
 
-		if(m_pGBufferMaterial)
-		{
-			m_pGBufferMaterial->Release();
-			m_pGBufferMaterial.reset();
-		}
+		
 		if(m_pScreenQuad)
 		{
 			m_pScreenQuad->Release();
@@ -117,27 +101,17 @@ namespace engine
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(0), math::Color4(0, 0, 0, 1));
-		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(1), math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(1), math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(2), math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1.0f, 0);
 
 
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
 		{
-			//SetSemanticsValue(m_renderQueue[i]);
-			//SetSemanticsValue(m_pGBufferMaterial);
-
-			math::Matrix44 world = m_deferredQueue[i]->GetWorldMatrix();
-
-			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WORLD", world);
-			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
-			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
-			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
-			m_pGBufferMaterial->SetMatrixBySemantic("MATRIX_WV", world * m_viewMatrix);
-			m_deferredQueue[i]->Render(m_pGraphics, m_pGBufferMaterial);
+			SetSemanticsValue(m_deferredQueue[i]);
+			
+			m_deferredQueue[i]->Render(m_pGraphics);
 		}
-
-
 
 	}
 	void RenderSystem::RenderScreenQuad()
@@ -146,14 +120,10 @@ namespace engine
 		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
 
 		MaterialPtr pMat = m_pScreenQuad->GetMaterial();
-
-		pMat->SetMatrixBySemantic("MATRIX_WORLD", math::MatrixIdentity());
-		pMat->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
-		pMat->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
-		pMat->SetMatrixBySemantic("MATRIX_WVP", m_viewMatrix * m_projMatrix);
-		pMat->SetMatrixBySemantic("MATRIX_WV", m_viewMatrix);
-
-
+		
+		pMat->SetProjMatrix(m_projMatrix);
+		pMat->SetViewMatrix(m_viewMatrix);
+				
 		m_pScreenQuad->Render(m_pGraphics, m_pGBuffer);
 	}
 	void RenderSystem::RenderForward()
@@ -188,13 +158,9 @@ namespace engine
 		MaterialPtr pMaterial = pData->GetMaterial();
 
 		math::Matrix44 world = pData->GetWorldMatrix();
-
-		pMaterial->SetMatrixBySemantic("MATRIX_WORLD", world);
-		pMaterial->SetMatrixBySemantic("MATRIX_VIEW", m_viewMatrix);
-		pMaterial->SetMatrixBySemantic("MATRIX_PROJ", m_projMatrix);
-		pMaterial->SetMatrixBySemantic("MATRIX_WVP", world * m_viewMatrix * m_projMatrix);
-		pMaterial->SetMatrixBySemantic("MATRIX_WV", world * m_viewMatrix);
-
+		pMaterial->SetProjMatrix(m_projMatrix);
+		pMaterial->SetViewMatrix(m_viewMatrix);
+		pMaterial->SetWorldMatrix(world);
 	}
 	Sys_GraphicsPtr	RenderSystem::GetSysGraphics()
 	{
@@ -249,7 +215,7 @@ namespace engine
 		};
 
 		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 6, verts, true);
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/gfx/dr_render_screenquad.fx");
+		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_screenquad.fx");
 
 		VertexElement vf[] = 
 		{
@@ -278,9 +244,7 @@ namespace engine
 	}
 	void RenderSystem::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MultiRenderTargetPtr pGBuffer)
 	{
-		m_pMaterial->SetTextureByName("pos_tex", pGBuffer->AsTexture(0));
-		m_pMaterial->SetTextureByName("normal_tex", pGBuffer->AsTexture(1));
-		m_pMaterial->SetTextureByName("diff_tex", pGBuffer->AsTexture(2));
+		m_pMaterial->SetGBuffer(pGBuffer);
 
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
@@ -289,7 +253,7 @@ namespace engine
 
 		int nPass = 0;
 
-		m_pMaterial->BeginPass(nPass);
+		m_pMaterial->Begin(nPass);
 
 		for(int i = 0; i < nPass; ++i)
 		{
@@ -297,7 +261,7 @@ namespace engine
 			pGraphics->Draw(6, 0);
 		}
 
-		m_pMaterial->EndPass();
+		m_pMaterial->End();
 	}
 	MaterialPtr RenderSystem::ScreenQuad::GetMaterial()
 	{

@@ -89,9 +89,4 @@ namespace engine
 		return m_pDepthStencilView;
 	}
 	
-	void D3D11DepthStencilBuffer::Clear(float depth, int stencil)
-	{
-		m_pContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , depth, stencil);
-	}
-
 }

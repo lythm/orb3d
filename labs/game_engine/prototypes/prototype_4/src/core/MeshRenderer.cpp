@@ -46,7 +46,6 @@ namespace engine
 
 			Reset(pMD);
 
-
 			return true;
 		}
 		void MeshRenderer::OnDetach()
@@ -138,7 +137,7 @@ namespace engine
 
 			int nPass = 0;
 
-			pMat->BeginPass(nPass);
+			pMat->Begin(nPass);
 
 			for(int i = 0; i < nPass; ++i)
 			{
@@ -153,7 +152,7 @@ namespace engine
 					pSysGraphics->Draw(m_vertexCount, m_baseVertex);
 			}
 
-			pMat->EndPass();
+			pMat->End();
 		}
 		void MeshRenderer::SubMeshRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
 		{
@@ -165,7 +164,7 @@ namespace engine
 
 			int nPass = 0;
 
-			m_pMaterial->BeginPass(nPass);
+			m_pMaterial->Begin(nPass);
 
 			m_pMaterial->ApplyPass(m_iDepthPass);
 
@@ -174,7 +173,7 @@ namespace engine
 					pSysGraphics->Draw(m_vertexCount, m_baseVertex);
 
 						
-			m_pMaterial->EndPass();
+			m_pMaterial->End();
 		}
 		MaterialPtr MeshRenderer::SubMeshRenderData::GetMaterial()
 		{

@@ -13,7 +13,6 @@
     <ClCompile Include="GameObjectComponent.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameObjectTemplate.cpp" />
-    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshAnimator.cpp" />
     <ClCompile Include="MeshData.cpp" />
@@ -29,6 +28,9 @@
     <ClCompile Include="WMInput.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
     <ClCompile Include="core_utils.cpp" />
+    <ClCompile Include="WorldMeshRenderer.cpp" />
+    <ClCompile Include="ViewFrustum.cpp" />
+    <ClCompile Include="LightData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -51,7 +53,6 @@
     <ClInclude Include="..\..\include\core\GFX.h" />
     <ClInclude Include="..\..\include\core\GPUBuffer.h" />
     <ClInclude Include="..\..\include\core\g_format.h" />
-    <ClInclude Include="..\..\include\core\Light.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\MeshData.h" />
@@ -79,6 +80,8 @@
     <ClInclude Include="WMInput.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="core_utils.h" />
-    <ClInclude Include="..\..\include\core\RenderData2.h" />
+    <ClInclude Include="..\..\include\core\WorldMeshRenderer.h" />
+    <ClInclude Include="..\..\include\core\ViewFrustum.h" />
+    <ClInclude Include="..\..\include\core\LightData.h" />
   </ItemGroup>
 </Project>

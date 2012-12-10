@@ -4,7 +4,7 @@ namespace engine
 {
 	enum 
 	{
-		EV_WINDOWSMSG,
+		EV_WINMSG,
 	};
 	class Event
 	{
@@ -21,7 +21,7 @@ namespace engine
 	public:
 		WMEvent()
 		{
-			id = EV_WINDOWSMSG;
+			id = EV_WINMSG;
 		}
 		virtual ~WMEvent(){}
 

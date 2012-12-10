@@ -45,5 +45,13 @@ namespace engine
 	{
 		m_projMatrix = proj;
 	}
-	
+
+	const ViewFrustum& BaseCamera::GetViewFrustum() const
+	{
+		return m_frustum;
+	}
+	void BaseCamera::UpdateViewFrustum()
+	{
+		m_frustum.Update(m_viewMatrix, m_projMatrix);
+	}
 }

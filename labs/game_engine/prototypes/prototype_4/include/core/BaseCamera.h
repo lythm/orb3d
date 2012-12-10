@@ -1,4 +1,5 @@
 #pragma once
+#include "core\ViewFrustum.h"
 
 namespace engine
 {
@@ -20,9 +21,17 @@ namespace engine
 
 		void													SetViewMatrix(const math::Matrix44& view);
 		void													SetProjMatrix(const math::Matrix44& proj);
+
+		const ViewFrustum&										GetViewFrustum() const;
+		void													UpdateViewFrustum();
+
 	private:
 		math::Matrix44											m_viewMatrix;
 		math::Matrix44											m_projMatrix;
+
+		ViewFrustum												m_frustum;
+
+
 	};
 }
 

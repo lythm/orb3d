@@ -6,7 +6,7 @@ namespace engine
 	class EXPORT_CLASS CoreApi 
 	{
 	public:
-		typedef boost::shared_ptr<utils::MemPool>		MemPoolPtr;
+		typedef boost::shared_ptr<MemPool>				MemPoolPtr;
 	public:
 		CoreApi(void);
 		virtual ~CoreApi(void);

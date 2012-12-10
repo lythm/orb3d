@@ -15,7 +15,7 @@ bool DefferedShadingDemo::Init(engine::CoreApiPtr pCore)
 	using namespace engine;
 	m_pCore = pCore;
 
-	m_pCore->AddEventHandler(EV_WINDOWSMSG, boost::bind(&DefferedShadingDemo::OnWMEvent, this, _1));
+	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&DefferedShadingDemo::OnWMEvent, this, _1));
 
 	G_FORMAT formats[3] = 
 	{
@@ -103,7 +103,7 @@ void DefferedShadingDemo::CreateQuad()
 	m_pQuadVB = m_pCore->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 6, verts, true);
 
 
-	m_pQuadMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/gfx/ds2.fx");
+	m_pQuadMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/material/ds2.fx");
 
 	VertexElement vf[] = 
 	{
@@ -121,7 +121,7 @@ void DefferedShadingDemo::CreateScene()
 	using namespace engine;
 	m_pTex = m_pCore->GetSysGraphics()->CreateTextureFromFile("./15.png");
 
-	m_pMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/gfx/ds1.fx");
+	m_pMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/material/ds1.fx");
 
 	VertexElement vf[] = 
 	{
@@ -169,7 +169,7 @@ void DefferedShadingDemo::DrawQuad()
 	
 	int nPass = 0;
 
-	m_pQuadMaterial->BeginPass(nPass);
+	m_pQuadMaterial->Begin(nPass);
 
 	for(int i = 0; i < nPass; ++i)
 	{
@@ -177,7 +177,7 @@ void DefferedShadingDemo::DrawQuad()
 		m_pCore->GetSysGraphics()->Draw(6, 0);
 	}
 
-	m_pQuadMaterial->EndPass();
+	m_pQuadMaterial->End();
 }
 void DefferedShadingDemo::DrawScene()
 {
@@ -226,7 +226,7 @@ void DefferedShadingDemo::DrawScene()
 	
 	int nPass = 0;
 
-	m_pMaterial->BeginPass(nPass);
+	m_pMaterial->Begin(nPass);
 
 	for(int i = 0; i < nPass; ++i)
 	{
@@ -246,5 +246,5 @@ void DefferedShadingDemo::DrawScene()
 		
 	}
 
-	m_pMaterial->EndPass();
+	m_pMaterial->End();
 }

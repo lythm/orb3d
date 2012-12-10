@@ -8,20 +8,34 @@ namespace engine
 {
 	class D3D11EffectMaterial : public Material
 	{
+		struct EffectSemntics
+		{
+			ID3DX11EffectMatrixVariable*		m_pWorldTM;
+			ID3DX11EffectMatrixVariable*		m_pViewTM;
+			ID3DX11EffectMatrixVariable*		m_pProjTM;
+			ID3DX11EffectMatrixVariable*		m_pWVTM;
+			ID3DX11EffectMatrixVariable*		m_pWVPTM;
+			ID3DX11EffectShaderResourceVariable* m_pGBuffer;
+		};
 	public:
 		D3D11EffectMaterial(ID3D11DeviceContext* pContext);
 		virtual ~D3D11EffectMaterial(void);
 
 		void								ApplyVertexFormat();
 
-		bool								BeginPass(int& nPass);
+		bool								Begin(int& nPass);
 		void								ApplyPass(int index);
-		void								EndPass();
+		void								End();
 		
 		int									FindPass(const std::string& name);
 		void								Release();
 
 		bool								LoadFromFile(const char* szFile);
+
+
+		void								SetViewMatrix(const math::Matrix44& val);
+		void								SetProjMatrix(const math::Matrix44& val);
+		void								SetWorldMatrix(const math::Matrix44& val);
 
 		// parameter by name
 		void								SetMatrixByName(const char* szParam, const math::Matrix44& mat);
@@ -44,6 +58,11 @@ namespace engine
 
 		bool								SetVertexFormat(const VertexFormat& format);
 
+		bool								SelectTechByName(const char* szName);
+
+		void								SetGBuffer(MultiRenderTargetPtr pGBuffer);
+	private:
+		void								UpdateSemantics();
 	private:
 		
 		ID3D11InputLayout*					m_pIL;
@@ -56,6 +75,12 @@ namespace engine
 		ID3DX11EffectTechnique*				m_pTech;
 
 		int									m_nPass;
+
+		math::Matrix44						m_worldTM;
+		math::Matrix44						m_viewTM;
+		math::Matrix44						m_projTM;
+
+		EffectSemntics						m_semantics;
 
 	};
 }

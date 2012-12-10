@@ -3,6 +3,7 @@
 #include "D3D11Texture.h"
 #include "D3D11Format.h"
 #include "D3D11Buffer.h"
+#include "D3D11MultiRenderTarget.h"
 
 namespace engine
 {
@@ -15,6 +16,10 @@ namespace engine
 		m_pEffect = NULL;
 
 		m_pTech	 = NULL;
+
+		m_worldTM.MakeIdentity();
+		m_viewTM.MakeIdentity();
+		m_projTM.MakeIdentity();
 	}
 
 
@@ -30,7 +35,6 @@ namespace engine
 
 		if( FAILED( D3DX11CompileFromFileA( szFile, NULL, NULL, NULL, "fx_5_0", D3DCOMPILE_ENABLE_STRICTNESS, NULL, NULL, &pBlob, &pErrorBlob, NULL ) ) )
 		{
-			const char* szTxt =(char*) pErrorBlob->GetBufferPointer();
 			return false;
 		}
 
@@ -94,20 +98,66 @@ namespace engine
 		}
 		m_nPass = tech.Passes;
 
+
+		m_semantics.m_pViewTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_VIEW");
+		m_semantics.m_pWorldTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WORLD");
+		m_semantics.m_pProjTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_PROJ");
+		m_semantics.m_pWVTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WV");
+		m_semantics.m_pWVPTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WVP");
+		m_semantics.m_pGBuffer = (ID3DX11EffectShaderResourceVariable*)m_pEffect->GetVariableBySemantic("DR_GBUFFER");
 		return true;
 	}
+	bool D3D11EffectMaterial::SelectTechByName(const char* szName)
+	{
+		ID3DX11EffectTechnique* pTech = m_pEffect->GetTechniqueByName(szName);
+		if(pTech == NULL)
+		{
+			return false;
+		}
+		if(FALSE == pTech->IsValid())
+		{
+			return false;
+		}
+		m_pTech = pTech;
 
+		return true;
+	}
 
 	void D3D11EffectMaterial::ApplyVertexFormat()
 	{
 		m_pContext->IASetInputLayout(m_pIL);
 	}
-
-	bool D3D11EffectMaterial::BeginPass(int& nPass)
+	void D3D11EffectMaterial::UpdateSemantics()
 	{
+		if(m_semantics.m_pProjTM)
+		{
+			m_semantics.m_pProjTM->SetMatrix(m_projTM.m);
+		}
 
+		if(m_semantics.m_pWorldTM)
+		{
+			m_semantics.m_pWorldTM->SetMatrix(m_worldTM.m);
+		}
+
+		if(m_semantics.m_pViewTM)
+		{
+			m_semantics.m_pViewTM->SetMatrix(m_viewTM.m);
+		}
+
+		if(m_semantics.m_pWVPTM)
+		{
+			m_semantics.m_pWVPTM->SetMatrix((m_worldTM * m_viewTM * m_projTM).m);
+		}
+
+		if(m_semantics.m_pWVTM)
+		{
+			m_semantics.m_pWVTM->SetMatrix((m_worldTM * m_viewTM).m);
+		}
+	}
+	bool D3D11EffectMaterial::Begin(int& nPass)
+	{
 		nPass = m_nPass;
-
+		UpdateSemantics();
 		return nPass != 0;
 	}
 	int D3D11EffectMaterial::FindPass(const std::string& name)
@@ -136,7 +186,7 @@ namespace engine
 		pPass->Apply(0, m_pContext);
 
 	}
-	void D3D11EffectMaterial::EndPass()
+	void D3D11EffectMaterial::End()
 	{
 	}
 		
@@ -350,6 +400,39 @@ namespace engine
 		}
 		delete[] layout;
 		return true;
+	}
+
+	void D3D11EffectMaterial::SetViewMatrix(const math::Matrix44& val)
+	{
+		m_viewTM = val;
+	}
+	void D3D11EffectMaterial::SetProjMatrix(const math::Matrix44& val)
+	{
+		m_projTM = val;
+	}
+	void D3D11EffectMaterial::SetWorldMatrix(const math::Matrix44& val)
+	{
+		m_worldTM = val;
+	}
+	void D3D11EffectMaterial::SetGBuffer(MultiRenderTargetPtr pGBuffer)
+	{
+		if(m_semantics.m_pGBuffer == nullptr)
+		{
+			return;
+		}
+		D3D11Texture* pTex1 = (D3D11Texture*)(pGBuffer->AsTexture(0).get());
+		D3D11Texture* pTex2 = (D3D11Texture*)(pGBuffer->AsTexture(1).get());
+		D3D11Texture* pTex3 = (D3D11Texture*)(pGBuffer->AsTexture(2).get());
+
+
+		ID3D11ShaderResourceView* pBuffers[3] = {
+						pTex1->GetShaderResourceView(),
+						pTex2->GetShaderResourceView(),
+						pTex3->GetShaderResourceView(),
+		};
+
+		m_semantics.m_pGBuffer->SetResourceArray(pBuffers, 0, 3);
+
 	}
 }
 
