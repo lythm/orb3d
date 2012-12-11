@@ -198,6 +198,8 @@ BEGIN
     END
     POPUP "视图(&V)"
     BEGIN
+        MENUITEM "Show Grid",                   ID_VIEW_SHOWGRID, CHECKED
+        MENUITEM SEPARATOR
         POPUP "工具栏和停靠窗口(&T)"
         BEGIN
             MENUITEM "<占位符>",                       ID_VIEW_TOOLBAR

@@ -17,7 +17,7 @@ namespace engine
 		m_viewMatrix.MakeIdentity();
 		m_projMatrix.MakeIdentity();
 
-		m_clearClr						= math::Color4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_clearClr						= math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
 		m_clearDepth					= 1.0f;
 		m_clearStencil					= 0;
 	}

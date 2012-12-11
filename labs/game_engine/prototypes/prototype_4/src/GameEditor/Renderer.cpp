@@ -7,6 +7,7 @@
 
 Renderer::Renderer(void)
 {
+	m_bShowGrid			= true;
 }
 
 
@@ -30,11 +31,7 @@ bool Renderer::Initialize(int vpw, int vph)
 	m_pCamera->Init();
 	m_pCamera->Update();
 	
-	if(AppContext::GetRenderSystem()->GetLightCount() == 0)
-	{
-		AppContext::AddDefaultLight();
-	}
-
+	
 	return true;
 }
 void Renderer::Resize(int cx, int cy)
@@ -61,7 +58,7 @@ void Renderer::Render()
 {
 	AppContext::GetCoreApi()->Update();
 
-	AppContext::GetCoreApi()->AddRenderData(m_pGrid);
+	m_bShowGrid ? AppContext::GetCoreApi()->AddRenderData(m_pGrid) : 0;
 
 	m_pCamera->Update();
 
@@ -213,4 +210,12 @@ void Renderer::CreateObject_FromTemplate_SpotLight()
 	pLight->CreateLight(LT_SPOTLIGHT);
 
 	pObj->AddComponent(pLight);
+}
+void Renderer::ShowGrid(bool bShow)
+{
+	m_bShowGrid = bShow;
+}
+bool Renderer::ShowingGrid()
+{
+	return m_bShowGrid;
 }

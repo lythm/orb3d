@@ -16,9 +16,12 @@ Project::~Project(void)
 }
 bool Project::New()
 {
-	Release();
-	
+	if(AppContext::GetRenderSystem()->GetLightCount() == 0)
+	{
+		AddDefaultLight();
+	}
 
+	AppContext::UpdateObjectView();
 
 	return true;
 }
@@ -35,8 +38,10 @@ bool Project::Load(const _TCHAR* filename)
 
 	if(AppContext::GetRenderSystem()->GetLightCount() == 0)
 	{
-		AppContext::AddDefaultLight();
+		AddDefaultLight();
 	}
+
+	AppContext::UpdateObjectView();
 	return true;
 }
 bool Project::Save(const _TCHAR* filename)
@@ -54,9 +59,9 @@ bool Project::Save(const _TCHAR* filename)
 	m_filePath = filename;
 	return true;
 }
-void Project::Release()
+void Project::Close()
 {
-
+	AppContext::GetCoreApi()->GetRoot()->Clear();
 }
 ProjectPtr Project::Instance()
 {
@@ -66,4 +71,18 @@ ProjectPtr Project::Instance()
 	}
 
 	return m_pProject;
+}
+void Project::AddDefaultLight()
+{
+	using namespace engine;
+	using namespace engine;
+
+	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"DefaultLight");
+
+	
+	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
+	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
+	pLight->CreateLight(LT_DIRLIGHT);
+
+	pObj->AddComponent(pLight);
 }

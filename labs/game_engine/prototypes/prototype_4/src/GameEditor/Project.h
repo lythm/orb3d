@@ -11,7 +11,7 @@ public:
 	bool								New();
 	bool								Load(const _TCHAR* filename);
 	bool								Save(const _TCHAR* filename);
-	void								Release();
+	void								Close();
 	
 	static ProjectPtr					Instance();
 private:

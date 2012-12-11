@@ -78,6 +78,9 @@
     <ClInclude Include="VectorProperty.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AppConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -132,6 +135,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VectorProperty.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AppConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

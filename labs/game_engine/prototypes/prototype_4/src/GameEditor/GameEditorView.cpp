@@ -41,6 +41,7 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_MOUSEWHEEL()
 	ON_WM_RBUTTONDOWN()
 	ON_WM_ERASEBKGND()
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -132,21 +133,9 @@ CGameEditorDoc* CGameEditorView::GetDocument() const // 非调试版本是内联的
 
 void CGameEditorView::OnInitialUpdate()
 {
-	AppContext::ReleaseContext();
-	CRect rc;
-	GetClientRect(rc);
-	if(false == AppContext::InitContext(m_hWnd, rc.right - rc.left, rc.bottom - rc.top))
-	{
-		AfxMessageBox(_T("Failed to init engine."), MB_OK | MB_ICONERROR);
-		return;
-	}
-
-	SetTimer(0, 10, NULL);
-	Render();
-
-	AppContext::UpdateObjectView();
-
 	CView::OnInitialUpdate();
+
+	Render();
 	// TODO: 在此添加专用代码和/或调用基类
 }
 
@@ -182,7 +171,12 @@ void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
 		m_bRotating = true;
 	}
 	
-	AppContext::GetRenderer()->OnMouseMove(nFlags, point);
+	RendererPtr pRenderer = AppContext::GetRenderer();
+	
+	if(pRenderer)
+	{
+		pRenderer->OnMouseMove(nFlags, point);
+	}
 
 	CView::OnMouseMove(nFlags, point);
 }
@@ -264,4 +258,24 @@ BOOL CGameEditorView::OnEraseBkgnd(CDC* pDC)
 	pDC->FillRect(rc, &br);
 
 	return TRUE;
+}
+
+
+int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	AppContext::ReleaseContext();
+	CRect rc;
+	GetClientRect(rc);
+	if(false == AppContext::InitContext(m_hWnd, 2, 2))
+	{
+		AfxMessageBox(_T("Failed to init engine."), MB_OK | MB_ICONERROR);
+		return -1;
+	}
+
+	SetTimer(0, 10, NULL);
+	
+	return 0;
 }

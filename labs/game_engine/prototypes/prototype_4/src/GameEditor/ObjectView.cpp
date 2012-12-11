@@ -116,7 +116,7 @@ int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
 	//FillObjectView();
-
+	UpdateObjectView();
 	return 0;
 }
 

@@ -45,19 +45,19 @@ namespace engine
 	}
 	void GameObject::Update()
 	{
-		GameObjectPtr pObj = boost::shared_dynamic_cast<GameObject>(GetFirstChild());
+		GameObjectPtr pObj = GetFirstChild();
 
 		while(pObj)
 		{
 			pObj->Update();
-			pObj = boost::shared_dynamic_cast<GameObject>(pObj->GetNextNode());
+			pObj = pObj->GetNextNode();
 		}
 
 		UpdateComponents();
 	}
 	GameObjectPtr GameObject::ThisPtr()
 	{
-		return GameObjectPtr(boost::shared_dynamic_cast<GameObject>(shared_from_this()));
+		return shared_from_this();
 	}
 	bool GameObject::AddComponent(GameObjectComponentPtr pCom)
 	{
@@ -280,11 +280,15 @@ namespace engine
 	}
 	void GameObject::UpdateWorldTransform()
 	{
-		m_WorldTransform = m_LocalTransform;
-		if(m_pParent)
+		if(m_pParent == nullptr)
 		{
-			m_WorldTransform *= m_pParent->GetWorldTransform();
+			m_WorldTransform = m_LocalTransform;
+			return;
 		}
+
+		m_pParent->UpdateWorldTransform();
+		m_WorldTransform = m_LocalTransform * m_pParent->m_WorldTransform;
+
 	}
 	GameObjectPtr GameObject::GetPrevNode()
 	{

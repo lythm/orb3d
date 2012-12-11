@@ -42,6 +42,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_POINTLIGHT, &CMainFrame::OnCreatefromtemplatePointlight)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_SPOTLIGHT, &CMainFrame::OnCreatefromtemplateSpotlight)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_PLANE, &CMainFrame::OnCreatefromtemplatePlane)
+	ON_COMMAND(ID_VIEW_SHOWGRID, &CMainFrame::OnViewShowgrid)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_SHOWGRID, &CMainFrame::OnUpdateViewShowgrid)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -553,4 +555,20 @@ void CMainFrame::OnCreatefromtemplatePlane()
 	AppContext::GetRenderer()->CreateObject_FromTemplate_Plane();
 
 	AppContext::UpdateObjectView();
+}
+
+
+void CMainFrame::OnViewShowgrid()
+{
+	bool bShow = AppContext::GetRenderer()->ShowingGrid();
+
+	AppContext::GetRenderer()->ShowGrid(!bShow);
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMainFrame::OnUpdateViewShowgrid(CCmdUI *pCmdUI)
+{
+	bool bShow = AppContext::GetRenderer()->ShowingGrid();
+	pCmdUI->SetCheck(bShow);
 }

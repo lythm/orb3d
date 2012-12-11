@@ -122,13 +122,15 @@
 #define ID_PROJECT_IMPORT               32797
 #define ID_IMPORT_IMPORTMAXMESH         32798
 #define ID_CREATEFROMTEMPLATE_PLANE     32799
+#define ID_32800                        32800
+#define ID_VIEW_SHOWGRID                32801
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32800
+#define _APS_NEXT_COMMAND_VALUE         32802
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

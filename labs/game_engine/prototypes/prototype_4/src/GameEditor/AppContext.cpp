@@ -52,7 +52,6 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 	{
 		return false;
 	}
-	OutputInfo(L"Engine Initialized.");
 
 	s_pRenderer = RendererPtr(new Renderer);
 	if(s_pRenderer->Initialize(w, h) == false)
@@ -60,7 +59,6 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 		return false;
 	}
 
-	OutputInfo(L"Renderer Initialized.");
 	return true;
 }
 engine::Sys_GraphicsPtr AppContext::GetSysGraphics()
@@ -138,18 +136,4 @@ void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
 {
 	CMainFrame* pMain = GetMainFrame();
 	pMain->GetPropGrid()->UpdateGameObjectProp(pObj);
-}
-void AppContext::AddDefaultLight()
-{
-	using namespace engine;
-	using namespace engine;
-
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"DefaultLight");
-
-	
-	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-	pLight->CreateLight(LT_DIRLIGHT);
-
-	pObj->AddComponent(pLight);
 }

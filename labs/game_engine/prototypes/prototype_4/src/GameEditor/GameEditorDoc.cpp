@@ -48,6 +48,8 @@ BOOL CGameEditorDoc::OnNewDocument()
 
 	ProjectPtr pProject = Project::Instance();
 
+	pProject->Close();
+
 	if(pProject->New() == false)
 	{
 		AppContext::OutputInfo(L"Failed to create new project.");
@@ -151,16 +153,14 @@ void CGameEditorDoc::Dump(CDumpContext& dc) const
 
 BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
+	Project::Instance()->Close();
 
 	if(Project::Instance()->Load(lpszPathName) == false)
 	{
+		AppContext::OutputInfo(L"Failed to open project.");
 		return FALSE;
 	}
-	//if (!CDocument::OnOpenDocument(lpszPathName))
-	//	return FALSE;
-
-
-
+	AppContext::OutputInfo(L"Project openned.");
 
 	return TRUE;
 }
@@ -172,9 +172,10 @@ BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)
 
 	if(Project::Instance()->Save(lpszPathName) == false)
 	{
+		AppContext::OutputInfo(L"Failed to save project.");
 		return FALSE;
 	}
-
+	AppContext::OutputInfo(L"Project saved.");
 	return TRUE;
 
 	//return CDocument::OnSaveDocument(lpszPathName);

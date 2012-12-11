@@ -23,6 +23,9 @@ public:
 	void								CreateObject_FromTemplate_DirLight();
 	void								CreateObject_FromTemplate_PointLight();
 	void								CreateObject_FromTemplate_SpotLight();
+
+	void								ShowGrid(bool bShow);
+	bool								ShowingGrid();
 private:
 	void								UpdateSemantics();
 
@@ -31,7 +34,7 @@ private:
 
 
 	engine::MeshPtr						m_pGridMesh;
-
+	bool								m_bShowGrid;
 	EditorCameraPtr						m_pCamera;
 };
 

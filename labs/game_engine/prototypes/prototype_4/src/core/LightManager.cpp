@@ -32,6 +32,7 @@ namespace engine
 			pDel->m_pNext = LightPtr();
 			pDel->m_pPrev = LightPtr();
 		}
+		m_pList.reset();
 	}
 	void LightManager::AddLight(LightPtr pLight)
 	{
@@ -62,6 +63,12 @@ namespace engine
 			return;
 		}
 
+		if(pLight == m_pList)
+		{
+			m_pList = pLight->m_pNext;
+		}
+
+
 		if(pLight->m_pNext)
 		{
 			pLight->m_pNext->m_pPrev = pLight->m_pPrev;
@@ -74,6 +81,7 @@ namespace engine
 		pLight->m_pNext = LightPtr();
 		pLight->m_pPrev = LightPtr();
 
+		
 		m_lightCount--;
 	}
 	int	LightManager::GetLightCount()

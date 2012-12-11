@@ -73,6 +73,8 @@ public:
 	afx_msg void OnCreatefromtemplatePointlight();
 	afx_msg void OnCreatefromtemplateSpotlight();
 	afx_msg void OnCreatefromtemplatePlane();
+	afx_msg void OnViewShowgrid();
+	afx_msg void OnUpdateViewShowgrid(CCmdUI *pCmdUI);
 };
 
 
