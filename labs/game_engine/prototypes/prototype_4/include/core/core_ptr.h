@@ -43,10 +43,19 @@ namespace engine
 
 
 	class DataStream;
-
-	
+	class LightManager;
+	class Light;
+	class PointLight;
+	class DirectionalLight;
+	class SpotLight;
 	class Mesh;
 	class SubMesh;
+
+	typedef boost::shared_ptr<LightManager>					LightManagerPtr;
+	typedef boost::shared_ptr<Light>						LightPtr;
+	typedef boost::shared_ptr<PointLight>					PointLightPtr;
+	typedef boost::shared_ptr<DirectionalLight>				DirectionalLightPtr;
+	typedef boost::shared_ptr<SpotLight>					SpotLightPtr;
 
 	typedef boost::shared_ptr<SubMesh>						SubMeshPtr;
 	typedef boost::shared_ptr<DataStream>					DataStreamPtr;

@@ -15,6 +15,10 @@ public:
 	
 	static ProjectPtr					Instance();
 private:
+
+	void								AddDefaultLight();
+private:
+
 	CString								m_filePath;
 	static ProjectPtr					m_pProject;
 };

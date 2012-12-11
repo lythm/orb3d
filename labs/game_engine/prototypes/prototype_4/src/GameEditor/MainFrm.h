@@ -69,6 +69,10 @@ public:
 	afx_msg void OnCreatefromtemplateCube();
 	afx_msg void OnGameobjectCreateempty();
 	afx_msg void OnCreatefromtemplateSphere();
+	afx_msg void OnCreatefromtemplateDirlight();
+	afx_msg void OnCreatefromtemplatePointlight();
+	afx_msg void OnCreatefromtemplateSpotlight();
+	afx_msg void OnCreatefromtemplatePlane();
 };
 
 

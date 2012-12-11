@@ -49,4 +49,6 @@
 #include "core\Event.h"
 #include "core\MeshUtil.h"
 
-
+#include "core\LightData.h"
+#include "core\Light.h"
+#include "core\LightManager.h"

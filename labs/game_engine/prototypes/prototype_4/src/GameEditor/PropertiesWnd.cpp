@@ -286,7 +286,7 @@ void CPropertiesWnd::SetPropListFont()
 void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 {
 
-	return;
+	//return;
 
 
 	m_wndPropList.RemoveAll();

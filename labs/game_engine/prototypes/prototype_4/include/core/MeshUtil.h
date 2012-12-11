@@ -6,7 +6,7 @@ namespace engine
 	{
 	public:
 
-		
+		static MeshPtr						CreatePlane(float size, MaterialPtr pMat);
 		static MeshPtr						CreateSphere(float radius, float slice, float stack, MaterialPtr pMat);
 		static MeshPtr						CreateCube(float size, MaterialPtr pMat);
 	private:

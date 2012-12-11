@@ -38,6 +38,10 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnCreatefromtemplateCube)
 	ON_COMMAND(ID_GAMEOBJECT_CREATEEMPTY, &CMainFrame::OnGameobjectCreateempty)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_SPHERE, &CMainFrame::OnCreatefromtemplateSphere)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_DIRLIGHT, &CMainFrame::OnCreatefromtemplateDirlight)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_POINTLIGHT, &CMainFrame::OnCreatefromtemplatePointlight)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_SPOTLIGHT, &CMainFrame::OnCreatefromtemplateSpotlight)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_PLANE, &CMainFrame::OnCreatefromtemplatePlane)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -517,4 +521,36 @@ void CMainFrame::OnCreatefromtemplateSphere()
 
 	AppContext::UpdateObjectView();
 	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMainFrame::OnCreatefromtemplateDirlight()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_DirLight();
+
+	AppContext::UpdateObjectView();
+}
+
+
+void CMainFrame::OnCreatefromtemplatePointlight()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_PointLight();
+
+	AppContext::UpdateObjectView();
+}
+
+
+void CMainFrame::OnCreatefromtemplateSpotlight()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_SpotLight();
+
+	AppContext::UpdateObjectView();
+}
+
+
+void CMainFrame::OnCreatefromtemplatePlane()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_Plane();
+
+	AppContext::UpdateObjectView();
 }

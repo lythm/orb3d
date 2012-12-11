@@ -7,6 +7,8 @@
 #include "core\MultiRenderTarget.h"
 #include "core_utils.h"
 #include "core\GPUBuffer.h"
+#include "core\LightManager.h"
+#include "core\Light.h"
 
 namespace engine
 {
@@ -39,6 +41,11 @@ namespace engine
 			return false;
 		}
 
+		m_pLightManager = alloc_object<LightManager>();
+		if(m_pLightManager->Initialize() == false)
+		{
+			return false;
+		}
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer()
@@ -68,7 +75,11 @@ namespace engine
 		m_forwardQueue.clear();
 		m_deferredQueue.clear();
 
-		
+		if(m_pLightManager)
+		{
+			m_pLightManager->Release();
+			m_pLightManager.reset();
+		}
 		if(m_pScreenQuad)
 		{
 			m_pScreenQuad->Release();
@@ -137,9 +148,14 @@ namespace engine
 	}
 	void RenderSystem::Render()
 	{
+		RenderShadowMaps();
+
 		RenderGBuffer();
 		RenderScreenQuad();
+		RenderLights();
 		RenderForward();
+
+		MergeOutput();
 	}
 	void RenderSystem::Present()
 	{
@@ -156,7 +172,6 @@ namespace engine
 	void RenderSystem::SetSemanticsValue(RenderDataPtr pData)
 	{
 		MaterialPtr pMaterial = pData->GetMaterial();
-
 		math::Matrix44 world = pData->GetWorldMatrix();
 		pMaterial->SetProjMatrix(m_projMatrix);
 		pMaterial->SetViewMatrix(m_viewMatrix);
@@ -190,7 +205,43 @@ namespace engine
 
 		CreateGBuffer();
 	}
-
+	void RenderSystem::AddLight(LightPtr pLight)
+	{
+		m_pLightManager->AddLight(pLight);
+	}
+	void RenderSystem::RemoveLight(LightPtr pLight)
+	{
+		m_pLightManager->RemoveLight(pLight);
+	}
+	int	RenderSystem::GetLightCount()
+	{
+		return m_pLightManager->GetLightCount();
+	}
+	void RenderSystem::RenderLight(LightPtr pLight)
+	{
+		pLight->RenderLight(m_pGraphics);
+	}
+	void RenderSystem::RenderLights()
+	{
+		LightPtr pLight = m_pLightManager->GetNextAffectingLight(LightPtr(), ViewFrustum());
+		while(pLight)
+		{
+			RenderLight(pLight);
+			pLight = m_pLightManager->GetNextAffectingLight(pLight, ViewFrustum());
+		}
+	}
+	void RenderSystem::RenderShadowMaps()
+	{
+		LightPtr pLight = m_pLightManager->GetNextAffectingLight(LightPtr(), ViewFrustum());
+		while(pLight)
+		{
+			pLight->RenderShadowMap();
+			pLight = m_pLightManager->GetNextAffectingLight(pLight, ViewFrustum());
+		}
+	}
+	void RenderSystem::MergeOutput()
+	{
+	}
 }
 
 
@@ -267,4 +318,5 @@ namespace engine
 	{
 		return m_pMaterial;
 	}
+	
 }

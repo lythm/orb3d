@@ -1,6 +1,9 @@
 #include "StdAfx.h"
 #include "Project.h"
 #include <afxconv.h>
+#include "AppContext.h"
+
+
 ProjectPtr				Project::m_pProject;
 
 Project::Project(void)
@@ -15,6 +18,8 @@ bool Project::New()
 {
 	Release();
 	
+
+
 	return true;
 }
 bool Project::Load(const _TCHAR* filename)
@@ -28,7 +33,10 @@ bool Project::Load(const _TCHAR* filename)
 	doc.LoadFile(W2A(filename));
 
 
-
+	if(AppContext::GetRenderSystem()->GetLightCount() == 0)
+	{
+		AppContext::AddDefaultLight();
+	}
 	return true;
 }
 bool Project::Save(const _TCHAR* filename)

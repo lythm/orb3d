@@ -233,11 +233,13 @@ BEGIN
         BEGIN
             MENUITEM "Cube",                        ID_CREATEFROMTEMPLATE_CUBE
             MENUITEM "Sphere",                      ID_CREATEFROMTEMPLATE_SPHERE
-            MENUITEM "Camera",                      ID_CREATEFROMTEMPLATE_CAMERA
+            MENUITEM "Plane",                       ID_CREATEFROMTEMPLATE_PLANE
             MENUITEM SEPARATOR
             MENUITEM "PointLight",                  ID_CREATEFROMTEMPLATE_POINTLIGHT
-            MENUITEM "DirectionalLight",            ID_Menu
+            MENUITEM "DirectionalLight",            ID_CREATEFROMTEMPLATE_DIRLIGHT
             MENUITEM "SpotLight",                   ID_CREATEFROMTEMPLATE_SPOTLIGHT
+            MENUITEM SEPARATOR
+            MENUITEM "Camera",                      ID_CREATEFROMTEMPLATE_CAMERA
             MENUITEM SEPARATOR
             MENUITEM "Templates...",                ID_CREATEFROMTEMPLATE_TEMPLATES
         END
@@ -263,6 +265,11 @@ BEGIN
     POPUP "Project"
     BEGIN
         MENUITEM "Settings",                    ID_32776
+        MENUITEM SEPARATOR
+        POPUP "Import"
+        BEGIN
+            MENUITEM "Import From Max File",        ID_IMPORT_IMPORTMAXMESH
+        END
     END
     POPUP "°ïÖú(&H)"
     BEGIN

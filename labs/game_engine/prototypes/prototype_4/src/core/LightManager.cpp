@@ -1,0 +1,113 @@
+#include "core_pch.h"
+#include "..\..\include\core\LightManager.h"
+#include "core\Light.h"
+#include "core_utils.h"
+
+namespace engine
+{
+	LightManager::LightManager(void)
+	{
+		m_lightCount = 0;
+	}
+
+
+	LightManager::~LightManager(void)
+	{
+	}
+	bool LightManager::Initialize()
+	{
+		m_lightCount = 0;
+		m_pList = LightPtr();
+
+		return true;
+	}
+	void LightManager::Release()
+	{
+		LightPtr pNode = m_pList;
+		while(pNode)
+		{
+			LightPtr pDel = pNode;
+			pNode = pNode->m_pNext;
+
+			pDel->m_pNext = LightPtr();
+			pDel->m_pPrev = LightPtr();
+		}
+	}
+	void LightManager::AddLight(LightPtr pLight)
+	{
+		if(pLight == nullptr)
+		{
+			return;
+		}
+
+		if(m_pList == nullptr)
+		{
+			pLight->m_pNext = LightPtr();
+			pLight->m_pPrev = LightPtr();
+			m_pList = pLight;
+		}
+		else
+		{
+			pLight->m_pPrev = LightPtr();
+			pLight->m_pNext = m_pList;
+			m_pList = pLight;
+		}
+
+		m_lightCount++;
+	}
+	void LightManager::RemoveLight(LightPtr pLight)
+	{
+		if(pLight == nullptr)
+		{
+			return;
+		}
+
+		if(pLight->m_pNext)
+		{
+			pLight->m_pNext->m_pPrev = pLight->m_pPrev;
+		}
+		if(pLight->m_pPrev)
+		{
+			pLight->m_pPrev->m_pNext = pLight->m_pNext;
+		}
+
+		pLight->m_pNext = LightPtr();
+		pLight->m_pPrev = LightPtr();
+
+		m_lightCount--;
+	}
+	int	LightManager::GetLightCount()
+	{
+		return m_lightCount;
+	}
+	LightPtr LightManager::GetNextLight(LightPtr pLight)
+	{
+		if(m_pList == nullptr)
+		{
+			return LightPtr();
+		}
+
+		if(pLight == nullptr)
+		{
+			return m_pList;
+		}
+
+		return m_pList->m_pNext;
+	}
+	LightPtr LightManager::GetNextAffectingLight(LightPtr pLight, const ViewFrustum& frustum)
+	{
+		LightPtr pNode = GetNextLight(pLight);
+		
+		while(pNode)
+		{
+			if(pNode->IsAffecting(frustum))
+			{
+				return pNode;
+			}
+			pNode = GetNextLight(pNode);
+		}
+		
+		return pNode;
+	}
+
+}

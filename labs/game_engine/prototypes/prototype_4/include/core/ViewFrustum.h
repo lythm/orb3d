@@ -21,7 +21,7 @@ namespace engine
 		virtual ~ViewFrustum(void);
 
 		void						Update(const math::Matrix44& view, const math::Matrix44& proj);
-		bool						IntersectBox(const math::AABBox& box);
+		bool						IntersectBox(const math::AABBox& box) const;
 
 	private:
 		math::Plane					m_planes[max_planes];

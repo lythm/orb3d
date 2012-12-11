@@ -131,7 +131,7 @@ namespace engine
 		PT_TRIANGLE_LIST,
 		PT_TRIANGLE_STRIP,
 		PT_LINE_LIST,
-		
+
 	};
 
 	enum MAP_HINT
@@ -162,7 +162,12 @@ namespace engine
 		CLEAR_DEPTHSTENCIL_BUFFER			= 0x02,
 		CLEAR_ALL							= CLEAR_COLOR_BUFFER | CLEAR_DEPTHSTENCIL_BUFFER,
 	};
-
+	enum LIGHT_TYPE
+	{
+		LT_POINTLIGHT,
+		LT_DIRLIGHT,
+		LT_SPOTLIGHT,
+	};
 	struct GraphicsSetting
 	{
 		void*				wnd;

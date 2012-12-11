@@ -31,6 +31,11 @@
     <ClCompile Include="WorldMeshRenderer.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
     <ClCompile Include="LightData.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="LightManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -83,5 +88,10 @@
     <ClInclude Include="..\..\include\core\WorldMeshRenderer.h" />
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
     <ClInclude Include="..\..\include\core\LightData.h" />
+    <ClInclude Include="..\..\include\core\Light.h" />
+    <ClInclude Include="..\..\include\core\DirectionalLight.h" />
+    <ClInclude Include="..\..\include\core\PointLight.h" />
+    <ClInclude Include="..\..\include\core\SpotLight.h" />
+    <ClInclude Include="..\..\include\core\LightManager.h" />
   </ItemGroup>
 </Project>

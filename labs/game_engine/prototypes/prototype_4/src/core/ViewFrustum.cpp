@@ -52,7 +52,7 @@ namespace engine
 		m_planes[far_plane].c		= M.m34 - M.m33;
 		m_planes[far_plane].d		= M.m44 - M.m43;
 	}
-	bool ViewFrustum::IntersectBox(const math::AABBox& box)
+	bool ViewFrustum::IntersectBox(const math::AABBox& box) const
 	{
 		int vec_in_cnt;
 		int plane_in_cnt = 0;

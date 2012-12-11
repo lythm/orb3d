@@ -22,10 +22,11 @@ public:
 	static RendererPtr							GetRenderer();
 
 	static CMainFrame*							GetMainFrame();
-
+	static engine::RenderSystemPtr				GetRenderSystem();
 	static void									UpdateObjectView();
 	static void									UpdatePropGrid(engine::GameObjectPtr pObj);
 
+	static void									AddDefaultLight();
 	static void									OutputInfo(const CString& info);
 	static void									OutputBuild(const CString& info);
 private:

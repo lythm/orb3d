@@ -16,6 +16,51 @@ namespace engine
 	MeshUtil::~MeshUtil(void)
 	{
 	}
+	MeshPtr MeshUtil::CreatePlane(float size, MaterialPtr pMat)
+	{
+		MeshPtr pMesh = alloc_object<Mesh>();
+
+		VertexFormat format;
+		format.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
+		format.AddElement(VertexElement(0, VertexElement::NORMAL, G_FORMAT_R32G32B32_FLOAT));
+
+		pMat->SetVertexFormat(format);
+
+		struct Vertex
+		{
+			math::Vector3 pos;
+			math::Vector3 normal;
+		};
+
+		Vertex pVerts[] = 
+		{
+			// front
+			{math::Vector3(-size, 0, -size), math::Vector3(0, 1, 0),},
+			{math::Vector3(-size, 0, size), math::Vector3(0, 1, 0),},
+			{math::Vector3(size, 0, size), math::Vector3(0, 1, 0),},
+			
+			
+			{math::Vector3(-size, 0, -size), math::Vector3(0, 1, 0),},
+			{math::Vector3(size, 0, size), math::Vector3(0, 1, 0),},
+			{math::Vector3(size, 0, -size), math::Vector3(0, 1, 0),},
+		
+		};
+
+		std::vector<MaterialPtr> mats;
+		mats.push_back(pMat);
+
+		if(false == pMesh->Create(0, nullptr, sizeof(Vertex) * 6, pVerts, mats))
+		{
+			return MeshPtr();
+		}
+
+		SubMeshPtr pSub = alloc_object<SubMesh>();
+
+		pSub->Create(pMesh, 0, 0, 0, 6, sizeof(Vertex), 0, 2, PT_TRIANGLE_LIST, format, G_FORMAT_R16_UINT);
+		pMesh->AddSubMesh(pSub);
+		
+		return pMesh;
+	}
 	MeshPtr MeshUtil::CreateCube(float size, MaterialPtr pMat)
 	{
 		MeshPtr pMesh = alloc_object<Mesh>();

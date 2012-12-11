@@ -18,6 +18,11 @@ public:
 	void								CreateObject_Empty();
 	void								CreateObject_FromTemplate_Cube();
 	void								CreateObject_FromTemplate_Sphere();
+	void								CreateObject_FromTemplate_Plane();
+
+	void								CreateObject_FromTemplate_DirLight();
+	void								CreateObject_FromTemplate_PointLight();
+	void								CreateObject_FromTemplate_SpotLight();
 private:
 	void								UpdateSemantics();
 

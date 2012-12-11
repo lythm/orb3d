@@ -25,6 +25,10 @@ engine::CoreApiPtr AppContext::GetCoreApi()
 {
 	return s_pCore;
 }
+engine::RenderSystemPtr AppContext::GetRenderSystem()
+{
+	return s_pCore->GetRenderSystem();
+}
 bool AppContext::InitContext(HWND hwnd, int w, int h)
 {
 	s_RTWidth = w;
@@ -134,4 +138,18 @@ void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
 {
 	CMainFrame* pMain = GetMainFrame();
 	pMain->GetPropGrid()->UpdateGameObjectProp(pObj);
+}
+void AppContext::AddDefaultLight()
+{
+	using namespace engine;
+	using namespace engine;
+
+	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"DefaultLight");
+
+	
+	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
+	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
+	pLight->CreateLight(LT_DIRLIGHT);
+
+	pObj->AddComponent(pLight);
 }
