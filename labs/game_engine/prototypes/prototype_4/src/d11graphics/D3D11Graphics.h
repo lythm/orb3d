@@ -21,7 +21,7 @@ namespace engine
 		void									Draw(int vertexCount, int baseVertex);
 
 		void									ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr); 
-		void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, float d, int s); 
+		void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, CLEAR_DS_FLAG flag, float d, int s); 
 		void									Present();
 
 		void									VSSetConstantBuffer(GPUBufferPtr pBuffer);

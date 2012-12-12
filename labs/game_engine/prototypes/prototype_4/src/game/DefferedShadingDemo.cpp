@@ -156,7 +156,7 @@ void DefferedShadingDemo::DrawQuad()
 	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
 	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(1.0, 1.0, 1.0, 1));
-	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1, 0);
+	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_ALL, 1, 0);
 
 	m_pQuadMaterial->SetTextureByName("pos_tex", m_pRT->AsTexture(0));
 	m_pQuadMaterial->SetTextureByName("normal_tex", m_pRT->AsTexture(1));
@@ -184,7 +184,7 @@ void DefferedShadingDemo::DrawScene()
 	using namespace engine;
 
 	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
-	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), 0.999999, 0);
+	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), CLEAR_ALL, 0.999999, 0);
 	
 	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(0), math::Color4(0.0, 0.0, 0.0, 1));
 	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(1), math::Color4(0.0, 0.0, -1.0, 1));

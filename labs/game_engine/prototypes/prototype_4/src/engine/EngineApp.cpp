@@ -32,6 +32,7 @@ namespace engine
 		m_pCore = CoreApiPtr(new CoreApi);
 
 		GraphicsSetting setting;
+		setting.sysMod = L"./d3d11graphics.dll";
 		setting.backBufferCount = 2;
 		setting.depthStencilFormat = G_FORMAT_D32_FLOAT;
 		setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;

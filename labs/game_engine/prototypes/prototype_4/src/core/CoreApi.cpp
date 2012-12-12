@@ -41,11 +41,11 @@ namespace engine
 		}
 
 		m_pEventDispatcher = AllocObject<EventDispatcher>();
-		 
+
 
 		m_pSysManager = AllocObject<SysManager>();
-		
-		m_pSysGraphics = m_pSysManager->LoadSysGraphics(L"./d11graphics.dll");
+
+		m_pSysGraphics = m_pSysManager->LoadSysGraphics(graphicsSetting.sysMod.c_str());
 
 		if(m_pSysGraphics == Sys_GraphicsPtr())
 		{
@@ -77,25 +77,42 @@ namespace engine
 	}
 	void CoreApi::Release()
 	{
-		m_pObjectManager->Release();
-		m_pObjectManager.reset();
-		
-		m_pRenderSystem->Release();
-		m_pRenderSystem.reset();
+		if(m_pObjectManager)
+		{
+			m_pObjectManager->Release();
+			m_pObjectManager.reset();
+		}
 
-		m_pSysInput->Release();
-		m_pSysInput.reset();
+		if(m_pRenderSystem)
+		{
+			m_pRenderSystem->Release();
+			m_pRenderSystem.reset();
+		}
 
-		m_pSysGraphics->Release();
-		m_pSysGraphics.reset();
+		if(m_pSysInput)
+		{
+			m_pSysInput->Release();
+			m_pSysInput.reset();
+		}
+		if(m_pSysGraphics)
+		{
+			m_pSysGraphics->Release();
+			m_pSysGraphics.reset();
+		}
 
 		m_pSysManager.reset();
 
-		m_pEventDispatcher->Clear();
-		m_pEventDispatcher.reset();
-		
-		s_pMemPool->Release();
-		s_pMemPool.reset();
+		if(m_pEventDispatcher)
+		{
+			m_pEventDispatcher->Clear();
+			m_pEventDispatcher.reset();
+		}
+
+		if(s_pMemPool)
+		{
+			s_pMemPool->Release();
+			s_pMemPool.reset();
+		}
 	}
 
 
@@ -113,11 +130,11 @@ namespace engine
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
-		boost::shared_ptr<WMEvent> pEvent = AllocObject<WMEvent>();
+		boost::shared_ptr<WMEvent> pEvent = AllocObject<WMEvent, MSG>(msg);
 		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);
-		
+
 		if(m_pSysInput)
 		{
 			m_pSysInput->HandleMessage(msg);

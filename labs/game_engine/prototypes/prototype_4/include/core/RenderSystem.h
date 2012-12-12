@@ -48,6 +48,7 @@ namespace engine
 		void										RemoveLight(LightPtr pLight);
 		int											GetLightCount();
 	private:
+		bool										CreateABuffer();
 		bool										CreateGBuffer();
 		void										RenderGBuffer();
 		void										RenderScreenQuad();
@@ -77,6 +78,8 @@ namespace engine
 		ScreenQuadPtr								m_pScreenQuad;
 
 		LightManagerPtr								m_pLightManager;
+
+		MaterialPtr									m_pLightMaterial;
 
 	};
 }

@@ -19,7 +19,7 @@ CViewTree::CViewTree()
 
 CViewTree::~CViewTree()
 {
-	DeleteTree();
+	//DeleteTree();
 }
 
 BEGIN_MESSAGE_MAP(CViewTree, CTreeCtrl)

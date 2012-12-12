@@ -2,14 +2,17 @@
 
 namespace engine
 {
-	enum 
+	enum EVENT_ID
 	{
 		EV_WINMSG,
 	};
 	class Event
 	{
 	public:
-		Event(void){}
+		Event(uint32 _id)
+		{
+			id = _id;
+		}
 		virtual ~Event(void){}
 
 		uint32								id;
@@ -19,9 +22,9 @@ namespace engine
 	class WMEvent : public Event
 	{
 	public:
-		WMEvent()
+		WMEvent(const MSG& m) : Event(EV_WINMSG)
 		{
-			id = EV_WINMSG;
+			msg = m;
 		}
 		virtual ~WMEvent(){}
 

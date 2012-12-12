@@ -156,11 +156,11 @@ namespace engine
 		G_USAGE_STAGING     = 3 
 	};
 
-	enum CLEAR_RENDERTARGET_FLAG
+	enum CLEAR_DS_FLAG
 	{
-		CLEAR_COLOR_BUFFER					= 0x01,
-		CLEAR_DEPTHSTENCIL_BUFFER			= 0x02,
-		CLEAR_ALL							= CLEAR_COLOR_BUFFER | CLEAR_DEPTHSTENCIL_BUFFER,
+		CLEAR_DEPTH							= 0x01,
+		CLEAR_STENCIL						= 0x02,
+		CLEAR_ALL							= CLEAR_DEPTH | CLEAR_STENCIL,
 	};
 	enum LIGHT_TYPE
 	{
@@ -170,6 +170,7 @@ namespace engine
 	};
 	struct GraphicsSetting
 	{
+		std::wstring		sysMod;
 		void*				wnd;
 		bool				windowed;
 		int					frameBufferWidth;

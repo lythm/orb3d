@@ -100,7 +100,7 @@ namespace engine
 			return m_pList;
 		}
 
-		return m_pList->m_pNext;
+		return pLight->m_pNext;
 	}
 	LightPtr LightManager::GetNextAffectingLight(LightPtr pLight, const ViewFrustum& frustum)
 	{

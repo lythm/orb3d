@@ -233,15 +233,23 @@ namespace engine
 		}
 
 	}
-	void D3D11Graphics::ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, float d, int s)
+	void D3D11Graphics::ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, CLEAR_DS_FLAG flag, float d, int s)
 	{
 		ID3D11DepthStencilView* pDV = NULL;
 		if(pTarget != nullptr)
 		{
 			pDV = ((D3D11DepthStencilBuffer*)pTarget.get())->GetD3D11DepthStencilView();
 		}
-
-		m_pContext->ClearDepthStencilView(pDV == NULL ? m_pDepthStencilBuffer : pDV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , d, s);
+		int d3d11_clear = 0;
+		if(flag & CLEAR_DEPTH)
+		{
+			d3d11_clear |= D3D11_CLEAR_DEPTH;
+		}
+		if(flag & CLEAR_STENCIL)
+		{
+			d3d11_clear |= D3D11_CLEAR_STENCIL;
+		}
+		m_pContext->ClearDepthStencilView(pDV == NULL ? m_pDepthStencilBuffer : pDV, d3d11_clear, d, s);
 	}
 	void D3D11Graphics::ClearRenderTarget(RenderTargetPtr pTarget, const math::Color4& clr)
 	{

@@ -9,6 +9,7 @@
 #include "core\GPUBuffer.h"
 #include "core\LightManager.h"
 #include "core\Light.h"
+#include "core\RenderTarget.h"
 
 namespace engine
 {
@@ -35,6 +36,11 @@ namespace engine
 		{
 			return false;
 		}
+		if(false == CreateABuffer())
+		{
+			return false;
+		}
+
 		m_pScreenQuad = alloc_object<ScreenQuad>();
 		if(m_pScreenQuad->Init(m_pGraphics) == false)
 		{
@@ -90,6 +96,11 @@ namespace engine
 			m_pGBuffer->Release();
 			m_pGBuffer.reset();
 		}
+		if(m_pABuffer != nullptr)
+		{
+			m_pABuffer->Release();
+			m_pABuffer.reset();
+		}
 	}
 
 	void RenderSystem::AddRenderData(RenderDataPtr pData)
@@ -114,7 +125,7 @@ namespace engine
 		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(0), math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(1), math::Color4(0, 0, 0, 0));
 		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(2), math::Color4(0, 0, 0, 1));
-		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), 1.0f, 0);
+		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_ALL, 1.0f, 0);
 
 
 		for(size_t i = 0; i < m_deferredQueue.size(); ++i)
@@ -198,12 +209,13 @@ namespace engine
 		if(cx == 0 || cy == 0)
 		{
 			return;
-
 		}
+
 		m_pGraphics->ResizeFrameBuffer(cx, cy);
 		m_pGraphics->SetRenderTarget(engine::RenderTargetPtr());
 
 		CreateGBuffer();
+		CreateABuffer();
 	}
 	void RenderSystem::AddLight(LightPtr pLight)
 	{
@@ -242,7 +254,27 @@ namespace engine
 	void RenderSystem::MergeOutput()
 	{
 	}
+	bool RenderSystem::CreateABuffer()
+	{
+		if(m_pABuffer != nullptr)
+		{
+			m_pABuffer->Release();
+			m_pABuffer.reset();
+		}
+
+		const GraphicsSetting& setting = m_pGraphics->GetGraphicsSetting();
+
+		m_pABuffer = m_pGraphics->CreateRenderTarget(setting.frameBufferWidth, setting.frameBufferHeight, G_FORMAT_R8G8B8A8_UNORM);
+
+		return true;
+	}
+
 }
+
+
+
+
+
 
 
 namespace engine

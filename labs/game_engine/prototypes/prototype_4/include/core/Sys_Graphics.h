@@ -26,6 +26,7 @@ namespace engine
 																	const math::Color4& clr)						= 0; 
 
 		virtual void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, 
+																	CLEAR_DS_FLAG flag,
 																	float d, 
 																	int s)											= 0; 
 

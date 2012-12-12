@@ -38,6 +38,7 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 	s_pCore = CoreApiPtr(new CoreApi());
 
 	GraphicsSetting setting;
+	setting.sysMod = L"./d11graphics.dll";
 	setting.backBufferCount = 2;
 	setting.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 	setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
