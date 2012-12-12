@@ -10,6 +10,8 @@ namespace engine
 		GameObject();
 		virtual ~GameObject(void);
 		
+
+		bool										IsAncestor(GameObjectPtr pObj);
 		void										Update();
 		bool										AddComponent(GameObjectComponentPtr pCom);
 		GameObjectComponentPtr						GetComponent(const std::wstring& name);
@@ -24,7 +26,7 @@ namespace engine
 		// local transform operation
 		void										SetLocalTransform(const math::Matrix44& Local);
 		const math::Matrix44&						GetLocalTransform() const;
-
+		math::Matrix44*								GetLocalTransformPtr();
 		// translation
 		void										SetTranslation(const math::Vector3& t);
 		void										SetTranslation(Real x, Real y, Real z);
@@ -72,16 +74,15 @@ namespace engine
 		void										SetPrevNode(GameObjectPtr pNode);
 		void										SetNextNode(GameObjectPtr pNode);
 
-		const std::wstring&							GetName();
+		std::wstring*								GetNamePtr();
+		const std::wstring&							GetName() const;
 		void										SetName(const std::wstring& name);
 		// world transform operation
 		const math::Matrix44&						GetWorldTransform();
 
 	private:
 		void										UpdateWorldTransform();
-
 		void										UpdateComponents();
-
 	private:
 		math::Matrix44								m_LocalTransform;
 		math::Matrix44								m_WorldTransform;

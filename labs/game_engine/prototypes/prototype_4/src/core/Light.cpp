@@ -23,7 +23,7 @@ namespace engine
 	{
 		return m_type;
 	}
-	void Light::RenderLight(Sys_GraphicsPtr pGraphics)
+	void Light::DrawLightVolumn(Sys_GraphicsPtr pGraphics)
 	{
 
 	}

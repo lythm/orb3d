@@ -5,11 +5,13 @@
 
 #include <vector>
 
+#include "core\core_ptr.h"
+
 #include "math\math_all.h"
 
 #include "utils\utils_all.h"
 
-#include "core\core_ptr.h"
+
 
 
 
@@ -51,4 +53,4 @@
 
 #include "core\LightData.h"
 #include "core\Light.h"
-#include "core\LightManager.h"
+#include "core\PropertyManager.h"

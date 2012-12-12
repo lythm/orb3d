@@ -6,6 +6,8 @@
 #include "core\meshrenderer.h"
 #include "core\WorldMeshRenderer.h"
 #include "core\LightData.h"
+#include "core\PropertyManager.h"
+
 #include "core_utils.h"
 
 
@@ -71,6 +73,7 @@ namespace engine
 		RegisterComponent(L"MeshRenderer", MeshRenderer::CreateComponent);
 		RegisterComponent(L"WorldMeshRenderer", WorldMeshRenderer::CreateComponent);
 		RegisterComponent(L"Light", LightData::CreateComponent);
+		RegisterComponent(L"PropertyManager", PropertyManager::CreateComponent);
 	}
 	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
 	{

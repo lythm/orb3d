@@ -4,6 +4,7 @@
 #include "core\MeshRenderer.h"
 #include "core\GameObject.h"
 #include "core_utils.h"
+#include "core\PropertyManager.h"
 
 
 namespace engine
@@ -71,6 +72,13 @@ namespace engine
 		bool MeshData::OnAttach()
 		{
 			ResetMeshRenderer();
+
+			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+			pPM->Begin(L"MeshData");
+
+			pPM->RegisterProperty(L"Mesh", m_pMesh.get());
+
+			pPM->End();
 
 			return true;
 		}

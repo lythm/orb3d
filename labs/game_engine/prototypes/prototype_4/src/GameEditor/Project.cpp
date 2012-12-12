@@ -77,9 +77,8 @@ void Project::AddDefaultLight()
 	using namespace engine;
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"DefaultLight");
-
-	
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"DefaultLight");
+		
 	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
 	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
 	pLight->CreateLight(LT_DIRLIGHT);

@@ -119,6 +119,7 @@
     <ClInclude Include="..\..\include\core\MultiRenderTarget.h" />
     <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
+    <ClInclude Include="..\..\include\core\PropertyManager.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="MeshUtil.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="PropertyManager.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SoundEmitter.cpp" />

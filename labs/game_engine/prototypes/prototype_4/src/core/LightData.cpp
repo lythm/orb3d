@@ -6,6 +6,8 @@
 #include "core\SpotLight.h"
 #include "core\DirectionalLight.h"
 #include "core\RenderSystem.h"
+#include "core\PropertyManager.h"
+#include "core\GameObject.h"
 
 namespace engine
 {
@@ -58,6 +60,14 @@ namespace engine
 		}
 		bool LightData::OnAttach()
 		{
+
+			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+			pPM->Begin(L"Light");
+
+			pPM->RegisterProperty(L"LightType", (int*)&m_type);
+
+			pPM->End();
+
 			return true;
 		}
 		void LightData::OnDetach()

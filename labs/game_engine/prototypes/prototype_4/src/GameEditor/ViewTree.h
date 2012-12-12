@@ -33,4 +33,13 @@ public:
 	afx_msg void OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
 //	afx_msg void OnOvRename();
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnTvnBegindrag(NMHDR *pNMHDR, LRESULT *pResult);
+
+
+private:
+	bool							m_bDragging;
+	HTREEITEM						m_hDragItem;
+public:
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };

@@ -28,7 +28,7 @@ public:
 	bool								ShowingGrid();
 private:
 	void								UpdateSemantics();
-
+	
 private:
 	GridMeshPtr							m_pGrid;
 

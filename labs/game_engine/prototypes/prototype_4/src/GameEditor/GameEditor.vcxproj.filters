@@ -81,6 +81,12 @@
     <ClInclude Include="AppConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectPropertyGrid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformProperty.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -138,6 +144,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AppConfig.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPropertyGrid.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformProperty.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

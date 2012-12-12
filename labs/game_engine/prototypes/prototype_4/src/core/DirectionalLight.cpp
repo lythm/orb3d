@@ -11,7 +11,7 @@ namespace engine
 	DirectionalLight::~DirectionalLight(void)
 	{
 	}
-	void DirectionalLight::RenderLight(Sys_GraphicsPtr pGraphics)
+	void DirectionalLight::DrawLightVolumn(Sys_GraphicsPtr pGraphics)
 	{
 
 	}

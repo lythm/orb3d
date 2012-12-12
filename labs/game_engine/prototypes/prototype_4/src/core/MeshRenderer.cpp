@@ -9,6 +9,7 @@
 #include "core\Material.h"
 #include "core\SubMesh.h"
 #include "core_utils.h"
+#include "core\PropertyManager.h"
 
 
 namespace engine
@@ -23,7 +24,7 @@ namespace engine
 
 		MeshRenderer::MeshRenderer() : GameObjectComponent(L"MeshRenderer")
 		{
-			
+			m_deferred = true;
 		}
 
 		MeshRenderer::~MeshRenderer(void)
@@ -45,6 +46,15 @@ namespace engine
 			MeshDataPtr pMD = boost::shared_dynamic_cast<MeshData>(m_pObject->GetComponent(L"MeshData"));
 
 			Reset(pMD);
+
+
+
+			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
+			pPM->Begin(L"MeshRenderer");
+
+			pPM->RegisterProperty(L"Deferred", &m_deferred);
+
+			pPM->End();
 
 			return true;
 		}

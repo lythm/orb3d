@@ -11,7 +11,7 @@ namespace engine
 		virtual ~DirectionalLight(void);
 
 
-		void								RenderLight(Sys_GraphicsPtr pGraphics);
+		void								DrawLightVolumn(Sys_GraphicsPtr pGraphics);
 
 	private:
 

@@ -134,6 +134,10 @@ namespace engine
 	{
 		return m_LocalTransform;
 	}
+	math::Matrix44*	GameObject::GetLocalTransformPtr()
+	{
+		return &m_LocalTransform;
+	}
 	const math::Matrix44& GameObject::GetWorldTransform()
 	{
 		UpdateWorldTransform();
@@ -338,12 +342,31 @@ namespace engine
 	{
 		return m_pParent;
 	}
-	const std::wstring& GameObject::GetName()
+	const std::wstring& GameObject::GetName() const
 	{
 		return m_name;
 	}
 	void GameObject::SetName(const std::wstring& name)
 	{
 		m_name = name;
+	}
+	std::wstring* GameObject::GetNamePtr()
+	{
+		return &m_name;
+	}
+	bool GameObject::IsAncestor(GameObjectPtr pObj)
+	{
+		GameObjectPtr pParent = GetParent();
+
+		while(pParent)
+		{
+			if(pObj == pParent)
+			{
+				return true;
+			}
+			pParent = pParent->GetParent();
+		}
+
+		return false;
 	}
 }

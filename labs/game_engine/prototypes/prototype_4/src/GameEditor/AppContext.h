@@ -26,6 +26,7 @@ public:
 	static void									UpdateObjectView();
 	static void									UpdatePropGrid(engine::GameObjectPtr pObj);
 
+	static engine::GameObjectPtr				CreateGameObject(const std::wstring& name);
 
 	static void									OutputInfo(const CString& info);
 	static void									OutputBuild(const CString& info);

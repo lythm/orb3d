@@ -14,7 +14,7 @@ namespace engine
 		Light(LIGHT_TYPE type);
 		virtual ~Light(void);
 
-		virtual void							RenderLight(Sys_GraphicsPtr pGraphics);
+		virtual void							DrawLightVolumn(Sys_GraphicsPtr pGraphics);
 		virtual void							Update();
 		virtual void							RenderShadowMap();
 		virtual bool							IsAffecting(const ViewFrustum& frustum);

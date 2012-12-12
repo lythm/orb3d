@@ -53,7 +53,7 @@ namespace engine
 		void										RenderGBuffer();
 		void										RenderScreenQuad();
 		void										RenderForward();
-		void										RenderLight(LightPtr pLight);
+		void										DrawLightVolumn(LightPtr pLight);
 		void										RenderLights();
 		void										RenderShadowMaps();
 		void										MergeOutput();

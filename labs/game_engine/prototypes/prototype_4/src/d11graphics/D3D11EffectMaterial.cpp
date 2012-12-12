@@ -4,7 +4,7 @@
 #include "D3D11Format.h"
 #include "D3D11Buffer.h"
 #include "D3D11MultiRenderTarget.h"
-
+#include "D3D11RenderTarget.h"
 namespace engine
 {
 	D3D11EffectMaterial::D3D11EffectMaterial(ID3D11DeviceContext* pContext)
@@ -99,12 +99,24 @@ namespace engine
 		m_nPass = tech.Passes;
 
 
-		m_semantics.m_pViewTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_VIEW");
-		m_semantics.m_pWorldTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WORLD");
-		m_semantics.m_pProjTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_PROJ");
-		m_semantics.m_pWVTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WV");
-		m_semantics.m_pWVPTM = (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WVP");
-		m_semantics.m_pGBuffer = (ID3DX11EffectShaderResourceVariable*)m_pEffect->GetVariableBySemantic("DR_GBUFFER");
+		m_semantics.m_pViewTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_VIEW");
+		m_semantics.m_pWorldTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WORLD");
+		m_semantics.m_pProjTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_PROJ");
+
+		m_semantics.m_pInvViewTM				= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_I_VIEW");
+		m_semantics.m_pInvWorldTM				= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_I_WORLD");
+		m_semantics.m_pInvProjTM				= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_I_PROJ");
+
+		m_semantics.m_pWVTM						= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WV");
+		m_semantics.m_pWVPTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_WVP");
+
+		m_semantics.m_pInvWVTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_I_WV");
+		m_semantics.m_pInvWVPTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_I_WVP");
+		m_semantics.m_pInvVPTM					= (ID3DX11EffectMatrixVariable*)m_pEffect->GetVariableBySemantic("MATRIX_I_VP");
+
+
+		m_semantics.m_pGBuffer					= (ID3DX11EffectShaderResourceVariable*)m_pEffect->GetVariableBySemantic("DR_GBUFFER");
+		m_semantics.m_pABuffer					= (ID3DX11EffectShaderResourceVariable*)m_pEffect->GetVariableBySemantic("DR_ABUFFER");
 		return true;
 	}
 	bool D3D11EffectMaterial::SelectTechByName(const char* szName)
@@ -153,6 +165,42 @@ namespace engine
 		{
 			m_semantics.m_pWVTM->SetMatrix((m_worldTM * m_viewTM).m);
 		}
+
+
+		math::Matrix44 invWorld = math::MatrixInverse(m_worldTM);
+		math::Matrix44 invView = math::MatrixInverse(m_viewTM);
+		math::Matrix44 invProj = math::MatrixInverse(m_projTM);
+		math::Matrix44 invWVP = math::MatrixInverse(m_worldTM * m_viewTM * m_projTM);
+		math::Matrix44 invWV = math::MatrixInverse(m_worldTM * m_viewTM);
+		math::Matrix44 invVP = math::MatrixInverse(m_viewTM * m_projTM);
+
+		if(m_semantics.m_pInvWorldTM)
+		{
+			m_semantics.m_pInvWorldTM->SetMatrix(invWorld.m);
+		}
+
+		if(m_semantics.m_pInvViewTM)
+		{
+			m_semantics.m_pInvViewTM->SetMatrix(invView.m);
+		}
+		if(m_semantics.m_pInvProjTM)
+		{
+			m_semantics.m_pInvProjTM->SetMatrix(invProj.m);
+		}
+
+		if(m_semantics.m_pInvWVPTM)
+		{
+			m_semantics.m_pInvWVPTM->SetMatrix(invWVP.m);
+		}
+		if(m_semantics.m_pInvWVTM)
+		{
+			m_semantics.m_pInvWVTM->SetMatrix(invWV.m);
+		}
+		if(m_semantics.m_pInvVPTM)
+		{
+			m_semantics.m_pInvVPTM->SetMatrix(invVP.m);
+		}
+
 	}
 	bool D3D11EffectMaterial::Begin(int& nPass)
 	{
@@ -433,6 +481,18 @@ namespace engine
 
 		m_semantics.m_pGBuffer->SetResourceArray(pBuffers, 0, 3);
 
+	}
+	void D3D11EffectMaterial::SetABuffer(RenderTargetPtr pABuffer)
+	{
+		if(m_semantics.m_pABuffer == nullptr)
+		{
+			return;
+		}
+		D3D11Texture* pTex1 = (D3D11Texture*)(pABuffer->AsTexture().get());
+		
+
+
+		m_semantics.m_pABuffer->SetResource(pTex1->GetShaderResourceView());
 	}
 }
 

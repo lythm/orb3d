@@ -66,7 +66,7 @@ namespace engine
 			typedef boost::shared_ptr<SubMeshRenderData>				SubMeshRenderDataPtr;
 			std::vector<SubMeshRenderDataPtr>	m_Subsets;
 
-			
+			bool							m_deferred;
 		};
 
 	}

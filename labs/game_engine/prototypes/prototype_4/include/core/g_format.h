@@ -182,4 +182,32 @@ namespace engine
 		int					backBufferCount;
 
 	};
+
+
+
+	enum
+	{
+		type_internal = Property::type_custum + 0,
+		type_matrix44,
+		type_vector3,
+		type_vector2,
+		type_color,
+		type_mesh,
+		type_light,
+
+	};
+
+	
+	template <>
+	Property::PropType PropertySet::PropTypeId<math::Matrix44>::m_type = Property::PropType(type_matrix44);
+	template <>
+	Property::PropType PropertySet::PropTypeId<math::Vector3>::m_type = Property::PropType(type_vector3);
+	template <>
+	Property::PropType PropertySet::PropTypeId<math::Vector2>::m_type = Property::PropType(type_vector2);
+	template <>
+	Property::PropType PropertySet::PropTypeId<math::Color4>::m_type = Property::PropType(type_color);
+	template <>
+	Property::PropType PropertySet::PropTypeId<Mesh>::m_type = Property::PropType(type_mesh);
+	template <>
+	Property::PropType PropertySet::PropTypeId<Light>::m_type = Property::PropType(type_light);
 }

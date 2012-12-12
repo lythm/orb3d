@@ -97,7 +97,7 @@ void Renderer::CreateObject_FromTemplate_Sphere()
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Sphere");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"Sphere");
 
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
@@ -119,7 +119,7 @@ void Renderer::CreateObject_FromTemplate_Plane()
 {
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Plane");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"Plane");
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
@@ -141,7 +141,7 @@ void Renderer::CreateObject_FromTemplate_Cube()
 {
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"Cube");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"Cube");
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
@@ -163,14 +163,14 @@ void Renderer::CreateObject_FromTemplate_Cube()
 void Renderer::CreateObject_Empty()
 {
 	using namespace engine;
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"GameObject");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"GameObject");
 }
 void Renderer::CreateObject_FromTemplate_DirLight()
 {
 	using namespace engine;
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"DirectionalLight");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"DirectionalLight");
 
 	
 	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
@@ -186,7 +186,7 @@ void Renderer::CreateObject_FromTemplate_PointLight()
 	using namespace engine;
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"PointLight");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"PointLight");
 
 	
 	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
@@ -202,7 +202,7 @@ void Renderer::CreateObject_FromTemplate_SpotLight()
 	using namespace engine;
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::GetCoreApi()->CreateGameObject(L"SpotLight");
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"SpotLight");
 
 	
 	LightDataPtr pLight = boost::shared_dynamic_cast<object_component::LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));

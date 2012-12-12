@@ -13,9 +13,19 @@ namespace engine
 			ID3DX11EffectMatrixVariable*		m_pWorldTM;
 			ID3DX11EffectMatrixVariable*		m_pViewTM;
 			ID3DX11EffectMatrixVariable*		m_pProjTM;
+			ID3DX11EffectMatrixVariable*		m_pInvWorldTM;
+			ID3DX11EffectMatrixVariable*		m_pInvViewTM;
+			ID3DX11EffectMatrixVariable*		m_pInvProjTM;
+
 			ID3DX11EffectMatrixVariable*		m_pWVTM;
 			ID3DX11EffectMatrixVariable*		m_pWVPTM;
+
+			ID3DX11EffectMatrixVariable*		m_pInvWVTM;
+			ID3DX11EffectMatrixVariable*		m_pInvWVPTM;
+			ID3DX11EffectMatrixVariable*		m_pInvVPTM;
+
 			ID3DX11EffectShaderResourceVariable* m_pGBuffer;
+			ID3DX11EffectShaderResourceVariable* m_pABuffer;
 		};
 	public:
 		D3D11EffectMaterial(ID3D11DeviceContext* pContext);
@@ -60,6 +70,7 @@ namespace engine
 
 		bool								SelectTechByName(const char* szName);
 
+		void								SetABuffer(RenderTargetPtr pABuffer);
 		void								SetGBuffer(MultiRenderTargetPtr pGBuffer);
 	private:
 		void								UpdateSemantics();

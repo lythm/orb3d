@@ -138,3 +138,17 @@ void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
 	CMainFrame* pMain = GetMainFrame();
 	pMain->GetPropGrid()->UpdateGameObjectProp(pObj);
 }
+engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
+{
+	using namespace engine;
+	using namespace object_component;
+
+	GameObjectPtr pObj = GetCoreApi()->CreateGameObject(name);
+
+	GameObjectComponentPtr pPM = GetCoreApi()->CreateGameObjectComponent(L"PropertyManager");
+	
+	pObj->AddComponent(pPM);
+
+	return pObj;
+
+}

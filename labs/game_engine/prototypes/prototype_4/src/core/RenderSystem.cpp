@@ -48,7 +48,7 @@ namespace engine
 		}
 
 		m_pLightManager = alloc_object<LightManager>();
-		if(m_pLightManager->Initialize() == false)
+		if(m_pLightManager->Initialize(m_pGraphics) == false)
 		{
 			return false;
 		}
@@ -163,7 +163,7 @@ namespace engine
 
 		RenderGBuffer();
 		RenderScreenQuad();
-		RenderLights();
+		//RenderLights();
 		RenderForward();
 
 		MergeOutput();
@@ -229,18 +229,12 @@ namespace engine
 	{
 		return m_pLightManager->GetLightCount();
 	}
-	void RenderSystem::RenderLight(LightPtr pLight)
-	{
-		pLight->RenderLight(m_pGraphics);
-	}
+	
 	void RenderSystem::RenderLights()
 	{
-		LightPtr pLight = m_pLightManager->GetNextAffectingLight(LightPtr(), ViewFrustum());
-		while(pLight)
-		{
-			RenderLight(pLight);
-			pLight = m_pLightManager->GetNextAffectingLight(pLight, ViewFrustum());
-		}
+		m_pGraphics->SetRenderTarget(m_pABuffer);
+		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0, 0, 0, 0));
+		m_pLightManager->RenderLights(m_pGBuffer);
 	}
 	void RenderSystem::RenderShadowMaps()
 	{

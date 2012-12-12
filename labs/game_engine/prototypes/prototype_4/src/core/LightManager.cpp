@@ -2,7 +2,8 @@
 #include "..\..\include\core\LightManager.h"
 #include "core\Light.h"
 #include "core_utils.h"
-
+#include "core\Sys_Graphics.h"
+#include "core\Material.h"
 namespace engine
 {
 	LightManager::LightManager(void)
@@ -14,11 +15,18 @@ namespace engine
 	LightManager::~LightManager(void)
 	{
 	}
-	bool LightManager::Initialize()
+	bool LightManager::Initialize(Sys_GraphicsPtr pGraphics)
 	{
+		m_pGraphics = pGraphics;
 		m_lightCount = 0;
 		m_pList = LightPtr();
 
+		m_pLightMaterial = m_pGraphics->CreateMaterialFromFile("./assets/material/dr_light.fx");
+
+		if(m_pLightMaterial == nullptr)
+		{
+			return false;
+		}
 		return true;
 	}
 	void LightManager::Release()
@@ -33,6 +41,11 @@ namespace engine
 			pDel->m_pPrev = LightPtr();
 		}
 		m_pList.reset();
+		if(m_pLightMaterial)
+		{
+			m_pLightMaterial->Release();
+			m_pLightMaterial.reset();
+		}
 	}
 	void LightManager::AddLight(LightPtr pLight)
 	{
@@ -118,4 +131,17 @@ namespace engine
 		return pNode;
 	}
 
+	MaterialPtr	LightManager::GetLightMaterial()
+	{
+		return m_pLightMaterial;
+	}
+	void LightManager::RenderLights(MultiRenderTargetPtr pGBuffer)
+	{
+		LightPtr pLight = GetNextAffectingLight(LightPtr(), ViewFrustum());
+		while(pLight)
+		{
+			pLight->DrawLightVolumn(m_pGraphics);
+			pLight = GetNextAffectingLight(pLight, ViewFrustum());
+		}
+	}
 }

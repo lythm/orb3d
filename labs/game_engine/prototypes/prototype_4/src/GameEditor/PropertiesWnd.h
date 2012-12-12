@@ -1,5 +1,6 @@
 
 #pragma once
+#include "ObjectPropertyGrid.h"
 
 class CPropertiesToolBar : public CMFCToolBar
 {
@@ -34,7 +35,7 @@ protected:
 	CFont m_fntPropList;
 	CComboBox m_wndObjectCombo;
 	CPropertiesToolBar m_wndToolBar;
-	CMFCPropertyGridCtrl m_wndPropList;
+	CObjectPropertyGrid m_wndPropList;
 
 // й╣ож
 public:

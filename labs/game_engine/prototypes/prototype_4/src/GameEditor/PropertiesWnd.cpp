@@ -288,46 +288,5 @@ void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 
 	//return;
 
-
-	m_wndPropList.RemoveAll();
-
-	if(pObj == nullptr)
-	{
-		m_wndPropList.Invalidate();
-		
-		return;
-	}
-
-	CMFCPropertyGridProperty* pCommon = new CMFCPropertyGridProperty(_T("General"));
-	CMFCPropertyGridProperty* pName = new CMFCPropertyGridProperty(_T("Name"), COleVariant(pObj->GetName().c_str()), _T("Object Name."));
-	pCommon->AddSubItem(pName);
-	m_wndPropList.AddProperty(pCommon);
-	
-	CMFCPropertyGridProperty* pTM = new CMFCPropertyGridProperty(_T("Transform"));
-
-	CMFCPropertyGridProperty* pPos = new CMFCPropertyGridProperty(_T("Pos"));
-
-	math::Vector3 pos = pObj->GetTranslation();
-
-	CMFCPropertyGridProperty* pPosX = new CMFCPropertyGridProperty(_T("x"), _variant_t(pos.x), _T("x"));
-	CMFCPropertyGridProperty* pPosY = new CMFCPropertyGridProperty(_T("y"), _variant_t(pos.y), _T("y"));
-	CMFCPropertyGridProperty* pPosZ = new CMFCPropertyGridProperty(_T("z"), _variant_t(pos.z), _T("z"));
-
-	pPos->AddSubItem(pPosX);
-	pPos->AddSubItem(pPosY);
-	pPos->AddSubItem(pPosZ);
-
-	pTM->AddSubItem(pPos);
-	m_wndPropList.AddProperty(pTM);
-
-	for(int i = 0; i < pObj->GetComponentCount(); ++i)
-	{
-		engine::GameObjectComponentPtr pCom = pObj->GetComponent(i);
-
-		CMFCPropertyGridProperty* pComProp = new CMFCPropertyGridProperty(pCom->GetName().c_str());
-
-		m_wndPropList.AddProperty(pComProp);
-	}
-	
-	m_wndPropList.Invalidate();
+	m_wndPropList.UpdateGameObjectProp(pObj);
 }
