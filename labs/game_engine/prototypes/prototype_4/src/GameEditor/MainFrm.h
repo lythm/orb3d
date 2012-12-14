@@ -75,6 +75,7 @@ public:
 	afx_msg void OnCreatefromtemplatePlane();
 	afx_msg void OnViewShowgrid();
 	afx_msg void OnUpdateViewShowgrid(CCmdUI *pCmdUI);
+	afx_msg void OnEditAppsettings();
 };
 
 

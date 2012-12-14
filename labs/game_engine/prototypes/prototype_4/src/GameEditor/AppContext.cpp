@@ -54,6 +54,9 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 		return false;
 	}
 
+
+	s_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3, 0.2, 0.4, 1));
+
 	s_pRenderer = RendererPtr(new Renderer);
 	if(s_pRenderer->Initialize(w, h) == false)
 	{

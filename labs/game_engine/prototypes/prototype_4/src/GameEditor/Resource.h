@@ -93,6 +93,8 @@
 #define IDS_EXPLORER                    305
 #define IDS_EDIT_MENU                   306
 #define IDR_OV_CONTEXT                  310
+#define IDD_APPSETTINGS                 311
+#define IDC_MFCCOLORBUTTON1             1000
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -124,14 +126,17 @@
 #define ID_CREATEFROMTEMPLATE_PLANE     32799
 #define ID_32800                        32800
 #define ID_VIEW_SHOWGRID                32801
+#define ID_32802                        32802
+#define ID_APPSETTINGS                  32803
+#define ID_EDIT_APPSETTINGS             32804
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32802
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_RESOURCE_VALUE        313
+#define _APS_NEXT_COMMAND_VALUE         32805
+#define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

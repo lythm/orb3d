@@ -87,6 +87,9 @@
     <ClInclude Include="TransformProperty.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AppSettingsDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -150,6 +153,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TransformProperty.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AppSettingsDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

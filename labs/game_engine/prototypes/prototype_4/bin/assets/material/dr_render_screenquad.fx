@@ -100,14 +100,24 @@ DepthStencilState ds
 	DepthEnable = FALSE;
 	DepthFunc = LESS;
 	DepthWriteMask = ZERO;
-	StencilEnable = false;
+	StencilEnable = true;
+	FrontFaceStencilFail			= KEEP;
+	FrontFaceStencilDepthFail		= KEEP;
+	FrontFaceStencilPass			= KEEP;
+	FrontFaceStencilFunc			= EQUAL;
+
+	BackFaceStencilFail				= KEEP;
+	BackFaceStencilDepthFail		= KEEP;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= NEVER;
 };
+
 technique11 test
 {
   pass p1
   {
 	SetRasterizerState(rs);
-	SetDepthStencilState(ds, 0);
+	SetDepthStencilState(ds, 1);
 	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 	SetPixelShader( CompileShader( ps_4_0, ps_main(  ) ) );
 

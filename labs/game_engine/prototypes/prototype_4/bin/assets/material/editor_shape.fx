@@ -46,7 +46,17 @@ DepthStencilState dr_ds
 	DepthEnable = TRUE;
 	DepthFunc = LESS;
 	DepthWriteMask = ALL;
-	StencilEnable = false;
+	StencilEnable = true;
+
+	FrontFaceStencilFail			= KEEP;
+	FrontFaceStencilDepthFail		= KEEP;
+	FrontFaceStencilPass			= Replace;
+	FrontFaceStencilFunc			= ALWAYS;
+
+	BackFaceStencilFail				= KEEP;
+	BackFaceStencilDepthFail		= KEEP;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= NEVER;
 
 };
 
@@ -54,7 +64,7 @@ technique11 dr_render_gbuffer
 {
 	pass p1
 	{
-		SetDepthStencilState(dr_ds, 0);
+		SetDepthStencilState(dr_ds, 1);
 		SetRasterizerState(rs);
 		SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 		SetPixelShader( CompileShader( ps_4_0, dr_ps_main() ) );

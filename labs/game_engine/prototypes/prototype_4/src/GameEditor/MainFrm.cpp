@@ -5,6 +5,8 @@
 #include "stdafx.h"
 #include "GameEditor.h"
 
+#include "AppSettingsDlg.h"
+
 #include "MainFrm.h"
 #include "Renderer.h"
 
@@ -44,6 +46,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_PLANE, &CMainFrame::OnCreatefromtemplatePlane)
 	ON_COMMAND(ID_VIEW_SHOWGRID, &CMainFrame::OnViewShowgrid)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SHOWGRID, &CMainFrame::OnUpdateViewShowgrid)
+	ON_COMMAND(ID_EDIT_APPSETTINGS, &CMainFrame::OnEditAppsettings)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -571,4 +574,13 @@ void CMainFrame::OnUpdateViewShowgrid(CCmdUI *pCmdUI)
 {
 	bool bShow = AppContext::GetRenderer()->ShowingGrid();
 	pCmdUI->SetCheck(bShow);
+}
+
+
+void CMainFrame::OnEditAppsettings()
+{
+	
+	CAppSettingsDlg dlg(this);
+
+	dlg.DoModal();
 }
