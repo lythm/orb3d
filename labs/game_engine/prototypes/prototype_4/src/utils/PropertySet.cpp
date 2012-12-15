@@ -18,7 +18,7 @@ namespace engine
 	}
 	Property* PropertySet::getProperty(int iProp)
 	{
-		return &m_props[iProp];
+		return m_props[iProp].get();
 	}
 	void PropertySet::clearProperties()
 	{
@@ -28,21 +28,21 @@ namespace engine
 	Property* PropertySet::getProperty(const wchar_t* szName)
 	{
 		size_t i = m_nameTable[szName];
-		return &m_props[i];
+		return m_props[i].get();
 	}
 	bool PropertySet::hasProperty(const wchar_t* szName)
 	{
 		return m_nameTable.find(szName) != m_nameTable.end();
 	}
-	bool PropertySet::addProperty(const Property& p)
+	bool PropertySet::addProperty(boost::shared_ptr<Property> p)
 	{
-		if(p.getType() == Property::type_unknown)
+		if(p->getType() == Property::type_unknown)
 		{
 			return false;
 		}
 
 		m_props.push_back(p);
-		m_nameTable[p.getName().c_str()] = m_props.size() - 1;
+		m_nameTable[p->getName().c_str()] = m_props.size() - 1;
 
 		return true;
 	}

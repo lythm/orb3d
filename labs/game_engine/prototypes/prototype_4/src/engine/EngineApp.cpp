@@ -91,7 +91,7 @@ namespace engine
 
 			wchar_t buffer[100];
 
-			swprintf(buffer, L"fps : %.3f", float(frames * 1000) / float(dt));
+			swprintf(buffer, 100, L"fps : %.3f", float(frames * 1000) / float(dt));
 
 			SetTitle(buffer);
 

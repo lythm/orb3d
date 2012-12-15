@@ -30,6 +30,14 @@ namespace engine
 		MeshRenderer::~MeshRenderer(void)
 		{
 		}
+		void MeshRenderer::SetDeferred(const bool& b)
+		{
+			m_deferred = b;
+		}
+		const bool& MeshRenderer::IsDeferred()
+		{
+			return m_deferred;
+		}
 		void MeshRenderer::Update()
 		{
 			for(size_t i = 0; i < m_Subsets.size(); ++i)
@@ -52,7 +60,9 @@ namespace engine
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 			pPM->Begin(L"MeshRenderer");
 
-			pPM->RegisterProperty(L"Deferred", &m_deferred);
+			pPM->RegisterProperty<bool>(L"Deferred", 
+				boost::bind(&MeshRenderer::SetDeferred, this, _1),
+				boost::bind(&MeshRenderer::IsDeferred, this));
 
 			pPM->End();
 
@@ -83,6 +93,24 @@ namespace engine
 			}
 
 			MeshPtr pMesh = pMD->GetMesh();
+			if(pMesh == nullptr)
+			{
+				return;
+			}
+
+			if(m_pIndexBuffer)
+			{
+				m_pIndexBuffer->Release();
+				m_pIndexBuffer.reset();
+			}
+			if(m_pVertexBuffer)
+			{
+				m_pVertexBuffer->Release();
+				m_pVertexBuffer.reset();
+			}
+
+			m_Subsets.clear();
+
 
 			if(pMesh->GetIndexData() != nullptr)
 			{

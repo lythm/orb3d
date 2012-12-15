@@ -72,14 +72,26 @@ namespace custom_property
 	}
 	void TransformProperty::UpdateValue()
 	{
-		m_translation = m_pProp->getValPtr<math::Matrix44>()->GetRow3(3);
-		m_scale = m_pProp->getValPtr<math::Matrix44>()->GetScale();
+		using namespace engine;
+		
+		math::Matrix44 mat = ((Property_T<math::Matrix44>*)m_pProp)->m_getter();
+
+		m_translation = mat.GetRow3(3);
+		m_scale = mat.GetScale();
 
 	}
 	void TransformProperty::UpdatePropValue()
 	{
-		m_pProp->getValPtr<math::Matrix44>()->SetTranslation(m_translation);
+		using namespace engine;
+		
+		math::Matrix44 mat = ((Property_T<math::Matrix44>*)m_pProp)->m_getter();
 
-		m_pProp->getValPtr<math::Matrix44>()->SetScale(m_scale);
+		mat.SetTranslation(m_translation);
+
+		mat.SetScale(m_scale);
+
+		((Property_T<math::Matrix44>*)m_pProp)->m_setter(mat);
+
 	}
 }
+

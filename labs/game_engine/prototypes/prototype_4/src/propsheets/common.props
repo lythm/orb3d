@@ -8,7 +8,7 @@
   <PropertyGroup>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;D:\Program Files\Microsoft DirectX SDK %28June 2010%29\Include;d:\sdk\boost_1_52_0;C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\sdk\boost_1_52_0\stage\lib;C:\Program Files\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

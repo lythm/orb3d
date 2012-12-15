@@ -22,11 +22,16 @@ namespace engine
 
 			bool						LoadMesh();
 
+			void						SetMeshAsset(const std::wstring& asset);
+			const std::wstring&			GetMeshAsset();
+
 			static MeshDataPtr			CreateComponent();
 		private:
 			void						ResetMeshRenderer();
 		private:
 			MeshPtr						m_pMesh;
+
+			std::wstring				m_meshAsset;
 		};
 	}
 }

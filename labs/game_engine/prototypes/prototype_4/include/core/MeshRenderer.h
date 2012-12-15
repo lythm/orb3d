@@ -53,6 +53,12 @@ namespace engine
 			void							SetRenderSystem(RenderSystemPtr pRS);
 
 			static MeshRendererPtr			CreateComponent();
+
+
+			const bool&						IsDeferred();
+			void							SetDeferred(const bool& b);
+
+			RenderSystemPtr					GetRenderSystem(){return m_pRS;}
 		private:
 			bool							OnAttach();
 			void							OnDetach();

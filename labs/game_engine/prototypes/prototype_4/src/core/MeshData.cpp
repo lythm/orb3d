@@ -5,7 +5,9 @@
 #include "core\GameObject.h"
 #include "core_utils.h"
 #include "core\PropertyManager.h"
-
+#include "core\MeshUtil.h"
+#include "core\RenderSystem.h"
+#include "core\Sys_Graphics.h"
 
 namespace engine
 {
@@ -76,11 +78,31 @@ namespace engine
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 			pPM->Begin(L"MeshData");
 
-			pPM->RegisterProperty(L"Mesh", m_pMesh.get());
+			pPM->RegisterProperty<std::wstring>(L"MeshAsset", 
+				boost::bind(&MeshData::SetMeshAsset, this, _1),
+				boost::bind(&MeshData::GetMeshAsset, this));
 
 			pPM->End();
 
 			return true;
+		}
+		void MeshData::SetMeshAsset(const std::wstring& asset)
+		{
+			m_meshAsset = asset;
+			MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(m_pObject->GetComponent(L"MeshRenderer"));
+			if(m_meshAsset == L"Cube")
+			{
+				m_pMesh->Destroy();
+				MaterialPtr pMaterial = pMR->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+				MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
+				m_pMesh = pMesh;
+				ResetMeshRenderer();
+			}
+
+		}
+		const std::wstring& MeshData::GetMeshAsset()
+		{
+			return m_meshAsset;
 		}
 		bool MeshData::LoadMesh()
 		{

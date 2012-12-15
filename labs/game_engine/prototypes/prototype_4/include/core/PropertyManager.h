@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core\GameObjectComponent.h"
+#include "core\CoreApi.h"
 
 namespace engine
 {
@@ -9,7 +10,7 @@ namespace engine
 		class EXPORT_CLASS PropertyManager : public GameObjectComponent
 		{
 		public:
-			
+
 			PropertyManager(void);
 			virtual ~PropertyManager(void);
 
@@ -17,11 +18,8 @@ namespace engine
 
 
 			void								Begin(const std::wstring& name);
-			template<typename T>
-			bool								RegisterProperty(const wchar_t* szName, T* value)
-			{
-				return m_pCurrentOwner->registerProperty(szName, value);
-			}
+
+			void								AddProperty(boost::shared_ptr<Property> pProp);
 
 			void								End();
 
@@ -31,6 +29,20 @@ namespace engine
 
 			int									GetPropertySetCount();
 			PropertySetPtr						GetPropertySet(int index);
+
+
+			template<typename T>
+			bool								RegisterProperty(const std::wstring& name, boost::function<void (const T&)> setter, boost::function<const T& ()> getter)
+			{
+				boost::shared_ptr<Property_T<T> > pProp = CoreApi::AllocObject<Property_T<T> >(name);
+				pProp->setType(PropTypeId<T>::m_type);
+				pProp->m_getter = getter;
+				pProp->m_setter = setter;
+
+				AddProperty(pProp);
+
+				return true;
+			}
 
 		private:
 			std::vector<PropertySetPtr>			m_PropSets;

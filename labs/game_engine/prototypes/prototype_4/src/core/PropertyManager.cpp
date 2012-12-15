@@ -30,6 +30,10 @@ namespace engine
 			m_pCurrentOwner = pSet;
 			
 		}
+		void PropertyManager::AddProperty(boost::shared_ptr<Property> pProp)
+		{
+			m_pCurrentOwner->addProperty(pProp);
+		}
 		
 		void PropertyManager::End()
 		{
@@ -41,12 +45,18 @@ namespace engine
 
 
 			Begin(L"General");
+			{
 
-			RegisterProperty(L"Name", m_pObject->GetNamePtr());
-		
+				RegisterProperty<std::wstring>(L"Name", 
+					//Property_T<std::wstring>::Setter_T(),	
+					boost::bind(&GameObject::SetName, m_pObject.get(), _1),
+					boost::bind(&GameObject::GetName, m_pObject.get()));
 			
-			RegisterProperty(L"Transform", m_pObject->GetLocalTransformPtr());
-			
+
+				RegisterProperty<math::Matrix44>(L"Transform", 
+					boost::bind(&GameObject::SetLocalTransform, m_pObject.get(), _1),
+					boost::bind(&GameObject::GetLocalTransform, m_pObject.get()));
+			}
 			End();
 
 			return true;

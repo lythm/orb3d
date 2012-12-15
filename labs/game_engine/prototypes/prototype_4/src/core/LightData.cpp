@@ -64,7 +64,7 @@ namespace engine
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 			pPM->Begin(L"Light");
 
-			pPM->RegisterProperty(L"LightType", (int*)&m_type);
+		//	pPM->RegisterProperty(L"LightType", (int*)&m_type);
 
 			pPM->End();
 

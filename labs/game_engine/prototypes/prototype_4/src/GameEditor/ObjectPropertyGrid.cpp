@@ -46,13 +46,27 @@ CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* 
 		break;
 	case Property::type_string:
 		{
-			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), COleVariant(p->getVal<std::wstring>().c_str()), _T("."), (DWORD_PTR)p);
+			std::wstring v = ((Property_T<std::wstring>*)p)->m_getter();
+
+			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), COleVariant(v.c_str()), _T("."), (DWORD_PTR)p);
+
+			if(((Property_T<std::wstring>*)p)->m_setter.empty())
+			{
+				pProp->AllowEdit(false);
+			}
 		}
 		break;
 	case Property::type_bool:
 		{
 			
-			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), _variant_t(p->getVal<bool>()), _T("."), (DWORD_PTR)p);
+			bool v = ((Property_T<bool>*)p)->m_getter();
+
+			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), _variant_t(v), _T("."), (DWORD_PTR)p);
+
+			if(((Property_T<bool>*)p)->m_setter.empty())
+			{
+				pProp->AllowEdit(false);
+			}
 		}
 		break;
 	default:
@@ -119,12 +133,13 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 	{
 	case Property::type_string:
 		{
-			p->setVal<std::wstring>((wchar_t*)(pProp->GetValue().bstrVal));
+			((Property_T<std::wstring>*)p)->m_setter(pProp->GetValue().bstrVal);
 		}
 		break;
 	case Property::type_bool:
 		{
-			p->setVal<bool>(pProp->GetValue().boolVal);
+			((Property_T<bool>*)p)->m_setter(pProp->GetValue().boolVal);
+
 		}
 		break;
 	case type_matrix44:

@@ -18,6 +18,9 @@
 #include <boost\unordered_map.hpp>
 #include <boost\function.hpp>
 #include <boost\bind.hpp>
+#include <boost\filesystem.hpp>
+
+
 
 #include "core\GameObject.h"
 #include "core\GameObjectComponent.h"

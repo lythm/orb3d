@@ -199,15 +199,15 @@ namespace engine
 
 	
 	template <>
-	Property::PropType PropertySet::PropTypeId<math::Matrix44>::m_type = Property::PropType(type_matrix44);
+	Property::PropType PropTypeId<math::Matrix44>::m_type = Property::PropType(type_matrix44);
 	template <>
-	Property::PropType PropertySet::PropTypeId<math::Vector3>::m_type = Property::PropType(type_vector3);
+	Property::PropType PropTypeId<math::Vector3>::m_type = Property::PropType(type_vector3);
 	template <>
-	Property::PropType PropertySet::PropTypeId<math::Vector2>::m_type = Property::PropType(type_vector2);
+	Property::PropType PropTypeId<math::Vector2>::m_type = Property::PropType(type_vector2);
 	template <>
-	Property::PropType PropertySet::PropTypeId<math::Color4>::m_type = Property::PropType(type_color);
+	Property::PropType PropTypeId<math::Color4>::m_type = Property::PropType(type_color);
 	template <>
-	Property::PropType PropertySet::PropTypeId<Mesh>::m_type = Property::PropType(type_mesh);
+	Property::PropType PropTypeId<Mesh>::m_type = Property::PropType(type_mesh);
 	template <>
-	Property::PropType PropertySet::PropTypeId<Light>::m_type = Property::PropType(type_light);
+	Property::PropType PropTypeId<Light>::m_type = Property::PropType(type_light);
 }
