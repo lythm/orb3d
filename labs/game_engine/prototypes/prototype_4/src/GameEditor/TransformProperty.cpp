@@ -67,9 +67,9 @@ namespace custom_property
 		m_rotation.y = m_pRotationY->GetValue().fltVal;
 		m_rotation.z = m_pRotationZ->GetValue().fltVal;
 
-		m_scale.x = m_pScaleX->GetValue().fltVal;
-		m_scale.y = m_pScaleY->GetValue().fltVal;
-		m_scale.z = m_pScaleZ->GetValue().fltVal;
+		m_scale.x = abs(m_pScaleX->GetValue().fltVal);
+		m_scale.y = abs(m_pScaleY->GetValue().fltVal);
+		m_scale.z = abs(m_pScaleZ->GetValue().fltVal);
 
 
 		UpdatePropValue();
@@ -82,6 +82,9 @@ namespace custom_property
 
 		m_translation = mat.GetRow3(3);
 		m_scale = mat.GetScale();
+		m_scale.x = abs(m_scale.x);
+		m_scale.y = abs(m_scale.y);
+		m_scale.z = abs(m_scale.z);
 		m_rotation = MatrixToEular(mat);
 
 	}

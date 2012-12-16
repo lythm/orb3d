@@ -1,17 +1,17 @@
 #pragma once
-#include "core\GameObjectComponent.h"
 
+#include "core\BaseCamera.h"
 namespace engine
 {
-	namespace object_component
+
+	class EXPORT_CLASS Camera : public BaseCamera
 	{
-		class Camera : public GameObjectComponent
-		{
-		public:
-			Camera(void);
-			virtual ~Camera(void);
-		};
+	public:
+		Camera(void);
+		virtual ~Camera(void);
 
 
-	}
+	private:
+
+	};
 }

@@ -31,7 +31,5 @@ namespace engine
 			LightPtr									m_pLight;
 			LIGHT_TYPE									m_type;
 		};
-
-
 	}
 }

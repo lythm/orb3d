@@ -12,11 +12,9 @@ namespace engine
 			
 			bool									Init(Sys_GraphicsPtr pGraphics);
 			void									Release();
-			void									Render(Sys_GraphicsPtr pGraphics, MultiRenderTargetPtr pGBuffer);
-			MaterialPtr								GetMaterial();
+			void									Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial);
 		private:
 			GPUBufferPtr							m_pVB;
-			MaterialPtr								m_pMaterial;
 		};
 
 		typedef boost::shared_ptr<ScreenQuad>		ScreenQuadPtr;
@@ -80,6 +78,8 @@ namespace engine
 		LightManagerPtr								m_pLightManager;
 
 		MaterialPtr									m_pLightMaterial;
+
+		MaterialPtr									m_pScreenQuadMaterial;
 
 	};
 }

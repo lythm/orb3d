@@ -52,10 +52,25 @@ namespace engine
 		{
 			return false;
 		}
+
+		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_screenquad.fx");
+
+		VertexElement vf[] = 
+		{
+			VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
+			VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
+		};
+		VertexFormat format;
+
+		format.SetElement(vf, 2);
+
+		m_pScreenQuadMaterial->SetVertexFormat(format);
+		
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer()
 	{
+
 		if(m_pGBuffer != nullptr)
 		{
 			m_pGBuffer->Release();
@@ -81,6 +96,11 @@ namespace engine
 		m_forwardQueue.clear();
 		m_deferredQueue.clear();
 
+		if(m_pScreenQuadMaterial)
+		{
+			m_pScreenQuadMaterial->Release();
+			m_pScreenQuadMaterial.reset();
+		}
 		if(m_pLightManager)
 		{
 			m_pLightManager->Release();
@@ -141,12 +161,11 @@ namespace engine
 		m_pGraphics->SetRenderTarget(RenderTargetPtr());
 		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
 
-		MaterialPtr pMat = m_pScreenQuad->GetMaterial();
-		
-		pMat->SetProjMatrix(m_projMatrix);
-		pMat->SetViewMatrix(m_viewMatrix);
+		m_pScreenQuadMaterial->SetGBuffer(m_pGBuffer);
+		m_pScreenQuadMaterial->SetProjMatrix(m_projMatrix);
+		m_pScreenQuadMaterial->SetViewMatrix(m_viewMatrix);
 				
-		m_pScreenQuad->Render(m_pGraphics, m_pGBuffer);
+		m_pScreenQuad->Render(m_pGraphics, m_pScreenQuadMaterial);
 	}
 	void RenderSystem::RenderForward()
 	{
@@ -292,18 +311,7 @@ namespace engine
 		};
 
 		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 6, verts, true);
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_screenquad.fx");
 
-		VertexElement vf[] = 
-		{
-			VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-			VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
-		};
-		VertexFormat format;
-
-		format.SetElement(vf, 2);
-
-		m_pMaterial->SetVertexFormat(format);
 		return true;
 	}
 	void RenderSystem::ScreenQuad::Release()
@@ -313,36 +321,25 @@ namespace engine
 			m_pVB->Release();
 			m_pVB.reset();
 		}
-		if(m_pMaterial)
-		{
-			m_pMaterial->Release();
-			m_pMaterial.reset();
-		}
 	}
-	void RenderSystem::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MultiRenderTargetPtr pGBuffer)
+	void RenderSystem::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial)
 	{
-		m_pMaterial->SetGBuffer(pGBuffer);
-
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
 
-		m_pMaterial->ApplyVertexFormat();
+		pMaterial->ApplyVertexFormat();
 
 		int nPass = 0;
 
-		m_pMaterial->Begin(nPass);
+		pMaterial->Begin(nPass);
 
 		for(int i = 0; i < nPass; ++i)
 		{
-			m_pMaterial->ApplyPass(i);
+			pMaterial->ApplyPass(i);
 			pGraphics->Draw(6, 0);
 		}
 
-		m_pMaterial->End();
+		pMaterial->End();
 	}
-	MaterialPtr RenderSystem::ScreenQuad::GetMaterial()
-	{
-		return m_pMaterial;
-	}
-	
+
 }

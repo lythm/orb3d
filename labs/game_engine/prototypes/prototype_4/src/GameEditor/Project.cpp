@@ -84,4 +84,8 @@ void Project::AddDefaultLight()
 	pLight->CreateLight(LT_DIRLIGHT);
 
 	pObj->AddComponent(pLight);
+
+	pObj->SetTranslation(0, 0, 1);
+	pObj->LookAt(math::Vector3(0, 0, 0));
+
 }

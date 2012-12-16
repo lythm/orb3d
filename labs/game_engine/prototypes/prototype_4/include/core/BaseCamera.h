@@ -30,8 +30,6 @@ namespace engine
 		math::Matrix44											m_projMatrix;
 
 		ViewFrustum												m_frustum;
-
-
 	};
 }
 
