@@ -62,36 +62,70 @@ namespace custom_property
 		m_translation.y = m_pTransY->GetValue().fltVal;
 		m_translation.z = m_pTransZ->GetValue().fltVal;
 
+
+		m_rotation.x = m_pRotationX->GetValue().fltVal;
+		m_rotation.y = m_pRotationY->GetValue().fltVal;
+		m_rotation.z = m_pRotationZ->GetValue().fltVal;
+
 		m_scale.x = m_pScaleX->GetValue().fltVal;
 		m_scale.y = m_pScaleY->GetValue().fltVal;
 		m_scale.z = m_pScaleZ->GetValue().fltVal;
 
-		UpdatePropValue();
 
-		
+		UpdatePropValue();
 	}
 	void TransformProperty::UpdateValue()
 	{
 		using namespace engine;
-		
-		math::Matrix44 mat = ((Property_T<math::Matrix44>*)m_pProp)->m_getter();
+
+		math::Matrix44 mat = ((Matrix44Property*)m_pProp)->Get();
 
 		m_translation = mat.GetRow3(3);
 		m_scale = mat.GetScale();
+		m_rotation = MatrixToEular(mat);
 
 	}
 	void TransformProperty::UpdatePropValue()
 	{
 		using namespace engine;
+
+		math::Matrix44 mat = math::MatrixTranslation(m_translation) * EularToMatrix(m_rotation) * math::MatrixScale(m_scale);
+
+		((Matrix44Property*)m_pProp)->Set(mat);
+
+	}
+	math::Vector3 TransformProperty::MatrixToEular(const math::Matrix44& mat)
+	{
+		math::Vector3 r;
+		math::Matrix44 rm = mat;
+
+		rm.SetScale(math::Vector3(1, 1, 1));
+		//rm.Transpose();
+
+		// Assuming the angles are in radians.
+		if (rm(1, 0) > 0.998)
+		{ // singularity at north pole
+			r.x = math::MATH_PI/2;
+			r.y = atan2(rm(0, 2), rm(2, 2));
+			r.z = 0;
+			return r;
+		}
+		if (rm(1, 0) < -0.998) { // singularity at south pole
+			r.x = -math::MATH_PI/2;
+			r.y = atan2(rm(0, 2),rm(2, 2));
+			r.z = 0;
+			return r;
+		}
 		
-		math::Matrix44 mat = ((Property_T<math::Matrix44>*)m_pProp)->m_getter();
+		r.x  = atan2(-rm(1, 2),rm(1, 1));
+		r.y  = atan2(-rm(2, 0), rm(0, 0));
+		r.z  = asin(rm(1, 0));
 
-		mat.SetTranslation(m_translation);
-
-		mat.SetScale(m_scale);
-
-		((Property_T<math::Matrix44>*)m_pProp)->m_setter(mat);
-
+		return math::Vector3(math::R2D(r.x), math::R2D(r.y), math::R2D(r.z));
+	}
+	math::Matrix44 TransformProperty::EularToMatrix(const math::Vector3& r)
+	{
+		return math::MatrixRotationRollPitchYaw(math::D2R(r.x), math::D2R(r.y), math::D2R(r.z));
 	}
 }
 

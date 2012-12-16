@@ -14,6 +14,9 @@ namespace custom_property
 	private:
 		void								UpdateValue();
 		void								UpdatePropValue();
+
+		math::Vector3						MatrixToEular(const math::Matrix44& mat);
+		math::Matrix44						EularToMatrix(const math::Vector3& r);
 	private:
 
 		math::Vector3						m_translation;

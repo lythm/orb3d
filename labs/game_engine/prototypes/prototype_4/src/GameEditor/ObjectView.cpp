@@ -292,6 +292,8 @@ void CObjectView::OnOvDelobj()
 	// TODO: 在此添加命令处理程序代码
 	using namespace engine;
 
+	AppContext::UpdatePropGrid(GameObjectPtr());
+
 	HTREEITEM hItem = m_wndObjectView.GetSelectedItem();
 	
 	GameObjectPtr pObj = m_wndObjectView.GetGameObject(hItem);

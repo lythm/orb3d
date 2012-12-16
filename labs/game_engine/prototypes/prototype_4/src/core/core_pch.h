@@ -19,4 +19,4 @@
 
 #include <core\g_format.h>
 
-
+#include <core\property_types.h>

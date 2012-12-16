@@ -120,6 +120,7 @@
     <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
     <ClInclude Include="..\..\include\core\PropertyManager.h" />
+    <ClInclude Include="..\..\include\core\property_types.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />

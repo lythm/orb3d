@@ -55,11 +55,13 @@ namespace math
 	Matrix44			MatrixRotationQuat(const Quat& q);
 	Matrix44			MatrixRotationAxis(const Vector3& axis, Real rad);
 	Matrix44			MatrixIdentity();
-	
+	Matrix44			MatrixRotationRollPitchYaw(float Pitch, float Yaw, float Roll);
+
 	Quat				QuatRotationAxis(const Vector3& axis, Real rad);
 	Quat				QuatRotationMatrix(const Matrix44& m);
 	Quat				QuatIdentity();
-
+	Quat				QuatRotationRollPitchYaw(float Pitch, float Yaw, float Roll);
+		
 	void				Transform(Vector4& v, const Matrix44& t);
 	void				TransformCoord(Vector2& v, const Matrix44& t);
 	void				TransformCoord(Vector3& v, const Matrix44& t);
@@ -86,6 +88,8 @@ namespace math
 	template <class T>
 	void MinMax(const T& v0, const T& v1, const T& v2, T& max_v, T& min_v);
 
+	Real				D2R(Real degree);
+	Real				R2D(Real radian);
 
 
 	Real				Dot(const Vector2& l, const Vector2& r);
@@ -127,7 +131,16 @@ namespace math
 		if(val > maxval)
 			val = maxval;
 	}
-
+	inline
+	Real D2R(Real degree)
+	{
+		return degree / 180.0f * MATH_PI;
+	}
+	inline
+	Real R2D(Real radian)
+	{
+		return radian / MATH_PI * 180.0f;
+	}
 	inline
 		Real Dot(const Vector2& l, const Vector2& r)
 	{

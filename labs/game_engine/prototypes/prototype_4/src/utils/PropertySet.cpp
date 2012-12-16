@@ -36,7 +36,7 @@ namespace engine
 	}
 	bool PropertySet::addProperty(boost::shared_ptr<Property> p)
 	{
-		if(p->getType() == Property::type_unknown)
+		if(p->getType() == property_type_unknown)
 		{
 			return false;
 		}

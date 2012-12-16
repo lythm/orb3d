@@ -21,7 +21,7 @@
 #include <boost\filesystem.hpp>
 
 
-
+#include "core\property_types.h"
 #include "core\GameObject.h"
 #include "core\GameObjectComponent.h"
 #include "core\GameObjectManager.h"

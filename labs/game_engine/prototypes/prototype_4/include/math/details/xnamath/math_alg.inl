@@ -208,6 +208,15 @@ namespace math
 		return ret;
 	}
 	inline
+		Matrix44 MatrixRotationRollPitchYaw(float Pitch, float Yaw, float Roll)
+	{
+		XMMATRIX r = XMMatrixRotationRollPitchYaw(Pitch, Yaw, Roll);
+		Matrix44 ret;
+		XMStoreFloat4x4((XMFLOAT4X4*)&ret, r);
+
+		return ret;
+	}
+	inline
 		Quat Slerp(const Quat& q1, const Quat& q2, Real s)
 	{
 		Quat ret;
@@ -244,10 +253,19 @@ namespace math
 		return ret;
 	}
 	inline
+		Quat QuatRotationRollPitchYaw(float Pitch, float Yaw, float Roll)
+	{
+		Quat ret;
+
+		XMVECTOR r = XMQuaternionRotationRollPitchYaw(Pitch, Yaw, Roll);
+		XMStoreFloat4((XMFLOAT4*)&ret, r);
+		return ret;
+	}
+	inline
 		void MatrixDecompose(const Matrix44& m, Vector3& s, Quat& r, Vector3& t)
 	{
 		XMMATRIX _m = XMLoadFloat4x4((const XMFLOAT4X4*)&m);
-		
+
 		XMVECTOR _s , _t, _r;
 		XMMatrixDecompose(&_s, &_r, &_t, _m);
 

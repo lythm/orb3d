@@ -37,33 +37,45 @@ CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* 
 	CMFCPropertyGridProperty* pProp = NULL;
 	switch(p->getType())
 	{
-	case type_matrix44:
+	case property_type_matrix44:
 		{
 			TransformProperty* pTMProp  = new TransformProperty(p->getName().c_str(), p);
 
 			pProp = pTMProp;
 		}
 		break;
-	case Property::type_string:
+	case property_type_string:
 		{
-			std::wstring v = ((Property_T<std::wstring>*)p)->m_getter();
+			std::wstring v = ((StringProperty*)p)->Get();
 
 			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), COleVariant(v.c_str()), _T("."), (DWORD_PTR)p);
 
-			if(((Property_T<std::wstring>*)p)->m_setter.empty())
+			if(((StringProperty*)p)->IsReadOnly())
 			{
 				pProp->AllowEdit(false);
 			}
 		}
 		break;
-	case Property::type_bool:
+	case property_type_bool:
 		{
 			
-			bool v = ((Property_T<bool>*)p)->m_getter();
+			bool v = ((BoolProperty*)p)->Get();
 
 			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), _variant_t(v), _T("."), (DWORD_PTR)p);
 
-			if(((Property_T<bool>*)p)->m_setter.empty())
+			if(((BoolProperty*)p)->IsReadOnly())
+			{
+				pProp->AllowEdit(false);
+			}
+		}
+		break;
+	case property_type_int:
+		{
+			int v = ((IntProperty*)p)->Get();
+
+			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), _variant_t(v), _T("."), (DWORD_PTR)p);
+
+			if(((IntProperty*)p)->IsReadOnly())
 			{
 				pProp->AllowEdit(false);
 			}
@@ -82,7 +94,7 @@ CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* 
 void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 {
 	//return;
-
+	m_pObj = pObj;
 
 	RemoveAll();
 
@@ -126,34 +138,43 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 {
 	// TODO: 在此添加专用代码和/或调用基类
 
+	std::wstring oldname = m_pObj->GetName();
+
 	using namespace engine;
 	Property* p = (Property*)pProp->GetData();
 
 	switch(p->getType())
 	{
-	case Property::type_string:
+	case property_type_string:
 		{
-			((Property_T<std::wstring>*)p)->m_setter(pProp->GetValue().bstrVal);
+			((StringProperty*)p)->Set(pProp->GetValue().bstrVal);
 		}
 		break;
-	case Property::type_bool:
+	case property_type_bool:
 		{
-			((Property_T<bool>*)p)->m_setter(pProp->GetValue().boolVal);
+			((BoolProperty*)p)->Set(pProp->GetValue().boolVal);
 
 		}
 		break;
-	case type_matrix44:
+	case property_type_matrix44:
 		{
 			custom_property::TransformProperty* pTMProp = (custom_property::TransformProperty*)p->getData();
 			pTMProp->Update();
+		}
+		break;
+	case property_type_int:
+		{
+			((IntProperty*)p)->Set(pProp->GetValue().intVal);
 		}
 		break;
 	default:
 		break;
 	}
 	
-	AppContext::UpdateObjectView();
-
+	if(oldname != m_pObj->GetName())
+	{
+		AppContext::UpdateObjectView();
+	}
 
 	return CMFCPropertyGridCtrl::OnPropertyChanged(pProp);
 }

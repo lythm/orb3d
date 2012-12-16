@@ -60,9 +60,10 @@ namespace engine
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 			pPM->Begin(L"MeshRenderer");
 
-			pPM->RegisterProperty<bool>(L"Deferred", 
-				boost::bind(&MeshRenderer::SetDeferred, this, _1),
-				boost::bind(&MeshRenderer::IsDeferred, this));
+			pPM->RegisterProperty<bool, MeshRenderer>(this,
+							L"Deferred", 
+							&MeshRenderer::IsDeferred,
+							&MeshRenderer::SetDeferred);
 
 			pPM->End();
 

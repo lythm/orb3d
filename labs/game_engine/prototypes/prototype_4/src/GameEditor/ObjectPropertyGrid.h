@@ -16,7 +16,8 @@ public:
 private:
 	CMFCPropertyGridProperty*					CreateProperty(engine::Property* p);
 	
-	
+private:
+	engine::GameObjectPtr						m_pObj;
 
 protected:
 	DECLARE_MESSAGE_MAP()

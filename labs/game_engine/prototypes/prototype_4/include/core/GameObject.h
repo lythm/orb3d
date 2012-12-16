@@ -80,6 +80,8 @@ namespace engine
 		// world transform operation
 		const math::Matrix44&						GetWorldTransform();
 
+		void*										GetPrivateData();
+		void										SetPrivateData(void* pData);
 	private:
 		void										UpdateWorldTransform();
 		void										UpdateComponents();
@@ -96,5 +98,7 @@ namespace engine
 		std::vector<GameObjectComponentPtr>			m_components;
 
 		std::wstring								m_name;
+
+		void*										m_pPrivateData;
 	};
 }

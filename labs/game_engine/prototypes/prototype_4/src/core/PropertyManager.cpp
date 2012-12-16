@@ -47,15 +47,20 @@ namespace engine
 			Begin(L"General");
 			{
 
-				RegisterProperty<std::wstring>(L"Name", 
-					//Property_T<std::wstring>::Setter_T(),	
-					boost::bind(&GameObject::SetName, m_pObject.get(), _1),
-					boost::bind(&GameObject::GetName, m_pObject.get()));
-			
+				//RegisterProperty<std::wstring>(L"Name", 
+				//	//Property_T<std::wstring>::Setter_T(),	
+				//	boost::bind(&GameObject::SetName, m_pObject.get(), _1),
+				//	boost::bind(&GameObject::GetName, m_pObject.get()));
 
-				RegisterProperty<math::Matrix44>(L"Transform", 
-					boost::bind(&GameObject::SetLocalTransform, m_pObject.get(), _1),
-					boost::bind(&GameObject::GetLocalTransform, m_pObject.get()));
+				RegisterProperty<std::wstring, GameObject>(m_pObject.get(), 
+							L"Name", 
+							&GameObject::GetName,
+							&GameObject::SetName);
+
+				RegisterProperty<math::Matrix44, GameObject>(m_pObject.get(),
+							L"Transform", 
+							&GameObject::GetLocalTransform,
+							&GameObject::SetLocalTransform);
 			}
 			End();
 

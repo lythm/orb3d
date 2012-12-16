@@ -19,6 +19,9 @@ namespace engine
 			
 			static LightDataPtr							CreateComponent();
 
+			void										SetLightType(const int& t);
+			const int&									GetLightType();
+
 		private:
 			bool										OnAttach();
 			void										OnDetach();

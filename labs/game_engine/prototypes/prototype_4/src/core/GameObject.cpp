@@ -14,6 +14,8 @@ namespace engine
 
 		m_pNext							= GameObjectPtr();
 		m_pPrev							= GameObjectPtr();
+
+		m_pPrivateData					= nullptr;
 	}
 	GameObject::GameObject()
 	{
@@ -25,6 +27,7 @@ namespace engine
 
 		m_pNext							= GameObjectPtr();
 		m_pPrev							= GameObjectPtr();
+		m_pPrivateData					= nullptr;
 	}
 
 	GameObject::~GameObject(void)
@@ -368,5 +371,13 @@ namespace engine
 		}
 
 		return false;
+	}
+	void* GameObject::GetPrivateData()
+	{
+		return m_pPrivateData;
+	}
+	void GameObject::SetPrivateData(void* pData)
+	{
+		m_pPrivateData = pData;
 	}
 }

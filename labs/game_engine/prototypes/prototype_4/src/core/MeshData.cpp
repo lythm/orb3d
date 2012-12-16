@@ -78,9 +78,10 @@ namespace engine
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 			pPM->Begin(L"MeshData");
 
-			pPM->RegisterProperty<std::wstring>(L"MeshAsset", 
-				boost::bind(&MeshData::SetMeshAsset, this, _1),
-				boost::bind(&MeshData::GetMeshAsset, this));
+			pPM->RegisterProperty<std::wstring, MeshData>(this,
+				L"MeshAsset", 
+				&MeshData::GetMeshAsset,
+				&MeshData::SetMeshAsset);
 
 			pPM->End();
 

@@ -58,13 +58,25 @@ namespace engine
 		{
 			m_pRS = pRS;
 		}
+		void LightData::SetLightType(const int& t)
+		{
+			m_type = (LIGHT_TYPE)t;
+		}
+		const int& LightData::GetLightType()
+		{
+			return m_type;
+		}
 		bool LightData::OnAttach()
 		{
 
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 			pPM->Begin(L"Light");
 
-		//	pPM->RegisterProperty(L"LightType", (int*)&m_type);
+			pPM->RegisterProperty<int, LightData>(this, 
+						L"LightType", 
+						&LightData::GetLightType,
+						&LightData::SetLightType);
+
 
 			pPM->End();
 
