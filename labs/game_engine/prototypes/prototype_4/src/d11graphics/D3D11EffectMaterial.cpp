@@ -282,15 +282,20 @@ namespace engine
 	}
 	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector3& v)
 	{
-		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 3);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableByName(szName);
+		pVal->AsVector()->SetFloatVector(v.v);
+
+		//m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 3);
 	}
 	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector4& v)
 	{
-		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 4);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableByName(szName);
+		pVal->AsVector()->SetFloatVector(v.v);
 	}
 	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector2& v)
 	{
-		m_pEffect->GetVariableByName(szName)->AsScalar()->SetFloatArray(v.v, 0, 2);
+		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableByName(szName);
+		pVal->AsVector()->SetFloatVector(v.v);
 	}
 	void D3D11EffectMaterial::SetFloatByName(const char* szName, float v)
 	{
@@ -490,8 +495,6 @@ namespace engine
 		}
 		D3D11Texture* pTex1 = (D3D11Texture*)(pABuffer->AsTexture().get());
 		
-
-
 		m_semantics.m_pABuffer->SetResource(pTex1->GetShaderResourceView());
 	}
 }

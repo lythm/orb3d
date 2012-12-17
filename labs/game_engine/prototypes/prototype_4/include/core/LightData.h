@@ -30,6 +30,9 @@ namespace engine
 			RenderSystemPtr								m_pRS;
 			LightPtr									m_pLight;
 			LIGHT_TYPE									m_type;
+
+			PropertySetPtr								m_pPropSet;
+			
 		};
 	}
 }

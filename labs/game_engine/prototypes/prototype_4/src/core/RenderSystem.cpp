@@ -161,10 +161,14 @@ namespace engine
 		m_pGraphics->SetRenderTarget(RenderTargetPtr());
 		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
 
+
+		math::Vector2 vp(m_pGraphics->GetGraphicsSetting().frameBufferWidth, m_pGraphics->GetGraphicsSetting().frameBufferHeight); 
 		m_pScreenQuadMaterial->SetGBuffer(m_pGBuffer);
+		m_pScreenQuadMaterial->SetABuffer(m_pABuffer);
 		m_pScreenQuadMaterial->SetProjMatrix(m_projMatrix);
 		m_pScreenQuadMaterial->SetViewMatrix(m_viewMatrix);
-				
+		m_pScreenQuadMaterial->SetWorldMatrix(math::MatrixIdentity());
+
 		m_pScreenQuad->Render(m_pGraphics, m_pScreenQuadMaterial);
 	}
 	void RenderSystem::RenderForward()
@@ -181,8 +185,8 @@ namespace engine
 		RenderShadowMaps();
 
 		RenderGBuffer();
+		RenderLights();
 		RenderScreenQuad();
-		//RenderLights();
 		RenderForward();
 
 		MergeOutput();
@@ -253,6 +257,11 @@ namespace engine
 	{
 		m_pGraphics->SetRenderTarget(m_pABuffer);
 		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0, 0, 0, 0));
+
+		m_pLightManager->GetLightMaterial()->SetWorldMatrix(math::MatrixIdentity());
+		m_pLightManager->GetLightMaterial()->SetViewMatrix(m_viewMatrix);
+		m_pLightManager->GetLightMaterial()->SetProjMatrix(m_projMatrix);
+
 		m_pLightManager->RenderLights(m_pGBuffer);
 	}
 	void RenderSystem::RenderShadowMaps()
@@ -277,11 +286,10 @@ namespace engine
 
 		const GraphicsSetting& setting = m_pGraphics->GetGraphicsSetting();
 
-		m_pABuffer = m_pGraphics->CreateRenderTarget(setting.frameBufferWidth, setting.frameBufferHeight, G_FORMAT_R8G8B8A8_UNORM);
+		m_pABuffer = m_pGraphics->CreateRenderTarget(setting.frameBufferWidth, setting.frameBufferHeight, G_FORMAT_R16G16B16A16_FLOAT);
 
 		return true;
 	}
-
 }
 
 
@@ -294,23 +302,17 @@ namespace engine
 {
 	bool RenderSystem::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
 	{
-		struct Vertex
+		math::Vector3 verts[] = 
 		{
-			math::Vector3			pos;
-			math::Vector2			uv;
+			math::Vector3(-1, 1, 0),
+			math::Vector3(1, 1, 0),
+			math::Vector3(1, -1, 0),
+			math::Vector3(-1, 1, 0),
+			math::Vector3(1, -1, 0),
+			math::Vector3(-1, -1, 0),
 		};
 
-		Vertex verts[] = 
-		{
-			{ math::Vector3(-1, 1, 0), math::Vector2(0, 0),},
-			{ math::Vector3(1, 1, 0), math::Vector2(1, 0),},
-			{ math::Vector3(1, -1, 0), math::Vector2(1, 1),},
-			{ math::Vector3(-1, 1, 0), math::Vector2(0, 0),},
-			{ math::Vector3(1, -1, 0), math::Vector2(1, 1),},
-			{ math::Vector3(-1, -1, 0), math::Vector2(0, 1),},
-		};
-
-		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 6, verts, true);
+		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * 6, verts, true);
 
 		return true;
 	}
@@ -324,7 +326,7 @@ namespace engine
 	}
 	void RenderSystem::ScreenQuad::Render(Sys_GraphicsPtr pGraphics, MaterialPtr pMaterial)
 	{
-		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3) + sizeof(math::Vector2));
+		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
 
 		pMaterial->ApplyVertexFormat();
@@ -341,5 +343,4 @@ namespace engine
 
 		pMaterial->End();
 	}
-
 }

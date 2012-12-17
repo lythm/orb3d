@@ -85,7 +85,7 @@ void Project::AddDefaultLight()
 
 	pObj->AddComponent(pLight);
 
-	pObj->SetTranslation(0, 0, 1);
+	pObj->SetTranslation(1, 1, 1);
 	pObj->LookAt(math::Vector3(0, 0, 0));
 
 }

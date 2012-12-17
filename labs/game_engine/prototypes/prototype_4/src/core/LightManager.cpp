@@ -23,6 +23,10 @@ namespace engine
 
 		m_pLightMaterial = m_pGraphics->CreateMaterialFromFile("./assets/material/dr_light.fx");
 
+		VertexFormat vf;
+		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
+		m_pLightMaterial->SetVertexFormat(vf);
+
 		if(m_pLightMaterial == nullptr)
 		{
 			return false;
@@ -140,8 +144,30 @@ namespace engine
 		LightPtr pLight = GetNextAffectingLight(LightPtr(), ViewFrustum());
 		while(pLight)
 		{
-			pLight->DrawLightVolumn(m_pGraphics);
+			RenderLight(pGBuffer, pLight);
 			pLight = GetNextAffectingLight(pLight, ViewFrustum());
 		}
+	}
+	void LightManager::RenderLight(MultiRenderTargetPtr pGBuffer, LightPtr pLight)
+	{
+		const math::Matrix44& tm = pLight->GetWorldTM();
+
+		math::Vector3 d = tm.GetRow3(2);
+
+		m_pLightMaterial->SetVectorByName("v_dir_light", d);
+		m_pLightMaterial->SetGBuffer(pGBuffer);
+		m_pLightMaterial->ApplyVertexFormat();
+		
+		
+		int nPass = 0;
+
+		m_pLightMaterial->Begin(nPass);
+		
+		for(int i = 0; i < nPass; ++i)
+		{
+			m_pLightMaterial->ApplyPass(i);
+			pLight->DrawLightVolumn(m_pGraphics);
+		}
+		m_pLightMaterial->End();
 	}
 }

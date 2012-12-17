@@ -23,6 +23,7 @@ namespace engine
 		MaterialPtr								GetLightMaterial();
 
 		void									RenderLights(MultiRenderTargetPtr pGBuffer);
+		void									RenderLight(MultiRenderTargetPtr pGBuffer, LightPtr pLight);
 	private:
 
 		LightPtr								m_pList;

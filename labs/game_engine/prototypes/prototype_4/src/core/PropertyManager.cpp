@@ -21,13 +21,26 @@ namespace engine
 		{
 			m_PropSets.clear();
 		}
-		void PropertyManager::Begin(const std::wstring& name)
+		PropertySetPtr PropertyManager::FindProperty(const std::wstring& name)
+		{
+			for(size_t i = 0; i < m_PropSets.size(); ++i)
+			{
+				if(m_PropSets[i]->getName() == name)
+				{
+					return m_PropSets[i];
+				}
+			}
+			return PropertySetPtr();
+		}
+		PropertySetPtr PropertyManager::Begin(const std::wstring& name)
 		{
 			PropertySetPtr pSet = alloc_object<PropertySet>(name);
 
 			m_PropSets.push_back(pSet);
 
 			m_pCurrentOwner = pSet;
+
+			return pSet;
 			
 		}
 		void PropertyManager::AddProperty(boost::shared_ptr<Property> pProp)

@@ -18,13 +18,24 @@ namespace engine
 		virtual void							Update();
 		virtual void							RenderShadowMap();
 		virtual bool							IsAffecting(const ViewFrustum& frustum);
+		virtual void							Release();
+
 
 		LIGHT_TYPE								GetType() const;
+
+		const math::Matrix44&					GetWorldTM();
+		void									SetWorldTM(const math::Matrix44& world);
 
 	private:
 		LIGHT_TYPE								m_type;
 
 		LightPtr								m_pPrev;
 		LightPtr								m_pNext;
+
+		math::Matrix44							m_worldTM;
+
+		bool									m_bCastShadow;
+		math::Color4							m_diffClr;
+		math::Color4							m_ambClr;
 	};
 }

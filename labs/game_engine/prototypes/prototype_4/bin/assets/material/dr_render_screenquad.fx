@@ -7,10 +7,8 @@ float3 dir = normalize(float3(0, -1, 1));
 
 
 Texture2D tex_gbuffer[3]:DR_GBUFFER;
+Texture2D tex_abuffer:DR_ABUFFER;
 
-Texture2D tex_pos;
-Texture2D tex_normal;
-Texture2D tex_diff;
 
 SamplerState diff
 {
@@ -21,7 +19,6 @@ SamplerState diff
 struct vs_in
 {
 	float3 pos:POSITION;
-	float2 uv:TEXCOORD;	
 };
 struct vs_out
 {
@@ -34,8 +31,12 @@ vs_out vs_main(vs_in vsin)
 	vs_out vsout;
 	vsout.pos = float4(vsin.pos.xyz, 1);
 
-	vsout.uv = vsin.uv;
+	float2 uv = vsout.pos.xy;
 
+	uv.x = (uv.x + 1.0) / 2.0;
+	uv.y = (1.0 - uv.y) / 2.0;
+
+	vsout.uv = uv;
 	return vsout;
 }
 
@@ -76,21 +77,34 @@ float4 Light(half3 normal, float3 clr)
 ps_out ps_main(vs_out psin)
 {
 	ps_out psout;
-	half4 normal = tex_gbuffer[1].Sample(diff, psin.uv);
-	half4 pos = tex_gbuffer[0].Sample(diff, psin.uv);
-	half4 clr = tex_gbuffer[2].Sample(diff, psin.uv);
+
+	float2 uv = psin.uv;
+
+	half4 normal = tex_gbuffer[1].Sample(diff, uv);
+	half4 pos = tex_gbuffer[0].Sample(diff, uv);
+	half4 clr = tex_gbuffer[2].Sample(diff, uv);
 
 	float depth = pos.z;
 
 	//psout.color = NormalColor(normal.xyz);
-	psout.color = Light(normal.xyz, clr);
+	//psout.color = Light(normal.xyz, clr);
 	
 	//psout.color = DepthColor(depth);
 	//psout.color = float4(clr.xyz, 1);
 
 	return psout;
 }
+ps_out ps_main_1(vs_out psin)
+{
+	ps_out psout;
 
+	float2 uv = psin.uv;
+	float4 clr = tex_gbuffer[2].Sample(diff, uv);
+	clr.w = 1;
+	psout.color = tex_abuffer.Sample(diff,uv);
+	psout.color = psout.color * clr;
+	return psout;
+}
 RasterizerState rs
 {
 	CULLMODE = None;
@@ -111,15 +125,27 @@ DepthStencilState ds
 	BackFaceStencilPass				= KEEP;
 	BackFaceStencilFunc				= NEVER;
 };
-
+BlendState bs
+{
+	//ALPHATOCOVERAGEENABLE	= false;
+	BLENDENABLE[0]		= false;
+	SRCBLEND		= DEST_COLOR;
+	DESTBLEND		= ZERO;
+	BLENDOP			= ADD;
+	SRCBLENDALPHA		= ONE;
+	DESTBLENDALPHA		= ONE;
+	BLENDOPALPHA		= ADD;
+	//RENDERTARGETWRITEMASK[0]= 0xFF;
+};
 technique11 test
 {
   pass p1
   {
+	SetBlendState( bs, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
 	SetRasterizerState(rs);
 	SetDepthStencilState(ds, 1);
 	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
-	SetPixelShader( CompileShader( ps_4_0, ps_main(  ) ) );
+	SetPixelShader( CompileShader( ps_4_0, ps_main_1(  ) ) );
 
   }
 }

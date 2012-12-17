@@ -27,7 +27,10 @@ namespace engine
 		}
 		void LightData::Update()
 		{
-
+			if(m_pLight)
+			{
+				m_pLight->SetWorldTM(m_pObject->GetWorldTransform());
+			}
 		}
 		bool LightData::CreateLight(LIGHT_TYPE type)
 		{
@@ -35,7 +38,7 @@ namespace engine
 			{
 			case LT_DIRLIGHT:
 				m_pLight = alloc_object<DirectionalLight>();
-				
+				((DirectionalLight*)m_pLight.get())->Init(m_pRS->GetSysGraphics());
 				break;
 			case LT_SPOTLIGHT:
 				m_pLight = alloc_object<SpotLight>();
@@ -68,10 +71,10 @@ namespace engine
 		}
 		bool LightData::OnAttach()
 		{
-
 			PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
-			pPM->Begin(L"Light");
+			m_pPropSet = pPM->Begin(L"Light");
 
+			
 			pPM->RegisterProperty<int, LightData>(this, 
 						L"LightType", 
 						&LightData::GetLightType,
@@ -85,6 +88,7 @@ namespace engine
 		void LightData::OnDetach()
 		{
 			m_pRS->RemoveLight(m_pLight);
+			m_pLight->Release();
 			m_pLight.reset();
 		}
 	}

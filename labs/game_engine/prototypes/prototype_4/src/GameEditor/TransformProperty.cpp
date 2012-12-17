@@ -92,7 +92,7 @@ namespace custom_property
 	{
 		using namespace engine;
 
-		math::Matrix44 mat = math::MatrixTranslation(m_translation) * EularToMatrix(m_rotation) * math::MatrixScale(m_scale);
+		math::Matrix44 mat = math::MatrixTranslation(m_translation) * math::MatrixScale(m_scale) * EularToMatrix(m_rotation);
 
 		((Matrix44Property*)m_pProp)->Set(mat);
 

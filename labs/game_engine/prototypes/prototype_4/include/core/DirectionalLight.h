@@ -10,13 +10,16 @@ namespace engine
 		DirectionalLight(void);
 		virtual ~DirectionalLight(void);
 
-
+		bool								Init(Sys_GraphicsPtr pGraphics);
+		void								Release();
 		void								DrawLightVolumn(Sys_GraphicsPtr pGraphics);
 
 	private:
 
 		math::Vector3						m_dir;
 		math::Color4						m_diff;
+
+		GPUBufferPtr						m_pVB;
 
 	};
 

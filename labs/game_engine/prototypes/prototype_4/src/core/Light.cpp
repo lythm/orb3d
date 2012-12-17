@@ -31,4 +31,15 @@ namespace engine
 	{
 		return true;
 	}
+	void Light::Release()
+	{
+	}
+	const math::Matrix44& Light::GetWorldTM()
+	{
+		return m_worldTM;
+	}
+	void Light::SetWorldTM(const math::Matrix44& world)
+	{
+		m_worldTM = world;
+	}
 }
