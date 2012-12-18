@@ -23,6 +23,8 @@ CObjectPropertyGrid::~CObjectPropertyGrid()
 
 
 BEGIN_MESSAGE_MAP(CObjectPropertyGrid, CMFCPropertyGridCtrl)
+	ON_WM_DESTROY()
+	ON_WM_NCDESTROY()
 END_MESSAGE_MAP()
 
 
@@ -137,7 +139,7 @@ void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) const
 {
 	// TODO: 在此添加专用代码和/或调用基类
-
+	
 	std::wstring oldname = m_pObj->GetName();
 
 	using namespace engine;
@@ -177,4 +179,22 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 	}
 
 	return CMFCPropertyGridCtrl::OnPropertyChanged(pProp);
+}
+
+
+void CObjectPropertyGrid::OnDestroy()
+{
+	//UpdateGameObjectProp(engine::GameObjectPtr());
+	CMFCPropertyGridCtrl::OnDestroy();
+
+	// TODO: 在此处添加消息处理程序代码
+}
+
+
+void CObjectPropertyGrid::OnNcDestroy()
+{
+	//UpdateGameObjectProp(engine::GameObjectPtr());
+	CMFCPropertyGridCtrl::OnNcDestroy();
+
+	// TODO: 在此处添加消息处理程序代码
 }

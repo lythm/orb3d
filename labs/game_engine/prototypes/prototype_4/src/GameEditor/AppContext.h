@@ -39,5 +39,7 @@ private:
 	static engine::Sys_GraphicsPtr				s_pSysGraphics;
 	static RendererPtr							s_pRenderer;
 
+	static engine::PoolAllocator				s_Allocator;
+
 };
 

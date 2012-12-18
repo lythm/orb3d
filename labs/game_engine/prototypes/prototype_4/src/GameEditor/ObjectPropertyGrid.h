@@ -1,6 +1,7 @@
 #pragma once
 
 
+
 // CObjectPropertyGrid
 
 class CObjectPropertyGrid : public CMFCPropertyGridCtrl
@@ -18,11 +19,13 @@ private:
 	
 private:
 	engine::GameObjectPtr						m_pObj;
-
+	
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual void OnPropertyChanged(CMFCPropertyGridProperty* pProp) const;
+	afx_msg void OnDestroy();
+	afx_msg void OnNcDestroy();
 };
 
 

@@ -20,7 +20,9 @@
 
 namespace engine
 {
-	AllocatorPtr									CoreApi::s_pAllocator;
+	Allocator*										CoreApi::s_pAllocator;
+
+	static StdAllocator								g_stdAllocator;
 
 	CoreApi::CoreApi(void)
 	{
@@ -34,20 +36,15 @@ namespace engine
 	{
 		m_pObjectManager->UpdateObjects();
 	}
-	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting)
+	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting, Allocator* pAlloc)
 	{
+		s_pAllocator = pAlloc;
+
 		if(s_pAllocator == nullptr)
 		{
-			PoolAllocator* pAlloc = new PoolAllocator;
-			if(pAlloc->Initialize() == false)
-			{
-				delete pAlloc;
-				return false;
-			}
-
-			s_pAllocator = AllocatorPtr(pAlloc);
+			s_pAllocator = &g_stdAllocator;
 		}
-
+		
 		m_pEventDispatcher = AllocObject<EventDispatcher>();
 
 
@@ -116,13 +113,8 @@ namespace engine
 			m_pEventDispatcher.reset();
 		}
 
-		if(s_pAllocator)
-		{
-			s_pAllocator->Release();
-			s_pAllocator.reset();
-		}
+		s_pAllocator	= nullptr;
 	}
-
 
 	GameObjectManagerPtr CoreApi::GetGameObjectManager()
 	{

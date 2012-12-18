@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	class PoolAllocator : public Allocator
+	class EXPORT_CLASS PoolAllocator : public Allocator
 	{
 		typedef boost::shared_ptr<MemPool>				MemPoolPtr;
 	public:

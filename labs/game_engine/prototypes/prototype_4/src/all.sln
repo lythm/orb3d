@@ -35,6 +35,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utils", "utils\utils.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Material", "Material\Material.vcxproj", "{4C114001-F71E-4D21-8B9C-F0CFF3AD2E7A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core_ext", "core_ext\core_ext.vcxproj", "{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A2407401-1B15-44BB-B285-5878BDE949C7} = {A2407401-1B15-44BB-B285-5878BDE949C7}
+		{60A6EE1C-FFBC-4E86-8185-5BAB6E1A1645} = {60A6EE1C-FFBC-4E86-8185-5BAB6E1A1645}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -69,6 +75,10 @@ Global
 		{4C114001-F71E-4D21-8B9C-F0CFF3AD2E7A}.Debug|Win32.Build.0 = Debug|Win32
 		{4C114001-F71E-4D21-8B9C-F0CFF3AD2E7A}.Release|Win32.ActiveCfg = Release|Win32
 		{4C114001-F71E-4D21-8B9C-F0CFF3AD2E7A}.Release|Win32.Build.0 = Release|Win32
+		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Debug|Win32.Build.0 = Debug|Win32
+		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Release|Win32.ActiveCfg = Release|Win32
+		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

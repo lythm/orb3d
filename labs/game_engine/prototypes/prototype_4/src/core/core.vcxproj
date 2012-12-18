@@ -99,6 +99,7 @@
     <ClInclude Include="..\..\include\core\DirectionalLight.h" />
     <ClInclude Include="..\..\include\core\Event.h" />
     <ClInclude Include="..\..\include\core\EventDispatcher.h" />
+    <ClInclude Include="..\..\include\core\Extension.h" />
     <ClInclude Include="..\..\include\core\GameInterface.h" />
     <ClInclude Include="..\..\include\core\GameObject.h" />
     <ClInclude Include="..\..\include\core\GameObjectComponent.h" />

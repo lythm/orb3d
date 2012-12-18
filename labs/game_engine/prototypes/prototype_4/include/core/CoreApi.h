@@ -1,6 +1,7 @@
 #pragma once
 #include "core\EventDispatcher.h"
 #include "core\Allocator.h"
+#include "core\StdAllocator.h"
 
 namespace engine
 {
@@ -11,7 +12,7 @@ namespace engine
 		virtual ~CoreApi(void);
 
 		void											Update();
-		bool											Initialize(const GraphicsSetting& graphicsSetting);
+		bool											Initialize(const GraphicsSetting& graphicsSetting, Allocator* pAlloc = nullptr);
 		void											Release();
 		void											HandleMessage(MSG& msg);
 		
@@ -61,6 +62,6 @@ namespace engine
 
 		RenderSystemPtr									m_pRenderSystem;
 
-		static AllocatorPtr								s_pAllocator;
+		static Allocator*								s_pAllocator;
 	};
 }

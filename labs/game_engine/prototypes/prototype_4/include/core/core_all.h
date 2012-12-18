@@ -20,6 +20,7 @@
 #include <boost\bind.hpp>
 //#include <boost\filesystem.hpp>
 
+#include "core\PoolAllocator.h"
 
 #include "core\property_types.h"
 #include "core\GameObject.h"

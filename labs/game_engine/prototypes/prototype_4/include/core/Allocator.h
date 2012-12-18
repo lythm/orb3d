@@ -4,14 +4,12 @@
 
 namespace engine
 {
-	class Allocator
+	class EXPORT_CLASS Allocator
 	{
 	public:
 
 		virtual void*								Alloc(uint64 bytes)					= 0;
 		virtual void								Free(void* mem)						= 0;
-		virtual void								Release()							= 0;
-
 
 		template<typename T>
 		boost::shared_ptr<T>						AllocObject()
@@ -41,6 +39,4 @@ namespace engine
 		Allocator(void){}
 		virtual ~Allocator(void){}
 	};
-
-
 }

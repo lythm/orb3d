@@ -16,6 +16,7 @@ namespace engine
 
 	MemPool::~MemPool(void)
 	{
+		Release();
 	}
 	
 	bool MemPool::slot_find(const Slot& s1, const Slot&s2)

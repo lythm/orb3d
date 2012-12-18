@@ -13,6 +13,7 @@ RendererPtr							AppContext::s_pRenderer;
 
 int									AppContext::s_RTWidth	= 0;
 int									AppContext::s_RTHeight	= 0;
+engine::PoolAllocator				AppContext::s_Allocator;
 AppContext::AppContext(void)
 {
 }
@@ -31,6 +32,8 @@ engine::RenderSystemPtr AppContext::GetRenderSystem()
 }
 bool AppContext::InitContext(HWND hwnd, int w, int h)
 {
+	s_Allocator.Initialize();
+
 	s_RTWidth = w;
 	s_RTHeight = h;
 	using namespace engine;
@@ -49,7 +52,7 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 	setting.windowed = true;
 	setting.wnd = hwnd;
 
-	if(false == s_pCore->Initialize(setting))
+	if(false == s_pCore->Initialize(setting, &s_Allocator))
 	{
 		return false;
 	}
@@ -75,6 +78,7 @@ engine::Sys_GraphicsPtr AppContext::GetSysGraphics()
 }
 void AppContext::ReleaseContext()
 {
+	//UpdatePropGrid(engine::GameObjectPtr());
 	if(s_pRenderer)
 	{
 		s_pRenderer->Release();
@@ -139,6 +143,12 @@ void AppContext::OutputBuild(const CString& info)
 void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
 {
 	CMainFrame* pMain = GetMainFrame();
+
+	if(pMain == nullptr)
+	{
+		return;
+	}
+	
 	pMain->GetPropGrid()->UpdateGameObjectProp(pObj);
 }
 engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)

@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	class StdAllocator : public Allocator
+	class EXPORT_CLASS StdAllocator : public Allocator
 	{
 	public:
 		StdAllocator(void);
@@ -13,6 +13,4 @@ namespace engine
 		void*								Alloc(uint64 bytes);
 		void								Free(void* mem);
 	};
-
-
 }

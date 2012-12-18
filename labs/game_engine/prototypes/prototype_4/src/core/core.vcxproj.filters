@@ -105,5 +105,6 @@
     <ClInclude Include="..\..\include\core\Allocator.h" />
     <ClInclude Include="..\..\include\core\PoolAllocator.h" />
     <ClInclude Include="..\..\include\core\StdAllocator.h" />
+    <ClInclude Include="..\..\include\core\Extension.h" />
   </ItemGroup>
 </Project>

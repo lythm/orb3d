@@ -38,6 +38,7 @@ BEGIN_MESSAGE_MAP(CPropertiesWnd, CDockablePane)
 	ON_UPDATE_COMMAND_UI(ID_PROPERTIES2, OnUpdateProperties2)
 	ON_WM_SETFOCUS()
 	ON_WM_SETTINGCHANGE()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -287,6 +288,15 @@ void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 {
 
 	//return;
-
+	
 	m_wndPropList.UpdateGameObjectProp(pObj);
+}
+
+
+void CPropertiesWnd::OnDestroy()
+{
+	//UpdateGameObjectProp(engine::GameObjectPtr());
+	CDockablePane::OnDestroy();
+
+	// TODO: 在此处添加消息处理程序代码
 }

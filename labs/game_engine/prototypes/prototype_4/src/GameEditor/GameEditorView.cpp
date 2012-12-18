@@ -192,7 +192,7 @@ void CGameEditorView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*
 
 void CGameEditorView::OnDestroy()
 {
-	
+//	AppContext::UpdatePropGrid(engine::GameObjectPtr());
 	AppContext::ReleaseContext();
 
 	CView::OnDestroy();
