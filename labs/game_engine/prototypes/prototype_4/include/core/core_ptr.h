@@ -31,16 +31,17 @@ namespace engine
 
 
 
-
+	class Allocator;
+	
 	class Sys_Input;
 	class Sys_Graphics;
 	class Sys_Sound;
 	class Sys_Physics;
 	class SysManager;
 
-
+	
+	typedef boost::shared_ptr<Allocator>					AllocatorPtr;
 	typedef boost::shared_ptr<SysManager>					SysManagerPtr;
-
 	typedef boost::shared_ptr<Sys_Physics>					Sys_PhysicsPtr;
 	typedef boost::shared_ptr<Sys_Input>					Sys_InputPtr;
 	typedef boost::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
@@ -55,7 +56,9 @@ namespace engine
 	class SpotLight;
 	class Mesh;
 	class SubMesh;
+	class PostProcess;
 
+	typedef boost::shared_ptr<PostProcess>					PostProcessPtr;
 	typedef boost::shared_ptr<LightManager>					LightManagerPtr;
 	typedef boost::shared_ptr<Light>						LightPtr;
 	typedef boost::shared_ptr<PointLight>					PointLightPtr;
@@ -74,7 +77,11 @@ namespace engine
 	class GPUBuffer;
 	class MultiRenderTarget;
 	class Camera;
+	class RenderState;
+	class Shader;
 
+	typedef boost::shared_ptr<RenderState>					RenderStatePtr;
+	typedef boost::shared_ptr<Shader>						ShaderPtr;
 	typedef boost::shared_ptr<Camera>						CameraPtr;
 	typedef boost::shared_ptr<MultiRenderTarget>			MultiRenderTargetPtr;
 	typedef boost::shared_ptr<DepthStencilBuffer>			DepthStencilBufferPtr;

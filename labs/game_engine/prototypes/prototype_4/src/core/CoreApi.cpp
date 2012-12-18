@@ -10,6 +10,8 @@
 #include "core\meshdata.h"
 #include "core\meshrenderer.h"
 #include "core\Event.h"
+#include "core\PoolAllocator.h"
+#include "core\StdAllocator.h"
 
 
 
@@ -18,7 +20,7 @@
 
 namespace engine
 {
-	CoreApi::MemPoolPtr								CoreApi::s_pMemPool;		
+	AllocatorPtr									CoreApi::s_pAllocator;
 
 	CoreApi::CoreApi(void)
 	{
@@ -34,10 +36,16 @@ namespace engine
 	}
 	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting)
 	{
-		s_pMemPool = MemPoolPtr(new MemPool);
-		if(s_pMemPool->Initialize() == false)
+		if(s_pAllocator == nullptr)
 		{
-			return false;
+			PoolAllocator* pAlloc = new PoolAllocator;
+			if(pAlloc->Initialize() == false)
+			{
+				delete pAlloc;
+				return false;
+			}
+
+			s_pAllocator = AllocatorPtr(pAlloc);
 		}
 
 		m_pEventDispatcher = AllocObject<EventDispatcher>();
@@ -108,10 +116,10 @@ namespace engine
 			m_pEventDispatcher.reset();
 		}
 
-		if(s_pMemPool)
+		if(s_pAllocator)
 		{
-			s_pMemPool->Release();
-			s_pMemPool.reset();
+			s_pAllocator->Release();
+			s_pAllocator.reset();
 		}
 	}
 
@@ -187,16 +195,13 @@ namespace engine
 	}
 	void* CoreApi::MemAlloc(uint64 bytes)
 	{
-		return s_pMemPool->Alloc(bytes);
+		return s_pAllocator->Alloc(bytes);
 	}
 	void CoreApi::MemFree(void* mem)
 	{
-		s_pMemPool->Free(mem);
+		s_pAllocator->Free(mem);
 	}
-	CoreApi::MemPoolPtr CoreApi::GetMemPool()
-	{
-		return s_pMemPool;
-	}
+	
 	void CoreApi::Present()
 	{
 		if(m_pRenderSystem)

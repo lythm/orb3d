@@ -1,12 +1,11 @@
 #pragma once
 #include "core\EventDispatcher.h"
+#include "core\Allocator.h"
 
 namespace engine
 {
 	class EXPORT_CLASS CoreApi 
 	{
-	public:
-		typedef boost::shared_ptr<MemPool>				MemPoolPtr;
 	public:
 		CoreApi(void);
 		virtual ~CoreApi(void);
@@ -43,21 +42,16 @@ namespace engine
 		static
 		boost::shared_ptr<T>							AllocObject()
 		{
-			return s_pMemPool->AllocObject<T>();
+			return s_pAllocator->AllocObject<T>();
 		}
 
 		template<typename T, typename TP>
 		static
 		boost::shared_ptr<T>							AllocObject(TP param)
 		{
-			return s_pMemPool->AllocObject<T, TP>(param);
+			return s_pAllocator->AllocObject<T, TP>(param);
 		}
 
-		static MemPoolPtr								GetMemPool();
-
-	private:
-		
-		
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;
@@ -67,6 +61,6 @@ namespace engine
 
 		RenderSystemPtr									m_pRenderSystem;
 
-		static MemPoolPtr								s_pMemPool;						
+		static AllocatorPtr								s_pAllocator;
 	};
 }

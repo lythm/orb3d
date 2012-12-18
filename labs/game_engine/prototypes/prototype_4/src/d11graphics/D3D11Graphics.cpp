@@ -19,7 +19,6 @@ EXPORT_C_API void DestroySys(engine::Sys_Graphics* pSys)
 	delete (engine::D3D11Graphics*)pSys;
 }
 
-
 namespace engine
 {
 	D3D11Graphics::D3D11Graphics(void)
@@ -529,6 +528,14 @@ namespace engine
 	const GraphicsSetting& D3D11Graphics::GetGraphicsSetting()
 	{
 		return m_setting;
+	}
+	ShaderPtr D3D11Graphics::CreateShaderFromFile(const char* szFile)
+	{
+		return ShaderPtr();
+	}
+	RenderStatePtr D3D11Graphics::CreateRenderState()
+	{
+		return RenderStatePtr();
 	}
 }
 

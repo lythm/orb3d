@@ -31,7 +31,7 @@ namespace engine
 
 		GPUBufferPtr							CreateBuffer(BUFFER_TYPE type, int bytes, void* pInitData, bool dynamic);
 
-		MaterialPtr									CreateMaterialFromFile(const char* szFile);
+		MaterialPtr								CreateMaterialFromFile(const char* szFile);
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
 		void									SetRenderTarget(RenderTargetPtr pRenderTarget);
@@ -44,6 +44,10 @@ namespace engine
 		DepthStencilBufferPtr					CreateDepthStencilBuffer(int w, int h, G_FORMAT format);
 
 		void									ResizeFrameBuffer(int cx, int cy);
+
+		ShaderPtr								CreateShaderFromFile(const char* szFile);
+		RenderStatePtr							CreateRenderState();
+
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);

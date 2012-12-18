@@ -12,6 +12,6 @@ namespace engine
 
 
 	private:
-
+		std::vector<PostProcessPtr>					m_pps;
 	};
 }
