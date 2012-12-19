@@ -7,8 +7,6 @@
 #include "core\RenderSystem.h"
 
 
-#include "core\meshdata.h"
-#include "core\meshrenderer.h"
 #include "core\Event.h"
 #include "core\PoolAllocator.h"
 #include "core\StdAllocator.h"
@@ -45,10 +43,10 @@ namespace engine
 			s_pAllocator = &g_stdAllocator;
 		}
 		
-		m_pEventDispatcher = AllocObject<EventDispatcher>();
+		m_pEventDispatcher = s_pAllocator->AllocObject<EventDispatcher>();
 
 
-		m_pSysManager = AllocObject<SysManager>();
+		m_pSysManager = s_pAllocator->AllocObject<SysManager>();
 
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(graphicsSetting.sysMod.c_str());
 
@@ -61,20 +59,20 @@ namespace engine
 			return false;
 		}
 
-		m_pSysInput = AllocObject<WMInput>();
+		m_pSysInput = s_pAllocator->AllocObject<WMInput>();
 
 		if(false == m_pSysInput->Initialize(graphicsSetting.wnd))
 		{
 			return false;
 		}
 
-		m_pRenderSystem = AllocObject<RenderSystem>();
+		m_pRenderSystem = s_pAllocator->AllocObject<RenderSystem>();
 		if(m_pRenderSystem->Initialize(m_pSysGraphics) == false)
 		{
 			return false;
 		}
-		m_pObjectManager = AllocObject<GameObjectManager>();
-		if(m_pObjectManager->Initialize() == false)
+		m_pObjectManager = s_pAllocator->AllocObject<GameObjectManager>();
+		if(m_pObjectManager->Initialize(shared_from_this()) == false)
 		{
 			return false;
 		}
@@ -130,7 +128,7 @@ namespace engine
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
-		boost::shared_ptr<WMEvent> pEvent = AllocObject<WMEvent, MSG>(msg);
+		boost::shared_ptr<WMEvent> pEvent = s_pAllocator->AllocObject<WMEvent, MSG>(msg);
 		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);
@@ -185,20 +183,16 @@ namespace engine
 	{
 		m_pEventDispatcher->AddEventHandler(id, handler);
 	}
-	void* CoreApi::MemAlloc(uint64 bytes)
-	{
-		return s_pAllocator->Alloc(bytes);
-	}
-	void CoreApi::MemFree(void* mem)
-	{
-		s_pAllocator->Free(mem);
-	}
-	
+		
 	void CoreApi::Present()
 	{
 		if(m_pRenderSystem)
 		{
 			m_pRenderSystem->Present();
 		}
+	}
+	Allocator* CoreApi::GetAllocator()
+	{
+		return s_pAllocator;
 	}
 }

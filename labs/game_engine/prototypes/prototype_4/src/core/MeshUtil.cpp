@@ -174,8 +174,8 @@ namespace engine
 #define DTOR (3.14f / 180.f)
 		int theta, phi; 
 
-		int dtheta = 360 / slice; 
-		int dphi = 180 / stack; 
+		int dtheta = int(360 / slice); 
+		int dphi = int(180 / stack); 
 
 		int NumVertices = (int) ((360/dtheta) * (180/dphi) * 4); 
 

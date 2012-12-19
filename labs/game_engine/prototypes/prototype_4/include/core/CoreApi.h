@@ -3,9 +3,10 @@
 #include "core\Allocator.h"
 #include "core\StdAllocator.h"
 
+#include <boost\enable_shared_from_this.hpp>
 namespace engine
 {
-	class EXPORT_CLASS CoreApi 
+	class EXPORT_CLASS CoreApi : public boost::enable_shared_from_this<CoreApi>
 	{
 	public:
 		CoreApi(void);
@@ -34,25 +35,7 @@ namespace engine
 		void											DispatchEvent(EventPtr pEvent);
 		void											AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
 
-
-		static void*									MemAlloc(uint64 bytes);
-		static void										MemFree(void* mem);
-
-
-		template<typename T>
-		static
-		boost::shared_ptr<T>							AllocObject()
-		{
-			return s_pAllocator->AllocObject<T>();
-		}
-
-		template<typename T, typename TP>
-		static
-		boost::shared_ptr<T>							AllocObject(TP param)
-		{
-			return s_pAllocator->AllocObject<T, TP>(param);
-		}
-
+		static Allocator*								GetAllocator();
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;

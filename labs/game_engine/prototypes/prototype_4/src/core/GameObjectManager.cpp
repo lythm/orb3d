@@ -2,12 +2,6 @@
 #include "..\..\include\core\GameObjectManager.h"
 #include "core\GameObject.h"
 
-#include "core\meshdata.h"
-#include "core\meshrenderer.h"
-#include "core\WorldMeshRenderer.h"
-#include "core\LightData.h"
-#include "core\PropertyManager.h"
-
 #include "core_utils.h"
 
 
@@ -23,15 +17,26 @@ namespace engine
 		ReleaseAllObject();
 	}
 
-	bool GameObjectManager::Initialize()
+	bool GameObjectManager::Initialize(CoreApiPtr pCore)
 	{
-		RegisterBuildinComponents();
+		m_pCore = pCore;
+		if(false == LoadPackage(L"./core_ext.dll"))
+		{
+			return false;
+		}
+
 
 		return true;
 	}
 	void GameObjectManager::Release()
 	{
 		ReleaseAllObject();
+		m_componentCreator.clear();
+		for(size_t i = 0; i < m_packages.size(); ++i)
+		{
+			m_packages[i].delete_package();
+		}
+		m_packages.clear();
 	}
 
 	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::string& tpl)
@@ -66,15 +71,7 @@ namespace engine
 
 		return m_componentCreator[name]();
 	}
-	void GameObjectManager::RegisterBuildinComponents()
-	{
-		using namespace object_component;
-		RegisterComponent(L"MeshData", MeshData::CreateComponent);
-		RegisterComponent(L"MeshRenderer", MeshRenderer::CreateComponent);
-		RegisterComponent(L"WorldMeshRenderer", WorldMeshRenderer::CreateComponent);
-		RegisterComponent(L"Light", LightData::CreateComponent);
-		RegisterComponent(L"PropertyManager", PropertyManager::CreateComponent);
-	}
+	
 	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
 	{
 		GameObjectPtr pObj = alloc_object<GameObject>();
@@ -97,5 +94,71 @@ namespace engine
 	void GameObjectManager::RegisterComponent(const std::wstring& name, const ComponentCreator& creator )
 	{
 		m_componentCreator[name] = creator;
+	}
+	bool GameObjectManager::LoadPackage(const std::wstring& name)
+	{
+		PackageMod mod;
+		if(false == mod.load_package(name.c_str(), m_pCore))
+		{
+			return false;
+		}
+		mod.GetPackage()->RegisterPacket(this);
+		m_packages.push_back(mod);
+		return true;
+	}
+}
+
+
+namespace engine
+{
+	GameObjectManager::PackageMod::PackageMod()
+	{
+		m_pPackage			= nullptr;
+		m_hLib				= nullptr;
+	}
+	ExtPackage* GameObjectManager::PackageMod::GetPackage()
+	{
+		return m_pPackage;
+	}
+	bool GameObjectManager::PackageMod::load_package(const wchar_t* file, CoreApiPtr pCore)
+	{
+		m_hLib = ::LoadLibrary(file);
+		if(m_hLib == NULL)
+		{
+			return false;
+		}
+
+
+		Fn_CreatePackage CreatePackage = (Fn_CreatePackage)GetProcAddress(m_hLib, "CreatePackage");
+		if(CreatePackage == NULL)
+		{
+			FreeLibrary(m_hLib);
+			return false;
+		}
+
+		m_file = file;
+		m_pPackage = CreatePackage(pCore);
+
+		return true;
+	}
+
+	void GameObjectManager::PackageMod::delete_package()
+	{
+		if(m_hLib == NULL)
+		{
+			return;
+		}
+		Fn_DestroyPackage DestroyPackage = (Fn_DestroyPackage)GetProcAddress(m_hLib, "DestroyPackage");
+
+		if(DestroyPackage == NULL)
+		{
+			return;
+
+		}
+
+		DestroyPackage(m_pPackage);
+
+		FreeLibrary(m_hLib);
+		m_hLib = NULL;
 	}
 }

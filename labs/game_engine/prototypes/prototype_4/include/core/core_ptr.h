@@ -1,6 +1,9 @@
 #pragma once
 
 #include <boost\shared_ptr.hpp>
+
+#include "core\ext\core_ext_ptr.h"
+
 namespace engine
 {
 	class GameObject;
@@ -14,25 +17,8 @@ namespace engine
 	typedef boost::shared_ptr<GameObjectComponent>								GameObjectComponentPtr;
 
 
-	namespace object_component
-	{
-		class MeshData;
-		class MeshRenderer;
-		class WorldMeshRenderer;
-		class LightData;
-		class PropertyManager;
-	}
-
-	typedef boost::shared_ptr<object_component::PropertyManager>				PropertyManagerPtr;
-	typedef boost::shared_ptr<object_component::MeshData>						MeshDataPtr;
-	typedef boost::shared_ptr<object_component::LightData>						LightDataPtr;
-	typedef boost::shared_ptr<object_component::WorldMeshRenderer>				WorldMeshRendererPtr;
-	typedef boost::shared_ptr<object_component::MeshRenderer>					MeshRendererPtr;
-
-
-
-	class Allocator;
 	
+
 	class Sys_Input;
 	class Sys_Graphics;
 	class Sys_Sound;
@@ -40,7 +26,6 @@ namespace engine
 	class SysManager;
 
 	
-	typedef boost::shared_ptr<Allocator>					AllocatorPtr;
 	typedef boost::shared_ptr<SysManager>					SysManagerPtr;
 	typedef boost::shared_ptr<Sys_Physics>					Sys_PhysicsPtr;
 	typedef boost::shared_ptr<Sys_Input>					Sys_InputPtr;

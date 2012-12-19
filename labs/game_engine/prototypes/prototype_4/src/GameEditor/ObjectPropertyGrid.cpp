@@ -108,7 +108,6 @@ void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 	}
 
 	using namespace engine;
-	using namespace object_component;
 
 	PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(pObj->GetComponent(L"PropertyManager"));
 	

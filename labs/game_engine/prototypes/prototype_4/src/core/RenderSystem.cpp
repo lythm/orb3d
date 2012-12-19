@@ -162,7 +162,6 @@ namespace engine
 		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
 
 
-		math::Vector2 vp(m_pGraphics->GetGraphicsSetting().frameBufferWidth, m_pGraphics->GetGraphicsSetting().frameBufferHeight); 
 		m_pScreenQuadMaterial->SetGBuffer(m_pGBuffer);
 		m_pScreenQuadMaterial->SetABuffer(m_pABuffer);
 		m_pScreenQuadMaterial->SetProjMatrix(m_projMatrix);

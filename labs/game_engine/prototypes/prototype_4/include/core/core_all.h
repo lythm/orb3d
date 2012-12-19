@@ -26,7 +26,7 @@
 #include "core\GameObject.h"
 #include "core\GameObjectComponent.h"
 #include "core\GameObjectManager.h"
-#include "core\MeshRenderer.h"
+
 #include "core\ArcBall.h"
 
 #include "core\SysManager.h"
@@ -48,13 +48,14 @@
 #include "core\RenderSystem.h"
 #include "core\coreapi.h"
 
-#include "core\MeshData.h"
-#include "core\MeshRenderer.h"
 #include "core\Mesh.h"
 #include "core\SubMesh.h"
 #include "core\Event.h"
 #include "core\MeshUtil.h"
 
-#include "core\LightData.h"
+
 #include "core\Light.h"
-#include "core\PropertyManager.h"
+
+
+
+#include "core\ext\core_ext_all.h"

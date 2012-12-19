@@ -184,7 +184,7 @@ void DefferedShadingDemo::DrawScene()
 	using namespace engine;
 
 	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
-	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), CLEAR_ALL, 0.999999, 0);
+	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), CLEAR_ALL, 0.999999f, 0);
 	
 	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(0), math::Color4(0.0, 0.0, 0.0, 1));
 	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(1), math::Color4(0.0, 0.0, -1.0, 1));
@@ -194,7 +194,7 @@ void DefferedShadingDemo::DrawScene()
 
 	int dt = GetTickCount() - tick;
 
-	float angle = 3.14 * (dt / 2000.0f);
+	float angle = 3.14f * (dt / 2000.0f);
 
 	tick = GetTickCount();
 	using namespace engine;

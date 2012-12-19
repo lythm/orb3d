@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="ArcBall.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
-    <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CoreApi.cpp" />
     <ClCompile Include="core_pch.cpp" />
@@ -14,29 +13,20 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameObjectTemplate.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshAnimator.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshSerializer_XML.cpp" />
-    <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SoundEmitter.cpp" />
-    <ClCompile Include="SoundListener.cpp" />
     <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="SysManager.cpp" />
     <ClCompile Include="WMInput.cpp" />
     <ClCompile Include="MeshUtil.cpp" />
     <ClCompile Include="core_utils.cpp" />
-    <ClCompile Include="WorldMeshRenderer.cpp" />
     <ClCompile Include="ViewFrustum.cpp" />
-    <ClCompile Include="LightData.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="LightManager.cpp" />
-    <ClCompile Include="PropertyManager.cpp" />
     <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="StdAllocator.cpp" />
@@ -44,7 +34,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
     <ClInclude Include="..\..\include\core\BaseCamera.h" />
-    <ClInclude Include="..\..\include\core\Behavior.h" />
     <ClInclude Include="..\..\include\core\Camera.h" />
     <ClInclude Include="..\..\include\core\CoreApi.h" />
     <ClInclude Include="..\..\include\core\core_all.h" />
@@ -63,20 +52,14 @@
     <ClInclude Include="..\..\include\core\GPUBuffer.h" />
     <ClInclude Include="..\..\include\core\g_format.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
-    <ClInclude Include="..\..\include\core\MeshAnimator.h" />
-    <ClInclude Include="..\..\include\core\MeshData.h" />
-    <ClInclude Include="..\..\include\core\MeshRenderer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
     <ClInclude Include="..\..\include\core\MultiRenderTarget.h" />
-    <ClInclude Include="..\..\include\core\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
-    <ClInclude Include="..\..\include\core\SoundEmitter.h" />
-    <ClInclude Include="..\..\include\core\SoundListener.h" />
     <ClInclude Include="..\..\include\core\SubMesh.h" />
     <ClInclude Include="..\..\include\core\SysManager.h" />
     <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
@@ -89,15 +72,12 @@
     <ClInclude Include="WMInput.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="core_utils.h" />
-    <ClInclude Include="..\..\include\core\WorldMeshRenderer.h" />
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
-    <ClInclude Include="..\..\include\core\LightData.h" />
     <ClInclude Include="..\..\include\core\Light.h" />
     <ClInclude Include="..\..\include\core\DirectionalLight.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
     <ClInclude Include="..\..\include\core\SpotLight.h" />
     <ClInclude Include="..\..\include\core\LightManager.h" />
-    <ClInclude Include="..\..\include\core\PropertyManager.h" />
     <ClInclude Include="..\..\include\core\property_types.h" />
     <ClInclude Include="..\..\include\core\PostProcess.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
@@ -105,6 +85,6 @@
     <ClInclude Include="..\..\include\core\Allocator.h" />
     <ClInclude Include="..\..\include\core\PoolAllocator.h" />
     <ClInclude Include="..\..\include\core\StdAllocator.h" />
-    <ClInclude Include="..\..\include\core\Extension.h" />
+    <ClInclude Include="..\..\include\core\ExtPackage.h" />
   </ItemGroup>
 </Project>

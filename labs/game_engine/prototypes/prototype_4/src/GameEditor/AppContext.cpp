@@ -58,7 +58,7 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 	}
 
 
-	s_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3, 0.2, 0.4, 1));
+	s_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
 
 	s_pRenderer = RendererPtr(new Renderer);
 	if(s_pRenderer->Initialize(w, h) == false)
@@ -154,7 +154,6 @@ void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
 engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
 {
 	using namespace engine;
-	using namespace object_component;
 
 	GameObjectPtr pObj = GetCoreApi()->CreateGameObject(name);
 

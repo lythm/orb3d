@@ -15,13 +15,13 @@ namespace engine
 	}
 	uint64 DataStream_File::Read(void* buffer, uint64 bytes)
 	{
-		return fread(buffer, bytes, 1, m_pFile);
+		return fread(buffer, size_t(bytes), 1, m_pFile);
 		
 	}
 	
 	void DataStream_File::Seek(uint64 offset)
 	{
-		fseek(m_pFile, offset, SEEK_SET);
+		fseek(m_pFile, (long)offset, SEEK_SET);
 
 	}
 	void DataStream_File::Close()
@@ -36,7 +36,7 @@ namespace engine
 		
 		uint64 size = ftell(m_pFile);
 
-		fseek(m_pFile, pos, SEEK_SET);
+		fseek(m_pFile, (long)pos, SEEK_SET);
 		
 		return size;
 	}
