@@ -78,6 +78,7 @@ public:
 	afx_msg void OnEditAppsettings();
 //	afx_msg void OnProjectImport();
 	afx_msg void OnImportImportmaxmesh();
+	afx_msg void OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI);
 };
 
 

@@ -13,6 +13,9 @@ public:
 	bool								Save(const _TCHAR* filename);
 	void								Close();
 	
+
+	bool								IsEmpty();
+
 	static ProjectPtr					Instance();
 private:
 
@@ -21,5 +24,7 @@ private:
 
 	CString								m_filePath;
 	static ProjectPtr					m_pProject;
+
+	bool								m_bEmpty;
 };
 

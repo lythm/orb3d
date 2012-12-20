@@ -75,7 +75,6 @@ void Renderer::UpdateSemantics()
 void Renderer::OnMouseMove(UINT nFlags, CPoint point)
 {
 	m_pCamera->OnMouseMove(nFlags, point);
-
 }
 void Renderer::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {

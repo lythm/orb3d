@@ -53,7 +53,7 @@ BOOL CGameEditorDoc::OnNewDocument()
 	if(pProject->New() == false)
 	{
 		AppContext::OutputInfo(L"Failed to create new project.");
-		return FALSE;
+		return TRUE;
 	}
 
 	AppContext::OutputInfo(L"Project created.");

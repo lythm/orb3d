@@ -8,21 +8,27 @@ ProjectPtr				Project::m_pProject;
 
 Project::Project(void)
 {
+	m_bEmpty = true;
 }
 
 
 Project::~Project(void)
 {
 }
+bool Project::IsEmpty()
+{
+	return m_bEmpty;
+}
 bool Project::New()
 {
+
 	if(AppContext::GetRenderSystem()->GetLightCount() == 0)
 	{
 		AddDefaultLight();
 	}
 
 	AppContext::UpdateObjectView();
-
+	m_bEmpty = false;
 	return true;
 }
 bool Project::Load(const _TCHAR* filename)
@@ -40,6 +46,8 @@ bool Project::Load(const _TCHAR* filename)
 	{
 		AddDefaultLight();
 	}
+
+	m_bEmpty = false;
 
 	AppContext::UpdateObjectView();
 	return true;
@@ -62,6 +70,7 @@ bool Project::Save(const _TCHAR* filename)
 void Project::Close()
 {
 	AppContext::GetCoreApi()->GetRoot()->Clear();
+	m_bEmpty = true;
 }
 ProjectPtr Project::Instance()
 {

@@ -69,13 +69,20 @@ BOOL CGameEditorView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CGameEditorView 绘制
 
-void CGameEditorView::OnDraw(CDC* /*pDC*/)
+void CGameEditorView::OnDraw(CDC* pDC)
 {
 	CGameEditorDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	Render();
+	
+	CRect rc;
+
+	GetClientRect(rc);
+
+	pDC->TextOutW(rc.Width() / 2, rc.Height() / 2, L"Game Editor");
+
+	//Render();
 	
 	// TODO: 在此处为本机数据添加绘制代码
 }
@@ -192,7 +199,6 @@ void CGameEditorView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*
 
 void CGameEditorView::OnDestroy()
 {
-//	AppContext::UpdatePropGrid(engine::GameObjectPtr());
 	AppContext::ReleaseContext();
 
 	CView::OnDestroy();

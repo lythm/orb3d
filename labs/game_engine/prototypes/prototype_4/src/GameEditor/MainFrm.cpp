@@ -13,6 +13,7 @@
 
 #include "AppContext.h"
 #include "MeshImporter_3DSMax.h"
+#include "Project.h"
 
 
 #ifdef _DEBUG
@@ -50,6 +51,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_EDIT_APPSETTINGS, &CMainFrame::OnEditAppsettings)
 //	ON_COMMAND(ID_PROJECT_IMPORT, &CMainFrame::OnProjectImport)
 ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
+ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -608,4 +610,11 @@ void CMainFrame::OnImportImportmaxmesh()
 	MeshImporter_3DSMax imp;
 
 	imp.Import(L"./a.max");
+}
+
+
+void CMainFrame::OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Project::Instance()->IsEmpty() == false);
+	// TODO: 在此添加命令更新用户界面处理程序代码
 }
