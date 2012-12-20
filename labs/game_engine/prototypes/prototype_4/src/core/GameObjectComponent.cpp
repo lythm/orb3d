@@ -17,7 +17,7 @@ namespace engine
 	}
 	void GameObjectComponent::Update()
 	{
-		
+
 	}
 	bool GameObjectComponent::Attach(GameObjectPtr pObject)
 	{
@@ -48,6 +48,12 @@ namespace engine
 	GameObjectPtr GameObjectComponent::GetGameObject()
 	{
 		return m_pObject;
+	}
+	void GameObjectComponent::OnComponentAttached(GameObjectComponentPtr pCom)
+	{
+	}
+	void GameObjectComponent::OnComponentDetached(GameObjectComponentPtr pCom)
+	{
 	}
 }
 

@@ -70,6 +70,7 @@ namespace engine
 		}
 
 		m_components.push_back(pCom);
+		
 
 		return true;
 	}

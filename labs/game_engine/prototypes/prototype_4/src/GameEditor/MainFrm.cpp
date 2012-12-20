@@ -496,6 +496,13 @@ void CMainFrame::OnClose()
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	
+	ProjectPtr pProject = AppContext::GetProject();
+	if(pProject)
+	{
+		pProject->Close();
+		AppContext::SetProject(ProjectPtr());
+		pProject.reset();
+	}
 
 	CFrameWndEx::OnClose();
 }
@@ -593,19 +600,6 @@ void CMainFrame::OnEditAppsettings()
 
 	dlg.DoModal();
 }
-<<<<<<< HEAD
-
-
-//void CMainFrame::OnProjectImport()
-//{
-//	// TODO: 在此添加命令处理程序代码
-//
-//	MeshImporter_3DSMax imp;
-//
-//	imp.Import(L"./a.max");
-//
-//
-//}
 
 
 void CMainFrame::OnImportImportmaxmesh()
@@ -620,13 +614,13 @@ void CMainFrame::OnImportImportmaxmesh()
 
 void CMainFrame::OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI)
 {
-	pCmdUI->Enable(Project::Instance()->IsEmpty() == false);
+	//pCmdUI->Enable(Project::Instance()->IsEmpty() == false);
 	// TODO: 在此添加命令更新用户界面处理程序代码
-=======
+}
 void CMainFrame::SetFPS(float fps)
 {
 	CString str;
 	str.Format(L"FPS: %.1f", fps);
 	m_wndStatusBar.SetPaneText(1, str);
->>>>>>> g81
+
 }

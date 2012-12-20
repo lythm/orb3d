@@ -14,6 +14,9 @@ RendererPtr							AppContext::s_pRenderer;
 int									AppContext::s_RTWidth	= 0;
 int									AppContext::s_RTHeight	= 0;
 engine::PoolAllocator				AppContext::s_Allocator;
+
+ProjectPtr							AppContext::s_pProject;
+
 AppContext::AppContext(void)
 {
 }
@@ -155,7 +158,7 @@ void AppContext::UpdatePropGrid(engine::GameObjectPtr pObj)
 	{
 		return;
 	}
-	
+
 	pMain->GetPropGrid()->UpdateGameObjectProp(pObj);
 }
 engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
@@ -165,7 +168,7 @@ engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
 	GameObjectPtr pObj = GetCoreApi()->CreateGameObject(name);
 
 	GameObjectComponentPtr pPM = GetCoreApi()->CreateGameObjectComponent(L"PropertyManager");
-	
+
 	pObj->AddComponent(pPM);
 
 	return pObj;
@@ -175,4 +178,12 @@ void AppContext::UpdateStatusBar_FPS(float fps)
 {
 	CMainFrame* pMain = GetMainFrame();
 	pMain->SetFPS(fps);
+}
+ProjectPtr AppContext::GetProject()
+{
+	return s_pProject;
+}
+void AppContext::SetProject(ProjectPtr pProject)
+{
+	s_pProject = pProject;
 }

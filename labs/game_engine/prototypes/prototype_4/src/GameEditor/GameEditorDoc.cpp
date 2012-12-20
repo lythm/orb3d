@@ -46,15 +46,23 @@ BOOL CGameEditorDoc::OnNewDocument()
 	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)
 
-	ProjectPtr pProject = Project::Instance();
+	ProjectPtr pProject = AppContext::GetProject();
 
-	pProject->Close();
+	if(pProject)
+	{
+		pProject->Close();
+		AppContext::SetProject(ProjectPtr());
+		pProject.reset();
+	}
+
+	pProject = ProjectPtr(new Project);
 
 	if(pProject->New() == false)
 	{
 		AppContext::OutputInfo(L"Failed to create new project.");
 		return TRUE;
 	}
+	AppContext::SetProject(pProject);
 
 	AppContext::OutputInfo(L"Project created.");
 
@@ -153,13 +161,25 @@ void CGameEditorDoc::Dump(CDumpContext& dc) const
 
 BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
-	Project::Instance()->Close();
+	ProjectPtr pProject = AppContext::GetProject();
 
-	if(Project::Instance()->Load(lpszPathName) == false)
+	if(pProject == nullptr)
+	{
+		pProject = ProjectPtr(new Project);
+	}
+	else
+	{
+		pProject->Close();
+	}
+
+	if(pProject->Load(lpszPathName) == false)
 	{
 		AppContext::OutputInfo(L"Failed to open project.");
 		return FALSE;
 	}
+
+	AppContext::SetProject(pProject);
+
 	AppContext::OutputInfo(L"Project openned.");
 
 	return TRUE;
@@ -170,7 +190,15 @@ BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)
 {
 	// TODO: 在此添加专用代码和/或调用基类
 
-	if(Project::Instance()->Save(lpszPathName) == false)
+
+	ProjectPtr pProject = AppContext::GetProject();
+
+	if(pProject == nullptr)
+	{
+		return FALSE;
+	}
+	
+	if(pProject->Save(lpszPathName) == false)
 	{
 		AppContext::OutputInfo(L"Failed to save project.");
 		return FALSE;

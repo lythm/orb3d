@@ -4,21 +4,15 @@
 #include "AppContext.h"
 
 
-ProjectPtr				Project::m_pProject;
-
 Project::Project(void)
 {
-	m_bEmpty = true;
 }
 
 
 Project::~Project(void)
 {
 }
-bool Project::IsEmpty()
-{
-	return m_bEmpty;
-}
+
 bool Project::New()
 {
 
@@ -28,7 +22,6 @@ bool Project::New()
 	}
 
 	AppContext::UpdateObjectView();
-	m_bEmpty = false;
 	return true;
 }
 bool Project::Load(const _TCHAR* filename)
@@ -46,8 +39,6 @@ bool Project::Load(const _TCHAR* filename)
 	{
 		AddDefaultLight();
 	}
-
-	m_bEmpty = false;
 
 	AppContext::UpdateObjectView();
 	return true;
@@ -70,17 +61,8 @@ bool Project::Save(const _TCHAR* filename)
 void Project::Close()
 {
 	AppContext::GetCoreApi()->GetRoot()->Clear();
-	m_bEmpty = true;
 }
-ProjectPtr Project::Instance()
-{
-	if(m_pProject == NULL)
-	{
-		m_pProject = ProjectPtr(new Project);
-	}
 
-	return m_pProject;
-}
 void Project::AddDefaultLight()
 {
 	using namespace engine;

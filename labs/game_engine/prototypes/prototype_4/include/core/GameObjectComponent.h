@@ -14,6 +14,8 @@ namespace engine
 		virtual bool				Attach(GameObjectPtr pObject);
 		virtual void				Detach();
 
+		virtual void				OnComponentAttached(GameObjectComponentPtr pCom);
+		virtual void				OnComponentDetached(GameObjectComponentPtr pCom);
 
 		const std::wstring&			GetName();
 

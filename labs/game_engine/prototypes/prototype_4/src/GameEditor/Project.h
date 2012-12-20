@@ -13,18 +13,10 @@ public:
 	bool								Save(const _TCHAR* filename);
 	void								Close();
 	
-
-	bool								IsEmpty();
-
-	static ProjectPtr					Instance();
 private:
-
+	
 	void								AddDefaultLight();
 private:
-
 	CString								m_filePath;
-	static ProjectPtr					m_pProject;
-
-	bool								m_bEmpty;
 };
 

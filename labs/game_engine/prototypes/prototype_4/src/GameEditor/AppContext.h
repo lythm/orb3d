@@ -32,6 +32,9 @@ public:
 	static void									OutputBuild(const CString& info);
 
 	static void									UpdateStatusBar_FPS(float fps);
+
+	static ProjectPtr							GetProject();
+	static void									SetProject(ProjectPtr pProject);
 private:
 
 	static int									s_RTWidth;
@@ -42,6 +45,8 @@ private:
 	static RendererPtr							s_pRenderer;
 
 	static engine::PoolAllocator				s_Allocator;
+
+	static ProjectPtr							s_pProject;
 
 };
 
