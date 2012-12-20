@@ -419,6 +419,15 @@ BEGIN
     CONTROL         "",IDC_MFCCOLORBUTTON1,"MfcColorButton",WS_TABSTOP,97,58,50,14
 END
 
+IDD_STARTUP DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Start up"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,198,156,50,14
+    PUSHBUTTON      "取消",IDCANCEL,252,156,50,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -476,6 +485,14 @@ BEGIN
     END
 
     IDD_APPSETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_STARTUP, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 302

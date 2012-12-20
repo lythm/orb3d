@@ -94,6 +94,7 @@
 #define IDS_EDIT_MENU                   306
 #define IDR_OV_CONTEXT                  310
 #define IDD_APPSETTINGS                 311
+#define IDD_STARTUP                     313
 #define IDC_MFCCOLORBUTTON1             1000
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
@@ -134,9 +135,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        313
+#define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32805
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_CONTROL_VALUE         1009
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

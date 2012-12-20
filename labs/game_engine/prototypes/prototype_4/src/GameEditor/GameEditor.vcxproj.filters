@@ -90,6 +90,15 @@
     <ClInclude Include="AppSettingsDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MeshImporter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshImporter_3DSMax.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StartDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -156,6 +165,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AppSettingsDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshImporter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshImporter_3DSMax.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StartDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

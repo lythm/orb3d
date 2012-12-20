@@ -12,6 +12,7 @@
 
 
 #include "AppContext.h"
+#include "MeshImporter_3DSMax.h"
 
 
 #ifdef _DEBUG
@@ -47,6 +48,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_VIEW_SHOWGRID, &CMainFrame::OnViewShowgrid)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SHOWGRID, &CMainFrame::OnUpdateViewShowgrid)
 	ON_COMMAND(ID_EDIT_APPSETTINGS, &CMainFrame::OnEditAppsettings)
+//	ON_COMMAND(ID_PROJECT_IMPORT, &CMainFrame::OnProjectImport)
+ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -583,4 +586,26 @@ void CMainFrame::OnEditAppsettings()
 	CAppSettingsDlg dlg(this);
 
 	dlg.DoModal();
+}
+
+
+//void CMainFrame::OnProjectImport()
+//{
+//	// TODO: 在此添加命令处理程序代码
+//
+//	MeshImporter_3DSMax imp;
+//
+//	imp.Import(L"./a.max");
+//
+//
+//}
+
+
+void CMainFrame::OnImportImportmaxmesh()
+{
+	// TODO: 在此添加命令处理程序代码
+
+	MeshImporter_3DSMax imp;
+
+	imp.Import(L"./a.max");
 }
