@@ -48,10 +48,10 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual void OnInitialUpdate();
-
+	
 private:
 	
-	bool			m_bRotating;
+	void UpdateFPS();
 private:
 	
 public:

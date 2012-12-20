@@ -56,6 +56,7 @@ END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
+	ID_SEPARATOR,
 	ID_SEPARATOR,           // 状态行指示器
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
@@ -118,6 +119,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // 未能创建
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
+	m_wndStatusBar.SetPaneWidth(1, 60);
+
 	// TODO: 如果您不希望工具栏和菜单栏可停靠，请删除这五行
 	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
@@ -206,6 +209,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	lstBasicCommands.AddTail(ID_GAMEOBJECT_CREATEEMPTY);
 
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
+
 
 	return 0;
 }
@@ -589,6 +593,7 @@ void CMainFrame::OnEditAppsettings()
 
 	dlg.DoModal();
 }
+<<<<<<< HEAD
 
 
 //void CMainFrame::OnProjectImport()
@@ -617,4 +622,11 @@ void CMainFrame::OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable(Project::Instance()->IsEmpty() == false);
 	// TODO: 在此添加命令更新用户界面处理程序代码
+=======
+void CMainFrame::SetFPS(float fps)
+{
+	CString str;
+	str.Format(L"FPS: %.1f", fps);
+	m_wndStatusBar.SetPaneText(1, str);
+>>>>>>> g81
 }

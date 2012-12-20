@@ -76,8 +76,34 @@ CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* 
 			int v = ((IntProperty*)p)->Get();
 
 			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), _variant_t(v), _T("."), (DWORD_PTR)p);
-
+			
 			if(((IntProperty*)p)->IsReadOnly())
+			{
+				pProp->AllowEdit(false);
+			}
+		}
+		break;
+	case property_type_float:
+		{
+			float v = ((FloatProperty*)p)->Get();
+
+			pProp = new CMFCPropertyGridProperty(p->getName().c_str(), _variant_t(v), _T("."), (DWORD_PTR)p);
+			
+			if(((FloatProperty*)p)->IsReadOnly())
+			{
+				pProp->AllowEdit(false);
+			}
+		}
+		break;
+	case property_type_color:
+		{
+			math::Color4 v = ((ColorProperty*)p)->Get();
+
+			COLORREF c = RGB(v.r * 255, v.g * 255, v.b * 255);
+
+			pProp = new CMFCPropertyGridColorProperty(p->getName().c_str(), c, 0, _T("."), (DWORD_PTR)p);
+			((CMFCPropertyGridColorProperty*)pProp)->EnableOtherButton(L"×Ô¶¨Òå...");
+			if(((ColorProperty*)p)->IsReadOnly())
 			{
 				pProp->AllowEdit(false);
 			}
@@ -89,8 +115,7 @@ CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* 
 		}
 		break;
 	}
-
-
+	
 	return pProp;
 }
 void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
@@ -166,6 +191,25 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 	case property_type_int:
 		{
 			((IntProperty*)p)->Set(pProp->GetValue().intVal);
+		}
+		break;
+	case property_type_float:
+		{
+			((FloatProperty*)p)->Set(pProp->GetValue().fltVal);
+		}
+		break;
+	case property_type_color:
+		{
+			COLORREF c = ((CMFCPropertyGridColorProperty*)pProp)->GetColor();
+
+			math::Color4 v;
+			v.a = 1.0f;
+			v.r = float(GetRValue(c)) / 255.0f;
+			v.g = float(GetGValue(c)) / 255.0f;
+			v.b = float(GetBValue(c)) / 255.0f;
+
+			((ColorProperty*)p)->Set(v);
+
 		}
 		break;
 	default:

@@ -30,6 +30,8 @@ public:
 
 	static void									OutputInfo(const CString& info);
 	static void									OutputBuild(const CString& info);
+
+	static void									UpdateStatusBar_FPS(float fps);
 private:
 
 	static int									s_RTWidth;

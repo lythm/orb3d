@@ -29,7 +29,6 @@ namespace engine
 		GameObjectManager(void);
 		virtual ~GameObjectManager(void);
 
-
 		typedef boost::function<GameObjectComponentPtr () >			ComponentCreator;
 
 		bool							Initialize(CoreApiPtr pCore);

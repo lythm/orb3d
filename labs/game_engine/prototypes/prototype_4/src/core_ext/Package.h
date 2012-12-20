@@ -19,6 +19,4 @@ namespace engine
 	private:
 		static CoreApiPtr					s_pCore;
 	};
-
-
 }

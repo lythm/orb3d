@@ -25,9 +25,6 @@ namespace engine
 	}
 	void* MemPool::Alloc(uint64 bytes)
 	{
-#ifdef _DEBUG
-		return new uint8[bytes];
-#endif
 		Slot s;
 		s.blockBytes = bytes;
 
@@ -42,9 +39,6 @@ namespace engine
 	}
 	void MemPool::Free(void* mem)
 	{
-#ifdef _DEBUG
-		return delete mem;
-#endif
 		if(mem == nullptr)
 		{
 			return;

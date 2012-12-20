@@ -167,14 +167,11 @@ void Renderer::CreateObject_Empty()
 void Renderer::CreateObject_FromTemplate_DirLight()
 {
 	using namespace engine;
-	using namespace engine;
-
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"DirectionalLight");
-
 	
-	LightDataPtr pLight = boost::shared_dynamic_cast<LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"Directional Light");
+		
+	Light_DirPtr pLight = boost::shared_dynamic_cast<Light_Dir>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"DirectionalLight"));
 	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-	pLight->CreateLight(LT_DIRLIGHT);
 
 	pObj->AddComponent(pLight);
 }
@@ -183,16 +180,14 @@ void Renderer::CreateObject_FromTemplate_DirLight()
 void Renderer::CreateObject_FromTemplate_PointLight()
 {
 	using namespace engine;
-	using namespace engine;
-
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"PointLight");
-
 	
-	LightDataPtr pLight = boost::shared_dynamic_cast<LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"Point Light");
+		
+	Light_PointPtr pLight = boost::shared_dynamic_cast<Light_Point>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"PointLight"));
 	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-	pLight->CreateLight(LT_POINTLIGHT);
 
 	pObj->AddComponent(pLight);
+	
 }
 
 
@@ -201,14 +196,7 @@ void Renderer::CreateObject_FromTemplate_SpotLight()
 	using namespace engine;
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"SpotLight");
-
 	
-	LightDataPtr pLight = boost::shared_dynamic_cast<LightData>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"Light"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-	pLight->CreateLight(LT_SPOTLIGHT);
-
-	pObj->AddComponent(pLight);
 }
 void Renderer::ShowGrid(bool bShow)
 {

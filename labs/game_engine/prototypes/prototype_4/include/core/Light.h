@@ -26,6 +26,15 @@ namespace engine
 		const math::Matrix44&					GetWorldTM();
 		void									SetWorldTM(const math::Matrix44& world);
 
+		const math::Color4&						GetDiffuseColor();
+		void									SetDiffuseColor(const math::Color4& clr);
+
+		const math::Color4&						GetAmbientColor();
+		void									SetAmbientColor(const math::Color4& clr);
+
+		bool									GetCastShadow();
+		void									SetCastShadow(bool bCast);
+
 	private:
 		LIGHT_TYPE								m_type;
 

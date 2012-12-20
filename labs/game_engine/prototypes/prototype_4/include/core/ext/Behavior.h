@@ -9,7 +9,14 @@ namespace engine
 	public:
 		Behavior(void);
 		virtual ~Behavior(void);
+
+
+		void						Update();
+		bool						OnAttach();
+		void						OnDetach();
+
+		static BehaviorPtr			CreateComponent();
+
+
 	};
-
-
 }

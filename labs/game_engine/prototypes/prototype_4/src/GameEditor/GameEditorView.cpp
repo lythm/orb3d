@@ -51,7 +51,7 @@ CGameEditorView::CGameEditorView()
 	// TODO: 在此处添加构造代码
 
 //	m_pGrid = NULL;
-	m_bRotating = false;
+
 }
 
 CGameEditorView::~CGameEditorView()
@@ -97,13 +97,10 @@ void CGameEditorView::OnRButtonUp(UINT nFlags , CPoint point)
 		pRenderer->OnMouseRButtonUp(nFlags, point);
 	}
 
-	if(m_bRotating == false)
-	{
-		ClientToScreen(&point);
-		OnContextMenu(this, point);
-	}
-
-	m_bRotating = false;
+	
+	ClientToScreen(&point);
+	OnContextMenu(this, point);
+	
 }
 
 void CGameEditorView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
@@ -147,10 +144,28 @@ void CGameEditorView::OnInitialUpdate()
 }
 
 
+void CGameEditorView::UpdateFPS()
+{
+	static int frame = 0;
+	static int tick = GetTickCount();
 
+	int dt = GetTickCount() - tick;
+
+	if(dt > 500)
+	{
+		float fps = float(frame * 1000) / float(dt);
+		AppContext::UpdateStatusBar_FPS(fps);
+		tick = GetTickCount();
+		frame = 0;
+	}
+	frame++;
+}
 void CGameEditorView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	UpdateFPS();
+
 	Render();
 
 	CView::OnTimer(nIDEvent);
@@ -173,11 +188,7 @@ void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	if(nFlags& MK_RBUTTON)
-	{
-		m_bRotating = true;
-	}
-	
+
 	RendererPtr pRenderer = AppContext::GetRenderer();
 	
 	if(pRenderer)
@@ -272,7 +283,7 @@ int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	AppContext::ReleaseContext();
+	//AppContext::ReleaseContext();
 	CRect rc;
 	GetClientRect(rc);
 	if(false == AppContext::InitContext(m_hWnd, 2, 2))
@@ -281,7 +292,7 @@ int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	}
 
-	SetTimer(0, 10, NULL);
+	SetTimer(0, (1000/100), NULL);
 	
 	return 0;
 }

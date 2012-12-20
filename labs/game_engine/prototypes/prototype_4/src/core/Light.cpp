@@ -7,6 +7,10 @@ namespace engine
 	Light::Light(LIGHT_TYPE type)
 	{
 		m_type = type;
+
+		m_bCastShadow				= false;
+		m_diffClr					= math::Color4(1, 1, 1, 1);
+		m_ambClr					= math::Color4(0, 0, 0, 1);
 	}
 
 
@@ -41,5 +45,29 @@ namespace engine
 	void Light::SetWorldTM(const math::Matrix44& world)
 	{
 		m_worldTM = world;
+	}
+	const math::Color4& Light::GetDiffuseColor()
+	{
+		return m_diffClr;
+	}
+	void Light::SetDiffuseColor(const math::Color4& clr)
+	{
+		m_diffClr = clr;
+	}
+	const math::Color4& Light::GetAmbientColor()
+	{
+		return m_ambClr;
+	}
+	void Light::SetAmbientColor(const math::Color4& clr)
+	{
+		m_ambClr = clr;
+	}
+	bool Light::GetCastShadow()
+	{
+		return m_bCastShadow;
+	}
+	void Light::SetCastShadow(bool bCast)
+	{
+		m_bCastShadow = bCast;
 	}
 }

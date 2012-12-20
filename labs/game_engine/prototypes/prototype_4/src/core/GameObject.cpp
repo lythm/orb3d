@@ -333,14 +333,6 @@ namespace engine
 		axis_y = Cross(axis_z, axis_x);
 		axis_y.Normalize();
 
-		/*m_LocalTransform.SetCol3(0, axis_x);
-		m_LocalTransform.SetCol3(1, axis_y);
-		m_LocalTransform.SetCol3(2, axis_z);
-
-		m_LocalTransform.SetRow3(3, math::Vector3(Dot(axis_x, -pos), Dot(axis_y, -pos), Dot(axis_z, -pos)));
-		m_LocalTransform.Invert();*/
-
-
 		m_LocalTransform.SetRow3(0, axis_x);
 		m_LocalTransform.SetRow3(1, axis_y);
 		m_LocalTransform.SetRow3(2, axis_z);

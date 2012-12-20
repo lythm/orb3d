@@ -33,9 +33,6 @@
     <ClInclude Include="..\..\include\core\ext\Behavior.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\core\ext\LightData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\core\ext\MeshAnimator.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -55,6 +52,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\core\ext\core_ext_ptr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\ext\Light_Dir.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\ext\Light_Point.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,9 +80,6 @@
     <ClCompile Include="Behavior.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="LightData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="MeshAnimator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -93,6 +93,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="WorldMeshRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Light_Dir.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Light_Point.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,8 +20,5 @@ namespace engine
 		math::Color4						m_diff;
 
 		GPUBufferPtr						m_pVB;
-
 	};
-
-
 }

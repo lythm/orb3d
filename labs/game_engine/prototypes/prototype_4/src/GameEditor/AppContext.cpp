@@ -52,10 +52,17 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 	setting.windowed = true;
 	setting.wnd = hwnd;
 
+#ifdef _DEBUG
+	if(false == s_pCore->Initialize(setting))
+	{
+		return false;
+	}
+#else
 	if(false == s_pCore->Initialize(setting, &s_Allocator))
 	{
 		return false;
 	}
+#endif
 
 
 	s_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
@@ -163,4 +170,9 @@ engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
 
 	return pObj;
 
+}
+void AppContext::UpdateStatusBar_FPS(float fps)
+{
+	CMainFrame* pMain = GetMainFrame();
+	pMain->SetFPS(fps);
 }

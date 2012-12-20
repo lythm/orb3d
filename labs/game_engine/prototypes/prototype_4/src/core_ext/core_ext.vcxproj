@@ -85,7 +85,8 @@
     <ClInclude Include="..\..\include\core\ext\Behavior.h" />
     <ClInclude Include="..\..\include\core\ext\core_ext_all.h" />
     <ClInclude Include="..\..\include\core\ext\core_ext_ptr.h" />
-    <ClInclude Include="..\..\include\core\ext\LightData.h" />
+    <ClInclude Include="..\..\include\core\ext\Light_Dir.h" />
+    <ClInclude Include="..\..\include\core\ext\Light_Point.h" />
     <ClInclude Include="..\..\include\core\ext\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\ext\MeshData.h" />
     <ClInclude Include="..\..\include\core\ext\MeshRenderer.h" />
@@ -102,7 +103,8 @@
     <ClCompile Include="core_ext_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="LightData.cpp" />
+    <ClCompile Include="Light_Dir.cpp" />
+    <ClCompile Include="Light_Point.cpp" />
     <ClCompile Include="MeshAnimator.cpp" />
     <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />

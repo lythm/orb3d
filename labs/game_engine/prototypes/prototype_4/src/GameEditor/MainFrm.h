@@ -29,6 +29,8 @@ public:
 	CObjectView*			GetObjectView();
 	COutputWnd*				GetOutput();
 	CPropertiesWnd*			GetPropGrid();
+
+	void					SetFPS(float fps);
 // й╣ож
 public:
 	virtual ~CMainFrame();

@@ -3,9 +3,9 @@
 #include "core\ext\MeshData.h"
 #include "core\ext\MeshRenderer.h"
 #include "core\ext\PropertyManager.h"
-#include "core\ext\LightData.h"
 #include "core\ext\WorldMeshRenderer.h"
-
+#include "core\ext\Light_Dir.h"
+#include "core\ext\Light_Point.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -53,7 +53,8 @@ namespace engine
 		pManager->RegisterComponent(L"MeshData", MeshData::CreateComponent);
 		pManager->RegisterComponent(L"MeshRenderer", MeshRenderer::CreateComponent);
 		pManager->RegisterComponent(L"WorldMeshRenderer", WorldMeshRenderer::CreateComponent);
-		pManager->RegisterComponent(L"Light", LightData::CreateComponent);
+		pManager->RegisterComponent(L"DirectionalLight", Light_Dir::CreateComponent);
+		pManager->RegisterComponent(L"PointLight", Light_Point::CreateComponent);
 		
 		return true;
 	}
