@@ -496,6 +496,9 @@ void CMainFrame::OnClose()
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	
+	AppContext::UpdatePropGrid(engine::GameObjectPtr());
+	
+
 	ProjectPtr pProject = AppContext::GetProject();
 	if(pProject)
 	{
@@ -503,6 +506,7 @@ void CMainFrame::OnClose()
 		AppContext::SetProject(ProjectPtr());
 		pProject.reset();
 	}
+	AppContext::UpdateObjectView();
 
 	CFrameWndEx::OnClose();
 }

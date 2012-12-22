@@ -227,6 +227,8 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 
 void CObjectPropertyGrid::OnDestroy()
 {
+	m_pObj.reset();
+
 	//UpdateGameObjectProp(engine::GameObjectPtr());
 	CMFCPropertyGridCtrl::OnDestroy();
 

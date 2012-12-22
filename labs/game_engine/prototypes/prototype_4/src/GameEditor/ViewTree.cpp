@@ -105,6 +105,8 @@ void CViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
 
 	delete pObj;
 
+	SetItemData(hRoot, (DWORD_PTR)nullptr);
+
 	HTREEITEM hItem = GetNextItem(hRoot, TVGN_CHILD);
 	while(hItem)
 	{
