@@ -10,9 +10,8 @@ struct GBuffer
 
 float3 dr_light_dir(half3 n, half3 d)
 {
-	float c = saturate(dot(d, n));
-	c = c + 0.2;
-	
+	float c = max(0, dot(d, n));
+
 	return float3(c, c, c);
 
 }

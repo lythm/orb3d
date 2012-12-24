@@ -5,6 +5,7 @@ float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 float3 dir = normalize(float3(0, -1, 1));
 
+float2 vp:VP_SIZE;
 
 Texture2D tex_gbuffer[3]:DR_GBUFFER;
 Texture2D tex_abuffer:DR_ABUFFER;
@@ -12,8 +13,13 @@ Texture2D tex_abuffer:DR_ABUFFER;
 
 SamplerState diff
 {
-    AddressU = clamp;
-    AddressV = clamp;
+	AddressU = clamp;
+	AddressV = clamp;
+
+	filter = MIN_MAG_MIP_POINT ;
+	BorderColor = float4(0,0,0,0);
+	MinLod = 0;
+	MaxLod = 0;
 };
 
 struct vs_in
@@ -80,6 +86,9 @@ ps_out ps_main(vs_out psin)
 
 	float2 uv = psin.uv;
 
+	
+		
+
 	half4 normal = tex_gbuffer[1].Sample(diff, uv);
 	half4 pos = tex_gbuffer[0].Sample(diff, uv);
 	half4 clr = tex_gbuffer[2].Sample(diff, uv);
@@ -98,11 +107,26 @@ ps_out ps_main_1(vs_out psin)
 {
 	ps_out psout;
 
-	float2 uv = psin.uv;
+	//float2 uv = psin.uv;
+	
+	float2 uv = psin.pos.xy;
+	uv = uv / psin.pos.w;
+	
+	uv.x = (uv.x ) / vp.x;
+	
+	uv.y = (uv.y ) / vp.y;
+	
+	//uv = uv * 0.5 + 0.5;
+	
+
 	float4 clr = tex_gbuffer[2].Sample(diff, uv);
 	clr.w = 1;
 	psout.color = tex_abuffer.Sample(diff,uv);
-	psout.color = psout.color * clr;
+	psout.color = psout.color;// * clr;
+
+
+	//psout.color = float4(uv.x , uv.y,0,1);
+
 	return psout;
 }
 RasterizerState rs

@@ -332,15 +332,16 @@ namespace engine
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
 		{
-			pVal->AsScalar()->SetFloatArray(v.v, 0, 3);
+			pVal->AsVector()->SetFloatVector(v.v);
 		}
+
 	}
 	void D3D11EffectMaterial::SetVectorBySemantic(const char* szName, const math::Vector4& v)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
 		{
-			pVal->AsScalar()->SetFloatArray(v.v, 0, 4);
+			pVal->AsVector()->SetFloatVector(v.v);
 		}
 	}
 	void D3D11EffectMaterial::SetVectorBySemantic(const char* szName, const math::Vector2& v)
@@ -348,7 +349,7 @@ namespace engine
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szName);
 		if(pVal)
 		{
-			pVal->AsScalar()->SetFloatArray(v.v, 0, 2);
+			pVal->AsVector()->SetFloatVector(v.v);
 		}
 	}
 	void D3D11EffectMaterial::SetFloatBySemantic(const char* szName, float v)

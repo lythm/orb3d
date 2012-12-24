@@ -7,19 +7,24 @@ float4x4 wv:MATRIX_WV;
 float3 v_dir_light = float3( 0, 0, 0);
 SamplerState diff
 {
-    AddressU = clamp;
-    AddressV = clamp;
+	AddressU = clamp;
+	AddressV = clamp;
+
+	filter = MIN_MAG_MIP_POINT ;
+	BorderColor = float4(0,0,0,0);
+	MinLod = 0;
+	MaxLod = 0;
 };
 
 float4 Light(half3 normal)
 {
-	normal = normalize(normal);
+	float3 n = normalize(normal);
 
 	float3 d = -mul(v_dir_light, (float3x3)wv);
 	
 	d = normalize(d);
 	
-	float3 ret = dr_light_dir(normal, d);
+	float3 ret = dr_light_dir(n, d);
 
 	return float4(ret, 1);
 }
@@ -66,8 +71,14 @@ PS_OUTPUT ps_main(PS_INPUT i)
 
 	float2 uv = i.uv;
 
-	half4 normal = tex_gbuffer[1].Sample(diff, uv);
 	half4 pos = tex_gbuffer[0].Sample(diff, uv);
+
+	pos.xy = (pos.xy ) / pos.w;
+	pos.x = pos.x * 0.5 + 0.5;
+	pos.y = 1 - (pos.y * 0.5 + 0.5);
+
+
+	half4 normal = tex_gbuffer[1].Sample(diff, pos.xy);
 	half4 clr = tex_gbuffer[2].Sample(diff, uv);
 
 	o.clr = Light(normal.xyz);

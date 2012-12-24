@@ -31,7 +31,7 @@ GBuffer dr_ps_main(vs_out psin)
 	half specular = 1;
 
 	GBuffer g;
-	g.pos = half4(psin.pos.xyz, 1);
+	g.pos = psin.pos;
 	g.normal = half4(psin.normal, 1);
 	g.diff = half4(clr.xyz, specular);
 

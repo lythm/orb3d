@@ -168,6 +168,9 @@ namespace engine
 		m_pScreenQuadMaterial->SetViewMatrix(m_viewMatrix);
 		m_pScreenQuadMaterial->SetWorldMatrix(math::MatrixIdentity());
 
+		math::Vector2 vp = math::Vector2(m_pGraphics->GetGraphicsSetting().frameBufferWidth, m_pGraphics->GetGraphicsSetting().frameBufferHeight);
+		m_pScreenQuadMaterial->SetVectorBySemantic("VP_SIZE", vp);
+
 		m_pScreenQuad->Render(m_pGraphics, m_pScreenQuadMaterial);
 	}
 	void RenderSystem::RenderForward()
