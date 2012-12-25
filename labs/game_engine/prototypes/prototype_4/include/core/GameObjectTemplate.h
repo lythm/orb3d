@@ -10,6 +10,8 @@ namespace engine
 
 		const std::wstring&				GetName();
 		void							SetName(const std::wstring& name);
+
+		GameObjectPtr					CreateObject();
 	private:
 		std::wstring					m_name;
 	};

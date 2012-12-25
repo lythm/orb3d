@@ -60,6 +60,9 @@
     <ClInclude Include="..\..\include\core\ext\Light_Point.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\ext\Light_Spot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_ext_pch.cpp">
@@ -99,6 +102,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Light_Point.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Light_Spot.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -109,6 +109,7 @@
     <ClInclude Include="AppContext.h" />
     <ClInclude Include="AppSettingsDlg.h" />
     <ClInclude Include="Assets.h" />
+    <ClInclude Include="DT_BBoxRenderer.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshImporter_3DSMax.h" />
     <ClInclude Include="ObjectPropertyGrid.h" />
@@ -138,6 +139,7 @@
     <ClCompile Include="AppContext.cpp" />
     <ClCompile Include="AppSettingsDlg.cpp" />
     <ClCompile Include="Assets.cpp" />
+    <ClCompile Include="DT_BBoxRenderer.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshImporter_3DSMax.cpp" />
     <ClCompile Include="ObjectPropertyGrid.cpp" />

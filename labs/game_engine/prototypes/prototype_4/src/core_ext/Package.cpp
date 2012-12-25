@@ -6,6 +6,7 @@
 #include "core\ext\WorldMeshRenderer.h"
 #include "core\ext\Light_Dir.h"
 #include "core\ext\Light_Point.h"
+#include "core\ext\Light_Spot.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -55,6 +56,7 @@ namespace engine
 		pManager->RegisterComponent(L"WorldMeshRenderer", WorldMeshRenderer::CreateComponent);
 		pManager->RegisterComponent(L"DirectionalLight", Light_Dir::CreateComponent);
 		pManager->RegisterComponent(L"PointLight", Light_Point::CreateComponent);
+		pManager->RegisterComponent(L"SpotLight", Light_Spot::CreateComponent);
 		
 		return true;
 	}

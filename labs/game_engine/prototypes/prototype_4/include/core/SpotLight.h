@@ -9,6 +9,12 @@ namespace engine
 	public:
 		SpotLight(void);
 		virtual ~SpotLight(void);
+
+		const float&					GetAngle();
+		void							SetAngle(const float& angle);
+
+	private:
+		float							m_angle;
 	};
 
 }

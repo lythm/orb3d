@@ -194,9 +194,14 @@ void Renderer::CreateObject_FromTemplate_PointLight()
 void Renderer::CreateObject_FromTemplate_SpotLight()
 {
 	using namespace engine;
-	using namespace engine;
-
 	
+	GameObjectPtr pObj = AppContext::CreateGameObject(L"Spot Light");
+		
+	Light_SpotPtr pLight = boost::shared_dynamic_cast<Light_Spot>(AppContext::GetCoreApi()->CreateGameObjectComponent(L"SpotLight"));
+	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
+
+	pObj->AddComponent(pLight);
+
 }
 void Renderer::ShowGrid(bool bShow)
 {

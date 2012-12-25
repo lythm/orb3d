@@ -20,5 +20,8 @@ namespace engine
 	{
 		m_name = name;
 	}
-
+	GameObjectPtr GameObjectTemplate::CreateObject()
+	{
+		return GameObjectPtr();
+	}
 }
