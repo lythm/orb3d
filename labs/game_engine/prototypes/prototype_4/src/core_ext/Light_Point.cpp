@@ -59,11 +59,7 @@ namespace engine
 												&PointLight::GetDiffuseColor,
 												&PointLight::SetDiffuseColor);
 
-			pPM->RegisterProperty<math::Color4, PointLight>(m_pLight.get(), 
-												L"Ambient Color", 
-												&PointLight::GetAmbientColor,
-												&PointLight::SetAmbientColor);
-
+			
 			pPM->RegisterProperty<float, PointLight>(m_pLight.get(), 
 												L"Radius", 
 												&PointLight::GetRadius,

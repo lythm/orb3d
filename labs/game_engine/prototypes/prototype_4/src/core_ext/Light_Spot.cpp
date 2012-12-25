@@ -59,10 +59,7 @@ namespace engine
 												&SpotLight::GetDiffuseColor,
 												&SpotLight::SetDiffuseColor);
 
-			pPM->RegisterProperty<math::Color4, SpotLight>(m_pLight.get(), 
-												L"Ambient Color", 
-												&SpotLight::GetAmbientColor,
-												&SpotLight::SetAmbientColor);
+		
 
 			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
 												L"Angle", 

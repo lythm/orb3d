@@ -10,7 +10,6 @@ namespace engine
 
 		m_bCastShadow				= false;
 		m_diffClr					= math::Color4(1, 1, 1, 1);
-		m_ambClr					= math::Color4(0, 0, 0, 1);
 	}
 
 
@@ -54,14 +53,7 @@ namespace engine
 	{
 		m_diffClr = clr;
 	}
-	const math::Color4& Light::GetAmbientColor()
-	{
-		return m_ambClr;
-	}
-	void Light::SetAmbientColor(const math::Color4& clr)
-	{
-		m_ambClr = clr;
-	}
+	
 	bool Light::GetCastShadow()
 	{
 		return m_bCastShadow;

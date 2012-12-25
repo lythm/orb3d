@@ -102,6 +102,9 @@
     <ClInclude Include="DT_BBoxRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DT_PointLightGizmo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -180,6 +183,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DT_BBoxRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DT_PointLightGizmo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

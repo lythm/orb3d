@@ -29,9 +29,6 @@ namespace engine
 		const math::Color4&						GetDiffuseColor();
 		void									SetDiffuseColor(const math::Color4& clr);
 
-		const math::Color4&						GetAmbientColor();
-		void									SetAmbientColor(const math::Color4& clr);
-
 		bool									GetCastShadow();
 		void									SetCastShadow(bool bCast);
 
@@ -45,6 +42,5 @@ namespace engine
 
 		bool									m_bCastShadow;
 		math::Color4							m_diffClr;
-		math::Color4							m_ambClr;
 	};
 }

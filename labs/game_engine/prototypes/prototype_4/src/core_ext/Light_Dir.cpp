@@ -59,11 +59,7 @@ namespace engine
 												&DirectionalLight::GetDiffuseColor,
 												&DirectionalLight::SetDiffuseColor);
 
-			pPM->RegisterProperty<math::Color4, DirectionalLight>(m_pLight.get(), 
-												L"Ambient Color", 
-												&DirectionalLight::GetAmbientColor,
-												&DirectionalLight::SetAmbientColor);
-
+			
 		}
 		pPM->End();
 
