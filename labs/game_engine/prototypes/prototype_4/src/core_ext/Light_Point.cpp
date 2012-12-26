@@ -15,11 +15,6 @@ namespace engine
 	Light_Point::~Light_Point(void)
 	{
 	}
-	Light_PointPtr Light_Point::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<Light_Point>();
-	}
-
 	
 	void Light_Point::Update()
 	{

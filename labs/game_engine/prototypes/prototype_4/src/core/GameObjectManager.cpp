@@ -20,6 +20,9 @@ namespace engine
 	bool GameObjectManager::Initialize(CoreApiPtr pCore)
 	{
 		m_pCore = pCore;
+
+		m_componentClasses.clear();
+
 		if(false == LoadPackage(L"./core_ext.dll"))
 		{
 			return false;
@@ -31,7 +34,7 @@ namespace engine
 	void GameObjectManager::Release()
 	{
 		ReleaseAllObject();
-		m_componentCreator.clear();
+		m_componentClasses.clear();
 		for(size_t i = 0; i < m_packages.size(); ++i)
 		{
 			m_packages[i].delete_package();
@@ -64,12 +67,12 @@ namespace engine
 	}
 	GameObjectComponentPtr GameObjectManager::CreateComponent(const std::wstring& name)
 	{
-		if(m_componentCreator.find(name) == m_componentCreator.end())
+		if(m_componentClasses.find(name) == m_componentClasses.end())
 		{
 			return GameObjectComponentPtr();
 		}
 
-		return m_componentCreator[name]();
+		return m_componentClasses[name]->m_creator();
 	}
 	
 	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
@@ -91,10 +94,7 @@ namespace engine
 	{
 
 	}
-	void GameObjectManager::RegisterComponent(const std::wstring& name, const ComponentCreator& creator )
-	{
-		m_componentCreator[name] = creator;
-	}
+	
 	bool GameObjectManager::LoadPackage(const std::wstring& name)
 	{
 		PackageMod mod;
@@ -102,7 +102,8 @@ namespace engine
 		{
 			return false;
 		}
-		mod.GetPackage()->RegisterPacket(this);
+		
+		RegisterPackage(mod.GetPackage());
 		m_packages.push_back(mod);
 		return true;
 	}
@@ -113,6 +114,24 @@ namespace engine
 	ExtPackage* GameObjectManager::GetPackageByIndex(int index)
 	{
 		return m_packages[index].GetPackage();
+	}
+	bool GameObjectManager::RegisterComponentClass(ExtPackage::ComponentClass* c)
+	{
+		if(m_componentClasses.find(c->m_name) != m_componentClasses.end())
+		{
+			return false;
+		}
+		m_componentClasses[c->m_name] = c;
+		return true;
+	}
+	bool GameObjectManager::RegisterPackage(ExtPackage* pPack)
+	{
+		for(int i = 0; i < pPack->GetClassCount(); ++i)
+		{
+			ExtPackage::ComponentClass* c = pPack->GetClassByIndex(i);
+			RegisterComponentClass(c);
+		}
+		return true;
 	}
 }
 
@@ -169,5 +188,6 @@ namespace engine
 		FreeLibrary(m_hLib);
 		m_hLib = NULL;
 	}
+	
 
 }

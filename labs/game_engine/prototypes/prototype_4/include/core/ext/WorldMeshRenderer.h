@@ -12,9 +12,6 @@ namespace engine
 		virtual ~WorldMeshRenderer(void);
 
 
-		static WorldMeshRendererPtr					CreateComponent();
 	};
-
-
 
 }

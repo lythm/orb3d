@@ -15,8 +15,5 @@ namespace engine
 		bool						OnAttach();
 		void						OnDetach();
 
-		static BehaviorPtr			CreateComponent();
-
-
 	};
 }

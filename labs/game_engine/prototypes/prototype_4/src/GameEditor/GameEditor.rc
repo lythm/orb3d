@@ -253,20 +253,7 @@ BEGIN
     END
     POPUP "Component"
     BEGIN
-        POPUP "Mesh"
-        BEGIN
-            MENUITEM "MeshData",                    ID_MESH_MESHDATA
-            MENUITEM "MeshRenderer",                ID_MESH_MESHRENDERER
-        END
-        POPUP "Sound"
-        BEGIN
-            MENUITEM "SoundEmitter",                ID_SOUND_SOUNDEMITTER
-            MENUITEM "SoundListener",               ID_SOUND_SOUNDLISTENER
-        END
-        POPUP "Rendering"
-        BEGIN
-            MENUITEM "Light",                       ID_RENDERING_LIGHT
-        END
+        MENUITEM "Ë¢ÐÂ",                          ID_COMPONENT_REFRESH
     END
     POPUP "Project"
     BEGIN

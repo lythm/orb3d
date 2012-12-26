@@ -132,13 +132,16 @@
 #define ID_EDIT_APPSETTINGS             32804
 #define ID_CREATEFROMTEMPLATE_CONE      32805
 #define ID_CREATEFROMTEMPLATE_SKYLIGHT  32806
+#define ID_COMPONENT                    32807
+#define ID_COMPONENT_32808              32808
+#define ID_COMPONENT_REFRESH            32809
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        316
-#define _APS_NEXT_COMMAND_VALUE         32807
+#define _APS_NEXT_COMMAND_VALUE         32810
 #define _APS_NEXT_CONTROL_VALUE         1009
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

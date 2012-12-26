@@ -14,9 +14,6 @@ namespace engine
 		PropertyManager(void);
 		virtual ~PropertyManager(void);
 
-		static PropertyManagerPtr			CreateComponent();
-
-
 		PropertySetPtr						Begin(const std::wstring& name);
 		PropertySetPtr						FindProperty(const std::wstring& name);
 		void								AddProperty(boost::shared_ptr<Property> pProp);

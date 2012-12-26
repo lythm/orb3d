@@ -14,9 +14,6 @@ namespace engine
 		void										SetRenderSystem(RenderSystemPtr pRS);
 		PointLightPtr								GetLight();
 
-		static Light_PointPtr						CreateComponent();
-
-
 	private:
 		bool										OnAttach();
 		void										OnDetach();

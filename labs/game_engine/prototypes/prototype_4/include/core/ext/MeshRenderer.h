@@ -51,9 +51,6 @@ namespace engine
 		void							Reset(MeshDataPtr pMD);
 		void							SetRenderSystem(RenderSystemPtr pRS);
 
-		static MeshRendererPtr			CreateComponent();
-
-
 		const bool&						IsDeferred();
 		void							SetDeferred(const bool& b);
 

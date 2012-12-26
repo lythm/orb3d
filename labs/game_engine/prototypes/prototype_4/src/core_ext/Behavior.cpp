@@ -22,8 +22,4 @@ namespace engine
 	void Behavior::OnDetach()
 	{
 	}
-	BehaviorPtr	Behavior::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<Behavior>();
-	}
 }

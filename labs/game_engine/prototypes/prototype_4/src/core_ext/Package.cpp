@@ -29,8 +29,53 @@ namespace engine
 	Package::Package(CoreApiPtr pCore)
 	{
 		s_pCore = pCore;
-	}
 
+		RegisterClasses();
+	}
+	void Package::RegisterClasses()
+	{
+		m_classes.push_back(ComponentClass(L"MeshData",
+					L"Mesh",
+					L"Mesh Data",
+					&Package::Create_MeshData));
+
+		m_classes.push_back(ComponentClass(L"MeshRenderer",
+					L"Mesh",
+					L"Mesh Renderer",
+					&Package::Create_MeshRenderer));
+
+		m_classes.push_back(ComponentClass(L"PropertyManager",
+					L"Misc",
+					L"Property Manager",
+					&Package::Create_PropertyManager));
+
+		m_classes.push_back(ComponentClass(L"WorldMeshRenderer",
+					L"Mesh",
+					L"World Mesh Renderer",
+					&Package::Create_WorldMeshRenderer));
+
+		m_classes.push_back(ComponentClass(L"DirectionalLight",
+					L"Rendering",
+					L"Directional Light",
+					&Package::Create_DirectionalLight));
+
+		m_classes.push_back(ComponentClass(L"PointLight",
+					L"Rendering",
+					L"Point Light",
+					&Package::Create_PointLight));
+
+		m_classes.push_back(ComponentClass(L"SpotLight",
+					L"Rendering",
+					L"Spot Light",
+					&Package::Create_SpotLight));
+
+		m_classes.push_back(ComponentClass(L"SkyLight",
+					L"Rendering",
+					L"Sky Light",
+					&Package::Create_SkyLight));
+
+
+	}
 
 	Package::~Package(void)
 	{
@@ -49,18 +94,47 @@ namespace engine
 	{
 		return L"core_ext_package";
 	}
-	bool Package::RegisterPacket(GameObjectManager* pManager)
+	
+	int Package::GetClassCount()
 	{
-		pManager->RegisterComponent(L"PropertyManager", PropertyManager::CreateComponent);
-		pManager->RegisterComponent(L"MeshData", MeshData::CreateComponent);
-		pManager->RegisterComponent(L"MeshRenderer", MeshRenderer::CreateComponent);
-		pManager->RegisterComponent(L"WorldMeshRenderer", WorldMeshRenderer::CreateComponent);
-		pManager->RegisterComponent(L"DirectionalLight", Light_Dir::CreateComponent);
-		pManager->RegisterComponent(L"PointLight", Light_Point::CreateComponent);
-		pManager->RegisterComponent(L"SpotLight", Light_Spot::CreateComponent);
-		pManager->RegisterComponent(L"SkyLight", Light_Sky::CreateComponent);
-		
-		return true;
+		return (int)m_classes.size();
+	}
+	Package::ComponentClass* Package::GetClassByIndex(int index)
+	{
+		return &m_classes[index];
+	}
+
+	GameObjectComponentPtr Package::Create_MeshData()
+	{
+		return GetAllocator()->AllocObject<MeshData>();
+	}
+	GameObjectComponentPtr Package::Create_MeshRenderer()
+	{
+		return GetAllocator()->AllocObject<MeshRenderer>();
+	}
+	GameObjectComponentPtr Package::Create_PropertyManager()
+	{
+		return GetAllocator()->AllocObject<PropertyManager>();
+	}
+	GameObjectComponentPtr Package::Create_WorldMeshRenderer()
+	{
+		return GetAllocator()->AllocObject<WorldMeshRenderer>();
+	}
+	GameObjectComponentPtr Package::Create_DirectionalLight()
+	{
+		return GetAllocator()->AllocObject<Light_Dir>();
+	}
+	GameObjectComponentPtr Package::Create_PointLight()
+	{
+		return GetAllocator()->AllocObject<Light_Point>();
+	}
+	GameObjectComponentPtr Package::Create_SpotLight()
+	{
+		return GetAllocator()->AllocObject<Light_Spot>();
+	}
+	GameObjectComponentPtr Package::Create_SkyLight()
+	{
+		return GetAllocator()->AllocObject<Light_Sky>();
 	}
 }
 

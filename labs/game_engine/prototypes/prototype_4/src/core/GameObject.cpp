@@ -343,6 +343,21 @@ namespace engine
 	{
 		return m_pParent == nullptr;
 	}
+	GameObjectPtr GameObject::Root()
+	{
+		GameObjectPtr pNode = shared_from_this();
+		while(pNode)
+		{
+			if(pNode->GetParent() == GameObjectPtr())
+			{
+				return pNode;
+			}
+
+			pNode = pNode->GetParent();
+		}
+
+		return shared_from_this();
+	}
 	GameObjectPtr GameObject::GetParent()
 	{
 		return m_pParent;

@@ -31,6 +31,8 @@ public:
 	CPropertiesWnd*			GetPropGrid();
 
 	void					SetFPS(float fps);
+
+	bool					UpdateComponentMenu();
 // й╣ож
 public:
 	virtual ~CMainFrame();
@@ -83,6 +85,8 @@ public:
 	afx_msg void OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI);
 	afx_msg void OnCreatefromtemplateCone();
 	afx_msg void OnCreatefromtemplateSkylight();
+	virtual BOOL OnShowPopupMenu(CMFCPopupMenu* pMenuPopup);
+	virtual void OnUpdateFrameMenu(HMENU hMenuAlt);
 };
 
 

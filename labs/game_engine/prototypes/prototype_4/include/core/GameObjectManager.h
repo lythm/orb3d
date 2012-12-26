@@ -29,8 +29,6 @@ namespace engine
 		GameObjectManager(void);
 		virtual ~GameObjectManager(void);
 
-		typedef boost::function<GameObjectComponentPtr () >			ComponentCreator;
-
 		bool							Initialize(CoreApiPtr pCore);
 		void							Release();
 
@@ -47,12 +45,13 @@ namespace engine
 		
 		GameObjectComponentPtr			CreateComponent(const std::wstring& name);
 
-		void							RegisterComponent(const std::wstring& name, const ComponentCreator& creator);
 		void							WalkObjectTree();
-
 
 		int								GetPackageCount();
 		ExtPackage*						GetPackageByIndex(int index);
+
+		bool							RegisterPackage(ExtPackage* pPack);
+		bool							RegisterComponentClass(ExtPackage::ComponentClass* c);
 	private:
 
 		void							ReleaseAllObject();
@@ -62,9 +61,8 @@ namespace engine
 	private:
 		GameObjectPtr					m_pRoot;
 
-		boost::unordered_map<std::wstring, ComponentCreator>				m_componentCreator;
 		boost::unordered_map<std::string, GameObjectTemplatePtr>			m_templates;
-
+		boost::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
 
 		std::vector<PackageMod>			m_packages;
 		CoreApiPtr						m_pCore;

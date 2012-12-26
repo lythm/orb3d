@@ -5,11 +5,6 @@
 namespace engine
 {
 
-	WorldMeshRendererPtr WorldMeshRenderer::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<WorldMeshRenderer>();
-	}
-
 	WorldMeshRenderer::WorldMeshRenderer(void) : GameObjectComponent(L"WorldMeshRenderer")
 	{
 	}

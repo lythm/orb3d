@@ -15,12 +15,6 @@
 namespace engine
 {
 
-
-	MeshRendererPtr MeshRenderer::CreateComponent()
-	{
-		return Package::GetCoreApi()->GetAllocator()->AllocObject<MeshRenderer>();
-	}
-
 	MeshRenderer::MeshRenderer() : GameObjectComponent(L"MeshRenderer")
 	{
 		m_deferred = true;

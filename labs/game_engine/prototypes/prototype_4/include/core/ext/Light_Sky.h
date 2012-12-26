@@ -12,9 +12,6 @@ namespace engine
 		void										SetRenderSystem(RenderSystemPtr pRS);
 		SkyLightPtr									GetLight();
 
-		static Light_SkyPtr							CreateComponent();
-
-
 	private:
 		bool										OnAttach();
 		void										OnDetach();

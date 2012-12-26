@@ -212,6 +212,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
+	UpdateComponentMenu();
 
 	return 0;
 }
@@ -645,4 +646,26 @@ void CMainFrame::OnCreatefromtemplateSkylight()
 	AppContext::GetRenderer()->CreateObject_FromTemplate_SkyLight();
 
 	AppContext::UpdateObjectView();
+}
+bool CMainFrame::UpdateComponentMenu()
+{
+	
+	
+	return true;
+}
+
+
+BOOL CMainFrame::OnShowPopupMenu(CMFCPopupMenu* pMenuPopup)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	
+	return CFrameWndEx::OnShowPopupMenu(pMenuPopup);
+}
+
+
+void CMainFrame::OnUpdateFrameMenu(HMENU hMenuAlt)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	CFrameWndEx::OnUpdateFrameMenu(hMenuAlt);
 }

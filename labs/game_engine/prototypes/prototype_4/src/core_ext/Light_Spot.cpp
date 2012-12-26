@@ -13,11 +13,6 @@ namespace engine
 	Light_Spot::~Light_Spot(void)
 	{
 	}
-	Light_SpotPtr Light_Spot::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<Light_Spot>();
-	}
-
 	
 	void Light_Spot::Update()
 	{

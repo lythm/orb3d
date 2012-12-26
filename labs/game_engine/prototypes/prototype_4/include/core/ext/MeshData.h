@@ -22,7 +22,6 @@ namespace engine
 		void						SetMeshAsset(const std::wstring& asset);
 		const std::wstring&			GetMeshAsset();
 
-		static MeshDataPtr			CreateComponent();
 	private:
 		void						ResetMeshRenderer();
 	private:

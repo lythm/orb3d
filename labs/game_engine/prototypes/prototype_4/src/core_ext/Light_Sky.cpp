@@ -15,12 +15,6 @@ namespace engine
 	Light_Sky::~Light_Sky(void)
 	{
 	}
-	Light_SkyPtr Light_Sky::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<Light_Sky>();
-	}
-
-
 	void Light_Sky::Update()
 	{
 		if(m_pLight)

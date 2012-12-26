@@ -15,11 +15,6 @@ namespace engine
 	Light_Dir::~Light_Dir(void)
 	{
 	}
-	Light_DirPtr Light_Dir::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<Light_Dir>();
-	}
-
 	
 	void Light_Dir::Update()
 	{

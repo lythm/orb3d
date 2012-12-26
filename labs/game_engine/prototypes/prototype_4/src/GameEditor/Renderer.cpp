@@ -127,7 +127,7 @@ void Renderer::CreateObject_FromTemplate_Cone()
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
 
-	MeshPtr pMesh = MeshUtil::CreateCone(10, 30, 99, pMaterial);
+	MeshPtr pMesh = MeshUtil::CreateCone(50, 30, 99, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 

@@ -12,9 +12,6 @@ namespace engine
 		void										SetRenderSystem(RenderSystemPtr pRS);
 		DirectionalLightPtr							GetLight();
 
-		static Light_DirPtr							CreateComponent();
-
-
 	private:
 		bool										OnAttach();
 		void										OnDetach();

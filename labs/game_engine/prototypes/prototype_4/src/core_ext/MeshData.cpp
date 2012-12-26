@@ -13,12 +13,6 @@
 namespace engine
 {
 
-	MeshDataPtr MeshData::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<MeshData>();
-	}
-
-
 	MeshData::MeshData() : GameObjectComponent(L"MeshData")
 	{
 		m_pMesh = MeshPtr();

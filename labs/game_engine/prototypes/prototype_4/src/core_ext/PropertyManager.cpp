@@ -5,11 +5,6 @@
 
 namespace engine
 {
-
-	PropertyManagerPtr PropertyManager::CreateComponent()
-	{
-		return Package::GetAllocator()->AllocObject<PropertyManager>();
-	}
 	PropertyManager::PropertyManager(void) : GameObjectComponent(L"PropertyManager")
 	{
 		m_pCurrentOwner = PropertySetPtr();
