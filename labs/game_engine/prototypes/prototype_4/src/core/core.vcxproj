@@ -125,6 +125,7 @@
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
+    <ClInclude Include="..\..\include\core\SkyLight.h" />
     <ClInclude Include="..\..\include\core\SpotLight.h" />
     <ClInclude Include="..\..\include\core\StdAllocator.h" />
     <ClInclude Include="..\..\include\core\SubMesh.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="StdAllocator.cpp" />
     <ClCompile Include="SubMesh.cpp" />

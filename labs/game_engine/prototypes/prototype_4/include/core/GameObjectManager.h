@@ -49,6 +49,10 @@ namespace engine
 
 		void							RegisterComponent(const std::wstring& name, const ComponentCreator& creator);
 		void							WalkObjectTree();
+
+
+		int								GetPackageCount();
+		ExtPackage*						GetPackageByIndex(int index);
 	private:
 
 		void							ReleaseAllObject();

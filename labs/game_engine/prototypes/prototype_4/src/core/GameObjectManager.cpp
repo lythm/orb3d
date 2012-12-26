@@ -106,6 +106,14 @@ namespace engine
 		m_packages.push_back(mod);
 		return true;
 	}
+	int GameObjectManager::GetPackageCount()
+	{
+		return m_packages.size();
+	}
+	ExtPackage* GameObjectManager::GetPackageByIndex(int index)
+	{
+		return m_packages[index].GetPackage();
+	}
 }
 
 
@@ -161,4 +169,5 @@ namespace engine
 		FreeLibrary(m_hLib);
 		m_hLib = NULL;
 	}
+
 }

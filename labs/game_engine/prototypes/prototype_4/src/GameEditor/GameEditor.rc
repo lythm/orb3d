@@ -237,11 +237,13 @@ BEGIN
         BEGIN
             MENUITEM "Cube",                        ID_CREATEFROMTEMPLATE_CUBE
             MENUITEM "Sphere",                      ID_CREATEFROMTEMPLATE_SPHERE
+            MENUITEM "Cone",                        ID_CREATEFROMTEMPLATE_CONE
             MENUITEM "Plane",                       ID_CREATEFROMTEMPLATE_PLANE
             MENUITEM SEPARATOR
             MENUITEM "PointLight",                  ID_CREATEFROMTEMPLATE_POINTLIGHT
             MENUITEM "DirectionalLight",            ID_CREATEFROMTEMPLATE_DIRLIGHT
             MENUITEM "SpotLight",                   ID_CREATEFROMTEMPLATE_SPOTLIGHT
+            MENUITEM "SkyLight",                    ID_CREATEFROMTEMPLATE_SKYLIGHT
             MENUITEM SEPARATOR
             MENUITEM "Camera",                      ID_CREATEFROMTEMPLATE_CAMERA
             MENUITEM SEPARATOR

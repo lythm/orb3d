@@ -41,7 +41,7 @@ namespace engine
 	bool Light_Dir::OnAttach()
 	{
 		m_pLight = Package::GetAllocator()->AllocObject<DirectionalLight>();
-		m_pLight->Init(m_pRS->GetSysGraphics());
+		m_pLight->Create(m_pRS->GetSysGraphics());
 
 		m_pRS->AddLight(m_pLight);
 

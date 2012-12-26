@@ -52,6 +52,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 //	ON_COMMAND(ID_PROJECT_IMPORT, &CMainFrame::OnProjectImport)
 ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
 ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
+ON_COMMAND(ID_CREATEFROMTEMPLATE_CONE, &CMainFrame::OnCreatefromtemplateCone)
+ON_COMMAND(ID_CREATEFROMTEMPLATE_SKYLIGHT, &CMainFrame::OnCreatefromtemplateSkylight)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -627,4 +629,20 @@ void CMainFrame::SetFPS(float fps)
 	str.Format(L"FPS: %.1f", fps);
 	m_wndStatusBar.SetPaneText(1, str);
 
+}
+
+
+void CMainFrame::OnCreatefromtemplateCone()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_Cone();
+
+	AppContext::UpdateObjectView();
+}
+
+
+void CMainFrame::OnCreatefromtemplateSkylight()
+{
+	AppContext::GetRenderer()->CreateObject_FromTemplate_SkyLight();
+
+	AppContext::UpdateObjectView();
 }

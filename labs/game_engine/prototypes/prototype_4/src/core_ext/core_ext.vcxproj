@@ -87,6 +87,7 @@
     <ClInclude Include="..\..\include\core\ext\core_ext_ptr.h" />
     <ClInclude Include="..\..\include\core\ext\Light_Dir.h" />
     <ClInclude Include="..\..\include\core\ext\Light_Point.h" />
+    <ClInclude Include="..\..\include\core\ext\Light_Sky.h" />
     <ClInclude Include="..\..\include\core\ext\Light_Spot.h" />
     <ClInclude Include="..\..\include\core\ext\MeshAnimator.h" />
     <ClInclude Include="..\..\include\core\ext\MeshData.h" />
@@ -106,6 +107,7 @@
     </ClCompile>
     <ClCompile Include="Light_Dir.cpp" />
     <ClCompile Include="Light_Point.cpp" />
+    <ClCompile Include="Light_Sky.cpp" />
     <ClCompile Include="Light_Spot.cpp" />
     <ClCompile Include="MeshAnimator.cpp" />
     <ClCompile Include="MeshData.cpp" />

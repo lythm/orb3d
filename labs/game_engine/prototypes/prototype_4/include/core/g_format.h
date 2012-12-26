@@ -167,6 +167,7 @@ namespace engine
 		LT_POINTLIGHT,
 		LT_DIRLIGHT,
 		LT_SPOTLIGHT,
+		LT_SKYLIGHT,
 	};
 	struct GraphicsSetting
 	{

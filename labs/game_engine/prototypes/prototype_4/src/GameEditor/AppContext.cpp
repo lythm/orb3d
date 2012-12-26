@@ -167,12 +167,18 @@ engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
 
 	GameObjectPtr pObj = GetCoreApi()->CreateGameObject(name);
 
-	GameObjectComponentPtr pPM = GetCoreApi()->CreateGameObjectComponent(L"PropertyManager");
+	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"PropertyManager");
 
 	pObj->AddComponent(pPM);
 
 	return pObj;
 
+}
+engine::GameObjectComponentPtr AppContext::CreateGameObjectComponent(const std::wstring& name)
+{
+	using namespace engine;
+
+	return GetCoreApi()->CreateGameObjectComponent(name);
 }
 void AppContext::UpdateStatusBar_FPS(float fps)
 {

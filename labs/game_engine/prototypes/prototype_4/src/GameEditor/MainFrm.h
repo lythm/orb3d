@@ -81,6 +81,8 @@ public:
 //	afx_msg void OnProjectImport();
 	afx_msg void OnImportImportmaxmesh();
 	afx_msg void OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI);
+	afx_msg void OnCreatefromtemplateCone();
+	afx_msg void OnCreatefromtemplateSkylight();
 };
 
 

@@ -41,7 +41,7 @@ namespace engine
 	bool Light_Point::OnAttach()
 	{
 		m_pLight = Package::GetAllocator()->AllocObject<PointLight>();
-		//m_pLight->Init(m_pRS->GetSysGraphics());
+		m_pLight->Create(m_pRS->GetSysGraphics());
 
 		m_pRS->AddLight(m_pLight);
 
@@ -81,6 +81,4 @@ namespace engine
 		m_pLight->Release();
 		m_pLight.reset();
 	}
-
-	
 }

@@ -7,6 +7,7 @@
 #include "core\ext\Light_Dir.h"
 #include "core\ext\Light_Point.h"
 #include "core\ext\Light_Spot.h"
+#include "core\ext\Light_Sky.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -57,6 +58,7 @@ namespace engine
 		pManager->RegisterComponent(L"DirectionalLight", Light_Dir::CreateComponent);
 		pManager->RegisterComponent(L"PointLight", Light_Point::CreateComponent);
 		pManager->RegisterComponent(L"SpotLight", Light_Spot::CreateComponent);
+		pManager->RegisterComponent(L"SkyLight", Light_Sky::CreateComponent);
 		
 		return true;
 	}

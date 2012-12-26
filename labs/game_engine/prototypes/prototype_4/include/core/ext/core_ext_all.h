@@ -10,3 +10,4 @@
 #include "core\ext\Light_Dir.h"
 #include "core\ext\Light_Point.h"
 #include "core\ext\Light_Spot.h"
+#include "core\ext\Light_Sky.h"

@@ -32,24 +32,26 @@ namespace engine
 	typedef boost::shared_ptr<Sys_Graphics>					Sys_GraphicsPtr;
 	typedef boost::shared_ptr<Sys_Sound>					Sys_SoundPtr;
 
-
-	class DataStream;
 	class LightManager;
 	class Light;
 	class PointLight;
 	class DirectionalLight;
 	class SpotLight;
-	class Mesh;
-	class SubMesh;
-	class PostProcess;
+	class SkyLight;
 
-	typedef boost::shared_ptr<PostProcess>					PostProcessPtr;
 	typedef boost::shared_ptr<LightManager>					LightManagerPtr;
 	typedef boost::shared_ptr<Light>						LightPtr;
 	typedef boost::shared_ptr<PointLight>					PointLightPtr;
 	typedef boost::shared_ptr<DirectionalLight>				DirectionalLightPtr;
 	typedef boost::shared_ptr<SpotLight>					SpotLightPtr;
+	typedef boost::shared_ptr<SkyLight>						SkyLightPtr;
+	
+	class DataStream;
+	class Mesh;
+	class SubMesh;
+	class PostProcess;
 
+	typedef boost::shared_ptr<PostProcess>					PostProcessPtr;
 	typedef boost::shared_ptr<SubMesh>						SubMeshPtr;
 	typedef boost::shared_ptr<DataStream>					DataStreamPtr;
 	typedef boost::shared_ptr<Mesh>							MeshPtr;

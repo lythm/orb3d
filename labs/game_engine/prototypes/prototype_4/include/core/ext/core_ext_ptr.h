@@ -10,7 +10,9 @@ namespace engine
 	class Light_Dir;
 	class Light_Point;
 	class Light_Spot;
+	class Light_Sky;
 
+	typedef boost::shared_ptr<Light_Sky>										Light_SkyPtr;
 	typedef boost::shared_ptr<Light_Spot>										Light_SpotPtr;
 	typedef boost::shared_ptr<Light_Point>										Light_PointPtr;
 	typedef boost::shared_ptr<Light_Dir>										Light_DirPtr;

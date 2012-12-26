@@ -53,10 +53,10 @@ DepthStencilState dr_ds
 	FrontFaceStencilPass			= Replace;
 	FrontFaceStencilFunc			= ALWAYS;
 
-	BackFaceStencilFail				= KEEP;
+	BackFaceStencilFail			= KEEP;
 	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass				= KEEP;
-	BackFaceStencilFunc				= NEVER;
+	BackFaceStencilPass			= KEEP;
+	BackFaceStencilFunc			= NEVER;
 
 };
 

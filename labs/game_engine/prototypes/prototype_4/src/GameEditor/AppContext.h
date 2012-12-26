@@ -27,7 +27,7 @@ public:
 	static void									UpdatePropGrid(engine::GameObjectPtr pObj);
 
 	static engine::GameObjectPtr				CreateGameObject(const std::wstring& name);
-
+	static engine::GameObjectComponentPtr		CreateGameObjectComponent(const std::wstring& name);
 	static void									OutputInfo(const CString& info);
 	static void									OutputBuild(const CString& info);
 

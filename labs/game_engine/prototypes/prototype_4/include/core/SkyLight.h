@@ -4,11 +4,11 @@
 
 namespace engine
 {
-	class EXPORT_CLASS DirectionalLight : public Light
+	class EXPORT_CLASS SkyLight : public Light
 	{
 	public:
-		DirectionalLight(void);
-		virtual ~DirectionalLight(void);
+		SkyLight(void);
+		virtual ~SkyLight(void);
 
 		bool								Create(Sys_GraphicsPtr pGraphics);
 		void								Release();
@@ -21,4 +21,6 @@ namespace engine
 
 		GPUBufferPtr						m_pVB;
 	};
+
+
 }

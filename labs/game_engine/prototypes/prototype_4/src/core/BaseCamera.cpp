@@ -8,7 +8,6 @@ namespace engine
 		m_viewMatrix.MakeIdentity();
 	}
 
-
 	BaseCamera::~BaseCamera(void)
 	{
 	}

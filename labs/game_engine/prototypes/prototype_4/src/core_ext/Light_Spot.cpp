@@ -1,8 +1,6 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\Light_Spot.h"
-
 #include "core\SpotLight.h"
-
 #include "Package.h"
 
 namespace engine
@@ -41,12 +39,10 @@ namespace engine
 	bool Light_Spot::OnAttach()
 	{
 		m_pLight = Package::GetAllocator()->AllocObject<SpotLight>();
-		//m_pLight->Init(m_pRS->GetSysGraphics());
-
+		m_pLight->Create(m_pRS->GetSysGraphics());
 		m_pRS->AddLight(m_pLight);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
-		
 		pPM->Begin(L"SpotLight");
 		{
 			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
@@ -59,15 +55,17 @@ namespace engine
 												&SpotLight::GetDiffuseColor,
 												&SpotLight::SetDiffuseColor);
 
-		
-
 			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
 												L"Angle", 
 												&SpotLight::GetAngle,
 												&SpotLight::SetAngle);
+
+			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
+												L"Range", 
+												&SpotLight::GetRange,
+												&SpotLight::SetRange);
 		}
 		pPM->End();
-
 		return true;
 	}
 	void Light_Spot::OnDetach()

@@ -19,12 +19,12 @@ namespace engine
 		virtual void							RenderShadowMap();
 		virtual bool							IsAffecting(const ViewFrustum& frustum);
 		virtual void							Release();
-
+		virtual const math::Matrix44&			GetWorldTM();
+		virtual void							SetWorldTM(const math::Matrix44& world);
 
 		LIGHT_TYPE								GetType() const;
 
-		const math::Matrix44&					GetWorldTM();
-		void									SetWorldTM(const math::Matrix44& world);
+		
 
 		const math::Color4&						GetDiffuseColor();
 		void									SetDiffuseColor(const math::Color4& clr);

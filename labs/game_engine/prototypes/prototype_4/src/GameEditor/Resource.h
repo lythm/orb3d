@@ -130,13 +130,15 @@
 #define ID_32802                        32802
 #define ID_APPSETTINGS                  32803
 #define ID_EDIT_APPSETTINGS             32804
+#define ID_CREATEFROMTEMPLATE_CONE      32805
+#define ID_CREATEFROMTEMPLATE_SKYLIGHT  32806
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        316
-#define _APS_NEXT_COMMAND_VALUE         32805
+#define _APS_NEXT_COMMAND_VALUE         32807
 #define _APS_NEXT_CONTROL_VALUE         1009
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

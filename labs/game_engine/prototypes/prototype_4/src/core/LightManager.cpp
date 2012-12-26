@@ -68,6 +68,7 @@ namespace engine
 		{
 			pLight->m_pPrev = LightPtr();
 			pLight->m_pNext = m_pList;
+			m_pList->m_pPrev = pLight;
 			m_pList = pLight;
 		}
 
@@ -84,8 +85,7 @@ namespace engine
 		{
 			m_pList = pLight->m_pNext;
 		}
-
-
+		
 		if(pLight->m_pNext)
 		{
 			pLight->m_pNext->m_pPrev = pLight->m_pPrev;
@@ -97,7 +97,6 @@ namespace engine
 
 		pLight->m_pNext = LightPtr();
 		pLight->m_pPrev = LightPtr();
-
 		
 		m_lightCount--;
 	}
@@ -158,11 +157,8 @@ namespace engine
 		m_pLightMaterial->SetGBuffer(pGBuffer);
 		m_pLightMaterial->ApplyVertexFormat();
 		
-		
 		int nPass = 0;
-
 		m_pLightMaterial->Begin(nPass);
-		
 		for(int i = 0; i < nPass; ++i)
 		{
 			m_pLightMaterial->ApplyPass(i);

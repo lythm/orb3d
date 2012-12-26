@@ -1,26 +1,26 @@
 #include "core_pch.h"
-#include "..\..\include\core\DirectionalLight.h"
+#include "..\..\include\core\SkyLight.h"
 #include "core\Sys_Graphics.h"
 #include "core\GPUBuffer.h"
 
 namespace engine
 {
-	DirectionalLight::DirectionalLight(void) : Light(LT_DIRLIGHT)
+	SkyLight::SkyLight(void) : Light(LT_SKYLIGHT)
 	{
 	}
 
 
-	DirectionalLight::~DirectionalLight(void)
+	SkyLight::~SkyLight(void)
 	{
 	}
-	void DirectionalLight::DrawLightVolumn(Sys_GraphicsPtr pGraphics)
+	void SkyLight::DrawLightVolumn(Sys_GraphicsPtr pGraphics)
 	{
 		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
 		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
 
 		pGraphics->Draw(6, 0);
 	}
-	bool DirectionalLight::Create(Sys_GraphicsPtr pGraphics)
+	bool SkyLight::Create(Sys_GraphicsPtr pGraphics)
 	{
 		math::Vector3 verts[] = 
 		{
@@ -37,7 +37,7 @@ namespace engine
 
 		return true;
 	}
-	void DirectionalLight::Release()
+	void SkyLight::Release()
 	{
 		if(m_pVB)
 		{
