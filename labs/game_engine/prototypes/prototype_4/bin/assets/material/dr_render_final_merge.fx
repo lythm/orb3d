@@ -4,8 +4,8 @@ float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 
 float2 vp:VP_SIZE;
-Texture2D tex_gbuffer[3]:DR_GBUFFER;
-Texture2D tex_abuffer:DR_ABUFFER;
+Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
+Texture2D<float4> tex_abuffer:DR_ABUFFER;
 
 
 struct vs_in

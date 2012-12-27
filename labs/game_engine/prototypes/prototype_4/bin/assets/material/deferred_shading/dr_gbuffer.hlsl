@@ -13,7 +13,7 @@ SamplerState Sampler_GBuffer
 	AddressV = clamp;
 
 	filter = MIN_MAG_MIP_POINT ;
-	BorderColor = float4(0,0,0,0);
+	BorderColor = float4(1,0,0,1);
 	MinLod = 0;
 	MaxLod = 0;
 };
@@ -29,22 +29,22 @@ GBuffer dr_gbuffer_compose(half4 p, half3 n, half3 d, half s)
 	return g;
 }
 
-half3 dr_gbuffer_get_normal(Texture2D g[3], float2 uv)
+half3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
 {
-	half4 normal = g[1].Sample(Sampler_GBuffer, uv);
-	return normal.xyz;
+	half3 normal = normalize(g[1].Sample(Sampler_GBuffer, uv).xyz);
+	return normal;
 }
-half4 dr_gbuffer_get_position(Texture2D g[3], float2 uv)
+half4 dr_gbuffer_get_position(Texture2D<half4> g[3], float2 uv)
 {
 	half4 p = g[0].Sample(Sampler_GBuffer, uv);
 	return p;
 }
-half3 dr_gbuffer_get_diffuse(Texture2D g[3], float2 uv)
+half3 dr_gbuffer_get_diffuse(Texture2D<half4> g[3], float2 uv)
 {
 	half4 c = g[2].Sample(Sampler_GBuffer, uv);
 	return c.xyz;
 }
-half dr_gbuffer_get_specular_power(Texture2D g[3], float2 uv)
+half dr_gbuffer_get_specular_power(Texture2D<half4> g[3], float2 uv)
 {
 	half4 c = g[2].Sample(Sampler_GBuffer, uv);
 	return c.w;

@@ -47,6 +47,9 @@ struct PointLight
 float3 dr_light_dir(half3 n, DirectionalLight light, float4x4 wv)
 {
 	float3 d = -mul(light.dir, (float3x3)wv);
+
+	//d = normalize(d);
+
 	float il = max(0, dot(d, n));
 	
 	return il * light.clr;
