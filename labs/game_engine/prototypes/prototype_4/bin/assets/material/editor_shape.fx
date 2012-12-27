@@ -1,4 +1,4 @@
-#include <dr_utils.hlsl>
+#include <deferred_shading/dr_gbuffer.hlsl>
 
 float4x4 mvp:MATRIX_WVP;
 float4x4 mv:MATRIX_WV;
@@ -14,28 +14,22 @@ struct vs_out
 	float3 normal:NORMAL;
 };
 
-vs_out vs_main(vs_in vsin)
+vs_out vs_main(vs_in i)
 {
-	vs_out vsout;
-	vsout.pos = mul(float4(vsin.pos, 1), mvp);
-	vsout.eyepos = mul(float4(vsin.pos, 1), mv);
-	vsout.normal = mul(float4(vsin.normal.xyz, 0), mv).xyz;
+	vs_out o;
+	o.pos = mul(float4(i.pos, 1), mvp);
+	o.eyepos = mul(float4(i.pos, 1), mv).xyz;
+	o.normal = mul(float4(i.normal.xyz, 0), mv).xyz;
 
-	return vsout;
+	return o;
 }
 
-GBuffer dr_ps_main(vs_out psin)
+GBuffer dr_ps_main(vs_out i)
 {
-	
-	half3 clr = half3(0.5, 0.6, 0.9);
+	half3 clr = half3(1, 1, 1);
 	half specular = 1;
-
-	GBuffer g;
-	g.pos = psin.pos;
-	g.normal = half4(psin.normal, 1);
-	g.diff = half4(clr.xyz, specular);
-
-	return g;
+	
+	return dr_gbuffer_compose(i.pos, normalize(i.normal), clr, specular);
 }
 RasterizerState rs
 {

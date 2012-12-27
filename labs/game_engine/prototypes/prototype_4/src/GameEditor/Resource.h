@@ -17,7 +17,7 @@
 #define IDR_GameEditorTYPE              130
 #define ID_WINDOW_MANAGER               131
 #define ID_VIEW_FILEVIEW                133
-#define ID_VIEW_CLASSVIEW               134
+#define ID_VIEW_OBJECTVIEW              134
 #define ID_PROPERTIES                   135
 #define ID_OPEN                         136
 #define ID_OPEN_WITH                    137
@@ -94,6 +94,7 @@
 #define IDS_EDIT_MENU                   306
 #define IDR_OV_CONTEXT                  310
 #define IDD_APPSETTINGS                 311
+#define ID_VIEW_TPLVIEW                 311
 #define IDD_STARTUP                     313
 #define IDC_MFCCOLORBUTTON1             1000
 #define ID_OV_32771                     32771
@@ -146,6 +147,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32812
 #define _APS_NEXT_CONTROL_VALUE         1009
-#define _APS_NEXT_SYMED_VALUE           311
+#define _APS_NEXT_SYMED_VALUE           312
 #endif
 #endif

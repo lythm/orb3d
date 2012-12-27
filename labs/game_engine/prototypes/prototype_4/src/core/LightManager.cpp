@@ -21,7 +21,7 @@ namespace engine
 		m_lightCount = 0;
 		m_pList = LightPtr();
 
-		m_pLightMaterial = m_pGraphics->CreateMaterialFromFile("./assets/material/dr_light.fx");
+		m_pLightMaterial = m_pGraphics->CreateMaterialFromFile("./assets/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
@@ -153,7 +153,18 @@ namespace engine
 
 		math::Vector3 d = tm.GetRow3(2);
 
-		m_pLightMaterial->SetVectorByName("v_dir_light", d);
+		struct LightParam
+		{
+			math::Vector3 d;
+			float padding;
+			math::Vector3 c;
+		};
+
+		LightParam l;
+		l.d = d;
+		l.c = math::Vector3(pLight->GetDiffuseColor().r, pLight->GetDiffuseColor().g, pLight->GetDiffuseColor().b);
+
+		m_pLightMaterial->SetCBByName("light", &l, sizeof(LightParam));
 		m_pLightMaterial->SetGBuffer(pGBuffer);
 		m_pLightMaterial->ApplyVertexFormat();
 		

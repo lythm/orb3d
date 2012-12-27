@@ -239,7 +239,7 @@ BOOL CMainFrame::CreateDockingWindows()
 	CString strClassView;
 	bNameValid = strClassView.LoadString(IDS_CLASS_VIEW);
 	ASSERT(bNameValid);
-	if (!m_wndObjectView.Create(strClassView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_CLASSVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
+	if (!m_wndObjectView.Create(strClassView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_OBJECTVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI))
 	{
 		TRACE0("未能创建“类视图”窗口\n");
 		return FALSE; // 未能创建
@@ -260,7 +260,7 @@ BOOL CMainFrame::CreateDockingWindows()
 	CString strTplView = L"模板窗口";
 	
 	ASSERT(bNameValid);
-	if (!m_wndTplView.Create(strTplView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_FILEVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT| CBRS_FLOAT_MULTI))
+	if (!m_wndTplView.Create(strTplView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_TPLVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT| CBRS_FLOAT_MULTI))
 	{
 		TRACE0("未能创建“模板视图”窗口\n");
 		return FALSE; // 未能创建
@@ -672,6 +672,11 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 	
 	CString str;
 	CMFCToolBarMenuButton* pParent = pMenu->GetParentButton();
+
+	if(pParent == nullptr)
+	{
+		return false;
+	}
 	if(pParent->m_strText != L"Component")
 	{
 		return false;

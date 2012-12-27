@@ -35,17 +35,24 @@ namespace engine
 
 		if( FAILED( D3DX11CompileFromFileA( szFile, NULL, NULL, NULL, "fx_5_0", D3DCOMPILE_ENABLE_STRICTNESS, NULL, NULL, &pBlob, &pErrorBlob, NULL ) ) )
 		{
+			if(pErrorBlob)
+			{
+				const char* szTxt =(char*) pErrorBlob->GetBufferPointer();
+				OutputDebugStringA(szTxt);
+				OutputDebugStringA("/n");
+				pErrorBlob->Release();
+			}
 			return false;
 		}
 
 		if(pErrorBlob)
 		{
 			const char* szTxt =(char*) pErrorBlob->GetBufferPointer();
-			int i = 0;
-
+			OutputDebugStringA(szTxt);
+			OutputDebugStringA("/n");
 			pErrorBlob->Release();
 		}
-	
+
 		HRESULT ret = D3DX11CreateEffectFromMemory(pBlob->GetBufferPointer(), pBlob->GetBufferSize(),  0, m_pDevice, &m_pEffect);
 		if(FAILED(ret))
 		{
@@ -230,14 +237,14 @@ namespace engine
 	void D3D11EffectMaterial::ApplyPass(int index)
 	{
 		ID3DX11EffectPass* pPass = m_pTech->GetPassByIndex(index);
-		
+
 		pPass->Apply(0, m_pContext);
 
 	}
 	void D3D11EffectMaterial::End()
 	{
 	}
-		
+
 	void D3D11EffectMaterial::Release()
 	{
 		m_pTech = NULL;
@@ -260,7 +267,7 @@ namespace engine
 
 		m_pContext = NULL;
 	}
-		
+
 	void D3D11EffectMaterial::SetMatrixByName(const char* szParam, const math::Matrix44& mat)
 	{
 		m_pEffect->GetVariableByName(szParam)->AsMatrix()->SetMatrix(mat.m);
@@ -273,11 +280,11 @@ namespace engine
 
 		m_pEffect->GetVariableByName(szName)->AsShaderResource()->SetResource(pView);
 
-		
-	/*	if(pTex == TexturePtr())
+
+		/*	if(pTex == TexturePtr())
 		{
-			ID3D11ShaderResourceView* pTmp[] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }; 
-			m_pContext->PSSetShaderResources(0, _countof(pTmp), pTmp);
+		ID3D11ShaderResourceView* pTmp[] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, }; 
+		m_pContext->PSSetShaderResources(0, _countof(pTmp), pTmp);
 		}*/
 	}
 	void D3D11EffectMaterial::SetVectorByName(const char* szName, const math::Vector3& v)
@@ -309,7 +316,7 @@ namespace engine
 	void D3D11EffectMaterial::SetMatrixBySemantic(const char* szSemantic, const math::Matrix44& mat)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableBySemantic(szSemantic);
-		
+
 		if(pVal)
 		{
 			pVal->AsMatrix()->SetMatrix(mat.m);
@@ -376,13 +383,25 @@ namespace engine
 			pVal->AsConstantBuffer()->SetConstantBuffer(((D3D11Buffer*)pCB.get())->GetD3D11BufferInterface());
 		}
 	}
-	void D3D11EffectMaterial::SetCBByName(const char* szName, GPUBufferPtr pCB)
+	void D3D11EffectMaterial::SetCBByName(const char* szName, void* buffer, int size)
 	{
 		ID3DX11EffectVariable* pVal = m_pEffect->GetVariableByName(szName);
 		if(pVal)
 		{
-			pVal->AsConstantBuffer()->SetConstantBuffer(((D3D11Buffer*)pCB.get())->GetD3D11BufferInterface());
+			pVal->SetRawValue(buffer, 0, size);
+			//ID3D11Buffer* pD3DBuffer = nullptr;
+			//pVal->AsConstantBuffer()->GetConstantBuffer(&pD3DBuffer);
+			//pVal->AsConstantBuffer()->SetConstantBuffer(((D3D11Buffer*)pCB.get())->GetD3D11BufferInterface());
+
+			//D3D11_MAPPED_SUBRESOURCE desc;
+			//m_pContext->Map(pD3DBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &desc);
+
+			//memcpy(desc.pData, buffer, size);
+			
+			//m_pContext->Unmap(pD3DBuffer, 0);
 		}
+
+		
 	}
 	bool D3D11EffectMaterial::SetVertexFormat(const VertexFormat& format)
 	{
@@ -435,7 +454,7 @@ namespace engine
 		}
 
 		ID3DX11EffectTechnique* pTech = m_pEffect->GetTechniqueByIndex(0);
-		
+
 		ID3DX11EffectPass* pPass = pTech->GetPassByIndex(0);
 		D3DX11_PASS_DESC pass;
 		ZeroMemory(&pass, sizeof(pass));
@@ -480,9 +499,9 @@ namespace engine
 
 
 		ID3D11ShaderResourceView* pBuffers[3] = {
-						pTex1->GetShaderResourceView(),
-						pTex2->GetShaderResourceView(),
-						pTex3->GetShaderResourceView(),
+			pTex1->GetShaderResourceView(),
+			pTex2->GetShaderResourceView(),
+			pTex3->GetShaderResourceView(),
 		};
 
 		m_semantics.m_pGBuffer->SetResourceArray(pBuffers, 0, 3);
@@ -495,7 +514,7 @@ namespace engine
 			return;
 		}
 		D3D11Texture* pTex1 = (D3D11Texture*)(pABuffer->AsTexture().get());
-		
+
 		m_semantics.m_pABuffer->SetResource(pTex1->GetShaderResourceView());
 	}
 }

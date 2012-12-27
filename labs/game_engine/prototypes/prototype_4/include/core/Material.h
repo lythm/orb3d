@@ -21,7 +21,7 @@ namespace engine
 		virtual bool								SetVertexFormat(const VertexFormat& format)					= 0;
 		virtual void								Release()													= 0;
 
-		virtual void								SetCBByName(const char* szName, GPUBufferPtr pCB)			= 0;
+		virtual void								SetCBByName(const char* szName, void* buffer, int size)		= 0;
 		virtual void								SetMatrixByName(const char* szParam, 
 																const math::Matrix44& mat)						= 0;
 		

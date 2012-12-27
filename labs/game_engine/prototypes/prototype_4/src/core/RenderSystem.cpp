@@ -53,7 +53,7 @@ namespace engine
 			return false;
 		}
 
-		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_screenquad.fx");
+		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_final_merge.fx");
 
 		VertexElement vf[] = 
 		{

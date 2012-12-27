@@ -111,8 +111,6 @@ namespace engine
 			m_pEventDispatcher.reset();
 		}
 
-		
-
 		s_pAllocator	= nullptr;
 	}
 
