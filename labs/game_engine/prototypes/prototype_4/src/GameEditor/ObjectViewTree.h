@@ -2,13 +2,13 @@
 #pragma once
 
 /////////////////////////////////////////////////////////////////////////////
-// CViewTree 窗口
+// CObjectViewTree 窗口
 
-class CViewTree : public CTreeCtrl
+class CObjectViewTree : public CTreeCtrl
 {
 // 构造
 public:
-	CViewTree();
+	CObjectViewTree();
 
 	void							UpdateGameObjectTree();
 	void							DeleteTree();
@@ -23,7 +23,7 @@ protected:
 
 // 实现
 public:
-	virtual ~CViewTree();
+	virtual ~CObjectViewTree();
 
 protected:
 	DECLARE_MESSAGE_MAP()

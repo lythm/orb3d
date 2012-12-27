@@ -7,6 +7,7 @@
 #include "ObjectView.h"
 #include "OutputWnd.h"
 #include "PropertiesWnd.h"
+#include "TemplateView.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -54,7 +55,7 @@ protected:  // 控件条嵌入成员
 	COutputWnd        m_wndOutput;
 	CPropertiesWnd    m_wndProperties;
 	CMFCCaptionBar    m_wndCaptionBar;
-
+	CTemplateView	  m_wndTplView;
 
 	boost::unordered_map<std::wstring, std::vector<engine::ExtPackage::ComponentClass*> > m_ComClassMap;
 

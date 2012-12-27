@@ -84,7 +84,7 @@ namespace engine
 	void MeshData::SetMeshAsset(const std::wstring& asset)
 	{
 		m_meshAsset = asset;
-		MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(m_pObject->GetComponent(L"MeshRenderer"));
+	
 		if(m_meshAsset == L"Cube")
 		{
 			if(m_pMesh != nullptr)
@@ -92,7 +92,7 @@ namespace engine
 				m_pMesh->Destroy();	
 			}
 			
-			MaterialPtr pMaterial = pMR->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();

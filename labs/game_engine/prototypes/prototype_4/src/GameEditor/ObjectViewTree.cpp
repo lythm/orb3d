@@ -1,6 +1,6 @@
 
 #include "stdafx.h"
-#include "ViewTree.h"
+#include "ObjectViewTree.h"
 
 #include "AppContext.h"
 
@@ -11,33 +11,33 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CViewTree
+// CObjectViewTree
 
-CViewTree::CViewTree()
+CObjectViewTree::CObjectViewTree()
 {
 	m_bDragging= false;
 }
 
-CViewTree::~CViewTree()
+CObjectViewTree::~CObjectViewTree()
 {
 	//DeleteTree();
 }
 
-BEGIN_MESSAGE_MAP(CViewTree, CTreeCtrl)
+BEGIN_MESSAGE_MAP(CObjectViewTree, CTreeCtrl)
 	ON_WM_DESTROY()
-	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, &CViewTree::OnTvnBeginlabeledit)
-	ON_NOTIFY_REFLECT(TVN_ENDLABELEDIT, &CViewTree::OnTvnEndlabeledit)
-	//	ON_COMMAND(ID_OV_RENAME, &CViewTree::OnOvRename)
-	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CViewTree::OnTvnSelchanged)
-	ON_NOTIFY_REFLECT(TVN_BEGINDRAG, &CViewTree::OnTvnBegindrag)
+	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, &CObjectViewTree::OnTvnBeginlabeledit)
+	ON_NOTIFY_REFLECT(TVN_ENDLABELEDIT, &CObjectViewTree::OnTvnEndlabeledit)
+	//	ON_COMMAND(ID_OV_RENAME, &CObjectViewTree::OnOvRename)
+	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CObjectViewTree::OnTvnSelchanged)
+	ON_NOTIFY_REFLECT(TVN_BEGINDRAG, &CObjectViewTree::OnTvnBegindrag)
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CViewTree 消息处理程序
+// CObjectViewTree 消息处理程序
 
-BOOL CViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+BOOL CObjectViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	BOOL bRes = CTreeCtrl::OnNotify(wParam, lParam, pResult);
 
@@ -51,7 +51,7 @@ BOOL CViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 
 	return bRes;
 }
-void CViewTree::UpdateGameObjectTree()
+void CObjectViewTree::UpdateGameObjectTree()
 {
 	using namespace engine;
 
@@ -65,7 +65,7 @@ void CViewTree::UpdateGameObjectTree()
 
 	//Expand(hRoot, TVM_EXPAND);
 }
-void CViewTree::_update_object_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot)
+void CObjectViewTree::_update_object_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot)
 {
 	if(pRoot == NULL)
 	{
@@ -87,13 +87,13 @@ void CViewTree::_update_object_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot
 		pObj = pObj->GetNextNode();
 	}
 }
-void CViewTree::DeleteTree()
+void CObjectViewTree::DeleteTree()
 {
 	_delete_gameobject_tree(GetRootItem());
 
 	DeleteAllItems();
 }
-void CViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
+void CObjectViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
 {
 	if(hRoot == NULL)
 	{
@@ -114,7 +114,7 @@ void CViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
 		hItem = GetNextSiblingItem(hItem);
 	}
 }
-engine::GameObjectPtr CViewTree::GetGameObject(HTREEITEM hObj)
+engine::GameObjectPtr CObjectViewTree::GetGameObject(HTREEITEM hObj)
 {
 	using namespace engine;
 
@@ -130,7 +130,7 @@ engine::GameObjectPtr CViewTree::GetGameObject(HTREEITEM hObj)
 	}
 	return *pObj;
 }
-void CViewTree::EraseItem(HTREEITEM hItem)
+void CObjectViewTree::EraseItem(HTREEITEM hItem)
 {
 	using namespace engine;
 	GameObjectPtr* pObj = (GameObjectPtr*)GetItemData(hItem);
@@ -139,7 +139,7 @@ void CViewTree::EraseItem(HTREEITEM hItem)
 	DeleteItem(hItem);
 }
 
-void CViewTree::OnDestroy()
+void CObjectViewTree::OnDestroy()
 {
 	DeleteTree();
 	CTreeCtrl::OnDestroy();
@@ -148,7 +148,7 @@ void CViewTree::OnDestroy()
 }
 
 
-void CViewTree::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
+void CObjectViewTree::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
 
@@ -165,7 +165,7 @@ void CViewTree::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
-void CViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
+void CObjectViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
 
@@ -194,7 +194,7 @@ void CViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
-//void CViewTree::OnOvRename()
+//void CObjectViewTree::OnOvRename()
 //{
 //	// TODO: 在此添加命令处理程序代码
 //
@@ -206,7 +206,7 @@ void CViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 //}
 
 
-void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
+void CObjectViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 
@@ -220,7 +220,7 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
-void CViewTree::OnTvnBegindrag(NMHDR *pNMHDR, LRESULT *pResult)
+void CObjectViewTree::OnTvnBegindrag(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 
@@ -246,7 +246,7 @@ void CViewTree::OnTvnBegindrag(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
-void CViewTree::OnMouseMove(UINT nFlags, CPoint point)
+void CObjectViewTree::OnMouseMove(UINT nFlags, CPoint point)
 {
 	HTREEITEM htiTarget;  // Handle to target item. 
 	TVHITTESTINFO tvht;   // Hit test information. 
@@ -278,7 +278,7 @@ void CViewTree::OnMouseMove(UINT nFlags, CPoint point)
 }
 
 
-void CViewTree::OnLButtonUp(UINT nFlags, CPoint point)
+void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	using namespace engine;
 

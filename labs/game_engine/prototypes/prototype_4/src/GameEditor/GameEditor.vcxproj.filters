@@ -42,9 +42,6 @@
     <ClInclude Include="FileView.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ViewTree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OutputWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -105,6 +102,12 @@
     <ClInclude Include="DT_PointLightGizmo.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TemplateView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectViewTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -123,9 +126,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FileView.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OutputWnd.cpp">
@@ -186,6 +186,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DT_PointLightGizmo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TemplateView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectViewTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

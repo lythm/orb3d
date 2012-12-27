@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "ViewTree.h"
+#include "ObjectViewTree.h"
 
 class CObjectViewToolBar : public CMFCToolBar
 {
@@ -26,7 +26,7 @@ public:
 	void ClearSelection();
 protected:
 	CObjectViewToolBar m_wndToolBar;
-	CViewTree m_wndObjectView;
+	CObjectViewTree m_wndObjectView;
 	CImageList m_ObjectViewImages;
 	UINT m_nCurrSort;
 

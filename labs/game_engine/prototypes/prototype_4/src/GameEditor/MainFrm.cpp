@@ -155,12 +155,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("未能创建停靠窗口\n");
 		return -1;
 	}
-
+	m_wndTplView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndObjectView.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndFileView);
 	CDockablePane* pTabbedBar = NULL;
 	m_wndObjectView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
+	m_wndTplView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
 	m_wndOutput.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndOutput);
 	m_wndProperties.EnableDocking(CBRS_ALIGN_ANY);
@@ -253,6 +254,18 @@ BOOL CMainFrame::CreateDockingWindows()
 		TRACE0("未能创建“文件视图”窗口\n");
 		return FALSE; // 未能创建
 	}
+
+
+	// 创建模板视图
+	CString strTplView = L"模板窗口";
+	
+	ASSERT(bNameValid);
+	if (!m_wndTplView.Create(strTplView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_FILEVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT| CBRS_FLOAT_MULTI))
+	{
+		TRACE0("未能创建“模板视图”窗口\n");
+		return FALSE; // 未能创建
+	}
+
 
 	// 创建输出窗口
 	CString strOutputWnd;
