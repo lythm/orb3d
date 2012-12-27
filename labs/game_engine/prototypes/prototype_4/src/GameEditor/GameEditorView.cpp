@@ -42,6 +42,8 @@ BEGIN_MESSAGE_MAP(CGameEditorView, CView)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_ERASEBKGND()
 	ON_WM_CREATE()
+	ON_WM_LBUTTONDBLCLK()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 // CGameEditorView 构造/析构
@@ -295,4 +297,23 @@ int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	SetTimer(0, (1000/100), NULL);
 	
 	return 0;
+}
+
+
+void CGameEditorView::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	
+	CView::OnLButtonDblClk(nFlags, point);
+}
+
+
+void CGameEditorView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	if(AppContext::GetRenderer())
+	{
+		AppContext::GetRenderer()->OnMouseLButtonClick(nFlags, point);
+	}
+	CView::OnLButtonUp(nFlags, point);
 }

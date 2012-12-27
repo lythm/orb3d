@@ -30,10 +30,13 @@ const UINT uiLastUserToolBarId = uiFirstUserToolBarId + iMaxUserToolbars - 1;
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_CREATE()
+	ON_COMMAND_RANGE(ID_COMPONENT_MENU_BASE, ID_COMPONENT_MENU_BASE + 1000, &CMainFrame::OnComponentMenu)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_COMPONENT_MENU_BASE, ID_COMPONENT_MENU_BASE + 1000, &CMainFrame::OnUpdateComponentMenuUI)
 	ON_COMMAND(ID_VIEW_CUSTOMIZE, &CMainFrame::OnViewCustomize)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
+	
 	ON_COMMAND(ID_VIEW_CAPTION_BAR, &CMainFrame::OnViewCaptionBar)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_CAPTION_BAR, &CMainFrame::OnUpdateViewCaptionBar)
 	ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
@@ -212,8 +215,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
-	UpdateComponentMenu();
 
+	UpdateComClassMap();
 	return 0;
 }
 
@@ -647,9 +650,47 @@ void CMainFrame::OnCreatefromtemplateSkylight()
 
 	AppContext::UpdateObjectView();
 }
-bool CMainFrame::UpdateComponentMenu()
+bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 {
+	if(pMenu == nullptr)
+	{
+		return false;
+	}
 	
+	CString str;
+	CMFCToolBarMenuButton* pParent = pMenu->GetParentButton();
+	if(pParent->m_strText != L"Component")
+	{
+		return false;
+	}
+	
+	using namespace engine;
+
+	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
+
+	pMenu->RemoveAllItems();
+
+	int id = ID_COMPONENT_MENU_BASE + 1;
+	for(it; it != m_ComClassMap.end(); ++it)
+	{
+		if(it->second.size() == 0)
+		{
+			continue;
+		}
+		CMenu m;
+		m.CreateMenu();
+		for(size_t i = 0; i < it->second.size(); ++i)
+		{
+			m.InsertMenuW(i, MF_BYPOSITION, id, it->second[i]->m_name.c_str());
+			
+			id++;
+		}
+
+		CMFCToolBarMenuButton b(-1, m.GetSafeHmenu(), -1, it->first.c_str());
+		m.Detach();
+		
+		pMenu->InsertItem(b);
+	}
 	
 	return true;
 }
@@ -658,7 +699,8 @@ bool CMainFrame::UpdateComponentMenu()
 BOOL CMainFrame::OnShowPopupMenu(CMFCPopupMenu* pMenuPopup)
 {
 	// TODO: 在此添加专用代码和/或调用基类
-	
+	UpdateComponentMenu(pMenuPopup);
+
 	return CFrameWndEx::OnShowPopupMenu(pMenuPopup);
 }
 
@@ -668,4 +710,96 @@ void CMainFrame::OnUpdateFrameMenu(HMENU hMenuAlt)
 	// TODO: 在此添加专用代码和/或调用基类
 
 	CFrameWndEx::OnUpdateFrameMenu(hMenuAlt);
+}
+
+
+BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	return CFrameWndEx::OnCommand(wParam, lParam);
+}
+
+
+BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	return CFrameWndEx::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
+}
+void CMainFrame::OnComponentMenu(UINT nID)
+{
+	using namespace engine;
+	ExtPackage::ComponentClass* pClass = FindClassByMenuID(nID);
+
+	GameObjectPtr pObj = AppContext::GetSelectedObject();
+
+	if(pObj->GetComponent(pClass->m_name) != GameObjectComponentPtr())
+	{
+		CString str = pClass->m_name.c_str() + CString(L" can only be added once per object");
+		MessageBox(str, L"Component Error", MB_ICONERROR);
+		return;
+	}
+
+	GameObjectComponentPtr pCom = AppContext::CreateGameObjectComponent(pClass->m_name);
+	
+	pObj->AddComponent(pCom);
+	
+	AppContext::UpdatePropGrid(pObj);
+	return;
+}
+bool CMainFrame::UpdateComClassMap()
+{
+	using namespace engine;
+
+	m_ComClassMap.clear();
+
+	GameObjectManagerPtr pManager = AppContext::GetCoreApi()->GetGameObjectManager();
+	
+	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
+	{
+		ExtPackage* pPack = pManager->GetPackageByIndex(i);
+		for(size_t ii = 0; ii < pPack->GetClassCount(); ++ii)
+		{
+			ExtPackage::ComponentClass* pClass = pPack->GetClassByIndex(ii);
+
+			if(pClass->m_name == L"PropertyManager")
+			{
+				continue;
+			}
+			m_ComClassMap[pClass->m_catalog].push_back(pClass);
+		}
+	}
+	return true;
+}
+engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
+{
+	using namespace engine;
+
+	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
+
+	int id = ID_COMPONENT_MENU_BASE + 1;
+	for(it; it != m_ComClassMap.end(); ++it)
+	{
+		if(it->second.size() == 0)
+		{
+			continue;
+		}
+		for(size_t i = 0; i < it->second.size(); ++i)
+		{
+			if(id == uID)
+			{
+				return it->second[i];
+			}
+
+			id++;
+		}
+		
+	}
+	
+	return nullptr;
+}
+void CMainFrame::OnUpdateComponentMenuUI(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable(AppContext::GetSelectedObject() != engine::GameObjectPtr());
 }

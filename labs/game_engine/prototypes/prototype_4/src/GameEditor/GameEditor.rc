@@ -253,7 +253,7 @@ BEGIN
     END
     POPUP "Component"
     BEGIN
-        MENUITEM "Ë¢ÐÂ",                          ID_COMPONENT_REFRESH
+        MENUITEM "PlaceHolder",                 ID_COMPONENT_PLACEHOLDER
     END
     POPUP "Project"
     BEGIN

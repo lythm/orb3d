@@ -5,11 +5,10 @@ namespace engine
 	class EXPORT_CLASS Light_Dir : public GameObjectComponent
 	{
 	public:
-		Light_Dir(void);
+		Light_Dir(GameObjectManagerPtr pManager);
 		virtual ~Light_Dir(void);
 
 		void										Update();
-		void										SetRenderSystem(RenderSystemPtr pRS);
 		DirectionalLightPtr							GetLight();
 
 	private:

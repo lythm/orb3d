@@ -3,7 +3,7 @@
 
 namespace dt
 {
-	DT_PointLightGizmo::DT_PointLightGizmo(void) : GameObjectComponent(L"DT_PointLightGizmo")
+	DT_PointLightGizmo::DT_PointLightGizmo(engine::GameObjectManagerPtr pManager) : GameObjectComponent(L"DT_PointLightGizmo", pManager)
 	{
 	}
 

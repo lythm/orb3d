@@ -9,7 +9,7 @@ namespace engine
 	class MeshAnimator : public GameObjectComponent
 	{
 	public:
-		MeshAnimator(void);
+		MeshAnimator(GameObjectManagerPtr pManager);
 		virtual ~MeshAnimator(void);
 	};
 

@@ -71,10 +71,7 @@ void Project::AddDefaultLight()
 	GameObjectPtr pObj = AppContext::CreateGameObject(L"Default Light");
 		
 	Light_SkyPtr pLight = boost::shared_dynamic_cast<Light_Sky>(AppContext::CreateGameObjectComponent(L"SkyLight"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-
 	pObj->AddComponent(pLight);
-
 	pObj->SetTranslation(1, 1, 1);
 	pObj->LookAt(math::Vector3(0, 0, 0));
 

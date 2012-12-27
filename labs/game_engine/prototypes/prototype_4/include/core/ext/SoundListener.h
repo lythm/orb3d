@@ -7,7 +7,7 @@ namespace engine
 	class SoundListener : public GameObjectComponent
 	{
 	public:
-		SoundListener(void);
+		SoundListener(GameObjectManagerPtr pManager);
 		virtual ~SoundListener(void);
 	};
 

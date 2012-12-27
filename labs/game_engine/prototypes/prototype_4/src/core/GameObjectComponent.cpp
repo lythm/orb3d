@@ -4,9 +4,10 @@
 
 namespace engine
 {
-	GameObjectComponent::GameObjectComponent(const std::wstring& name)
+	GameObjectComponent::GameObjectComponent(const std::wstring& name, GameObjectManagerPtr pManager)
 	{
 		SetName(name);	
+		m_pManager = pManager;
 	}
 
 
@@ -29,6 +30,7 @@ namespace engine
 	{
 		OnDetach();
 		m_pObject.reset();
+		m_pManager.reset();
 	}
 	const std::wstring& GameObjectComponent::GetName()
 	{

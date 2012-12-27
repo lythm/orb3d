@@ -7,7 +7,7 @@
 
 namespace engine
 {
-	Light_Point::Light_Point(void) : GameObjectComponent(L"PointLight")
+	Light_Point::Light_Point(GameObjectManagerPtr pManager) : GameObjectComponent(L"PointLight", pManager)
 	{
 	}
 
@@ -28,13 +28,11 @@ namespace engine
 	{
 		return m_pLight;
 	}
-	void Light_Point::SetRenderSystem(RenderSystemPtr pRS)
-	{
-		m_pRS = pRS;
-	}
-
+	
 	bool Light_Point::OnAttach()
 	{
+		m_pRS = m_pManager->GetRenderSystem();
+
 		m_pLight = Package::GetAllocator()->AllocObject<PointLight>();
 		m_pLight->Create(m_pRS->GetSysGraphics());
 

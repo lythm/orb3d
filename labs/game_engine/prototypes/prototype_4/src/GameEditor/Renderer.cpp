@@ -111,7 +111,6 @@ void Renderer::CreateObject_FromTemplate_Sphere()
 	pObj->AddComponent(pMD);
 
 	MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(AppContext::CreateGameObjectComponent(L"MeshRenderer"));
-	pMR->SetRenderSystem(pRS);
 	pObj->AddComponent(pMR);
 }
 
@@ -137,7 +136,6 @@ void Renderer::CreateObject_FromTemplate_Cone()
 	pObj->AddComponent(pMD);
 
 	MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(AppContext::CreateGameObjectComponent(L"MeshRenderer"));
-	pMR->SetRenderSystem(pRS);
 	pObj->AddComponent(pMR);
 }
 void Renderer::CreateObject_FromTemplate_Plane()
@@ -159,7 +157,6 @@ void Renderer::CreateObject_FromTemplate_Plane()
 	pObj->AddComponent(pMD);
 
 	MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(AppContext::CreateGameObjectComponent(L"MeshRenderer"));
-	pMR->SetRenderSystem(pRS);
 	pObj->AddComponent(pMR);
 }
 void Renderer::CreateObject_FromTemplate_Cube()
@@ -181,7 +178,6 @@ void Renderer::CreateObject_FromTemplate_Cube()
 	pObj->AddComponent(pMD);
 
 	MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(AppContext::CreateGameObjectComponent(L"MeshRenderer"));
-	pMR->SetRenderSystem(pRS);
 	pObj->AddComponent(pMR);
 
 }
@@ -197,8 +193,6 @@ void Renderer::CreateObject_FromTemplate_DirLight()
 	GameObjectPtr pObj = AppContext::CreateGameObject(L"Directional Light");
 		
 	Light_DirPtr pLight = boost::shared_dynamic_cast<Light_Dir>(AppContext::CreateGameObjectComponent(L"DirectionalLight"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-
 	pObj->AddComponent(pLight);
 }
 
@@ -210,8 +204,6 @@ void Renderer::CreateObject_FromTemplate_PointLight()
 	GameObjectPtr pObj = AppContext::CreateGameObject(L"Point Light");
 		
 	Light_PointPtr pLight = boost::shared_dynamic_cast<Light_Point>(AppContext::CreateGameObjectComponent(L"PointLight"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-
 	pObj->AddComponent(pLight);
 	
 }
@@ -224,8 +216,6 @@ void Renderer::CreateObject_FromTemplate_SpotLight()
 	GameObjectPtr pObj = AppContext::CreateGameObject(L"Spot Light");
 		
 	Light_SpotPtr pLight = boost::shared_dynamic_cast<Light_Spot>(AppContext::CreateGameObjectComponent(L"SpotLight"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-
 	pObj->AddComponent(pLight);
 
 }
@@ -236,8 +226,6 @@ void Renderer::CreateObject_FromTemplate_SkyLight()
 	GameObjectPtr pObj = AppContext::CreateGameObject(L"Sky Light");
 		
 	Light_SkyPtr pLight = boost::shared_dynamic_cast<Light_Sky>(AppContext::CreateGameObjectComponent(L"SkyLight"));
-	pLight->SetRenderSystem(AppContext::GetCoreApi()->GetRenderSystem());
-
 	pObj->AddComponent(pLight);
 
 }
@@ -248,4 +236,10 @@ void Renderer::ShowGrid(bool bShow)
 bool Renderer::ShowingGrid()
 {
 	return m_bShowGrid;
+}
+void Renderer::OnMouseLButtonClick(UINT nFlags, CPoint point)
+{
+	AppContext::ClearObjectViewSelection();
+	AppContext::UpdatePropGrid(engine::GameObjectPtr());
+	AppContext::SetSelectedObject(engine::GameObjectPtr());
 }

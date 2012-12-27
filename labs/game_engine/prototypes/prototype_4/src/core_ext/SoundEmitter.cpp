@@ -6,7 +6,7 @@
 namespace engine
 {
 
-	SoundEmitter::SoundEmitter(void):GameObjectComponent(L"SoundEmitter")
+	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent(L"SoundEmitter", pManager)
 	{
 	}
 

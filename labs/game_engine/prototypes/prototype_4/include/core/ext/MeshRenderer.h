@@ -43,14 +43,12 @@ namespace engine
 			G_FORMAT										m_indexFormat;
 		};
 	public:
-		MeshRenderer();
+		MeshRenderer(GameObjectManagerPtr pManager);
 		virtual ~MeshRenderer(void);
 
 		void							Update();
 
 		void							Reset(MeshDataPtr pMD);
-		void							SetRenderSystem(RenderSystemPtr pRS);
-
 		const bool&						IsDeferred();
 		void							SetDeferred(const bool& b);
 

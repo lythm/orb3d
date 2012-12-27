@@ -4,7 +4,7 @@
 namespace engine
 {
 
-	MeshAnimator::MeshAnimator(void):GameObjectComponent(L"MeshAnimator")
+	MeshAnimator::MeshAnimator(GameObjectManagerPtr pManager):GameObjectComponent(L"MeshAnimator", pManager)
 	{
 	}
 

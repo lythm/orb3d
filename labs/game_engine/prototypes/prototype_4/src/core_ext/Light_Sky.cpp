@@ -7,7 +7,7 @@
 namespace engine
 {
 
-	Light_Sky::Light_Sky(void) : GameObjectComponent(L"SkyLight")
+	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyLight", pManager)
 	{
 	}
 
@@ -27,13 +27,10 @@ namespace engine
 	{
 		return m_pLight;
 	}
-	void Light_Sky::SetRenderSystem(RenderSystemPtr pRS)
-	{
-		m_pRS = pRS;
-	}
-
+	
 	bool Light_Sky::OnAttach()
 	{
+		m_pRS = m_pManager->GetRenderSystem();
 		m_pLight = Package::GetAllocator()->AllocObject<SkyLight>();
 		m_pLight->Create(m_pRS->GetSysGraphics());
 

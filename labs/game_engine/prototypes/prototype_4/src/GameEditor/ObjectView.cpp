@@ -321,3 +321,8 @@ void CObjectView::OnOvRename()
 	}
 	m_wndObjectView.EditLabel(hItem);
 }
+void CObjectView::ClearSelection()
+{
+	AppContext::SetSelectedObject(engine::GameObjectPtr());
+	m_wndObjectView.SelectItem(nullptr);
+}

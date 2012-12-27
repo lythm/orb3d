@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	Behavior::Behavior(void):GameObjectComponent(L"Behavior")
+	Behavior::Behavior(GameObjectManagerPtr pManager):GameObjectComponent(L"Behavior", pManager)
 	{
 	}
 

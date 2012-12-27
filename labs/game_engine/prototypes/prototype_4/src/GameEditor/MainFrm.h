@@ -32,7 +32,10 @@ public:
 
 	void					SetFPS(float fps);
 
-	bool					UpdateComponentMenu();
+	bool					UpdateComClassMap();
+private:
+	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
+	engine::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);
 // 实现
 public:
 	virtual ~CMainFrame();
@@ -51,6 +54,9 @@ protected:  // 控件条嵌入成员
 	COutputWnd        m_wndOutput;
 	CPropertiesWnd    m_wndProperties;
 	CMFCCaptionBar    m_wndCaptionBar;
+
+
+	boost::unordered_map<std::wstring, std::vector<engine::ExtPackage::ComponentClass*> > m_ComClassMap;
 
 // 生成的消息映射函数
 protected:
@@ -77,6 +83,8 @@ public:
 	afx_msg void OnCreatefromtemplatePointlight();
 	afx_msg void OnCreatefromtemplateSpotlight();
 	afx_msg void OnCreatefromtemplatePlane();
+	afx_msg void OnComponentMenu(UINT nID);
+	afx_msg void OnUpdateComponentMenuUI(CCmdUI* pCmdUI);
 	afx_msg void OnViewShowgrid();
 	afx_msg void OnUpdateViewShowgrid(CCmdUI *pCmdUI);
 	afx_msg void OnEditAppsettings();
@@ -87,6 +95,8 @@ public:
 	afx_msg void OnCreatefromtemplateSkylight();
 	virtual BOOL OnShowPopupMenu(CMFCPopupMenu* pMenuPopup);
 	virtual void OnUpdateFrameMenu(HMENU hMenuAlt);
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 };
 
 

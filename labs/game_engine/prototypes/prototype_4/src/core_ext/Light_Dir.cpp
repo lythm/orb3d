@@ -7,7 +7,7 @@
 
 namespace engine
 {
-	Light_Dir::Light_Dir(void) : GameObjectComponent(L"DirectionalLight")
+	Light_Dir::Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent(L"DirectionalLight", pManager)
 	{
 	}
 
@@ -28,13 +28,10 @@ namespace engine
 	{
 		return m_pLight;
 	}
-	void Light_Dir::SetRenderSystem(RenderSystemPtr pRS)
-	{
-		m_pRS = pRS;
-	}
-
 	bool Light_Dir::OnAttach()
 	{
+		m_pRS = m_pManager->GetRenderSystem();
+
 		m_pLight = Package::GetAllocator()->AllocObject<DirectionalLight>();
 		m_pLight->Create(m_pRS->GetSysGraphics());
 

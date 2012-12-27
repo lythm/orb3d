@@ -24,6 +24,7 @@ public:
 	static CMainFrame*							GetMainFrame();
 	static engine::RenderSystemPtr				GetRenderSystem();
 	static void									UpdateObjectView();
+	static void									ClearObjectViewSelection();
 	static void									UpdatePropGrid(engine::GameObjectPtr pObj);
 
 	static engine::GameObjectPtr				CreateGameObject(const std::wstring& name);
@@ -35,6 +36,8 @@ public:
 
 	static ProjectPtr							GetProject();
 	static void									SetProject(ProjectPtr pProject);
+	static engine::GameObjectPtr				GetSelectedObject();
+	static void									SetSelectedObject(engine::GameObjectPtr pObj);
 private:
 
 	static int									s_RTWidth;
@@ -48,5 +51,6 @@ private:
 
 	static ProjectPtr							s_pProject;
 
+	static engine::GameObjectPtr				s_pSelObject;
 };
 

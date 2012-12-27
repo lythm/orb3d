@@ -14,6 +14,7 @@ public:
 	void								OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void								OnMouseRButtonDown(UINT nFlags, CPoint point);
 	void								OnMouseRButtonUp(UINT nFlags, CPoint point);
+	void								OnMouseLButtonClick(UINT nFlags, CPoint point);
 
 	void								CreateObject_Empty();
 	void								CreateObject_FromTemplate_Cube();

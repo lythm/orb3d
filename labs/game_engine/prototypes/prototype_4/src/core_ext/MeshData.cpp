@@ -13,7 +13,7 @@
 namespace engine
 {
 
-	MeshData::MeshData() : GameObjectComponent(L"MeshData")
+	MeshData::MeshData(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshData", pManager)
 	{
 		m_pMesh = MeshPtr();
 	}
@@ -87,13 +87,16 @@ namespace engine
 		MeshRendererPtr pMR = boost::shared_dynamic_cast<MeshRenderer>(m_pObject->GetComponent(L"MeshRenderer"));
 		if(m_meshAsset == L"Cube")
 		{
-			m_pMesh->Destroy();
+			if(m_pMesh != nullptr)
+			{
+				m_pMesh->Destroy();	
+			}
+			
 			MaterialPtr pMaterial = pMR->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
 		}
-
 	}
 	const std::wstring& MeshData::GetMeshAsset()
 	{

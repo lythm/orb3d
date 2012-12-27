@@ -7,7 +7,7 @@ namespace engine
 	class EXPORT_CLASS Behavior : public GameObjectComponent
 	{
 	public:
-		Behavior(void);
+		Behavior(GameObjectManagerPtr pManager);
 		virtual ~Behavior(void);
 
 

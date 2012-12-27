@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	Light_Spot::Light_Spot(void) : GameObjectComponent(L"SpotLight")
+	Light_Spot::Light_Spot(GameObjectManagerPtr pManager) : GameObjectComponent(L"SpotLight", pManager)
 	{
 	}
 
@@ -26,13 +26,11 @@ namespace engine
 	{
 		return m_pLight;
 	}
-	void Light_Spot::SetRenderSystem(RenderSystemPtr pRS)
-	{
-		m_pRS = pRS;
-	}
+	
 
 	bool Light_Spot::OnAttach()
 	{
+		m_pRS = m_pManager->GetRenderSystem();
 		m_pLight = Package::GetAllocator()->AllocObject<SpotLight>();
 		m_pLight->Create(m_pRS->GetSysGraphics());
 		m_pRS->AddLight(m_pLight);

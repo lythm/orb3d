@@ -21,14 +21,14 @@ namespace engine
 	private:
 		void								RegisterClasses();
 
-		static GameObjectComponentPtr		Create_MeshData();
-		static GameObjectComponentPtr		Create_MeshRenderer();
-		static GameObjectComponentPtr		Create_PropertyManager();
-		static GameObjectComponentPtr		Create_WorldMeshRenderer();
-		static GameObjectComponentPtr		Create_DirectionalLight();
-		static GameObjectComponentPtr		Create_PointLight();
-		static GameObjectComponentPtr		Create_SpotLight();
-		static GameObjectComponentPtr		Create_SkyLight();
+		static GameObjectComponentPtr		Create_MeshData(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_MeshRenderer(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_PropertyManager(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_WorldMeshRenderer(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_DirectionalLight(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_PointLight(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_SpotLight(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_SkyLight(GameObjectManagerPtr pManager);
 
 	private:
 		static CoreApiPtr					s_pCore;

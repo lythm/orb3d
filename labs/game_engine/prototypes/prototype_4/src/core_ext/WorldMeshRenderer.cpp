@@ -5,7 +5,7 @@
 namespace engine
 {
 
-	WorldMeshRenderer::WorldMeshRenderer(void) : GameObjectComponent(L"WorldMeshRenderer")
+	WorldMeshRenderer::WorldMeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"WorldMeshRenderer", pManager)
 	{
 	}
 

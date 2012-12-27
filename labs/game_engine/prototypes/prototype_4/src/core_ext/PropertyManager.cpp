@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	PropertyManager::PropertyManager(void) : GameObjectComponent(L"PropertyManager")
+	PropertyManager::PropertyManager(GameObjectManagerPtr pManager) : GameObjectComponent(L"PropertyManager", pManager)
 	{
 		m_pCurrentOwner = PropertySetPtr();
 	}

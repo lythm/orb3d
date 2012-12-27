@@ -6,11 +6,10 @@ namespace engine
 	class EXPORT_CLASS Light_Spot : public GameObjectComponent
 	{
 	public:
-		Light_Spot(void);
+		Light_Spot(GameObjectManagerPtr pManager);
 		virtual ~Light_Spot(void);
 
 		void										Update();
-		void										SetRenderSystem(RenderSystemPtr pRS);
 		SpotLightPtr								GetLight();
 
 	private:

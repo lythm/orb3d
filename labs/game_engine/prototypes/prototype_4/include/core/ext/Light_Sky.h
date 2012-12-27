@@ -5,11 +5,10 @@ namespace engine
 	class EXPORT_CLASS Light_Sky : public GameObjectComponent
 	{
 	public:
-		Light_Sky(void);
+		Light_Sky(GameObjectManagerPtr pManager);
 		virtual ~Light_Sky(void);
 
 		void										Update();
-		void										SetRenderSystem(RenderSystemPtr pRS);
 		SkyLightPtr									GetLight();
 
 	private:

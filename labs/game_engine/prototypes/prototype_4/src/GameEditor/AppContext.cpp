@@ -16,6 +16,7 @@ int									AppContext::s_RTHeight	= 0;
 engine::PoolAllocator				AppContext::s_Allocator;
 
 ProjectPtr							AppContext::s_pProject;
+engine::GameObjectPtr				AppContext::s_pSelObject = engine::GameObjectPtr();
 
 AppContext::AppContext(void)
 {
@@ -140,7 +141,11 @@ void AppContext::UpdateObjectView()
 	CMainFrame* pMain = GetMainFrame();
 	pMain->GetObjectView()->UpdateObjectView();
 }
-
+void AppContext::ClearObjectViewSelection()
+{
+	CMainFrame* pMain = GetMainFrame();
+	pMain->GetObjectView()->ClearSelection();
+}
 void AppContext::OutputInfo(const CString& info)
 {
 	CMainFrame* pMain = GetMainFrame();
@@ -193,4 +198,12 @@ ProjectPtr AppContext::GetProject()
 void AppContext::SetProject(ProjectPtr pProject)
 {
 	s_pProject = pProject;
+}
+engine::GameObjectPtr AppContext::GetSelectedObject()
+{
+	return s_pSelObject;
+}
+void AppContext::SetSelectedObject(engine::GameObjectPtr pObj)
+{
+	s_pSelObject = pObj;
 }

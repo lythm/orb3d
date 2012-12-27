@@ -8,7 +8,7 @@ namespace engine
 	class WorldMeshRenderer : public GameObjectComponent
 	{
 	public:
-		WorldMeshRenderer(void);
+		WorldMeshRenderer(GameObjectManagerPtr pManager);
 		virtual ~WorldMeshRenderer(void);
 
 

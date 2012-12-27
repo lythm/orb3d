@@ -3,7 +3,7 @@
 
 namespace dt
 {
-	DT_BBoxRenderer::DT_BBoxRenderer(void)
+	DT_BBoxRenderer::DT_BBoxRenderer(engine::GameObjectManagerPtr pManager)
 	{
 	}
 

@@ -49,10 +49,11 @@ namespace engine
 					L"Property Manager",
 					&Package::Create_PropertyManager));
 
-		m_classes.push_back(ComponentClass(L"WorldMeshRenderer",
+		/*m_classes.push_back(ComponentClass(L"WorldMeshRenderer",
 					L"Mesh",
 					L"World Mesh Renderer",
 					&Package::Create_WorldMeshRenderer));
+					*/
 
 		m_classes.push_back(ComponentClass(L"DirectionalLight",
 					L"Rendering",
@@ -104,37 +105,37 @@ namespace engine
 		return &m_classes[index];
 	}
 
-	GameObjectComponentPtr Package::Create_MeshData()
+	GameObjectComponentPtr Package::Create_MeshData(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<MeshData>();
+		return GetAllocator()->AllocObject<MeshData, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_MeshRenderer()
+	GameObjectComponentPtr Package::Create_MeshRenderer(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<MeshRenderer>();
+		return GetAllocator()->AllocObject<MeshRenderer, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_PropertyManager()
+	GameObjectComponentPtr Package::Create_PropertyManager(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<PropertyManager>();
+		return GetAllocator()->AllocObject<PropertyManager, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_WorldMeshRenderer()
+	GameObjectComponentPtr Package::Create_WorldMeshRenderer(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<WorldMeshRenderer>();
+		return GetAllocator()->AllocObject<WorldMeshRenderer, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_DirectionalLight()
+	GameObjectComponentPtr Package::Create_DirectionalLight(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<Light_Dir>();
+		return GetAllocator()->AllocObject<Light_Dir, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_PointLight()
+	GameObjectComponentPtr Package::Create_PointLight(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<Light_Point>();
+		return GetAllocator()->AllocObject<Light_Point, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_SpotLight()
+	GameObjectComponentPtr Package::Create_SpotLight(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<Light_Spot>();
+		return GetAllocator()->AllocObject<Light_Spot, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr Package::Create_SkyLight()
+	GameObjectComponentPtr Package::Create_SkyLight(GameObjectManagerPtr pManager)
 	{
-		return GetAllocator()->AllocObject<Light_Sky>();
+		return GetAllocator()->AllocObject<Light_Sky, GameObjectManagerPtr>(pManager);
 	}
 }
 

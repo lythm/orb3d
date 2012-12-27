@@ -23,6 +23,7 @@ public:
 	void OnChangeVisualStyle();
 
 	void UpdateObjectView();
+	void ClearSelection();
 protected:
 	CObjectViewToolBar m_wndToolBar;
 	CViewTree m_wndObjectView;

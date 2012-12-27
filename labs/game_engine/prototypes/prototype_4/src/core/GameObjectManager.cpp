@@ -72,7 +72,7 @@ namespace engine
 			return GameObjectComponentPtr();
 		}
 
-		return m_componentClasses[name]->m_creator();
+		return m_componentClasses[name]->m_creator(shared_from_this());
 	}
 	
 	GameObjectPtr GameObjectManager::CreateGameObject(const std::wstring& name)
@@ -132,6 +132,10 @@ namespace engine
 			RegisterComponentClass(c);
 		}
 		return true;
+	}
+	RenderSystemPtr	GameObjectManager::GetRenderSystem()
+	{
+		return m_pCore->GetRenderSystem();
 	}
 }
 

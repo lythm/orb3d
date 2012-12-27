@@ -7,7 +7,7 @@ namespace engine
 	class EXPORT_CLASS MeshData : public GameObjectComponent
 	{
 	public:
-		MeshData();
+		MeshData(GameObjectManagerPtr pManager);
 		virtual ~MeshData(void);
 
 

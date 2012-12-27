@@ -11,7 +11,7 @@ namespace engine
 	{
 	public:
 
-		PropertyManager(void);
+		PropertyManager(GameObjectManagerPtr pManager);
 		virtual ~PropertyManager(void);
 
 		PropertySetPtr						Begin(const std::wstring& name);

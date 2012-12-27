@@ -117,6 +117,12 @@ void CViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
 engine::GameObjectPtr CViewTree::GetGameObject(HTREEITEM hObj)
 {
 	using namespace engine;
+
+	if(hObj == nullptr)
+	{
+		return GameObjectPtr();
+	}
+
 	GameObjectPtr* pObj = (GameObjectPtr*)GetItemData(hObj);
 	if(pObj == NULL)
 	{
@@ -207,6 +213,7 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	engine::GameObjectPtr pObj = GetGameObject(pNMTreeView->itemNew.hItem);
 
 	AppContext::UpdatePropGrid(pObj);
+	AppContext::SetSelectedObject(pObj);
 
 	// TODO: 在此添加控件通知处理程序代码
 	*pResult = 0;

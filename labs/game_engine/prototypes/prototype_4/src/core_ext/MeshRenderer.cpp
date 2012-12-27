@@ -15,9 +15,10 @@
 namespace engine
 {
 
-	MeshRenderer::MeshRenderer() : GameObjectComponent(L"MeshRenderer")
+	MeshRenderer::MeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshRenderer", pManager)
 	{
 		m_deferred = true;
+		m_pRS = m_pManager->GetRenderSystem();
 	}
 
 	MeshRenderer::~MeshRenderer(void)
@@ -38,10 +39,7 @@ namespace engine
 			m_pRS->AddRenderData(m_Subsets[i]);
 		}
 	}
-	void MeshRenderer::SetRenderSystem(RenderSystemPtr pRS)
-	{
-		m_pRS = pRS;
-	}
+	
 	bool MeshRenderer::OnAttach()
 	{
 		MeshDataPtr pMD = boost::shared_dynamic_cast<MeshData>(m_pObject->GetComponent(L"MeshData"));

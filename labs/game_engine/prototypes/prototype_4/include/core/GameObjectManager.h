@@ -2,10 +2,11 @@
 
 #include "core\ExtPackage.h"
 
+#include <boost\enable_shared_from_this.hpp>
 
 namespace engine
 {
-	class EXPORT_CLASS GameObjectManager
+	class EXPORT_CLASS GameObjectManager : public boost::enable_shared_from_this<GameObjectManager>
 	{
 		class PackageMod
 		{
@@ -52,6 +53,8 @@ namespace engine
 
 		bool							RegisterPackage(ExtPackage* pPack);
 		bool							RegisterComponentClass(ExtPackage::ComponentClass* c);
+
+		RenderSystemPtr					GetRenderSystem();
 	private:
 
 		void							ReleaseAllObject();
@@ -66,6 +69,5 @@ namespace engine
 
 		std::vector<PackageMod>			m_packages;
 		CoreApiPtr						m_pCore;
-		
 	};
 }

@@ -8,7 +8,7 @@ namespace engine
 
 		struct ComponentClass
 		{
-			ComponentClass(const std::wstring& name, const std::wstring& catalog, const std::wstring& desc, boost::function<GameObjectComponentPtr ()> creator)
+			ComponentClass(const std::wstring& name, const std::wstring& catalog, const std::wstring& desc, boost::function<GameObjectComponentPtr (GameObjectManagerPtr)> creator)
 			{
 				m_name						= name;
 				m_catalog					= catalog;
@@ -23,7 +23,7 @@ namespace engine
 			std::wstring									m_name;
 			std::wstring									m_catalog;
 			std::wstring									m_desc;
-			boost::function<GameObjectComponentPtr ()>		m_creator;
+			boost::function<GameObjectComponentPtr (GameObjectManagerPtr)>		m_creator;
 		};
 
 		
