@@ -92,7 +92,6 @@ engine::Sys_GraphicsPtr AppContext::GetSysGraphics()
 }
 void AppContext::ReleaseContext()
 {
-	//UpdatePropGrid(engine::GameObjectPtr());
 	if(s_pRenderer)
 	{
 		s_pRenderer->Release();
