@@ -74,6 +74,7 @@ namespace engine
 		void								SetGBuffer(MultiRenderTargetPtr pGBuffer);
 	private:
 		void								UpdateSemantics();
+		void								OutputDebugInfo(ID3D10Blob* pBlob);
 	private:
 		
 		ID3D11InputLayout*					m_pIL;

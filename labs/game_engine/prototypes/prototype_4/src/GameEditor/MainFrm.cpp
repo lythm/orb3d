@@ -543,7 +543,7 @@ CPropertiesWnd*	CMainFrame::GetPropGrid()
 }
 void CMainFrame::OnCreatefromtemplateCube()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_Cube();
+	AppContext::GetProject()->CreateObject_FromTemplate_Cube();
 
 	AppContext::UpdateObjectView();
 }
@@ -551,7 +551,7 @@ void CMainFrame::OnCreatefromtemplateCube()
 
 void CMainFrame::OnGameobjectCreateempty()
 {
-	AppContext::GetRenderer()->CreateObject_Empty();
+	AppContext::GetProject()->CreateObject_Empty();
 
 	AppContext::UpdateObjectView();
 
@@ -561,7 +561,7 @@ void CMainFrame::OnGameobjectCreateempty()
 
 void CMainFrame::OnCreatefromtemplateSphere()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_Sphere();
+	AppContext::GetProject()->CreateObject_FromTemplate_Sphere();
 
 	AppContext::UpdateObjectView();
 	// TODO: 在此添加命令处理程序代码
@@ -570,7 +570,7 @@ void CMainFrame::OnCreatefromtemplateSphere()
 
 void CMainFrame::OnCreatefromtemplateDirlight()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_DirLight();
+	AppContext::GetProject()->CreateObject_FromTemplate_DirLight();
 
 	AppContext::UpdateObjectView();
 }
@@ -578,7 +578,7 @@ void CMainFrame::OnCreatefromtemplateDirlight()
 
 void CMainFrame::OnCreatefromtemplatePointlight()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_PointLight();
+	AppContext::GetProject()->CreateObject_FromTemplate_PointLight();
 
 	AppContext::UpdateObjectView();
 }
@@ -586,7 +586,7 @@ void CMainFrame::OnCreatefromtemplatePointlight()
 
 void CMainFrame::OnCreatefromtemplateSpotlight()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_SpotLight();
+	AppContext::GetProject()->CreateObject_FromTemplate_SpotLight();
 
 	AppContext::UpdateObjectView();
 }
@@ -594,7 +594,7 @@ void CMainFrame::OnCreatefromtemplateSpotlight()
 
 void CMainFrame::OnCreatefromtemplatePlane()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_Plane();
+	AppContext::GetProject()->CreateObject_FromTemplate_Plane();
 
 	AppContext::UpdateObjectView();
 }
@@ -651,7 +651,7 @@ void CMainFrame::SetFPS(float fps)
 
 void CMainFrame::OnCreatefromtemplateCone()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_Cone();
+	AppContext::GetProject()->CreateObject_FromTemplate_Cone();
 
 	AppContext::UpdateObjectView();
 }
@@ -659,7 +659,7 @@ void CMainFrame::OnCreatefromtemplateCone()
 
 void CMainFrame::OnCreatefromtemplateSkylight()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_SkyLight();
+	AppContext::GetProject()->CreateObject_FromTemplate_SkyLight();
 
 	AppContext::UpdateObjectView();
 }

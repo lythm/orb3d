@@ -16,19 +16,13 @@ public:
 	void								OnMouseRButtonUp(UINT nFlags, CPoint point);
 	void								OnMouseLButtonClick(UINT nFlags, CPoint point);
 
-	void								CreateObject_Empty();
-	void								CreateObject_FromTemplate_Cube();
-	void								CreateObject_FromTemplate_Cone();
-	void								CreateObject_FromTemplate_Sphere();
-	void								CreateObject_FromTemplate_Plane();
-
-	void								CreateObject_FromTemplate_DirLight();
-	void								CreateObject_FromTemplate_PointLight();
-	void								CreateObject_FromTemplate_SpotLight();
-	void								CreateObject_FromTemplate_SkyLight();
+	
 
 	void								ShowGrid(bool bShow);
 	bool								ShowingGrid();
+
+	void								UpdateFPS();
+
 private:
 	void								UpdateSemantics();
 	

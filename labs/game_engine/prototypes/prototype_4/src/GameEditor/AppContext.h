@@ -52,5 +52,7 @@ private:
 	static ProjectPtr							s_pProject;
 
 	static engine::GameObjectPtr				s_pSelObject;
+
+	static PathManagerPtr						s_pPathManager;
 };
 

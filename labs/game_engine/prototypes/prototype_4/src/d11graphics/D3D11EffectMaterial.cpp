@@ -27,7 +27,16 @@ namespace engine
 	{
 
 	}
-
+	void D3D11EffectMaterial::OutputDebugInfo(ID3D10Blob* pBlob)
+	{
+		if(pBlob)
+		{
+			const char* szTxt =(char*) pBlob->GetBufferPointer();
+			OutputDebugStringA("[D3D11Material Compiler]:\n");
+			OutputDebugStringA(szTxt);
+			pBlob->Release();
+		}
+	}
 	bool D3D11EffectMaterial::LoadFromFile(const char* szFile)
 	{
 		ID3D10Blob* pBlob = NULL;
@@ -35,23 +44,12 @@ namespace engine
 
 		if( FAILED( D3DX11CompileFromFileA( szFile, NULL, NULL, NULL, "fx_5_0", D3DCOMPILE_ENABLE_STRICTNESS, NULL, NULL, &pBlob, &pErrorBlob, NULL ) ) )
 		{
-			if(pErrorBlob)
-			{
-				const char* szTxt =(char*) pErrorBlob->GetBufferPointer();
-				OutputDebugStringA(szTxt);
-				OutputDebugStringA("/n");
-				pErrorBlob->Release();
-			}
+			OutputDebugInfo(pErrorBlob);
+			
 			return false;
 		}
 
-		if(pErrorBlob)
-		{
-			const char* szTxt =(char*) pErrorBlob->GetBufferPointer();
-			OutputDebugStringA(szTxt);
-			OutputDebugStringA("/n");
-			pErrorBlob->Release();
-		}
+		OutputDebugInfo(pErrorBlob);
 
 		HRESULT ret = D3DX11CreateEffectFromMemory(pBlob->GetBufferPointer(), pBlob->GetBufferSize(),  0, m_pDevice, &m_pEffect);
 		if(FAILED(ret))
@@ -397,11 +395,11 @@ namespace engine
 			//m_pContext->Map(pD3DBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &desc);
 
 			//memcpy(desc.pData, buffer, size);
-			
+
 			//m_pContext->Unmap(pD3DBuffer, 0);
 		}
 
-		
+
 	}
 	bool D3D11EffectMaterial::SetVertexFormat(const VertexFormat& format)
 	{

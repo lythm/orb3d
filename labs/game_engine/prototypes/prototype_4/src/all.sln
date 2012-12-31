@@ -43,6 +43,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core_ext", "core_ext\core_e
 		{60A6EE1C-FFBC-4E86-8185-5BAB6E1A1645} = {60A6EE1C-FFBC-4E86-8185-5BAB6E1A1645}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEditor_ext", "GameEditor_ext\GameEditor_ext.vcxproj", "{8DDD8279-AD96-4186-888F-0F922F2725CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -81,6 +83,10 @@ Global
 		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Debug|Win32.Build.0 = Debug|Win32
 		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Release|Win32.ActiveCfg = Release|Win32
 		{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}.Release|Win32.Build.0 = Release|Win32
+		{8DDD8279-AD96-4186-888F-0F922F2725CB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8DDD8279-AD96-4186-888F-0F922F2725CB}.Debug|Win32.Build.0 = Debug|Win32
+		{8DDD8279-AD96-4186-888F-0F922F2725CB}.Release|Win32.ActiveCfg = Release|Win32
+		{8DDD8279-AD96-4186-888F-0F922F2725CB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

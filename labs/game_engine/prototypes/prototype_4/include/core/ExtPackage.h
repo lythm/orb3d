@@ -24,6 +24,7 @@ namespace engine
 			std::wstring									m_catalog;
 			std::wstring									m_desc;
 			boost::function<GameObjectComponentPtr (GameObjectManagerPtr)>		m_creator;
+
 		};
 
 		

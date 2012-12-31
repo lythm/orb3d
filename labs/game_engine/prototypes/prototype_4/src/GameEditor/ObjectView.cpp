@@ -307,7 +307,7 @@ void CObjectView::OnOvDelobj()
 
 void CObjectView::OnCreatefromtemplateCube()
 {
-	AppContext::GetRenderer()->CreateObject_FromTemplate_Cube();
+	//pContext::GetProject()->CreateObject_FromTemplate_Cube();
 	// TODO: 在此添加命令处理程序代码
 }
 

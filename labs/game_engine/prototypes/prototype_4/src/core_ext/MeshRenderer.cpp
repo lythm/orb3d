@@ -44,6 +44,10 @@ namespace engine
 	{
 		MeshDataPtr pMD = boost::shared_dynamic_cast<MeshData>(m_pObject->GetComponent(L"MeshData"));
 
+		if(pMD == MeshDataPtr())
+		{
+			return false;
+		}
 		Reset(pMD);
 
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

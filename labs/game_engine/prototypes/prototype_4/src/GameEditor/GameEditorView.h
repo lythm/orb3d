@@ -51,7 +51,7 @@ public:
 	
 private:
 	
-	void UpdateFPS();
+	
 private:
 	
 public:

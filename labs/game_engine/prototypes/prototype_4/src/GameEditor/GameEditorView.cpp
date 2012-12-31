@@ -146,27 +146,12 @@ void CGameEditorView::OnInitialUpdate()
 }
 
 
-void CGameEditorView::UpdateFPS()
-{
-	static int frame = 0;
-	static int tick = GetTickCount();
 
-	int dt = GetTickCount() - tick;
-
-	if(dt > 500)
-	{
-		float fps = float(frame * 1000) / float(dt);
-		AppContext::UpdateStatusBar_FPS(fps);
-		tick = GetTickCount();
-		frame = 0;
-	}
-	frame++;
-}
 void CGameEditorView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	UpdateFPS();
+	//UpdateFPS();
 
 	Render();
 
@@ -294,7 +279,7 @@ int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	}
 
-	SetTimer(0, (1000/100), NULL);
+	//SetTimer(0, (1000/100), NULL);
 	
 	return 0;
 }

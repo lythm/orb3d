@@ -7,14 +7,6 @@ namespace engine
 	{
 	public:
 
-		enum DR_STAGE
-		{
-			DR_GEOMETRY,
-			DR_LIGHTING,
-			DR_POSTEFFECT,
-			DR_MERGE,
-		};
-
 		RenderData(void){}
 
 		virtual ~RenderData(void){}

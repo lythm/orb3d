@@ -73,9 +73,10 @@ class Renderer;
 class GridMesh;
 class EditorCamera;
 class AppConfig;
-class GameObjectEditorProperty;
+class PathManager;
 
-typedef boost::shared_ptr<GameObjectEditorProperty>	GameObjectEditorPropertyPtr;
+
+typedef boost::shared_ptr<PathManager>				PathManagerPtr;
 typedef boost::shared_ptr<AppConfig>				AppConfigPtr;
 typedef boost::shared_ptr<EditorCamera>				EditorCameraPtr;
 typedef boost::shared_ptr<GridMesh>					GridMeshPtr;

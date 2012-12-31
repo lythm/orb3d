@@ -123,6 +123,7 @@
     <ClInclude Include="GridMesh.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="OutputWnd.h" />
+    <ClInclude Include="PathManager.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Renderer.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="GridMesh.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
+    <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="Renderer.cpp" />

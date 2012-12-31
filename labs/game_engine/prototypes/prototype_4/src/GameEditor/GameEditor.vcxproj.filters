@@ -108,6 +108,9 @@
     <ClInclude Include="ObjectViewTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -192,6 +195,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ObjectViewTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

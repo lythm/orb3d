@@ -8,6 +8,8 @@
 #include "core\ext\Light_Point.h"
 #include "core\ext\Light_Spot.h"
 #include "core\ext\Light_Sky.h"
+#include "core\ext\SkyBox.h"
+#include "core\ext\Camera.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -56,24 +58,34 @@ namespace engine
 					*/
 
 		m_classes.push_back(ComponentClass(L"DirectionalLight",
-					L"Rendering",
+					L"Light",
 					L"Directional Light",
 					&Package::Create_DirectionalLight));
 
 		m_classes.push_back(ComponentClass(L"PointLight",
-					L"Rendering",
+					L"Light",
 					L"Point Light",
 					&Package::Create_PointLight));
 
 		m_classes.push_back(ComponentClass(L"SpotLight",
-					L"Rendering",
+					L"Light",
 					L"Spot Light",
 					&Package::Create_SpotLight));
 
 		m_classes.push_back(ComponentClass(L"SkyLight",
-					L"Rendering",
+					L"Light",
 					L"Sky Light",
 					&Package::Create_SkyLight));
+
+		m_classes.push_back(ComponentClass(L"SkyBox",
+					L"Camera",
+					L"SkyBox",
+					&Package::Create_SkyBox));
+
+		m_classes.push_back(ComponentClass(L"Camera",
+					L"Camera",
+					L"Camera",
+					&Package::Create_Camera));
 
 
 	}
@@ -136,6 +148,14 @@ namespace engine
 	GameObjectComponentPtr Package::Create_SkyLight(GameObjectManagerPtr pManager)
 	{
 		return GetAllocator()->AllocObject<Light_Sky, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr Package::Create_SkyBox(GameObjectManagerPtr pManager)
+	{
+		return GetAllocator()->AllocObject<SkyBox, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr Package::Create_Camera(GameObjectManagerPtr pManager)
+	{
+		return GetAllocator()->AllocObject<Camera, GameObjectManagerPtr>(pManager);
 	}
 }
 

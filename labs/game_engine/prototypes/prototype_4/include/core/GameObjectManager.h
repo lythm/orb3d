@@ -34,7 +34,7 @@ namespace engine
 		void							Release();
 
 		bool							LoadPackage(const std::wstring& name);
-
+		
 		GameObjectPtr					CreateGameObject(const std::wstring& name);
 		GameObjectPtr					CreateObjectFromTemplate(const std::string& tpl);
 		

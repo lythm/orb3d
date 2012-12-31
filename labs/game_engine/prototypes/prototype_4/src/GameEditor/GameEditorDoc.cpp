@@ -13,6 +13,7 @@
 #include "GameEditorDoc.h"
 
 #include <propkey.h>
+#include "StartDialog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -43,11 +44,23 @@ BOOL CGameEditorDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
+	
 	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)
 
 	ProjectPtr pProject = AppContext::GetProject();
-
+	
+	/*if(pProject == ProjectPtr())
+	{
+		CStartDialog dlg;
+		if(IDOK != dlg.DoModal())
+		{
+			return FALSE;
+		}
+		POSITION pos = GetFirstViewPosition();
+		GetNextView(pos)->SetTimer(0, 100 / 1000, NULL);
+	}
+*/
 	if(pProject)
 	{
 		pProject->Close();

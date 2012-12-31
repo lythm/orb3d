@@ -21,6 +21,7 @@ namespace engine
 	private:
 		void								RegisterClasses();
 
+		static GameObjectComponentPtr		Create_SkyBox(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_MeshData(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_MeshRenderer(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_PropertyManager(GameObjectManagerPtr pManager);
@@ -29,6 +30,7 @@ namespace engine
 		static GameObjectComponentPtr		Create_PointLight(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_SpotLight(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_SkyLight(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_Camera(GameObjectManagerPtr pManager);
 
 	private:
 		static CoreApiPtr					s_pCore;
