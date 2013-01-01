@@ -13,7 +13,7 @@ MeshImporter_3DSMax::~MeshImporter_3DSMax(void)
 bool MeshImporter_3DSMax::Import(const wchar_t* szFile)
 {
 
-	IStorage * pStorage = nullptr;
+	/*IStorage * pStorage = nullptr;
 
 	HRESULT ret = StgOpenStorageEx(szFile, STGM_READ, STGFMT_FILE, FILE_ATTRIBUTE_NORMAL, nullptr, 0, IID_IStorage,(void**) &pStorage);
 
@@ -26,6 +26,6 @@ bool MeshImporter_3DSMax::Import(const wchar_t* szFile)
 	}
 	
 
-	fclose(file);
+	fclose(file);*/
 	return true;
 }
