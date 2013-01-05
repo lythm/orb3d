@@ -24,6 +24,9 @@
     <ClInclude Include="DT_SelectionBox.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\dt_ext\DT_Gizmo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor_ext_pch.cpp">
@@ -33,6 +36,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DT_SelectionBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DT_Gizmo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

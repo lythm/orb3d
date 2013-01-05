@@ -3,7 +3,7 @@
 #include "core\MeshUtil.h"
 #include "core\GPUBuffer.h"
 #include "core\Sys_Graphics.h"
-
+#include "core_utils.h"
 namespace engine
 {
 	SpotLight::SpotLight(void) : Light(LT_SPOTLIGHT)
@@ -19,7 +19,12 @@ namespace engine
 	}
 	bool SpotLight::Create(Sys_GraphicsPtr pGraphics)
 	{
-		m_pVB = MeshUtil::CreateSpotLightCone(pGraphics, m_range, m_angle, 50, m_nVerts);
+		math::Vector3* pVerts = MeshUtil::CreateSpotLightCone(m_range, m_angle, 50, m_nVerts);
+
+		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, false);
+		
+		mem_free(pVerts);
+		
 		if(m_pVB == GPUBufferPtr())
 		{
 			return false;

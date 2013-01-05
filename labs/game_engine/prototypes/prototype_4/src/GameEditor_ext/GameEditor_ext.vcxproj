@@ -79,11 +79,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\dt_ext\DT_Gizmo.h" />
     <ClInclude Include="DT_SelectionBox.h" />
     <ClInclude Include="GameEditor_ext_pch.h" />
     <ClInclude Include="Package.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DT_Gizmo.cpp" />
     <ClCompile Include="DT_SelectionBox.cpp" />
     <ClCompile Include="GameEditor_ext_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -62,6 +62,7 @@ namespace engine
 
 		std::vector<RenderDataPtr>					m_forwardQueue;
 		std::vector<RenderDataPtr>					m_deferredQueue;
+		std::vector<RenderDataPtr>					m_transparentQueue;
 		
 		Sys_GraphicsPtr								m_pGraphics;
 

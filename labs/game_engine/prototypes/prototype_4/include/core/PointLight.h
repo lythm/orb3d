@@ -29,6 +29,6 @@ namespace engine
 		GPUBufferPtr			m_pVB;
 		int						m_nVerts;
 
-		math::Matrix44			m_modifedWorldTM;
+		math::Matrix44			m_modifiedWorldTM;
 	};
 }

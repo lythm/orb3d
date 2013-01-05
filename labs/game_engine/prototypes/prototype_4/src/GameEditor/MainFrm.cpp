@@ -15,6 +15,7 @@
 #include "MeshImporter_3DSMax.h"
 #include "Project.h"
 
+#include "RenderingSettingDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -57,6 +58,7 @@ ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
 ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
 ON_COMMAND(ID_CREATEFROMTEMPLATE_CONE, &CMainFrame::OnCreatefromtemplateCone)
 ON_COMMAND(ID_CREATEFROMTEMPLATE_SKYLIGHT, &CMainFrame::OnCreatefromtemplateSkylight)
+ON_COMMAND(ID_RENDERING_SETTING, &CMainFrame::OnRenderingSetting)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -785,6 +787,10 @@ bool CMainFrame::UpdateComClassMap()
 			{
 				continue;
 			}
+			if(pClass->m_catalog == L"DT")
+			{
+				continue;
+			}
 			m_ComClassMap[pClass->m_catalog].push_back(pClass);
 		}
 	}
@@ -820,4 +826,17 @@ engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 void CMainFrame::OnUpdateComponentMenuUI(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(AppContext::GetSelectedObject() != engine::GameObjectPtr());
+}
+
+
+void CMainFrame::OnRenderingSetting()
+{
+	// TODO: 在此添加命令处理程序代码
+
+	CRenderingSettingDlg dlg(this);
+
+	if(IDOK != dlg.DoModal())
+	{
+
+	}
 }

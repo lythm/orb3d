@@ -98,6 +98,7 @@ public:
 	virtual void OnUpdateFrameMenu(HMENU hMenuAlt);
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	afx_msg void OnRenderingSetting();
 };
 
 

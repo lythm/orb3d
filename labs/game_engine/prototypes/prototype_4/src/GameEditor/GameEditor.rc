@@ -197,6 +197,7 @@ BEGIN
         MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
         MENUITEM SEPARATOR
         MENUITEM "设置...",                       ID_EDIT_APPSETTINGS
+        MENUITEM "Rendering Setting...",        ID_RENDERING_SETTING
     END
     POPUP "视图(&V)"
     BEGIN
@@ -417,6 +418,15 @@ BEGIN
     PUSHBUTTON      "取消",IDCANCEL,252,156,50,14
 END
 
+IDD_RENDERING_SETTING DIALOGEX 0, 0, 407, 189
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Rendering Setting"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,58,168,50,14
+    PUSHBUTTON      "取消",IDCANCEL,267,168,50,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -487,6 +497,14 @@ BEGIN
         RIGHTMARGIN, 302
         TOPMARGIN, 7
         BOTTOMMARGIN, 170
+    END
+
+    IDD_RENDERING_SETTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 400
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 182
     END
 END
 #endif    // APSTUDIO_INVOKED

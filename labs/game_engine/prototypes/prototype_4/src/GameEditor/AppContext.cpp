@@ -178,6 +178,9 @@ engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
 
 	pObj->AddComponent(pPM);
 
+	pPM = CreateGameObjectComponent(L"DT_Gizmo");
+	pObj->AddComponent(pPM);
+
 	return pObj;
 
 }

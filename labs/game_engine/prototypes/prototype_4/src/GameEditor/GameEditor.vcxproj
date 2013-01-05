@@ -109,8 +109,6 @@
     <ClInclude Include="AppContext.h" />
     <ClInclude Include="AppSettingsDlg.h" />
     <ClInclude Include="Assets.h" />
-    <ClInclude Include="DT_BBoxRenderer.h" />
-    <ClInclude Include="DT_PointLightGizmo.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshImporter_3DSMax.h" />
     <ClInclude Include="ObjectPropertyGrid.h" />
@@ -127,6 +125,7 @@
     <ClInclude Include="Project.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderingSettingDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="StartDialog.h" />
@@ -142,8 +141,6 @@
     <ClCompile Include="AppContext.cpp" />
     <ClCompile Include="AppSettingsDlg.cpp" />
     <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="DT_BBoxRenderer.cpp" />
-    <ClCompile Include="DT_PointLightGizmo.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshImporter_3DSMax.cpp" />
     <ClCompile Include="ObjectPropertyGrid.cpp" />
@@ -160,6 +157,7 @@
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderingSettingDlg.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="StartDialog.cpp" />
     <ClCompile Include="stdafx.cpp">

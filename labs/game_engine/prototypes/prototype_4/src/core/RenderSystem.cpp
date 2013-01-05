@@ -93,8 +93,7 @@ namespace engine
 	}
 	void RenderSystem::Release()
 	{
-		m_forwardQueue.clear();
-		m_deferredQueue.clear();
+		Clear();
 
 		if(m_pScreenQuadMaterial)
 		{
@@ -138,6 +137,7 @@ namespace engine
 	{
 		m_forwardQueue.clear();
 		m_deferredQueue.clear();
+		m_transparentQueue.clear();
 	}
 	void RenderSystem::RenderGBuffer()
 	{
@@ -180,6 +180,13 @@ namespace engine
 			SetSemanticsValue(m_forwardQueue[i]);
 			
 			m_forwardQueue[i]->Render(m_pGraphics);
+		}
+
+		for(size_t i = 0; i < m_transparentQueue.size(); ++i)
+		{
+			SetSemanticsValue(m_transparentQueue[i]);
+			
+			m_transparentQueue[i]->Render(m_pGraphics);
 		}
 	}
 	void RenderSystem::Render()

@@ -92,7 +92,7 @@ namespace custom_property
 	{
 		using namespace engine;
 
-		math::Matrix44 mat = math::MatrixTranslation(m_translation) * math::MatrixScale(m_scale) * EularToMatrix(m_rotation);
+		math::Matrix44 mat = math::MatrixScale(m_scale) * math::MatrixTranslation(m_translation) * EularToMatrix(m_rotation);
 
 		((Matrix44Property*)m_pProp)->Set(mat);
 
@@ -108,15 +108,16 @@ namespace custom_property
 		// Assuming the angles are in radians.
 		if (rm(1, 0) > 0.998)
 		{ // singularity at north pole
-			r.x = math::MATH_PI/2;
+			r.x = 0;
 			r.y = atan2(rm(0, 2), rm(2, 2));
-			r.z = 0;
+			r.z = math::MATH_PI/2;
 			return r;
 		}
 		if (rm(1, 0) < -0.998) { // singularity at south pole
-			r.x = -math::MATH_PI/2;
+			r.x = 0;
+			
 			r.y = atan2(rm(0, 2),rm(2, 2));
-			r.z = 0;
+			r.z = -math::MATH_PI/2;
 			return r;
 		}
 		
@@ -124,11 +125,14 @@ namespace custom_property
 		r.y  = atan2(-rm(2, 0), rm(0, 0));
 		r.z  = asin(rm(1, 0));
 
-		return math::Vector3(math::R2D(r.x), math::R2D(r.y), math::R2D(r.z));
+		return math::Vector3(-math::R2D(r.x), -math::R2D(r.y), -math::R2D(r.z));
 	}
 	math::Matrix44 TransformProperty::EularToMatrix(const math::Vector3& r)
 	{
-		return math::MatrixRotationRollPitchYaw(math::D2R(r.x), math::D2R(r.y), math::D2R(r.z));
+		using namespace math;
+
+		return MatrixRotationAxisY(D2R(r.y)) * MatrixRotationAxisZ(D2R(r.z)) * MatrixRotationAxisX(D2R(r.x));
+		//return math::MatrixRotationRollPitchYaw(math::D2R(r.x), math::D2R(r.y), math::D2R(r.z));
 	}
 }
 

@@ -3,6 +3,7 @@
 #include "core\MeshUtil.h"
 #include "core\Sys_Graphics.h"
 #include "core\GPUBuffer.h"
+#include "core_utils.h"
 
 namespace engine
 {
@@ -11,7 +12,7 @@ namespace engine
 		m_radius				= 10.0f;
 		m_fallout				= 1.0f;
 		m_nVerts				= 0;
-		m_modifedWorldTM.MakeIdentity();
+		m_modifiedWorldTM.MakeIdentity();
 
 	}
 
@@ -40,7 +41,10 @@ namespace engine
 	}
 	bool PointLight::Create(Sys_GraphicsPtr pGraphics)
 	{
-		m_pVB = MeshUtil::CreateSphere(pGraphics, 1, 50, 50, m_nVerts);
+		math::Vector3* pPos = MeshUtil::CreateSphere(1, 50, 50, m_nVerts);
+		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, m_nVerts * sizeof(math::Vector3), pPos, false);
+
+		mem_free(pPos);
 
 		if(m_pVB == GPUBufferPtr())
 		{
@@ -67,7 +71,7 @@ namespace engine
 	}
 	const math::Matrix44& PointLight::GetWorldTM()
 	{
-		m_modifedWorldTM = math::MatrixScale(math::Vector3(m_radius, m_radius, m_radius)) * Light::GetWorldTM();
-		return m_modifedWorldTM;
+		m_modifiedWorldTM = math::MatrixScale(math::Vector3(m_radius, m_radius, m_radius)) * Light::GetWorldTM();
+		return m_modifiedWorldTM;
 	}
 }

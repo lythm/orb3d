@@ -95,6 +95,7 @@
     <ClInclude Include="..\..\include\core\ext\MeshRenderer.h" />
     <ClInclude Include="..\..\include\core\ext\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\ext\PropertyManager.h" />
+    <ClInclude Include="..\..\include\core\ext\Sky.h" />
     <ClInclude Include="..\..\include\core\ext\SkyBox.h" />
     <ClInclude Include="..\..\include\core\ext\SoundEmitter.h" />
     <ClInclude Include="..\..\include\core\ext\SoundListener.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="Package.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="PropertyManager.cpp" />
+    <ClCompile Include="Sky.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SoundEmitter.cpp" />
     <ClCompile Include="SoundListener.cpp" />

@@ -264,14 +264,9 @@ namespace engine
 
 		pMat->SetVertexFormat(format);
 
-#define DTOR (3.14f / 180.f)
-		int theta, phi; 
-
-		int dtheta = int(360 / slice); 
-		int dphi = int(180 / stack); 
-
-		int NumVertices = (int) ((360/dtheta) * (180/dphi) * 4); 
-
+		int NumVertices = 0;
+		math::Vector3* pPos = CreateSphere(radius, slice, stack, NumVertices);
+		
 		struct Vertex
 		{
 			math::Vector3 pos;
@@ -279,66 +274,16 @@ namespace engine
 		};
 
 		Vertex* pVerts = (Vertex*)mem_alloc(sizeof(Vertex) * NumVertices);
+		for(int i = 0; i < NumVertices; ++i)
+		{
+			pVerts[i].pos = pPos[i];
+			pVerts[i].normal = pPos[i];
+			pVerts[i].normal.Normalize();
 
-		int n = 0; 
-
-		for (phi = 0; phi <= 180 - dphi; phi += (int)dphi) 
-		{ 
-			for (theta = 0; theta <= 360 - dtheta; theta += (int)dtheta) 
-			{ 
-				math::Vector3 pos;
-				pos.x = radius * sinf(phi * DTOR) * cosf(theta * DTOR); 
-
-				pos.y = radius * sinf(phi * DTOR) * sinf(theta * DTOR); 
-
-				pos.z = radius * cosf(phi * DTOR); 
-
-				pVerts[n].pos = pos;
-				pVerts[n].normal = pos;
-				pVerts[n].normal.Normalize();
-
-				n++; 
-
-				pos.x = radius * sinf((phi + dphi) * DTOR) * cosf(theta * DTOR); 
-
-				pos.y = radius * sinf((phi + dphi) * DTOR) * sinf(theta * DTOR); 
-
-				pos.z = radius * cosf((phi + dphi) * DTOR); 
-
-				pVerts[n].pos = pos;
-				pVerts[n].normal = pos;
-				pVerts[n].normal.Normalize();
-
-				n++; 
-
-				pos.x = radius * sinf(phi * DTOR) * cosf((theta + dtheta) * DTOR); 
-
-				pos.y = radius * sinf(phi * DTOR) * sinf((theta + dtheta) * DTOR); 
-
-				pos.z = radius * cosf(phi * DTOR); 
-
-				pVerts[n].pos = pos;
-				pVerts[n].normal = pos;
-				pVerts[n].normal.Normalize();
-
-				n++; 
-
-				if (phi > -180 && phi < 180) 
-				{ 
-
-					pos.x = radius * sinf((phi + dphi) * DTOR) * cosf((theta + dtheta) * DTOR); 
-
-					pos.y = radius * sinf((phi + dphi) * DTOR) * sinf((theta + dtheta) * DTOR); 
-
-					pos.z = radius * cosf((phi + dphi) * DTOR); 
-
-					pVerts[n].pos = pos;
-					pVerts[n].normal = pos;
-					pVerts[n].normal.Normalize();
-					n++; 
-				} 
-			} 
 		}
+		
+		mem_free(pPos);
+
 		std::vector<MaterialPtr> mats;
 		mats.push_back(pMat);
 
@@ -357,7 +302,8 @@ namespace engine
 
 		return pMesh;
 	}
-	GPUBufferPtr MeshUtil::CreateSphere(Sys_GraphicsPtr pGraphics, float radius, float slice, float stack, int& nVerts)
+	
+	math::Vector3* MeshUtil::CreateSphere(float radius, float slice, float stack, int& nVerts)
 	{
 #define DTOR (3.14f / 180.f)
 		int theta, phi; 
@@ -426,14 +372,10 @@ namespace engine
 			} 
 		}
 		
-		GPUBufferPtr pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * NumVertices, pVerts, false);
-
-		mem_free(pVerts);
-
 		nVerts = NumVertices;
-		return pVB;
+		return (math::Vector3*)pVerts;
 	}
-	GPUBufferPtr MeshUtil::CreateSpotLightCone(Sys_GraphicsPtr pGraphics, float range, float angle, float slice, int& nVerts)
+	math::Vector3* MeshUtil::CreateSpotLightCone(float range, float angle, float slice, int& nVerts)
 	{
 		float radius = tanf(math::D2R(angle)) * range;
 		struct Vertex
@@ -485,9 +427,6 @@ namespace engine
 			n++ ;
 		}
 
-		GPUBufferPtr pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * nVerts, pVerts, false);
-		
-		mem_free(pVerts);
-		return pVB;
+		return (math::Vector3*)pVerts;
 	}
 }

@@ -20,6 +20,7 @@ namespace engine
 		static CoreApiPtr					GetCoreApi();
 	private:
 		static GameObjectComponentPtr		Create_DT_SelectionBox(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_DT_Gizmo(GameObjectManagerPtr pManager);
 	private:
 
 		static CoreApiPtr					s_pCore;

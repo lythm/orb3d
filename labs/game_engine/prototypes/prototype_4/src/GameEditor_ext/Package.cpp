@@ -2,6 +2,7 @@
 
 #include "Package.h"
 #include "DT_SelectionBox.h"
+#include "dt_ext\DT_Gizmo.h"
 
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
@@ -26,6 +27,10 @@ namespace engine
 							L"DT",
 							L"Selection Box",
 							&Package::Create_DT_SelectionBox));
+		m_classes.push_back(ComponentClass(L"DT_Gizmo",
+							L"DT",
+							L"Gizmo",
+							&Package::Create_DT_Gizmo));
 	}
 
 
@@ -53,5 +58,9 @@ namespace engine
 	GameObjectComponentPtr Package::Create_DT_SelectionBox(GameObjectManagerPtr pManager)
 	{
 		return GameObjectComponentPtr(new DT_SelectionBox(pManager));
+	}
+	GameObjectComponentPtr Package::Create_DT_Gizmo(GameObjectManagerPtr pManager)
+	{
+		return GameObjectComponentPtr(new DT_Gizmo(pManager));
 	}
 }

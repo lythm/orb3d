@@ -96,12 +96,6 @@
     <ClInclude Include="StartDialog.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DT_BBoxRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DT_PointLightGizmo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="TemplateView.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -109,6 +103,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="PathManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingSettingDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,12 +182,6 @@
     <ClCompile Include="StartDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DT_BBoxRenderer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DT_PointLightGizmo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="TemplateView.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -198,6 +189,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingSettingDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

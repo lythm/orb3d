@@ -10,6 +10,7 @@
 #include "core\ext\Light_Sky.h"
 #include "core\ext\SkyBox.h"
 #include "core\ext\Camera.h"
+#include "core\ext\Sky.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -87,6 +88,11 @@ namespace engine
 					L"Camera",
 					&Package::Create_Camera));
 
+		m_classes.push_back(ComponentClass(L"Sky",
+					L"Rendering",
+					L"Sky",
+					&Package::Create_Sky));
+
 
 	}
 
@@ -156,6 +162,10 @@ namespace engine
 	GameObjectComponentPtr Package::Create_Camera(GameObjectManagerPtr pManager)
 	{
 		return GetAllocator()->AllocObject<Camera, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr Package::Create_Sky(GameObjectManagerPtr pManager)
+	{
+		return GetAllocator()->AllocObject<Sky, GameObjectManagerPtr>(pManager);
 	}
 }
 
