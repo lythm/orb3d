@@ -6,6 +6,7 @@
 
 Project::Project(void)
 {
+	m_objNo	= 0;
 }
 
 
@@ -71,7 +72,7 @@ void Project::AddDefaultLight()
 		
 	Light_SkyPtr pLight = boost::shared_dynamic_cast<Light_Sky>(AppContext::CreateGameObjectComponent(L"SkyLight"));
 	pObj->AddComponent(pLight);
-	pObj->SetTranslation(1, 0, 1);
+	pObj->SetTranslation(1, 1, 1);
 	pObj->LookAt(math::Vector3(0, 0, 0));
 
 }
@@ -82,7 +83,7 @@ void Project::CreateObject_FromTemplate_Sphere()
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
 
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Sphere");
+	GameObjectPtr pObj = CreateObject(L"Sphere");
 
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
@@ -107,7 +108,7 @@ void Project::CreateObject_FromTemplate_Cone()
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
 
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Cone");
+	GameObjectPtr pObj = CreateObject(L"Cone");
 
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
@@ -128,7 +129,7 @@ void Project::CreateObject_FromTemplate_Plane()
 {
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Plane");
+	GameObjectPtr pObj = CreateObject(L"Plane");
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
@@ -149,7 +150,7 @@ void Project::CreateObject_FromTemplate_Cube()
 {
 	using namespace engine;
 
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Cube");
+	GameObjectPtr pObj = CreateObject(L"Cube");
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
@@ -170,13 +171,26 @@ void Project::CreateObject_FromTemplate_Cube()
 void Project::CreateObject_Empty()
 {
 	using namespace engine;
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"GameObject");
+	GameObjectPtr pObj = CreateObject(L"GameObject");
+}
+engine::GameObjectPtr Project::CreateObject(const std::wstring& name)
+{
+	using namespace engine;
+
+	CString full_name;
+
+	full_name.Format(L"%s-%d", name.c_str(), m_objNo);
+	
+	GameObjectPtr pObj = AppContext::CreateGameObject(full_name.GetString());
+
+	m_objNo++;
+	return pObj;
 }
 void Project::CreateObject_FromTemplate_DirLight()
 {
 	using namespace engine;
 	
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Directional Light");
+	GameObjectPtr pObj = CreateObject(L"Directional Light");
 		
 	Light_DirPtr pLight = boost::shared_dynamic_cast<Light_Dir>(AppContext::CreateGameObjectComponent(L"DirectionalLight"));
 	pObj->AddComponent(pLight);
@@ -187,7 +201,7 @@ void Project::CreateObject_FromTemplate_PointLight()
 {
 	using namespace engine;
 	
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Point Light");
+	GameObjectPtr pObj = CreateObject(L"Point Light");
 		
 	Light_PointPtr pLight = boost::shared_dynamic_cast<Light_Point>(AppContext::CreateGameObjectComponent(L"PointLight"));
 	pObj->AddComponent(pLight);
@@ -199,7 +213,7 @@ void Project::CreateObject_FromTemplate_SpotLight()
 {
 	using namespace engine;
 	
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Spot Light");
+	GameObjectPtr pObj = CreateObject(L"Spot Light");
 		
 	Light_SpotPtr pLight = boost::shared_dynamic_cast<Light_Spot>(AppContext::CreateGameObjectComponent(L"SpotLight"));
 	pObj->AddComponent(pLight);
@@ -209,7 +223,7 @@ void Project::CreateObject_FromTemplate_SkyLight()
 {
 	using namespace engine;
 	
-	GameObjectPtr pObj = AppContext::CreateGameObject(L"Sky Light");
+	GameObjectPtr pObj = CreateObject(L"Sky Light");
 		
 	Light_SkyPtr pLight = boost::shared_dynamic_cast<Light_Sky>(AppContext::CreateGameObjectComponent(L"SkyLight"));
 	pObj->AddComponent(pLight);

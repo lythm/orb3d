@@ -21,7 +21,7 @@ bool Renderer::Initialize(int vpw, int vph)
 
 	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
 
-	if(false == m_pGrid->Init(300, 10))
+	if(false == m_pGrid->Init(1000, 10))
 	{
 		return false;
 	}

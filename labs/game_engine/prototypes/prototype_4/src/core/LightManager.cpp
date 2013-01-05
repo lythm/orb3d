@@ -149,6 +149,10 @@ namespace engine
 	}
 	void LightManager::RenderLight(MultiRenderTargetPtr pGBuffer, LightPtr pLight)
 	{
+		if(pLight->GetEnabled() == false)
+		{
+			return;
+		}
 		const math::Matrix44& tm = pLight->GetWorldTM();
 
 		math::Vector3 d = tm.GetRow3(2);
@@ -156,13 +160,16 @@ namespace engine
 		struct LightParam
 		{
 			math::Vector3 d;
-			float padding;
+			float i;
 			math::Vector3 c;
+			float specularPow;
 		};
 
 		LightParam l;
 		l.d = d;
+		l.i = pLight->GetIntensity();
 		l.c = math::Vector3(pLight->GetDiffuseColor().r, pLight->GetDiffuseColor().g, pLight->GetDiffuseColor().b);
+		l.specularPow = pLight->GetSpecularPow();
 
 		m_pLightMaterial->SetCBByName("light", &l, sizeof(LightParam));
 		m_pLightMaterial->SetGBuffer(pGBuffer);

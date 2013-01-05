@@ -29,9 +29,18 @@ namespace engine
 		const math::Color4&						GetDiffuseColor();
 		void									SetDiffuseColor(const math::Color4& clr);
 
-		bool									GetCastShadow();
-		void									SetCastShadow(bool bCast);
+		const bool&								GetCastShadow();
+		void									SetCastShadow(const bool& bCast);
 
+		const float&							GetSpecularPow();
+		void									SetSpecularPow(const float& pow);
+
+		const float&							GetIntensity();
+		void									SetIntensity(const float& i);
+
+		const bool&								GetEnabled();
+		void									SetEnabled(const bool& bEnabled);
+		
 	private:
 		LIGHT_TYPE								m_type;
 
@@ -42,5 +51,9 @@ namespace engine
 
 		bool									m_bCastShadow;
 		math::Color4							m_diffClr;
+		float									m_specularPow;
+		float									m_intensity;
+
+		bool									m_bEnabled;
 	};
 }

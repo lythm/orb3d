@@ -33,5 +33,6 @@ namespace engine
 		MaterialPtr								m_pLightMaterial;
 
 		Sys_GraphicsPtr							m_pGraphics;
+
 	};
 }

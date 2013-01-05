@@ -9,7 +9,12 @@ namespace engine
 		m_type = type;
 
 		m_bCastShadow				= false;
-		m_diffClr					= math::Color4(1, 1, 1, 1);
+		m_diffClr					= math::Color4(0.6f, 0.6f, 0.6f, 1.0f);
+
+		m_specularPow				= 100;
+		m_intensity					= 1;
+
+		m_bEnabled					= true;
 	}
 
 
@@ -54,12 +59,36 @@ namespace engine
 		m_diffClr = clr;
 	}
 	
-	bool Light::GetCastShadow()
+	const bool& Light::GetCastShadow()
 	{
 		return m_bCastShadow;
 	}
-	void Light::SetCastShadow(bool bCast)
+	void Light::SetCastShadow(const bool& bCast)
 	{
 		m_bCastShadow = bCast;
+	}
+	const float& Light::GetSpecularPow()
+	{
+		return m_specularPow;
+	}
+	void Light::SetSpecularPow(const float& pow)
+	{
+		m_specularPow = pow;
+	}
+	const float& Light::GetIntensity()
+	{
+		return m_intensity;
+	}
+	void Light::SetIntensity(const float& i)
+	{
+		m_intensity = i > 1.0f ? 1.0f : i;
+	}
+	const bool&	Light::GetEnabled()
+	{
+		return m_bEnabled;
+	}
+	void Light::SetEnabled(const bool& bEnabled)
+	{
+		m_bEnabled = bEnabled;
 	}
 }

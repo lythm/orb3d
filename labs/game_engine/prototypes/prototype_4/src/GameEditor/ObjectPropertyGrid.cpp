@@ -196,6 +196,10 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 	case property_type_float:
 		{
 			((FloatProperty*)p)->Set(pProp->GetValue().fltVal);
+
+			pProp->SetValue(_variant_t(((FloatProperty*)p)->Get()));
+
+
 		}
 		break;
 	case property_type_color:

@@ -33,8 +33,10 @@ DepthStencilState DS_Light
 
 struct DirectionalLight
 {
-	float3 dir;
-	float3 clr;
+	float3	dir;
+	float	intensity;
+	float3	clr;
+	float	specular_pow;
 };
 struct PointLight
 {
@@ -46,14 +48,19 @@ struct PointLight
 
 float3 dr_light_dir(half3 n, DirectionalLight light, float4x4 wv)
 {
-	float3 d = -mul(light.dir, (float3x3)wv);
+	float3 l = -mul(light.dir, (float3x3)wv);
 
-	//d = normalize(d);
-
-	float il = max(0, dot(d, n));
+	float il = max(0, dot(l, n)) * light.intensity;
 	
-	return il * light.clr;
+	float3 v = float3(0, 0, -1);
+	float3 h = (l + v ) /2;
+	h = normalize(h);
+	
+	float3 r = reflect(-l, n);
+	float s = max(0, dot(r, v));
+	s = pow(s, light.specular_pow) * light.intensity;
 
+	return il * light.clr + s * light.clr;
 }
 
 float3 dr_light_point(half4 p, half3 n, PointLight light, float4x4 wv)

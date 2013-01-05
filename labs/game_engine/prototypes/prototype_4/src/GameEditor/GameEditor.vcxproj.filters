@@ -108,6 +108,9 @@
     <ClInclude Include="RenderingSettingDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TemplateViewTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -192,6 +195,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="RenderingSettingDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TemplateViewTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

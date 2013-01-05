@@ -39,7 +39,7 @@ PS_OUTPUT ps_dirlight_main(PS_INPUT i)
 	half3 n = dr_gbuffer_get_normal(tex_gbuffer, i.uv);
 	
 	o.clr.xyz = dr_light_dir(n, light, wv);
-	o.clr.w = 1;
+	o.clr.w = 0;
 
 	return o;
 }

@@ -31,7 +31,10 @@ GBuffer dr_gbuffer_compose(half4 p, half3 n, half3 d, half s)
 
 half3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
 {
-	half3 normal = normalize(g[1].Sample(Sampler_GBuffer, uv).xyz);
+	half3 normal = g[1].Sample(Sampler_GBuffer, uv).xyz;
+
+	normal = normalize(normal);
+	
 	return normal;
 }
 half4 dr_gbuffer_get_position(Texture2D<half4> g[3], float2 uv)

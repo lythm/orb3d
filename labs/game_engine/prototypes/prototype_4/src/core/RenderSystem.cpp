@@ -265,7 +265,7 @@ namespace engine
 	void RenderSystem::RenderLights()
 	{
 		m_pGraphics->SetRenderTarget(m_pABuffer);
-		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0, 0, 0, 0));
+		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0.1, 0.0, 0.2, 0));
 
 		m_pLightManager->GetLightMaterial()->SetWorldMatrix(math::MatrixIdentity());
 		m_pLightManager->GetLightMaterial()->SetViewMatrix(m_viewMatrix);

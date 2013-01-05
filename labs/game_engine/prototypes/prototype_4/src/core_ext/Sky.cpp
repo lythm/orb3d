@@ -11,5 +11,21 @@ namespace engine
 	Sky::~Sky(void)
 	{
 	}
+	bool Sky::OnAttach()
+	{
+		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
+		pPM->Begin(L"Sky");
+		{
+			
+
+		}
+		pPM->End();
+
+		return true;
+	}
+	void Sky::OnDetach()
+	{
+
+	}
 }

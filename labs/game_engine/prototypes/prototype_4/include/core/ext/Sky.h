@@ -9,6 +9,11 @@ namespace engine
 	public:
 		Sky(GameObjectManagerPtr pManager);
 		virtual ~Sky(void);
+
+	private:
+		bool										OnAttach();
+		void										OnDetach();
+
 	};
 
 

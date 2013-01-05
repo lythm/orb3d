@@ -95,10 +95,13 @@
     <ClInclude Include="..\..\include\core\ext\MeshRenderer.h" />
     <ClInclude Include="..\..\include\core\ext\ParticleRenderer.h" />
     <ClInclude Include="..\..\include\core\ext\PropertyManager.h" />
+    <ClInclude Include="..\..\include\core\ext\RigidBody.h" />
     <ClInclude Include="..\..\include\core\ext\Sky.h" />
     <ClInclude Include="..\..\include\core\ext\SkyBox.h" />
     <ClInclude Include="..\..\include\core\ext\SoundEmitter.h" />
     <ClInclude Include="..\..\include\core\ext\SoundListener.h" />
+    <ClInclude Include="..\..\include\core\ext\VoxelData.h" />
+    <ClInclude Include="..\..\include\core\ext\VoxelRenderer.h" />
     <ClInclude Include="..\..\include\core\ext\WorldMeshRenderer.h" />
     <ClInclude Include="core_ext_pch.h" />
     <ClInclude Include="Package.h" />
@@ -119,10 +122,13 @@
     <ClCompile Include="Package.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="PropertyManager.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SoundEmitter.cpp" />
     <ClCompile Include="SoundListener.cpp" />
+    <ClCompile Include="VoxelData.cpp" />
+    <ClCompile Include="VoxelRenderer.cpp" />
     <ClCompile Include="WorldMeshRenderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

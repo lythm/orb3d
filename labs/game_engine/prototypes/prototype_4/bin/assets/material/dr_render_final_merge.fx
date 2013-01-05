@@ -42,9 +42,9 @@ ps_out ps_main(vs_out i)
 	uv.y = (uv.y ) / vp.y;
 	
 	half3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
-	float3 l = tex_abuffer.Sample(Sampler_GBuffer,uv).xyz;
+	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
 
-	o.color.xyz = l * d;
+	o.color.xyz = l.xyz * d;
 	o.color.w = 1;
 	return o;
 }

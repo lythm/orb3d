@@ -26,6 +26,7 @@ public:
 	void								CreateObject_FromTemplate_SpotLight();
 	void								CreateObject_FromTemplate_SkyLight();
 
+	engine::GameObjectPtr				CreateObject(const std::wstring& name);
 
 private:
 	
@@ -34,5 +35,7 @@ private:
 	CString								m_filePath;
 
 	PathManagerPtr						m_pPathManager;
+
+	int									m_objNo;
 };
 

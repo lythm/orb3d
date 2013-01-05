@@ -92,10 +92,13 @@ namespace custom_property
 	{
 		using namespace engine;
 
-		math::Matrix44 mat = math::MatrixScale(m_scale) * math::MatrixTranslation(m_translation) * EularToMatrix(m_rotation);
+		//math::Matrix44 mat = math::MatrixScale(m_scale)  * EularToMatrix(m_rotation) * math::MatrixTranslation(m_translation);
+
+		math::Matrix44 mat = EularToMatrix(m_rotation);
+		mat.SetScale(m_scale);
+		mat.SetTranslation(m_translation);
 
 		((Matrix44Property*)m_pProp)->Set(mat);
-
 	}
 	math::Vector3 TransformProperty::MatrixToEular(const math::Matrix44& mat)
 	{

@@ -75,6 +75,15 @@
     <ClInclude Include="..\..\include\core\ext\Sky.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\ext\VoxelData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\ext\VoxelRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\ext\RigidBody.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_ext_pch.cpp">
@@ -129,6 +138,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sky.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

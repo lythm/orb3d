@@ -1,7 +1,7 @@
 #include <deferred_shading/dr_gbuffer.hlsl>
 #include <deferred_shading/dr_light.hlsl>
 
-Texture2D tex_gbuffer[3]:DR_GBUFFER;
+Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
 float4x4 wvp:MATRIX_WVP;
 float4x4 wv:MATRIX_WV;
 
@@ -44,8 +44,6 @@ PS_OUTPUT ps_main(PS_INPUT i)
 
 	return o;
 }
-
-
 
 technique11 dir_light
 {

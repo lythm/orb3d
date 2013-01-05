@@ -24,7 +24,7 @@ struct ps_out
 ps_out ps_main(vs_out psin)
 {
 	ps_out psout;
-	psout.color = float4(1,1,1,1);
+	psout.color = float4(0.6,0.6,0.6,1);
 	return psout;
 }
 

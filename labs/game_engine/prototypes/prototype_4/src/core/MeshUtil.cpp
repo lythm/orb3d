@@ -125,6 +125,8 @@ namespace engine
 			math::Vector3 normal;
 		};
 
+		size = size / 2.0f;
+
 		Vertex pVerts[] = 
 		{
 			// front
@@ -171,6 +173,7 @@ namespace engine
 			math::Vector3 normal;
 		};
 
+		size = size / 2.0f;
 		Vertex pVerts[] = 
 		{
 			// front
