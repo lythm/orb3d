@@ -58,9 +58,7 @@ float3 dr_light_dir(half3 n, DirectionalLight light, float4x4 wv)
 	float il = max(0, dot(l, n)) * light.intensity;
 	
 	float3 v = float3(0, 0, -1);
-	float3 h = (l + v ) /2;
-	h = normalize(h);
-	
+		
 	float3 r = reflect(-l, n);
 	float s = max(0, dot(r, v));
 	s = pow(s, light.specular_pow) * light.intensity;
@@ -73,10 +71,21 @@ float3 dr_light_point(float3 p, half3 n, PointLight light, float4x4 wv)
 	float3 center = mul(float4(0, 0, 0, 1), wv).xyz;
 	
 	float3 l = p - center;
+	float d = length(l);
 	l = -normalize(l);
 
-	float il = max(0, dot(l , n)) * light.intensity;
-	return il * light.clr;
+	float falloff = 1;
+	float att = 1 - saturate(d * falloff / light.radius);
+
+	float il = max(0, dot(l , n)) * light.intensity * att;
+
+	float3 v = float3(0, 0, -1);
+		
+	float3 r = reflect(-l, n);
+	float s = max(0, dot(r, v));
+	s = pow(s, light.specular_pow) * light.intensity * att;
+
+	return il * light.clr + s * light.clr;
 
 	//return float3(1, 1, 1);
 }

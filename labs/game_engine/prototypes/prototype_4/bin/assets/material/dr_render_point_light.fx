@@ -14,6 +14,7 @@ struct INPUT
 struct PS_INPUT
 {
 	float4 pos:SV_POSITION;
+	float4 s_pos:POSITION;
 };
 struct PS_OUTPUT
 {
@@ -24,14 +25,14 @@ PS_INPUT vs_main(INPUT i)
 	PS_INPUT o;
 	
 	o.pos = mul(float4(i.pos, 1), wvp);
-
+	o.s_pos = o.pos;
 	return o;
 }
 PS_OUTPUT ps_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
 	
-	float2 uv = i.pos.xy / i.pos.w;
+	float2 uv = i.s_pos.xy / i.s_pos.w;
 	
 	uv.x = uv.x * 0.5 + 0.5;
 	uv.y = 1 - (uv.y * 0.5 + 0.5);
@@ -46,7 +47,7 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	return o;
 }
 
-technique11 dir_light
+technique11 point_light
 {
 	pass p1
 	{
