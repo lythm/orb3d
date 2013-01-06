@@ -94,7 +94,7 @@ BOOL CGameEditorApp::InitInstance()
 	// 更改用于存储设置的注册表项
 	// TODO: 应适当修改该字符串，
 	// 例如修改为公司或组织名
-	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
+	SetRegistryKey(_T("GGUHA Ltd."));
 	LoadStdProfileSettings(4);  // 加载标准 INI 文件选项(包括 MRU)
 
 
@@ -218,9 +218,6 @@ void CGameEditorApp::SaveCustomState()
 }
 
 // CGameEditorApp 消息处理程序
-
-
-
 
 
 BOOL CGameEditorApp::OnIdle(LONG lCount)

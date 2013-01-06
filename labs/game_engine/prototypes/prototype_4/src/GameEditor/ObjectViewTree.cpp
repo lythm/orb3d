@@ -57,7 +57,7 @@ void CObjectViewTree::UpdateGameObjectTree()
 
 	DeleteTree();
 
-	GameObjectPtr pRoot = AppContext::GetCoreApi()->GetRoot();
+	GameObjectPtr pRoot = AppContext::GetCoreApi()->Root();
 
 	HTREEITEM hRoot = InsertItem(pRoot->GetName().c_str(), 5, 5);
 
@@ -295,7 +295,7 @@ void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 
 			GameObjectPtr pDest = GetGameObject(htiDest);
 
-			pDest == nullptr ? pDest = AppContext::GetCoreApi()->GetRoot() : pDest;
+			pDest == nullptr ? pDest = AppContext::GetCoreApi()->Root() : pDest;
 
 			if(pDest != pSrc)
 			{

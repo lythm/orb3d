@@ -76,7 +76,10 @@ int CFileView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
 	// 填入一些静态树视图数据(此处只需填入虚拟代码，而不是复杂的数据)
-	FillFileView();
+	//FillFileView();
+
+	ScanFolder(L"./assets");
+
 	AdjustLayout();
 
 	return 0;
@@ -254,3 +257,61 @@ void CFileView::OnChangeVisualStyle()
 }
 
 
+void CFileView::ScanFolder(const CString& path)
+{
+	using namespace boost;
+	using namespace boost::filesystem;
+
+	filesystem::path p(path);
+
+	if(exists(p) == false)
+	{
+		return;
+	}
+
+	m_wndFileView.DeleteAllItems();
+	HTREEITEM root = m_wndFileView.GetRootItem();
+	_fill_view(p, root);
+
+	m_wndFileView.Expand(root, TVE_EXPAND);
+
+}
+void CFileView::_fill_view(boost::filesystem::path p, HTREEITEM hParent)
+{
+	using namespace boost;
+	using namespace boost::filesystem;
+
+	if(is_directory(p) == false)
+	{
+		AddFileItem(hParent, p);
+		return;
+	}
+
+	HTREEITEM hNode = AddDirectoryItem(hParent, p);
+	
+	directory_iterator it(p);
+
+	for(;it != directory_iterator(); ++it)
+	{
+		_fill_view(it->path(), hNode);
+	}
+	m_wndFileView.Expand(hNode, TVE_EXPAND);
+}
+HTREEITEM CFileView::AddFileItem(HTREEITEM hParent, boost::filesystem::path p)
+{
+	using namespace engine;
+
+	HTREEITEM item = m_wndFileView.InsertItem(p.filename().wstring().c_str(), 2, 2, hParent);
+
+	//PropertySetPtr pSet = PropertySetPtr(new PropertySet(L"general"));
+
+
+	return item;
+}
+HTREEITEM CFileView::AddDirectoryItem(HTREEITEM hParent, boost::filesystem::path p)
+{
+	HTREEITEM item = m_wndFileView.InsertItem(p.filename().wstring().c_str(), 0, 0, hParent);
+
+
+	return item;
+}

@@ -13,8 +13,8 @@
 #include <boost\bind.hpp>
 #include <boost\unordered_map.hpp>
 #include <boost\enable_shared_from_this.hpp>
-//#include <boost\filesystem.hpp>
-//#include <filesystem>
+#include <boost\filesystem.hpp>
+
 
 #include <string>
 #include <math\math_all.h>

@@ -69,9 +69,7 @@ bool AppContext::InitContext(HWND hwnd, int w, int h)
 	}
 #endif
 
-	s_pCore->GetGameObjectManager()->LoadPackage(L"./GameEditor_ext.dll");
-	//GetMainFrame()->UpdateComponentMenu();
-
+	s_pCore->GetGameObjectManager()->LoadPackage(L"./extensions/GameEditor_ext.dll");
 	s_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3f, 0.2f, 0.4f, 1.0f));
 
 	s_pRenderer = RendererPtr(new Renderer);

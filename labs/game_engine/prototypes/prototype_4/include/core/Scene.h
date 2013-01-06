@@ -9,13 +9,15 @@ namespace engine
 		Scene(void);
 		virtual ~Scene(void);
 
-		bool							Load();
-
+		GameObjectPtr					Root();
+		void							Reset();
+		void							Release();
+		void							Update();
 
 	private:
 
 		GameObjectManagerPtr			m_pObjectManager;
-
+		GameObjectPtr					m_pRoot;
 	};
 
 

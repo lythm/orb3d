@@ -30,11 +30,13 @@ namespace engine
 
 		GameObjectPtr									CreateGameObject(const std::wstring& name);
 		GameObjectComponentPtr							CreateGameObjectComponent(const std::wstring& name);
-		GameObjectPtr									GetRoot();
+		GameObjectPtr									Root();
 
 		void											DispatchEvent(EventPtr pEvent);
 		void											AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
 
+		ScenePtr										GetScene();
+		void											ResetScene();
 		static Allocator*								GetAllocator();
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
@@ -46,5 +48,7 @@ namespace engine
 		RenderSystemPtr									m_pRenderSystem;
 
 		static Allocator*								s_pAllocator;
+
+		ScenePtr										m_pScene;
 	};
 }

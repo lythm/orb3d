@@ -60,7 +60,7 @@ bool Project::Save(const _TCHAR* filename)
 }
 void Project::Close()
 {
-	AppContext::GetCoreApi()->GetRoot()->Clear();
+	AppContext::GetCoreApi()->ResetScene();
 }
 
 void Project::AddDefaultLight()

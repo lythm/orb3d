@@ -10,8 +10,9 @@
 #include "core\Event.h"
 #include "core\PoolAllocator.h"
 #include "core\StdAllocator.h"
+#include "core\Scene.h"
 
-
+#include "core\GameObject.h"
 
 #include "WMInput.h"
 
@@ -32,7 +33,7 @@ namespace engine
 	}
 	void CoreApi::Update()
 	{
-		m_pObjectManager->UpdateObjects();
+		m_pScene->Update();
 	}
 	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting, Allocator* pAlloc)
 	{
@@ -76,10 +77,18 @@ namespace engine
 		{
 			return false;
 		}
+
+		m_pScene = s_pAllocator->AllocObject<Scene>();
+
 		return true;
 	}
 	void CoreApi::Release()
 	{
+		if(m_pScene)
+		{
+			m_pScene->Release();
+			m_pScene.reset();
+		}
 		if(m_pObjectManager)
 		{
 			m_pObjectManager->Release();
@@ -165,11 +174,14 @@ namespace engine
 	}
 	GameObjectPtr CoreApi::CreateGameObject(const std::wstring& name)
 	{
-		return m_pObjectManager->CreateGameObject(name);
+		GameObjectPtr pObj = m_pObjectManager->CreateGameObject(name);
+		pObj->LinkTo(m_pScene->Root());
+
+		return pObj;
 	}
-	GameObjectPtr CoreApi::GetRoot()
+	GameObjectPtr CoreApi::Root()
 	{
-		return m_pObjectManager->GetRoot();
+		return m_pScene->Root();
 	}
 	GameObjectComponentPtr CoreApi::CreateGameObjectComponent(const std::wstring& name)
 	{
@@ -194,5 +206,13 @@ namespace engine
 	Allocator* CoreApi::GetAllocator()
 	{
 		return s_pAllocator;
+	}
+	ScenePtr CoreApi::GetScene()
+	{
+		return m_pScene;
+	}
+	void CoreApi::ResetScene()
+	{
+		m_pScene->Reset();
 	}
 }

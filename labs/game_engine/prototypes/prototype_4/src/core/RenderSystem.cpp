@@ -138,7 +138,7 @@ namespace engine
 		m_deferredQueue.clear();
 		m_transparentQueue.clear();
 	}
-	void RenderSystem::RenderGBuffer()
+	void RenderSystem::DR_G_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(0), math::Color4(0, 0, 0, 1));
@@ -155,7 +155,7 @@ namespace engine
 		}
 
 	}
-	void RenderSystem::RenderScreenQuad()
+	void RenderSystem::DR_Final_Pass()
 	{
 		m_pGraphics->SetRenderTarget(RenderTargetPtr());
 		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
@@ -192,12 +192,12 @@ namespace engine
 	{
 		RenderShadowMaps();
 
-		RenderGBuffer();
-		RenderLights();
-		RenderScreenQuad();
+		DR_G_Pass();
+		DR_Light_Pass();
+		DR_Final_Pass();
+
 		RenderForward();
 
-		MergeOutput();
 	}
 	void RenderSystem::Present()
 	{
@@ -261,7 +261,7 @@ namespace engine
 		return m_pLightManager->GetLightCount();
 	}
 	
-	void RenderSystem::RenderLights()
+	void RenderSystem::DR_Light_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pABuffer);
 		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0.0, 0.0, 0.0, 0));
@@ -280,9 +280,7 @@ namespace engine
 			pLight = m_pLightManager->GetNextAffectingLight(pLight, ViewFrustum());
 		}
 	}
-	void RenderSystem::MergeOutput()
-	{
-	}
+	
 	bool RenderSystem::CreateABuffer()
 	{
 		if(m_pABuffer != nullptr)

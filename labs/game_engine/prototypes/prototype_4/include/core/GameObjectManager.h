@@ -40,13 +40,7 @@ namespace engine
 		
 		void							RegisterObject();
 
-		void							UpdateObjects();
-
-		GameObjectPtr					GetRoot();
-		
 		GameObjectComponentPtr			CreateComponent(const std::wstring& name);
-
-		void							WalkObjectTree();
 
 		int								GetPackageCount();
 		ExtPackage*						GetPackageByIndex(int index);
@@ -57,13 +51,8 @@ namespace engine
 		RenderSystemPtr					GetRenderSystem();
 	private:
 
-		void							ReleaseAllObject();
-
-		void							_tree_walk(GameObject* pObj);
 
 	private:
-		GameObjectPtr					m_pRoot;
-
 		boost::unordered_map<std::string, GameObjectTemplatePtr>			m_templates;
 		boost::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
 

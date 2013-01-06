@@ -14,6 +14,8 @@ public:
 
 
 	void										UpdateGameObjectProp(engine::GameObjectPtr pObj);
+	void										AddPropertySet(engine::PropertySetPtr pPropSet);
+
 private:
 	CMFCPropertyGridProperty*					CreateProperty(engine::Property* p);
 	

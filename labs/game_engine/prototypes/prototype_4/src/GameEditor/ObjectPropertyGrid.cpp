@@ -140,24 +140,33 @@ void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 	{
 		PropertySetPtr pO = pPM->GetPropertySet(i);
 
-		CMFCPropertyGridProperty* pCommon = new CMFCPropertyGridProperty(pO->getName().c_str());
-
-		for(size_t ii = 0; ii < pO->getPropertyCount(); ++ii)
-		{
-			Property* p = pO->getProperty(ii);
-
-			CMFCPropertyGridProperty* pSub = CreateProperty(p);
-
-			pCommon->AddSubItem(pSub);
-		}
-
-		AddProperty(pCommon);
+		AddPropertySet(pO);
 
 	}
 
 	Invalidate();
 }
+void CObjectPropertyGrid::AddPropertySet(engine::PropertySetPtr pPropSet)
+{
+	using namespace engine;
 
+	if(pPropSet == nullptr)
+	{
+		return;
+	}
+
+	CMFCPropertyGridProperty* pCommon = new CMFCPropertyGridProperty(pPropSet->getName().c_str());
+
+	for(size_t ii = 0; ii < pPropSet->getPropertyCount(); ++ii)
+	{
+		Property* p = pPropSet->getProperty(ii);
+		CMFCPropertyGridProperty* pSub = CreateProperty(p);
+
+		pCommon->AddSubItem(pSub);
+	}
+
+	AddProperty(pCommon);
+}
 
 
 void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) const

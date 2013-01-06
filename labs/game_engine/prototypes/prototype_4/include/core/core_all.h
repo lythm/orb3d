@@ -19,7 +19,7 @@
 #include <boost\function.hpp>
 #include <boost\bind.hpp>
 #include <boost\enable_shared_from_this.hpp>
-//#include <boost\filesystem.hpp>
+#include <boost\filesystem.hpp>
 
 #include "core\PoolAllocator.h"
 
@@ -53,7 +53,7 @@
 #include "core\SubMesh.h"
 #include "core\Event.h"
 #include "core\MeshUtil.h"
-
+#include "core\Scene.h"
 
 #include "core\Light.h"
 

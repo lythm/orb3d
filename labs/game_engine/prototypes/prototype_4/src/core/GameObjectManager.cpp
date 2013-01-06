@@ -9,12 +9,10 @@ namespace engine
 {
 	GameObjectManager::GameObjectManager(void)
 	{
-		m_pRoot = alloc_object<GameObject, wchar_t*>(L"_root");
 	}
 
 	GameObjectManager::~GameObjectManager(void)
 	{
-		ReleaseAllObject();
 	}
 
 	bool GameObjectManager::Initialize(CoreApiPtr pCore)
@@ -28,12 +26,10 @@ namespace engine
 			return false;
 		}
 
-
 		return true;
 	}
 	void GameObjectManager::Release()
 	{
-		ReleaseAllObject();
 		m_componentClasses.clear();
 		for(size_t i = 0; i < m_packages.size(); ++i)
 		{
@@ -50,21 +46,7 @@ namespace engine
 	{
 
 	}
-	void GameObjectManager::UpdateObjects()
-	{
-		m_pRoot->Update();
-	}
-	GameObjectPtr GameObjectManager::GetRoot()
-	{
-		return m_pRoot;
-	}
-	void GameObjectManager::ReleaseAllObject()
-	{
-		if(m_pRoot)
-		{
-			m_pRoot->Clear();
-		}
-	}
+	
 	GameObjectComponentPtr GameObjectManager::CreateComponent(const std::wstring& name)
 	{
 		if(m_componentClasses.find(name) == m_componentClasses.end())
@@ -80,20 +62,9 @@ namespace engine
 		GameObjectPtr pObj = alloc_object<GameObject>();
 		pObj->SetName(name);
 
-		pObj->LinkTo(m_pRoot);
 		return pObj;
 	}
-	void GameObjectManager::WalkObjectTree()
-	{
-		if(m_pRoot == NULL)
-		{
-			return;
-		}
-	}
-	void GameObjectManager::_tree_walk(GameObject* pObj)
-	{
-
-	}
+	
 	
 	bool GameObjectManager::LoadPackage(const std::wstring& name)
 	{

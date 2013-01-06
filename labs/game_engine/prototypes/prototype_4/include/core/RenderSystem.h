@@ -56,14 +56,14 @@ namespace engine
 	private:
 		bool										CreateABuffer();
 		bool										CreateGBuffer();
-		void										RenderGBuffer();
-		void										RenderScreenQuad();
-		void										RenderForward();
-		void										DrawLightVolumn(LightPtr pLight);
-		void										RenderLights();
-		void										RenderShadowMaps();
-		void										MergeOutput();
 
+		void										DR_G_Pass();
+		void										DR_Final_Pass();
+		void										DR_Light_Pass();
+
+
+		void										RenderForward();
+		void										RenderShadowMaps();
 		
 	private:
 		math::Matrix44								m_viewMatrix;

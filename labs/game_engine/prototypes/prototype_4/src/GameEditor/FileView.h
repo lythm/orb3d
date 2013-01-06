@@ -22,6 +22,9 @@ public:
 	void AdjustLayout();
 	void OnChangeVisualStyle();
 
+
+	void			ScanFolder(const CString& path);
+
 // 特性
 protected:
 
@@ -32,6 +35,11 @@ protected:
 protected:
 	void FillFileView();
 
+	void			_fill_view(boost::filesystem::path p, HTREEITEM hParent);
+
+
+	HTREEITEM		AddFileItem(HTREEITEM hParent, boost::filesystem::path p);
+	HTREEITEM		AddDirectoryItem(HTREEITEM hParent, boost::filesystem::path p);
 // 实现
 public:
 	virtual ~CFileView();
