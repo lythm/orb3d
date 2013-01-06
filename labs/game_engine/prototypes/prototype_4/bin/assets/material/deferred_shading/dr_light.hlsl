@@ -1,6 +1,6 @@
 RasterizerState RS_Light
 {
-	CULLMODE = back;
+	CULLMODE = none;
 };
 BlendState BS_Light
 {
@@ -51,22 +51,32 @@ struct SpotLight
 	float	range;
 };
 
-float3 dr_light_dir(half3 n, DirectionalLight light, float4x4 wv)
+float dr_light_specular_il(float3 n, float3 l, float power)
+{
+	float3 v = float3(0, 0, -1);
+
+	float3 r = reflect(-l, n);
+	float s = saturate(dot(r, v));
+	s = pow(s, power);
+
+	return s;
+}
+
+float3 dr_light_dir(float3 n, DirectionalLight light, float4x4 wv)
 {
 	float3 l = -mul(light.dir, (float3x3)wv);
 
-	float il = max(0, dot(l, n)) * light.intensity;
+	float il = saturate(dot(l, n)) * light.intensity;
 	
-	float3 v = float3(0, 0, -1);
-		
-	float3 r = reflect(-l, n);
-	float s = max(0, dot(r, v));
-	s = pow(s, light.specular_pow) * light.intensity;
+
+	float s = dr_light_specular_il(n, l, light.specular_pow);
+
+	s = s * light.intensity;
 
 	return il * light.clr + s * light.clr;
 }
 
-float3 dr_light_point(float3 p, half3 n, PointLight light, float4x4 wv)
+float3 dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
 {
 	float3 center = mul(float4(0, 0, 0, 1), wv).xyz;
 	
@@ -79,15 +89,11 @@ float3 dr_light_point(float3 p, half3 n, PointLight light, float4x4 wv)
 
 	float il = max(0, dot(l , n)) * light.intensity * att;
 
-	float3 v = float3(0, 0, -1);
-		
-	float3 r = reflect(-l, n);
-	float s = max(0, dot(r, v));
-	s = pow(s, light.specular_pow) * light.intensity * att;
+	float s = dr_light_specular_il(n, l, light.specular_pow);
+
+	s = s * light.intensity * att;
 
 	return il * light.clr + s * light.clr;
-
-	//return float3(1, 1, 1);
 }
 
 
@@ -95,3 +101,6 @@ float3 dr_light_spot()
 {
 	return float3(1, 1, 1);
 }
+
+
+

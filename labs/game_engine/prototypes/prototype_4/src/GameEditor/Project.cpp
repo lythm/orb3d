@@ -88,7 +88,7 @@ void Project::CreateObject_FromTemplate_Sphere()
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
 
-	MeshPtr pMesh = MeshUtil::CreateSphere(1, 20, 20, pMaterial);
+	MeshPtr pMesh = MeshUtil::CreateSphere(1, 100, 100, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 

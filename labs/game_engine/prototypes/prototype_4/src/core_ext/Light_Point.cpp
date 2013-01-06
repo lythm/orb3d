@@ -63,6 +63,16 @@ namespace engine
 												&PointLight::GetFallout,
 												&PointLight::SetFallout);
 
+			pPM->RegisterProperty<float, PointLight>(m_pLight.get(), 
+				L"Intensity", 
+				&PointLight::GetIntensity,
+				&PointLight::SetIntensity);
+
+			pPM->RegisterProperty<bool, PointLight>(m_pLight.get(), 
+				L"Enabled", 
+				&PointLight::GetEnabled,
+				&PointLight::SetEnabled);
+
 		}
 		pPM->End();
 

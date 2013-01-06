@@ -17,7 +17,16 @@ SamplerState Sampler_GBuffer
 	MinLod = 0;
 	MaxLod = 0;
 };
+SamplerState Sampler_GBufferNormal
+{
+	AddressU = clamp;
+	AddressV = clamp;
 
+	filter = MIN_MAG_MIP_LINEAR ;
+	BorderColor = float4(1,0,0,1);
+	MinLod = 0;
+	MaxLod = 0;
+};
 
 GBuffer dr_gbuffer_compose(half4 p, half3 n, half3 d, half s)
 {
@@ -31,7 +40,7 @@ GBuffer dr_gbuffer_compose(half4 p, half3 n, half3 d, half s)
 
 half3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
 {
-	half3 normal = g[1].Sample(Sampler_GBuffer, uv).xyz;
+	half3 normal = g[1].Sample(Sampler_GBufferNormal, uv).xyz;
 
 	normal = normalize(normal);
 	

@@ -69,6 +69,7 @@ namespace engine
 		const math::Matrix44& tm = GetWorldTM();
 
 		math::Vector3 d = tm.GetRow3(2);
+		d.Normalize();
 
 		struct DirLightParam
 		{
