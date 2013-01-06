@@ -19,13 +19,15 @@ namespace engine
 
 		void							Release();
 		void							DrawLightVolumn(Sys_GraphicsPtr pGraphics);
-
+		void							RenderLight(RenderSystemPtr pRS);
 	private:
 		float							m_angle;
 		float							m_range;
 
 		GPUBufferPtr					m_pVB;
 		int								m_nVerts;
+
+		MaterialPtr						m_pMaterial;
 	};
 
 }

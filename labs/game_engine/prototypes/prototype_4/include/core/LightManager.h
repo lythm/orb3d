@@ -9,7 +9,7 @@ namespace engine
 		LightManager(void);
 		virtual ~LightManager(void);
 
-		bool									Initialize(Sys_GraphicsPtr pGraphics);
+		bool									Initialize(RenderSystemPtr pRS);
 		void									Release();
 
 		void									AddLight(LightPtr pLight);
@@ -20,19 +20,12 @@ namespace engine
 
 		LightPtr								GetNextAffectingLight(LightPtr pLight, const ViewFrustum& frustum);
 
-		MaterialPtr								GetLightMaterial();
-
-		void									RenderLights(MultiRenderTargetPtr pGBuffer);
-		void									RenderLight(MultiRenderTargetPtr pGBuffer, LightPtr pLight);
+		void									RenderLights();
 	private:
 
 		LightPtr								m_pList;
-
 		int										m_lightCount;
-
-		MaterialPtr								m_pLightMaterial;
-
 		Sys_GraphicsPtr							m_pGraphics;
-
+		RenderSystemPtr							m_pRenderSystem;
 	};
 }

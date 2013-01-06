@@ -314,14 +314,9 @@ namespace engine
 		int dtheta = int(360 / slice); 
 		int dphi = int(180 / stack); 
 
-		int NumVertices = (int) ((360/dtheta) * (180/dphi) * 4); 
-
-		struct Vertex
-		{
-			math::Vector3 pos;
-		};
-
-		Vertex* pVerts = (Vertex*)mem_alloc(sizeof(Vertex) * NumVertices);
+		nVerts = (int) ((360/dtheta) * (180/dphi) * 4); 
+		
+		math::Vector3* pVerts = (math::Vector3*)mem_alloc(sizeof(math::Vector3) * nVerts);
 
 		int n = 0; 
 
@@ -331,52 +326,35 @@ namespace engine
 			{ 
 				math::Vector3 pos;
 				pos.x = radius * sinf(phi * DTOR) * cosf(theta * DTOR); 
-
 				pos.y = radius * sinf(phi * DTOR) * sinf(theta * DTOR); 
-
 				pos.z = radius * cosf(phi * DTOR); 
-
-				pVerts[n].pos = pos;
-				
+				pVerts[n] = pos;
 				n++; 
 
 				pos.x = radius * sinf((phi + dphi) * DTOR) * cosf(theta * DTOR); 
-
 				pos.y = radius * sinf((phi + dphi) * DTOR) * sinf(theta * DTOR); 
-
 				pos.z = radius * cosf((phi + dphi) * DTOR); 
-
-				pVerts[n].pos = pos;
-				
+				pVerts[n] = pos;
 				n++; 
 
 				pos.x = radius * sinf(phi * DTOR) * cosf((theta + dtheta) * DTOR); 
-
 				pos.y = radius * sinf(phi * DTOR) * sinf((theta + dtheta) * DTOR); 
-
 				pos.z = radius * cosf(phi * DTOR); 
-
-				pVerts[n].pos = pos;
-				
+				pVerts[n] = pos;
 				n++; 
 
 				if (phi > -180 && phi < 180) 
 				{ 
-
 					pos.x = radius * sinf((phi + dphi) * DTOR) * cosf((theta + dtheta) * DTOR); 
-
 					pos.y = radius * sinf((phi + dphi) * DTOR) * sinf((theta + dtheta) * DTOR); 
-
 					pos.z = radius * cosf((phi + dphi) * DTOR); 
-
-					pVerts[n].pos = pos;
+					pVerts[n] = pos;
 					n++; 
 				} 
 			} 
 		}
 		
-		nVerts = NumVertices;
-		return (math::Vector3*)pVerts;
+		return pVerts;
 	}
 	math::Vector3* MeshUtil::CreateSpotLightCone(float range, float angle, float slice, int& nVerts)
 	{

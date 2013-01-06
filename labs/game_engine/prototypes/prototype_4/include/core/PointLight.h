@@ -20,7 +20,7 @@ namespace engine
 
 		const math::Matrix44&	GetWorldTM();
 		void					Release();
-		void					DrawLightVolumn(Sys_GraphicsPtr pGraphics);
+		void					RenderLight(RenderSystemPtr pRS);
 
 	private:
 		float					m_radius;
@@ -30,5 +30,7 @@ namespace engine
 		int						m_nVerts;
 
 		math::Matrix44			m_modifiedWorldTM;
+
+		MaterialPtr				m_pMaterial;
 	};
 }

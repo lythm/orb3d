@@ -88,7 +88,7 @@ void Project::CreateObject_FromTemplate_Sphere()
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
 
-	MeshPtr pMesh = MeshUtil::CreateSphere(20, 100, 100, pMaterial);
+	MeshPtr pMesh = MeshUtil::CreateSphere(1, 20, 20, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
@@ -113,7 +113,7 @@ void Project::CreateObject_FromTemplate_Cone()
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
 
-	MeshPtr pMesh = MeshUtil::CreateCone(50, 30, 99, pMaterial);
+	MeshPtr pMesh = MeshUtil::CreateCone(1, 30, 99, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
@@ -134,7 +134,7 @@ void Project::CreateObject_FromTemplate_Plane()
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
-	MeshPtr pMesh = MeshUtil::CreatePlane(200, pMaterial);
+	MeshPtr pMesh = MeshUtil::CreatePlane(100, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 
@@ -155,7 +155,7 @@ void Project::CreateObject_FromTemplate_Cube()
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
 	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
-	MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
+	MeshPtr pMesh = MeshUtil::CreateCube(2, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
 

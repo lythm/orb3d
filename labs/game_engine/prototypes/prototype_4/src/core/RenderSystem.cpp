@@ -48,7 +48,7 @@ namespace engine
 		}
 
 		m_pLightManager = alloc_object<LightManager>();
-		if(m_pLightManager->Initialize(m_pGraphics) == false)
+		if(m_pLightManager->Initialize(shared_from_this()) == false)
 		{
 			return false;
 		}
@@ -58,11 +58,10 @@ namespace engine
 		VertexElement vf[] = 
 		{
 			VertexElement(0, VertexElement::POSITION,G_FORMAT_R32G32B32_FLOAT),
-			VertexElement(0, VertexElement::TEXCOORD,G_FORMAT_R32G32_FLOAT),
 		};
 		VertexFormat format;
 
-		format.SetElement(vf, 2);
+		format.SetElement(vf, 1);
 
 		m_pScreenQuadMaterial->SetVertexFormat(format);
 		
@@ -267,18 +266,17 @@ namespace engine
 		m_pGraphics->SetRenderTarget(m_pABuffer);
 		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0.1, 0.0, 0.2, 0));
 
-		m_pLightManager->GetLightMaterial()->SetWorldMatrix(math::MatrixIdentity());
-		m_pLightManager->GetLightMaterial()->SetViewMatrix(m_viewMatrix);
-		m_pLightManager->GetLightMaterial()->SetProjMatrix(m_projMatrix);
-
-		m_pLightManager->RenderLights(m_pGBuffer);
+		m_pLightManager->RenderLights();
 	}
 	void RenderSystem::RenderShadowMaps()
 	{
 		LightPtr pLight = m_pLightManager->GetNextAffectingLight(LightPtr(), ViewFrustum());
 		while(pLight)
 		{
-			pLight->RenderShadowMap();
+			if(pLight->GetCastShadow() == true)
+			{
+				pLight->RenderShadowMap();
+			}
 			pLight = m_pLightManager->GetNextAffectingLight(pLight, ViewFrustum());
 		}
 	}
@@ -298,6 +296,22 @@ namespace engine
 		m_pABuffer = m_pGraphics->CreateRenderTarget(setting.frameBufferWidth, setting.frameBufferHeight, G_FORMAT_R16G16B16A16_FLOAT);
 
 		return true;
+	}
+	MultiRenderTargetPtr RenderSystem::GetGBuffer()
+	{
+		return m_pGBuffer;
+	}
+	RenderTargetPtr	RenderSystem::GetABuffer()
+	{
+		return m_pABuffer;
+	}
+	const math::Matrix44& RenderSystem::GetViewMatrix()
+	{
+		return m_viewMatrix;
+	}
+	const math::Matrix44& RenderSystem::GetProjMatrix()
+	{
+		return m_projMatrix;
 	}
 }
 
@@ -352,4 +366,6 @@ namespace engine
 
 		pMaterial->End();
 	}
+
+
 }

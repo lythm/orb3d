@@ -91,4 +91,8 @@ namespace engine
 	{
 		m_bEnabled = bEnabled;
 	}
+	void Light::RenderLight(RenderSystemPtr pRenderer)
+	{
+
+	}
 }

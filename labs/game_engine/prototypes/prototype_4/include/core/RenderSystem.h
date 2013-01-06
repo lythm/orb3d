@@ -1,9 +1,10 @@
 #pragma once
 
 
+
 namespace engine
 {
-	class EXPORT_CLASS RenderSystem
+	class EXPORT_CLASS RenderSystem : public boost::enable_shared_from_this<RenderSystem>
 	{
 		
 		class ScreenQuad
@@ -32,6 +33,9 @@ namespace engine
 		void										SetViewMatrix(const math::Matrix44& view);
 		void										SetProjMatrix(const math::Matrix44& proj);
 
+		const math::Matrix44&						GetViewMatrix();
+		const math::Matrix44&						GetProjMatrix();
+		
 		Sys_GraphicsPtr								GetSysGraphics();
 
 		void										SetClearColor(const math::Color4& clr);
@@ -45,6 +49,10 @@ namespace engine
 		void										AddLight(LightPtr pLight);
 		void										RemoveLight(LightPtr pLight);
 		int											GetLightCount();
+
+		MultiRenderTargetPtr						GetGBuffer();
+		RenderTargetPtr								GetABuffer();
+
 	private:
 		bool										CreateABuffer();
 		bool										CreateGBuffer();
@@ -56,6 +64,7 @@ namespace engine
 		void										RenderShadowMaps();
 		void										MergeOutput();
 
+		
 	private:
 		math::Matrix44								m_viewMatrix;
 		math::Matrix44								m_projMatrix;

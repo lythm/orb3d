@@ -10,7 +10,6 @@ struct vs_in
 struct vs_out
 {
 	float4 pos:SV_POSITION;
-	float3 eyepos:POSITION1;
 	float3 normal:NORMAL;
 };
 
@@ -18,7 +17,6 @@ vs_out vs_main(vs_in i)
 {
 	vs_out o;
 	o.pos = mul(float4(i.pos, 1), mvp);
-	o.eyepos = mul(float4(i.pos, 1), mv).xyz;
 	o.normal = mul(float4(i.normal.xyz, 0), mv).xyz;
 
 	return o;

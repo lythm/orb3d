@@ -12,7 +12,7 @@ namespace engine
 
 		bool								Create(Sys_GraphicsPtr pGraphics);
 		void								Release();
-		void								DrawLightVolumn(Sys_GraphicsPtr pGraphics);
+		void								RenderLight(RenderSystemPtr pRenderer);
 
 	private:
 
@@ -20,6 +20,7 @@ namespace engine
 		math::Color4						m_diff;
 
 		GPUBufferPtr						m_pVB;
+		MaterialPtr							m_pMaterial;
 	};
 
 

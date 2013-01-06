@@ -14,6 +14,7 @@ namespace engine
 		Light(LIGHT_TYPE type);
 		virtual ~Light(void);
 
+		virtual void							RenderLight(RenderSystemPtr pRenderer);
 		virtual void							DrawLightVolumn(Sys_GraphicsPtr pGraphics);
 		virtual void							Update();
 		virtual void							RenderShadowMap();
@@ -41,7 +42,7 @@ namespace engine
 		const bool&								GetEnabled();
 		void									SetEnabled(const bool& bEnabled);
 		
-	private:
+	protected:
 		LIGHT_TYPE								m_type;
 
 		LightPtr								m_pPrev;

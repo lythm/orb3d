@@ -43,6 +43,7 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	o.clr.xyz = dr_light_point(v_pos, n, light, wv);
 	o.clr.w = 1;
 
+	o.clr = float4(1, 1,1, 1);
 	return o;
 }
 

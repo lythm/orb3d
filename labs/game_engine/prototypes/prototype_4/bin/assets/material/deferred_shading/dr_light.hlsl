@@ -1,6 +1,6 @@
 RasterizerState RS_Light
 {
-	CULLMODE = None;
+	CULLMODE = back;
 };
 BlendState BS_Light
 {
@@ -16,17 +16,17 @@ BlendState BS_Light
 };
 DepthStencilState DS_Light
 {
-	DepthEnable					= FALSE;
-	DepthFunc					= LESS;
+	DepthEnable						= FALSE;
+	DepthFunc						= LESS;
 	DepthWriteMask					= ZERO;
 	StencilEnable					= true;
-	FrontFaceStencilFail				= KEEP;
-	FrontFaceStencilDepthFail			= KEEP;
-	FrontFaceStencilPass				= KEEP;
-	FrontFaceStencilFunc				= EQUAL;
+	FrontFaceStencilFail			= KEEP;
+	FrontFaceStencilDepthFail		= KEEP;
+	FrontFaceStencilPass			= KEEP;
+	FrontFaceStencilFunc			= EQUAL;
 
 	BackFaceStencilFail				= KEEP;
-	BackFaceStencilDepthFail			= KEEP;
+	BackFaceStencilDepthFail		= KEEP;
 	BackFaceStencilPass				= KEEP;
 	BackFaceStencilFunc				= NEVER;
 };
@@ -40,10 +40,15 @@ struct DirectionalLight
 };
 struct PointLight
 {
-	float3	center;
-	float	radius;
 	float3	clr;
+	float	intensity;
+	float	radius;
+	float	specular_pow;
+};
 
+struct SpotLight
+{
+	float	range;
 };
 
 float3 dr_light_dir(half3 n, DirectionalLight light, float4x4 wv)
@@ -63,7 +68,21 @@ float3 dr_light_dir(half3 n, DirectionalLight light, float4x4 wv)
 	return il * light.clr + s * light.clr;
 }
 
-float3 dr_light_point(half4 p, half3 n, PointLight light, float4x4 wv)
+float3 dr_light_point(float3 p, half3 n, PointLight light, float4x4 wv)
+{
+	float3 center = mul(float4(0, 0, 0, 1), wv).xyz;
+	
+	float3 l = p - center;
+	l = -normalize(l);
+
+	float il = max(0, dot(l , n)) * light.intensity;
+	return il * light.clr;
+
+	//return float3(1, 1, 1);
+}
+
+
+float3 dr_light_spot()
 {
 	return float3(1, 1, 1);
 }

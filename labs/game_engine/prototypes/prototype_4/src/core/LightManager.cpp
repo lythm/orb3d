@@ -4,6 +4,8 @@
 #include "core_utils.h"
 #include "core\Sys_Graphics.h"
 #include "core\Material.h"
+#include "core\RenderSystem.h"
+
 namespace engine
 {
 	LightManager::LightManager(void)
@@ -15,22 +17,14 @@ namespace engine
 	LightManager::~LightManager(void)
 	{
 	}
-	bool LightManager::Initialize(Sys_GraphicsPtr pGraphics)
+	bool LightManager::Initialize(RenderSystemPtr pRS)
 	{
-		m_pGraphics = pGraphics;
+		m_pRenderSystem = pRS;
+		m_pGraphics = pRS->GetSysGraphics();
 		m_lightCount = 0;
 		m_pList = LightPtr();
 
-		m_pLightMaterial = m_pGraphics->CreateMaterialFromFile("./assets/material/dr_render_directional_light.fx");
-
-		VertexFormat vf;
-		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));
-		m_pLightMaterial->SetVertexFormat(vf);
-
-		if(m_pLightMaterial == nullptr)
-		{
-			return false;
-		}
+		
 		return true;
 	}
 	void LightManager::Release()
@@ -43,13 +37,10 @@ namespace engine
 
 			pDel->m_pNext = LightPtr();
 			pDel->m_pPrev = LightPtr();
+
+			pDel->Release();
 		}
 		m_pList.reset();
-		if(m_pLightMaterial)
-		{
-			m_pLightMaterial->Release();
-			m_pLightMaterial.reset();
-		}
 	}
 	void LightManager::AddLight(LightPtr pLight)
 	{
@@ -134,54 +125,18 @@ namespace engine
 		return pNode;
 	}
 
-	MaterialPtr	LightManager::GetLightMaterial()
-	{
-		return m_pLightMaterial;
-	}
-	void LightManager::RenderLights(MultiRenderTargetPtr pGBuffer)
+	
+	void LightManager::RenderLights()
 	{
 		LightPtr pLight = GetNextAffectingLight(LightPtr(), ViewFrustum());
 		while(pLight)
 		{
-			RenderLight(pGBuffer, pLight);
+			if(pLight->GetEnabled())
+			{
+				pLight->RenderLight(m_pRenderSystem);
+			}
 			pLight = GetNextAffectingLight(pLight, ViewFrustum());
 		}
 	}
-	void LightManager::RenderLight(MultiRenderTargetPtr pGBuffer, LightPtr pLight)
-	{
-		if(pLight->GetEnabled() == false)
-		{
-			return;
-		}
-		const math::Matrix44& tm = pLight->GetWorldTM();
-
-		math::Vector3 d = tm.GetRow3(2);
-
-		struct LightParam
-		{
-			math::Vector3 d;
-			float i;
-			math::Vector3 c;
-			float specularPow;
-		};
-
-		LightParam l;
-		l.d = d;
-		l.i = pLight->GetIntensity();
-		l.c = math::Vector3(pLight->GetDiffuseColor().r, pLight->GetDiffuseColor().g, pLight->GetDiffuseColor().b);
-		l.specularPow = pLight->GetSpecularPow();
-
-		m_pLightMaterial->SetCBByName("light", &l, sizeof(LightParam));
-		m_pLightMaterial->SetGBuffer(pGBuffer);
-		m_pLightMaterial->ApplyVertexFormat();
-		
-		int nPass = 0;
-		m_pLightMaterial->Begin(nPass);
-		for(int i = 0; i < nPass; ++i)
-		{
-			m_pLightMaterial->ApplyPass(i);
-			pLight->DrawLightVolumn(m_pGraphics);
-		}
-		m_pLightMaterial->End();
-	}
+	
 }
