@@ -14,7 +14,7 @@ struct INPUT
 struct PS_INPUT
 {
 	float4 pos:SV_POSITION;
-	float2 uv:TEXCOORD;
+	float4 s_pos:POSITION;
 };
 struct PS_OUTPUT
 {
@@ -25,10 +25,7 @@ PS_INPUT vs_dirlight_main(INPUT i)
 	PS_INPUT o;
 	
 	o.pos = float4(i.pos, 1);
-	o.uv = i.pos.xy;
-
-	o.uv.x = (o.uv.x + 1.0) / 2.0;
-	o.uv.y = (1.0 - o.uv.y) / 2.0;
+	o.s_pos = o.pos;
 
 	return o;
 }
@@ -36,7 +33,9 @@ PS_OUTPUT ps_dirlight_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
 	
-	half3 n = dr_gbuffer_get_normal(tex_gbuffer, i.uv);
+	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
+
+	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	
 	o.clr.xyz = dr_light_dir(n, light, wv);
 	o.clr.w = 0;

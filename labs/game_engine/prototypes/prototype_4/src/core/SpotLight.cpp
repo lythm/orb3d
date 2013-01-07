@@ -15,6 +15,9 @@ namespace engine
 		m_angle			= 45;
 		m_nVerts		= 0;
 		m_range			= 10;
+		
+
+		m_modifiedTM.MakeIdentity();
 	}
 
 
@@ -25,7 +28,7 @@ namespace engine
 	{
 		math::Vector3* pVerts = MeshUtil::CreateSpotLightCone(m_range, m_angle, 50, m_nVerts);
 
-		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, false);
+		m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * m_nVerts, pVerts, true);
 		
 		mem_free(pVerts);
 		
@@ -52,6 +55,8 @@ namespace engine
 	void SpotLight::SetAngle(const float& angle)
 	{
 		m_angle = angle;
+
+		UpdateLightVolume();
 	}
 	const float& SpotLight::GetRange()
 	{
@@ -60,14 +65,10 @@ namespace engine
 	void SpotLight::SetRange(const float& range)
 	{
 		m_range = range;
-	}
-	void SpotLight::DrawLightVolumn(Sys_GraphicsPtr pGraphics)
-	{
-		pGraphics->SetVertexBuffer(m_pVB, 0, sizeof(math::Vector3));
-		pGraphics->SetPrimitiveType(PT_TRIANGLE_LIST);
+		UpdateLightVolume();
 
-		pGraphics->Draw(m_nVerts, 0);
 	}
+	
 	void SpotLight::Release()
 	{
 		if(m_pMaterial)
@@ -96,16 +97,20 @@ namespace engine
 		struct SpotLightParam
 		{
 			Vector3			color;
-			
+			float			intensity;
+			float			range;
+			float			theta;
+			float			specular_pow;
 		};
 
 		SpotLightParam l;
 		
-		//l.intensity = GetIntensity();
+		l.intensity = GetIntensity();
 		const math::Color4& diffClr = GetDiffuseColor();
 		l.color = math::Vector3(diffClr.r, diffClr.g, diffClr.b);
-		//l.radius = GetRadius();
-		//l.specular_pow = GetSpecularPow();
+		l.range = GetRange();
+		l.specular_pow = GetSpecularPow();
+		l.theta = cosf(math::D2R(GetAngle()));
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(SpotLightParam));
 		m_pMaterial->SetGBuffer(pRS->GetGBuffer());
@@ -124,4 +129,17 @@ namespace engine
 		}
 		m_pMaterial->End();
 	}
+	void SpotLight::UpdateLightVolume()
+	{
+		math::Vector3* pVerts = MeshUtil::CreateSpotLightCone(m_range, m_angle, 50, m_nVerts);
+
+		void* pData = m_pVB->Map(MAP_DISCARD);
+
+		memcpy(pData, pVerts, sizeof(math::Vector3)* m_nVerts);
+		
+		m_pVB->Unmap();
+				
+		mem_free(pVerts);
+	}
+
 }

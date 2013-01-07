@@ -21,6 +21,7 @@ namespace engine
 		virtual ~ViewFrustum(void);
 
 		void						Update(const math::Matrix44& view, const math::Matrix44& proj);
+		bool						IntersectSphere(const math::Sphere& sphere) const;
 		bool						IntersectBox(const math::AABBox& box) const;
 
 	private:

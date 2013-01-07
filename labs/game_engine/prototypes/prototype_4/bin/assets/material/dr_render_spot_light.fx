@@ -5,7 +5,7 @@ Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
 float4x4 wvp:MATRIX_WVP;
 float4x4 wv:MATRIX_WV;
 float4x4 i_p:MATRIX_I_PROJ;
-PointLight	light;
+SpotLight	light;
 
 struct INPUT
 {
@@ -14,6 +14,7 @@ struct INPUT
 struct PS_INPUT
 {
 	float4 pos:SV_POSITION;
+	float4 s_pos:POSITION;
 };
 struct PS_OUTPUT
 {
@@ -24,30 +25,27 @@ PS_INPUT vs_main(INPUT i)
 	PS_INPUT o;
 	
 	o.pos = mul(float4(i.pos, 1), wvp);
-
+	o.s_pos = o.pos;
 	return o;
 }
 PS_OUTPUT ps_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
 	
-	float2 uv = i.pos.xy / i.pos.w;
-	
-	uv.x = uv.x * 0.5 + 0.5;
-	uv.y = 1 - (uv.y * 0.5 + 0.5);
+	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
 
 	half3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	half4 p = dr_gbuffer_get_position(tex_gbuffer, uv);
 
 	float3 v_pos = mul(p, i_p);
-	o.clr.xyz = dr_light_point(v_pos, n, light, wv);
+	o.clr.xyz = dr_light_spot(v_pos, n, light, wv);
 	o.clr.w = 1;
 
-	o.clr = float4(1, 1,1, 1);
+
 	return o;
 }
 
-technique11 dir_light
+technique11 deferred
 {
 	pass p1
 	{

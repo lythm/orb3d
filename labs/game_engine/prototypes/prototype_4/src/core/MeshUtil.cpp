@@ -359,55 +359,52 @@ namespace engine
 	math::Vector3* MeshUtil::CreateSpotLightCone(float range, float angle, float slice, int& nVerts)
 	{
 		float radius = tanf(math::D2R(angle)) * range;
-		struct Vertex
-		{
-			math::Vector3 pos;
-		};
-
+		
+	
 		nVerts = slice * 6;
-		Vertex* pVerts = (Vertex*)mem_alloc(sizeof(Vertex) * nVerts);
+		math::Vector3* pVerts = (math::Vector3*)mem_alloc(sizeof(math::Vector3) * nVerts);
 
 		int n = 0;
 		for(int i = 0; i < slice; i++)
 		{
 			float th = 360.0f / float(slice) * i;
 			// side
-			pVerts[n].pos.x = radius * sinf(math::D2R(th));
-			pVerts[n].pos.z = range;
-			pVerts[n].pos.y = radius * cosf(math::D2R(th));
+			pVerts[n].x = radius * sinf(math::D2R(th));
+			pVerts[n].z = range;
+			pVerts[n].y = radius * cosf(math::D2R(th));
 			n++;
 
 			th = 360.0f / float(slice) * (i + 1);
-			pVerts[n].pos.x = radius * sinf(math::D2R(th));
-			pVerts[n].pos.z = range;
-			pVerts[n].pos.y = radius * cosf(math::D2R(th));
+			pVerts[n].x = radius * sinf(math::D2R(th));
+			pVerts[n].z = range;
+			pVerts[n].y = radius * cosf(math::D2R(th));
 			n++ ;
 
 
-			pVerts[n].pos.x = 0;
-			pVerts[n].pos.z = 0;
-			pVerts[n].pos.y = 0;
+			pVerts[n].x = 0;
+			pVerts[n].z = 0;
+			pVerts[n].y = 0;
 			n++ ;
 
 			// bottom
 			th = 360.0f / float(slice) * i;
-			pVerts[n].pos.x = radius * sinf(math::D2R(th));
-			pVerts[n].pos.z = range;
-			pVerts[n].pos.y = radius * cosf(math::D2R(th));
+			pVerts[n].x = radius * sinf(math::D2R(th));
+			pVerts[n].z = range;
+			pVerts[n].y = radius * cosf(math::D2R(th));
 			n++;
 
-			pVerts[n].pos.x = 0;
-			pVerts[n].pos.z = range;
-			pVerts[n].pos.y = 0;
+			pVerts[n].x = 0;
+			pVerts[n].z = range;
+			pVerts[n].y = 0;
 			n++ ;
 			
 			th = 360.0f / float(slice) * (i + 1);
-			pVerts[n].pos.x = radius * sinf(math::D2R(th));
-			pVerts[n].pos.z = range;
-			pVerts[n].pos.y = radius * cosf(math::D2R(th));
+			pVerts[n].x = radius * sinf(math::D2R(th));
+			pVerts[n].z = range;
+			pVerts[n].y = radius * cosf(math::D2R(th));
 			n++ ;
 		}
 
-		return (math::Vector3*)pVerts;
+		return pVerts;
 	}
 }

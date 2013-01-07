@@ -19,8 +19,6 @@ namespace engine
 		math::Vector3						m_dir;
 		math::Color4						m_diff;
 
-		GPUBufferPtr						m_pVB;
-
 		MaterialPtr							m_pMaterial;
 	};
 }

@@ -23,6 +23,9 @@ namespace engine
 		void					RenderLight(RenderSystemPtr pRS);
 
 	private:
+		void					DrawLightVolumn(RenderSystemPtr pRS);
+		void					DrawQuad(RenderSystemPtr pRS);
+	private:
 		float					m_radius;
 		float					m_fallout;
 		

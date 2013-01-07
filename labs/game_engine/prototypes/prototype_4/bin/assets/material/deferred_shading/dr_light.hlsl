@@ -1,6 +1,6 @@
 RasterizerState RS_Light
 {
-	CULLMODE = none;
+	CULLMODE = back;
 };
 BlendState BS_Light
 {
@@ -48,7 +48,11 @@ struct PointLight
 
 struct SpotLight
 {
+	float3	clr;
+	float	intensity;
 	float	range;
+	float	theta;
+	float	specular_pow;
 };
 
 float dr_light_specular_il(float3 n, float3 l, float power)
@@ -80,9 +84,9 @@ float3 dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
 {
 	float3 center = mul(float4(0, 0, 0, 1), wv).xyz;
 	
-	float3 l = p - center;
+	float3 l = center - p;
 	float d = length(l);
-	l = -normalize(l);
+	l = normalize(l);
 
 	float falloff = 1;
 	float att = 1 - saturate(d * falloff / light.radius);
@@ -97,9 +101,26 @@ float3 dr_light_point(float3 p, float3 n, PointLight light, float4x4 wv)
 }
 
 
-float3 dr_light_spot()
+float3 dr_light_spot(float3 p, float3 n, SpotLight light, float4x4 wv)
 {
-	return float3(1, 1, 1);
+	float3 o = mul(float4(0,0,0,1), wv).xyz;
+	float3 ld = mul(float4(0, 0, 1, 0), wv).xyz;
+
+	float3 l = o - p;
+	float d = length(l);
+	l = normalize(l);
+	
+	float cos_angle = dot(ld, -l);
+	
+	float factor = step(light.theta, cos_angle) * step(d , light.range / cos_angle);
+	float il = max(0, dot(l , n)) * light.intensity * factor;
+	
+	float s = dr_light_specular_il(n, l, light.specular_pow);
+
+	s = s * light.intensity * factor;
+
+	return il * light.clr + s * light.clr;
+
 }
 
 

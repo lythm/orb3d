@@ -38,7 +38,7 @@ GBuffer dr_gbuffer_compose(half4 p, half3 n, half3 d, half s)
 	return g;
 }
 
-half3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
+float3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
 {
 	half3 normal = g[1].Sample(Sampler_GBufferNormal, uv).xyz;
 
@@ -46,18 +46,28 @@ half3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
 	
 	return normal;
 }
-half4 dr_gbuffer_get_position(Texture2D<half4> g[3], float2 uv)
+float4 dr_gbuffer_get_position(Texture2D<half4> g[3], float2 uv)
 {
 	half4 p = g[0].Sample(Sampler_GBuffer, uv);
 	return p;
 }
-half3 dr_gbuffer_get_diffuse(Texture2D<half4> g[3], float2 uv)
+float3 dr_gbuffer_get_diffuse(Texture2D<half4> g[3], float2 uv)
 {
 	half4 c = g[2].Sample(Sampler_GBuffer, uv);
 	return c.xyz;
 }
-half dr_gbuffer_get_specular_power(Texture2D<half4> g[3], float2 uv)
+float dr_gbuffer_get_specular_power(Texture2D<half4> g[3], float2 uv)
 {
 	half4 c = g[2].Sample(Sampler_GBuffer, uv);
 	return c.w;
+}
+
+
+float2 dr_gbuffer_screenpos_2_uv(float4 spos)
+{
+	float2 uv = spos.xy / spos.w;
+	
+	uv.x = uv.x * 0.5 + 0.5;
+	uv.y = 1 - (uv.y * 0.5 + 0.5);
+	return uv;
 }

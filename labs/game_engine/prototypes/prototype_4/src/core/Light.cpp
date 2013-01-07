@@ -31,10 +31,7 @@ namespace engine
 	{
 		return m_type;
 	}
-	void Light::DrawLightVolumn(Sys_GraphicsPtr pGraphics)
-	{
-
-	}
+	
 	bool Light::IsAffecting(const ViewFrustum& frustum)
 	{
 		return true;

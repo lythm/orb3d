@@ -18,8 +18,11 @@ namespace engine
 		void							SetRange(const float& range);
 
 		void							Release();
-		void							DrawLightVolumn(Sys_GraphicsPtr pGraphics);
+	
 		void							RenderLight(RenderSystemPtr pRS);
+
+	private:
+		void							UpdateLightVolume();
 	private:
 		float							m_angle;
 		float							m_range;
@@ -28,6 +31,9 @@ namespace engine
 		int								m_nVerts;
 
 		MaterialPtr						m_pMaterial;
+
+		math::Matrix44					m_modifiedTM;
+
 	};
 
 }

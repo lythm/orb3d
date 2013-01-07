@@ -63,14 +63,6 @@ namespace engine
 	
 	void PointLight::RenderLight(RenderSystemPtr pRS)
 	{
-		const math::Matrix44& view = pRS->GetViewMatrix();
-		const math::Matrix44& proj = pRS->GetProjMatrix();
-		const math::Matrix44& world = GetWorldTM();
-
-		m_pMaterial->SetWorldMatrix(world);
-		m_pMaterial->SetViewMatrix(view);
-		m_pMaterial->SetProjMatrix(proj);
-
 		using namespace math;
 
 		struct PointLightParam
@@ -91,6 +83,19 @@ namespace engine
 
 		m_pMaterial->SetCBByName("light", &l, sizeof(PointLightParam));
 		m_pMaterial->SetGBuffer(pRS->GetGBuffer());
+		DrawLightVolumn(pRS);
+		//DrawQuad(pRS);
+	}
+	void PointLight::DrawLightVolumn(RenderSystemPtr pRS)
+	{
+		const math::Matrix44& view = pRS->GetViewMatrix();
+		const math::Matrix44& proj = pRS->GetProjMatrix();
+		const math::Matrix44& world = GetWorldTM();
+
+		m_pMaterial->SetWorldMatrix(world);
+		m_pMaterial->SetViewMatrix(view);
+		m_pMaterial->SetProjMatrix(proj);
+
 		m_pMaterial->ApplyVertexFormat();
 		
 		Sys_GraphicsPtr pGraphics = pRS->GetSysGraphics();
@@ -105,6 +110,10 @@ namespace engine
 			pGraphics->Draw(m_nVerts, 0);
 		}
 		m_pMaterial->End();
+	}
+	void PointLight::DrawQuad(RenderSystemPtr pRS)
+	{
+		pRS->DrawFullScreenQuad(m_pMaterial);
 	}
 	void PointLight::Release()
 	{
@@ -123,6 +132,5 @@ namespace engine
 	{
 		m_modifiedWorldTM = math::MatrixScale(math::Vector3(m_radius, m_radius, m_radius)) * Light::GetWorldTM();
 		return m_modifiedWorldTM;
-
 	}
 }

@@ -21,6 +21,8 @@ namespace engine
 		m_clearClr						= math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
 		m_clearDepth					= 1.0f;
 		m_clearStencil					= 0;
+		m_globalAmbientColor			= math::Color4(0.1f, 0.1f, 0.1f, 1.0f);
+
 	}
 
 
@@ -167,10 +169,8 @@ namespace engine
 		m_pScreenQuadMaterial->SetViewMatrix(m_viewMatrix);
 		m_pScreenQuadMaterial->SetWorldMatrix(math::MatrixIdentity());
 
-		math::Vector2 vp = math::Vector2(m_pGraphics->GetGraphicsSetting().frameBufferWidth, m_pGraphics->GetGraphicsSetting().frameBufferHeight);
-		m_pScreenQuadMaterial->SetVectorBySemantic("VP_SIZE", vp);
+		DrawFullScreenQuad(m_pScreenQuadMaterial);
 
-		m_pScreenQuad->Render(m_pGraphics, m_pScreenQuadMaterial);
 	}
 	void RenderSystem::RenderForward()
 	{
@@ -264,7 +264,9 @@ namespace engine
 	void RenderSystem::DR_Light_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pABuffer);
-		m_pGraphics->ClearRenderTarget(m_pABuffer, math::Color4(0.0, 0.0, 0.0, 0));
+
+		m_globalAmbientColor.a = 0;
+		m_pGraphics->ClearRenderTarget(m_pABuffer, m_globalAmbientColor);
 
 		m_pLightManager->RenderLights();
 	}
@@ -310,6 +312,10 @@ namespace engine
 	const math::Matrix44& RenderSystem::GetProjMatrix()
 	{
 		return m_projMatrix;
+	}
+	void RenderSystem::DrawFullScreenQuad(MaterialPtr pMaterial)
+	{
+		m_pScreenQuad->Render(m_pGraphics, pMaterial);
 	}
 }
 
@@ -364,6 +370,12 @@ namespace engine
 
 		pMaterial->End();
 	}
-
-
+	const math::Color4& RenderSystem::GetGlobalAmbient()
+	{
+		return m_globalAmbientColor;
+	}
+	void RenderSystem::SetGlobalAmbient(const math::Color4& clr)
+	{
+		m_globalAmbientColor = clr;
+	}
 }

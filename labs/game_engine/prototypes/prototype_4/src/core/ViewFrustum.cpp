@@ -114,4 +114,8 @@ namespace engine
 		return true;
 		//return (plane_in_cnt == 6) ? 2 : 1;
 	}
+	bool ViewFrustum::IntersectSphere(const math::Sphere& sphere) const
+	{
+		return true;
+	}
 }

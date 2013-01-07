@@ -27,10 +27,11 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="LightManager.cpp" />
-    <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="StdAllocator.cpp" />
     <ClCompile Include="SkyLight.cpp" />
+    <ClCompile Include="PostEffect_SSAO.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -80,7 +81,6 @@
     <ClInclude Include="..\..\include\core\SpotLight.h" />
     <ClInclude Include="..\..\include\core\LightManager.h" />
     <ClInclude Include="..\..\include\core\property_types.h" />
-    <ClInclude Include="..\..\include\core\PostProcess.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
     <ClInclude Include="..\..\include\core\RenderState.h" />
     <ClInclude Include="..\..\include\core\Allocator.h" />
@@ -88,5 +88,7 @@
     <ClInclude Include="..\..\include\core\StdAllocator.h" />
     <ClInclude Include="..\..\include\core\ExtPackage.h" />
     <ClInclude Include="..\..\include\core\SkyLight.h" />
+    <ClInclude Include="PostEffect_SSAO.h" />
+    <ClInclude Include="..\..\include\core\PostEffect.h" />
   </ItemGroup>
 </Project>

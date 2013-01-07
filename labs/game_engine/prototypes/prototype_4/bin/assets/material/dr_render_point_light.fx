@@ -32,10 +32,7 @@ PS_OUTPUT ps_main(PS_INPUT i)
 {
 	PS_OUTPUT o;
 	
-	float2 uv = i.s_pos.xy / i.s_pos.w;
-	
-	uv.x = uv.x * 0.5 + 0.5;
-	uv.y = 1 - (uv.y * 0.5 + 0.5);
+	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
 
 	half3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	half4 p = dr_gbuffer_get_position(tex_gbuffer, uv);

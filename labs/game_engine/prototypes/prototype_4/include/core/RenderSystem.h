@@ -53,6 +53,10 @@ namespace engine
 		MultiRenderTargetPtr						GetGBuffer();
 		RenderTargetPtr								GetABuffer();
 
+		void										DrawFullScreenQuad(MaterialPtr pMaterial);
+
+		const math::Color4&							GetGlobalAmbient();
+		void										SetGlobalAmbient(const math::Color4& clr);
 	private:
 		bool										CreateABuffer();
 		bool										CreateGBuffer();
@@ -90,6 +94,8 @@ namespace engine
 		MaterialPtr									m_pLightMaterial;
 
 		MaterialPtr									m_pScreenQuadMaterial;
+
+		math::Color4								m_globalAmbientColor;
 
 	};
 }

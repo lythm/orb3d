@@ -4,8 +4,6 @@ float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 
 Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
-Texture2D<float4> tex_abuffer:DR_ABUFFER;
-
 
 struct vs_in
 {
@@ -37,10 +35,8 @@ ps_out ps_main(vs_out i)
 	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
 
 	float3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
-	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
 
-	o.color.xyz = l.xyz * d;
-	o.color.w = 1;
+	o.color = float4(1, 1, 1, 1);
 	return o;
 }
 RasterizerState rs
