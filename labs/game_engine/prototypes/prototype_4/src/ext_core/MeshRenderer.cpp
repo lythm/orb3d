@@ -116,7 +116,7 @@ namespace engine
 		{
 			SubMeshPtr pSub = pMesh->GetSubMesh(i);
 
-			SubMeshRenderDataPtr pSR = Package::GetAllocator()->AllocObject<SubMeshRenderData, GameObjectPtr>(GetGameObject());
+			SubMeshRenderDataPtr pSR = m_pManager->GetAllocator()->AllocObject<SubMeshRenderData, GameObjectPtr>(GetGameObject());
 			pSR->Create(pSub, m_pIndexBuffer, m_pVertexBuffer);
 			m_Subsets.push_back(pSR);
 		}

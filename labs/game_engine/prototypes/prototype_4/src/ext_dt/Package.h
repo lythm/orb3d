@@ -4,11 +4,11 @@
 
 namespace engine
 {
-	class Package : public ExtPackage
+	class DTPackage : public ExtPackage
 	{
 	public:
-		Package(CoreApiPtr pCore);
-		virtual ~Package(void);
+		DTPackage(CoreApiPtr pCore);
+		virtual ~DTPackage(void);
 
 		
 
@@ -17,13 +17,13 @@ namespace engine
 		ComponentClass*						GetClassByIndex(int index);
 
 
-		static CoreApiPtr					GetCoreApi();
+		CoreApiPtr							GetCoreApi();
 	private:
 		static GameObjectComponentPtr		Create_DT_SelectionBox(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_DT_Gizmo(GameObjectManagerPtr pManager);
 	private:
 
-		static CoreApiPtr					s_pCore;
+		CoreApiPtr							m_pCore;
 		std::vector<ComponentClass>			m_classes;
 	};
 }

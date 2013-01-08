@@ -31,7 +31,7 @@ namespace engine
 	bool Light_Spot::OnAttach()
 	{
 		m_pRS = m_pManager->GetRenderSystem();
-		m_pLight = Package::GetAllocator()->AllocObject<SpotLight>();
+		m_pLight = m_pManager->GetAllocator()->AllocObject<SpotLight>();
 		m_pLight->Create(m_pRS->GetSysGraphics());
 		m_pRS->AddLight(m_pLight);
 

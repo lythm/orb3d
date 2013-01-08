@@ -21,7 +21,7 @@ namespace engine
 
 		m_componentClasses.clear();
 
-		if(false == LoadPackage(L"./core_ext.dll"))
+		if(false == LoadPackage(L"./ext_core.dll"))
 		{
 			return false;
 		}
@@ -163,6 +163,13 @@ namespace engine
 		FreeLibrary(m_hLib);
 		m_hLib = NULL;
 	}
-	
+	Allocator* GameObjectManager::GetAllocator()
+	{
+		return m_pCore->GetAllocator();
+	}
 
+	CoreApiPtr GameObjectManager::GetCoreApi()
+	{
+		return m_pCore;
+	}
 }

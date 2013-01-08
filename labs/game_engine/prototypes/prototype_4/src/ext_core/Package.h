@@ -4,19 +4,16 @@
 
 namespace engine
 {
-	class Package : public ExtPackage
+	class CorePackage : public ExtPackage
 	{
 	public:
-		Package(CoreApiPtr pCore);
-		virtual ~Package(void);
+		CorePackage(CoreApiPtr pCore);
+		virtual ~CorePackage(void);
 
 		std::wstring						GetPackageName();
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 
-
-		static CoreApiPtr					GetCoreApi();
-		static Allocator*					GetAllocator();
 
 	private:
 		void								RegisterClasses();
@@ -34,7 +31,7 @@ namespace engine
 		static GameObjectComponentPtr		Create_Sky(GameObjectManagerPtr pManager);
 
 	private:
-		static CoreApiPtr					s_pCore;
+		CoreApiPtr							m_pCore;
 
 		std::vector<ComponentClass>			m_classes;
 	};

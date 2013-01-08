@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{40015AC8-0F79-4927-895D-ADD7C1BE2A2D}</ProjectGuid>
+    <ProjectGuid>{11E17A2E-A163-4649-9719-BD986E0A9441}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>core_ext</RootNamespace>
+    <RootNamespace>ext_voxel</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -43,6 +43,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\bin\extensions\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -52,16 +53,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;CORE_EXT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>core_ext_pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\include;</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>DLL_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;EXT_VOXEL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>voxel_pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\..\lib\core_ext.lib</ImportLibrary>
-      <AdditionalDependencies>utils.lib;core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ext_core.lib;utils.lib;core.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\..\lib\ext_voxel.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,7 +71,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CORE_EXT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXT_VOXEL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,54 +81,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\core\ext\Behavior.h" />
-    <ClInclude Include="..\..\include\core\ext\Camera.h" />
-    <ClInclude Include="..\..\include\core\ext\core_ext_all.h" />
-    <ClInclude Include="..\..\include\core\ext\core_ext_ptr.h" />
-    <ClInclude Include="..\..\include\core\ext\Light_Dir.h" />
-    <ClInclude Include="..\..\include\core\ext\Light_Point.h" />
-    <ClInclude Include="..\..\include\core\ext\Light_Sky.h" />
-    <ClInclude Include="..\..\include\core\ext\Light_Spot.h" />
-    <ClInclude Include="..\..\include\core\ext\MeshAnimator.h" />
-    <ClInclude Include="..\..\include\core\ext\MeshData.h" />
-    <ClInclude Include="..\..\include\core\ext\MeshRenderer.h" />
-    <ClInclude Include="..\..\include\core\ext\ParticleRenderer.h" />
-    <ClInclude Include="..\..\include\core\ext\PropertyManager.h" />
-    <ClInclude Include="..\..\include\core\ext\RigidBody.h" />
-    <ClInclude Include="..\..\include\core\ext\Sky.h" />
-    <ClInclude Include="..\..\include\core\ext\SkyBox.h" />
-    <ClInclude Include="..\..\include\core\ext\SoundEmitter.h" />
-    <ClInclude Include="..\..\include\core\ext\SoundListener.h" />
-    <ClInclude Include="..\..\include\core\ext\VoxelData.h" />
-    <ClInclude Include="..\..\include\core\ext\VoxelRenderer.h" />
-    <ClInclude Include="..\..\include\core\ext\WorldMeshRenderer.h" />
-    <ClInclude Include="core_ext_pch.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelData.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelRenderer.h" />
     <ClInclude Include="Package.h" />
+    <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Behavior.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="core_ext_pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Light_Dir.cpp" />
-    <ClCompile Include="Light_Point.cpp" />
-    <ClCompile Include="Light_Sky.cpp" />
-    <ClCompile Include="Light_Spot.cpp" />
-    <ClCompile Include="MeshAnimator.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Package.cpp" />
-    <ClCompile Include="ParticleRenderer.cpp" />
-    <ClCompile Include="PropertyManager.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Sky.cpp" />
-    <ClCompile Include="SkyBox.cpp" />
-    <ClCompile Include="SoundEmitter.cpp" />
-    <ClCompile Include="SoundListener.cpp" />
     <ClCompile Include="VoxelData.cpp" />
     <ClCompile Include="VoxelRenderer.cpp" />
-    <ClCompile Include="WorldMeshRenderer.cpp" />
+    <ClCompile Include="voxel_pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

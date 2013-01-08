@@ -1,5 +1,5 @@
 #include "gameeditor_ext_pch.h"
-#include "..\..\include\dt_ext\DT_Gizmo.h"
+#include "..\..\include\ext_dt\DT_Gizmo.h"
 
 
 namespace engine

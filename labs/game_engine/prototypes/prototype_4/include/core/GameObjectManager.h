@@ -6,6 +6,8 @@
 
 namespace engine
 {
+	class Allocator;
+
 	class EXPORT_CLASS GameObjectManager : public boost::enable_shared_from_this<GameObjectManager>
 	{
 		class PackageMod
@@ -49,6 +51,9 @@ namespace engine
 		bool							RegisterComponentClass(ExtPackage::ComponentClass* c);
 
 		RenderSystemPtr					GetRenderSystem();
+
+		Allocator*						GetAllocator();
+		CoreApiPtr						GetCoreApi();
 	private:
 
 

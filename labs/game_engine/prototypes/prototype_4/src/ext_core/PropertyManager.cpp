@@ -28,7 +28,7 @@ namespace engine
 	}
 	PropertySetPtr PropertyManager::Begin(const std::wstring& name)
 	{
-		PropertySetPtr pSet = Package::GetAllocator()->AllocObject<PropertySet>(name);
+		PropertySetPtr pSet = m_pManager->GetAllocator()->AllocObject<PropertySet>(name);
 
 		m_PropSets.push_back(pSet);
 

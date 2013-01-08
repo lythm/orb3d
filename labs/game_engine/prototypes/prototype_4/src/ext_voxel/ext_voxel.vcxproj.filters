@@ -15,30 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameEditor_ext_pch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Package.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DT_SelectionBox.h">
+    <ClInclude Include="voxel_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\dt_ext\DT_Gizmo.h">
+    <ClInclude Include="..\..\include\ext_voxel\VoxelData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameEditor_ext_pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Package.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DT_SelectionBox.cpp">
+    <ClCompile Include="voxel_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DT_Gizmo.cpp">
+    <ClCompile Include="VoxelData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
