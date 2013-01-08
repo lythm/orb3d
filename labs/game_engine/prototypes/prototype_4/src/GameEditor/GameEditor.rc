@@ -230,6 +230,7 @@ BEGIN
     BEGIN
         MENUITEM "Build",                       ID_BUILD_BUILD
         MENUITEM "Build and Run",               ID_BUILD_BUILDANDRUN
+        MENUITEM "Preview",                     ID_BUILD_PREVIEW
     END
     POPUP "GameObject"
     BEGIN
@@ -427,6 +428,13 @@ BEGIN
     PUSHBUTTON      "È¡Ïû",IDCANCEL,267,168,50,14
 END
 
+IDD_PREVIEW DIALOGEX 0, 0, 571, 274
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -505,6 +513,14 @@ BEGIN
         RIGHTMARGIN, 400
         TOPMARGIN, 7
         BOTTOMMARGIN, 182
+    END
+
+    IDD_PREVIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 564
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 267
     END
 END
 #endif    // APSTUDIO_INVOKED

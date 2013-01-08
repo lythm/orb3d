@@ -89,13 +89,18 @@ BOOL CGameEditorDoc::OnNewDocument()
 
 void CGameEditorDoc::Serialize(CArchive& ar)
 {
+	ProjectPtr pProject = AppContext::GetProject();
 	if (ar.IsStoring())
 	{
 		// TODO: 在此添加存储代码
+		
+		pProject->Save(ar.m_strFileName);
+
 	}
 	else
 	{
 		// TODO: 在此添加加载代码
+		pProject->Load(ar.m_strFileName);
 	}
 
 }

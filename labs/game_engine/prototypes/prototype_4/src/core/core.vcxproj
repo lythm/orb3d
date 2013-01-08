@@ -94,6 +94,7 @@
     <ClInclude Include="..\..\include\core\core_ptr.h" />
     <ClInclude Include="..\..\include\core\DataStream.h" />
     <ClInclude Include="..\..\include\core\DataStream_File.h" />
+    <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
     <ClInclude Include="..\..\include\core\DepthStencilBuffer.h" />
     <ClInclude Include="..\..\include\core\DirectionalLight.h" />
     <ClInclude Include="..\..\include\core\Event.h" />
@@ -151,7 +152,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="core_utils.cpp" />
+    <ClCompile Include="DataStream.cpp" />
     <ClCompile Include="DataStream_File.cpp" />
+    <ClCompile Include="DataStream_Mem.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="GameObject.cpp" />

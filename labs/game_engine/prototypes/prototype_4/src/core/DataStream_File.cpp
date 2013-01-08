@@ -6,7 +6,8 @@ namespace engine
 {
 	DataStream_File::DataStream_File(void)
 	{
-		m_pFile = NULL;
+		m_pFile		= NULL;
+		m_oriPos	= 0;
 	}
 
 
@@ -21,12 +22,18 @@ namespace engine
 	
 	void DataStream_File::Seek(uint64 offset)
 	{
-		fseek(m_pFile, (long)offset, SEEK_SET);
+		fseek(m_pFile, (long)offset + m_oriPos, SEEK_SET);
 
 	}
 	void DataStream_File::Close()
 	{
-		fclose(m_pFile);
+		if(m_oriPos == 0)
+		{
+			fclose(m_pFile);
+		}
+		m_pFile = nullptr;
+		m_oriPos = 0;
+
 	}
 	uint64 DataStream_File::Size()
 	{
@@ -38,20 +45,44 @@ namespace engine
 
 		fseek(m_pFile, (long)pos, SEEK_SET);
 		
-		return size;
+		return size - m_oriPos;
 	}
 	uint64 DataStream_File::Pos()
 	{
-		return ftell(m_pFile);
+		return ftell(m_pFile) - m_oriPos;
 	}
-	bool DataStream_File::Open(const wchar_t* szFile)
+	bool DataStream_File::OpenStream(const wchar_t* szFile)
 	{
+		if(m_pFile != nullptr)
+		{
+			Close();
+		}
 		m_pFile = _wfopen(szFile, L"rb+");
 		if(m_pFile == NULL)
 		{
 			return false;
 		}
 
+		m_oriPos = 0;
+
+		return true;
+	}
+	bool DataStream_File::OpenStream(FILE* pFile)
+	{
+		if(pFile == nullptr)
+		{
+			return false;
+		}
+		if(m_pFile != nullptr && m_pFile != pFile)
+		{
+			Close();
+		}
+
+		m_pFile = pFile;
+
+		m_oriPos = ftell(pFile);
+
 		return true;
 	}
 }
+

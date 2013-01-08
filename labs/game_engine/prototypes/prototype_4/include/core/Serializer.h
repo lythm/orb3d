@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	class Serializer
+	class EXPORT_CLASS Serializer
 	{
 	protected:
 		Serializer(DataStreamPtr pStream)

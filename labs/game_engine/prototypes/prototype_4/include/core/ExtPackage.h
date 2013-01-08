@@ -27,10 +27,12 @@ namespace engine
 
 		};
 
-		
 		virtual std::wstring								GetPackageName()								= 0;
 		virtual int											GetClassCount()									= 0;
 		virtual ComponentClass*								GetClassByIndex(int index)						= 0;
+
+		virtual int											GetTemplateCount(){return 0;}
+		virtual GameObjectTemplatePtr						GetTemplateByIndex(int index){return GameObjectTemplatePtr();}
 
 	protected:
 		ExtPackage(void){}

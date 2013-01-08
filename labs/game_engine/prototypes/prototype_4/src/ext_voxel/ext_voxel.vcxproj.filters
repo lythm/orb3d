@@ -21,10 +21,34 @@
     <ClInclude Include="voxel_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelData.h">
+    <ClInclude Include="..\..\include\ext_voxel\VoxelRenderer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelRenderer.h">
+    <ClInclude Include="..\..\include\ext_voxel\Voxel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelChunk.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelBlock.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelEntity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelWorldRenderData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelSerializer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\voxel_all.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,10 +59,28 @@
     <ClCompile Include="voxel_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelData.cpp">
+    <ClCompile Include="VoxelRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="VoxelRenderer.cpp">
+    <ClCompile Include="Voxel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelChunk.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelBlock.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelEntity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorld.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldRenderData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelSerializer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

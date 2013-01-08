@@ -17,6 +17,10 @@ namespace engine
 		virtual void				OnComponentAttached(GameObjectComponentPtr pCom);
 		virtual void				OnComponentDetached(GameObjectComponentPtr pCom);
 
+		virtual bool				Serialize(DataStreamPtr pStream);
+		virtual void				UnSerialize(DataStreamPtr pStream);
+
+		
 		const std::wstring&			GetName();
 
 		void						SetName(const std::wstring& name);
@@ -25,6 +29,7 @@ namespace engine
 
 		GameObjectManagerPtr		GetGameObjectManager();
 
+		
 	private:
 		virtual bool				OnAttach();
 		virtual void				OnDetach();

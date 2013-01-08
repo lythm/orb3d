@@ -11,14 +11,25 @@ namespace engine
 			OPM_ROTATE,
 			OPM_SCALE,
 		};
+
+		enum GIZMO_STATE
+		{
+			g_state_active,
+			g_state_inactive,
+
+		};
+
 		DT_Gizmo(GameObjectManagerPtr pManager);
 		virtual ~DT_Gizmo(void);
 
 		void											Update();
 		void											ChangeMode(OP_MODE mode);
 		OP_MODE											GetMode();
-	private:
 
+		
+
+	private:
+		GIZMO_STATE										m_state;
 		OP_MODE											m_mode;
 	};
 }

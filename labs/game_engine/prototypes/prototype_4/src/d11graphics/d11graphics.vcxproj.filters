@@ -51,6 +51,9 @@
     <ClInclude Include="D3D11EffectMaterial.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="D3D11RenderWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3D11Graphics.cpp">
@@ -99,6 +102,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11EffectMaterial.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11RenderWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

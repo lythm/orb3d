@@ -81,15 +81,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelData.h" />
+    <ClInclude Include="..\..\include\ext_voxel\Voxel.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelBlock.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelChunk.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelEntity.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelRenderer.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
+    <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />
+    <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h" />
     <ClInclude Include="Package.h" />
+    <ClInclude Include="VoxelSerializer.h" />
+    <ClInclude Include="VoxelWorldRenderData.h" />
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Package.cpp" />
-    <ClCompile Include="VoxelData.cpp" />
+    <ClCompile Include="Voxel.cpp" />
+    <ClCompile Include="VoxelBlock.cpp" />
+    <ClCompile Include="VoxelChunk.cpp" />
+    <ClCompile Include="VoxelEntity.cpp" />
     <ClCompile Include="VoxelRenderer.cpp" />
+    <ClCompile Include="VoxelSerializer.cpp" />
+    <ClCompile Include="VoxelWorld.cpp" />
+    <ClCompile Include="VoxelWorldRenderData.cpp" />
     <ClCompile Include="voxel_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>

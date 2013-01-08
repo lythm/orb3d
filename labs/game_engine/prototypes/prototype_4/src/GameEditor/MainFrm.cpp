@@ -17,6 +17,8 @@
 
 #include "RenderingSettingDlg.h"
 
+#include "PreviewWnd.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -25,7 +27,7 @@
 
 IMPLEMENT_DYNCREATE(CMainFrame, CFrameWndEx)
 
-const int  iMaxUserToolbars = 10;
+	const int  iMaxUserToolbars = 10;
 const UINT uiFirstUserToolBarId = AFX_IDW_CONTROLBAR_FIRST + 40;
 const UINT uiLastUserToolBarId = uiFirstUserToolBarId + iMaxUserToolbars - 1;
 
@@ -37,7 +39,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
-	
+
 	ON_COMMAND(ID_VIEW_CAPTION_BAR, &CMainFrame::OnViewCaptionBar)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_CAPTION_BAR, &CMainFrame::OnUpdateViewCaptionBar)
 	ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
@@ -53,12 +55,13 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_VIEW_SHOWGRID, &CMainFrame::OnViewShowgrid)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SHOWGRID, &CMainFrame::OnUpdateViewShowgrid)
 	ON_COMMAND(ID_EDIT_APPSETTINGS, &CMainFrame::OnEditAppsettings)
-//	ON_COMMAND(ID_PROJECT_IMPORT, &CMainFrame::OnProjectImport)
-ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
-ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
-ON_COMMAND(ID_CREATEFROMTEMPLATE_CONE, &CMainFrame::OnCreatefromtemplateCone)
-ON_COMMAND(ID_CREATEFROMTEMPLATE_SKYLIGHT, &CMainFrame::OnCreatefromtemplateSkylight)
-ON_COMMAND(ID_RENDERING_SETTING, &CMainFrame::OnRenderingSetting)
+	//	ON_COMMAND(ID_PROJECT_IMPORT, &CMainFrame::OnProjectImport)
+	ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
+	ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_CONE, &CMainFrame::OnCreatefromtemplateCone)
+	ON_COMMAND(ID_CREATEFROMTEMPLATE_SKYLIGHT, &CMainFrame::OnCreatefromtemplateSkylight)
+	ON_COMMAND(ID_RENDERING_SETTING, &CMainFrame::OnRenderingSetting)
+	ON_COMMAND(ID_BUILD_PREVIEW, &CMainFrame::OnBuildPreview)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -163,7 +166,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	DockPane(&m_wndFileView);
 	CDockablePane* pTabbedBar = NULL;
 	m_wndObjectView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
-	
+
 	m_wndOutput.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndOutput);
 	m_wndProperties.EnableDocking(CBRS_ALIGN_ANY);
@@ -215,7 +218,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	lstBasicCommands.AddTail(ID_SORTING_SORTBYACCESS);
 	lstBasicCommands.AddTail(ID_SORTING_GROUPBYTYPE);*/
 
-//	lstBasicCommands.AddTail(ID_GAMEOBJECT_CREATEEMPTY);
+	//	lstBasicCommands.AddTail(ID_GAMEOBJECT_CREATEEMPTY);
 
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
@@ -260,7 +263,7 @@ BOOL CMainFrame::CreateDockingWindows()
 
 	// 创建模板视图
 	CString strTplView = L"模板窗口";
-	
+
 	ASSERT(bNameValid);
 	if (!m_wndTplView.Create(strTplView, this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_TPLVIEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT| CBRS_FLOAT_MULTI))
 	{
@@ -519,9 +522,9 @@ void CMainFrame::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 void CMainFrame::OnClose()
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	
+
 	AppContext::UpdatePropGrid(engine::GameObjectPtr());
-	
+
 
 	ProjectPtr pProject = AppContext::GetProject();
 	if(pProject)
@@ -623,7 +626,7 @@ void CMainFrame::OnUpdateViewShowgrid(CCmdUI *pCmdUI)
 
 void CMainFrame::OnEditAppsettings()
 {
-	
+
 	CAppSettingsDlg dlg(this);
 
 	dlg.DoModal();
@@ -674,7 +677,7 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 	{
 		return false;
 	}
-	
+
 	CString str;
 	CMFCToolBarMenuButton* pParent = pMenu->GetParentButton();
 
@@ -686,7 +689,7 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 	{
 		return false;
 	}
-	
+
 	using namespace engine;
 
 	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
@@ -705,16 +708,16 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 		for(size_t i = 0; i < it->second.size(); ++i)
 		{
 			m.InsertMenuW(i, MF_BYPOSITION, id, it->second[i]->m_name.c_str());
-			
+
 			id++;
 		}
 
 		CMFCToolBarMenuButton b(-1, m.GetSafeHmenu(), -1, it->first.c_str());
 		m.Detach();
-		
+
 		pMenu->InsertItem(b);
 	}
-	
+
 	return true;
 }
 
@@ -765,9 +768,9 @@ void CMainFrame::OnComponentMenu(UINT nID)
 	}
 
 	GameObjectComponentPtr pCom = AppContext::CreateGameObjectComponent(pClass->m_name);
-	
+
 	pObj->AddComponent(pCom);
-	
+
 	AppContext::UpdatePropGrid(pObj);
 	return;
 }
@@ -778,7 +781,7 @@ bool CMainFrame::UpdateComClassMap()
 	m_ComClassMap.clear();
 
 	GameObjectManagerPtr pManager = AppContext::GetCoreApi()->GetGameObjectManager();
-	
+
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
 		ExtPackage* pPack = pManager->GetPackageByIndex(i);
@@ -821,9 +824,9 @@ engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 
 			id++;
 		}
-		
+
 	}
-	
+
 	return nullptr;
 }
 void CMainFrame::OnUpdateComponentMenuUI(CCmdUI* pCmdUI)
@@ -842,4 +845,35 @@ void CMainFrame::OnRenderingSetting()
 	{
 
 	}
+}
+
+
+BOOL CMainFrame::OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	MSG msg;
+	msg.hwnd = m_hWnd;
+	msg.lParam = lParam;
+	msg.wParam = wParam;
+
+	AppContext::HandleMessage(msg);
+
+	return CFrameWndEx::OnWndMsg(message, wParam, lParam, pResult);
+}
+
+
+LRESULT CMainFrame::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	return CFrameWndEx::WindowProc(message, wParam, lParam);
+}
+
+
+void CMainFrame::OnBuildPreview()
+{
+	CPreviewWnd wnd(this);
+
+	wnd.DoModal();
 }

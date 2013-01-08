@@ -6,7 +6,7 @@
 
 namespace engine
 {
-	class DataStream_File : public DataStream
+	class EXPORT_CLASS DataStream_File : public DataStream
 	{
 	public:
 		enum
@@ -25,10 +25,13 @@ namespace engine
 		uint64								Pos();
 
 
-		bool								Open(const wchar_t* szFile);
+		bool								OpenStream(const wchar_t* szFile);
+		bool								OpenStream(FILE* pFile);
 	private:
 
 		FILE*								m_pFile;
+
+		uint64								m_oriPos;
 
 	};
 

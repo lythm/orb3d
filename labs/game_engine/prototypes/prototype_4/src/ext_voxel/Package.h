@@ -20,7 +20,7 @@ namespace engine
 
 	private:
 		
-		static GameObjectComponentPtr		Create_VoxelData(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_VoxelWorld(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_VoxelRenderer(GameObjectManagerPtr pManager);
 	private:
 

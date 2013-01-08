@@ -69,6 +69,17 @@ namespace engine
 
 		virtual void									ResizeFrameBuffer(int cx, int cy)							= 0;
 
+		virtual RenderTargetPtr							CreateRenderWindow(void* handle, 
+																	int w, 
+																	int h, 
+																	G_FORMAT color_format, 
+																	G_FORMAT ds_format, 
+																	int backbufferCount, 
+																	int multiSampleCount, 
+																	int multiSampleQuality, 
+																	bool windowed)									= 0;
+
+		virtual void									SetRenderWindow(RenderTargetPtr pRenderTarget)				= 0;
 	protected:
 		Sys_Graphics(void){}
 		virtual ~Sys_Graphics(void){}

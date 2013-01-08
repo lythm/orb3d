@@ -14,5 +14,7 @@ namespace engine
 		bool										OnAttach();
 		void										OnDetach();
 
+	private:
+
 	};
 }

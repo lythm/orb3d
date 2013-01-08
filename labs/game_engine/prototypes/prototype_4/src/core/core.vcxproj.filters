@@ -32,6 +32,8 @@
     <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
+    <ClCompile Include="DataStream.cpp" />
+    <ClCompile Include="DataStream_Mem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -90,5 +92,6 @@
     <ClInclude Include="..\..\include\core\SkyLight.h" />
     <ClInclude Include="PostEffect_SSAO.h" />
     <ClInclude Include="..\..\include\core\PostEffect.h" />
+    <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
   </ItemGroup>
 </Project>

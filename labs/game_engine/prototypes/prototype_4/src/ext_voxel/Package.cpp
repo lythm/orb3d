@@ -2,7 +2,7 @@
 
 #include "Package.h"
 
-#include "ext_voxel\VoxelData.h"
+#include "ext_voxel\VoxelWorld.h"
 #include "ext_voxel\VoxelRenderer.h"
 
 
@@ -25,10 +25,10 @@ namespace engine
 		
 		m_pCore = pCore;
 
-		m_classes.push_back(ComponentClass(L"VoxelData",
+		m_classes.push_back(ComponentClass(L"VoxelWorld",
 							L"Voxel",
-							L"Voxel Data",
-							&VoxelPackage::Create_VoxelData));
+							L"Voxel World",
+							&VoxelPackage::Create_VoxelWorld));
 		m_classes.push_back(ComponentClass(L"VoxelRenderer",
 							L"Voxel",
 							L"Voxel Renderer",
@@ -53,9 +53,9 @@ namespace engine
 	{
 		return &m_classes[index];
 	}
-	GameObjectComponentPtr VoxelPackage::Create_VoxelData(GameObjectManagerPtr pManager)
+	GameObjectComponentPtr VoxelPackage::Create_VoxelWorld(GameObjectManagerPtr pManager)
 	{
-		return pManager->GetAllocator()->AllocObject<VoxelData, GameObjectManagerPtr>(pManager);
+		return pManager->GetAllocator()->AllocObject<VoxelWorld, GameObjectManagerPtr>(pManager);
 	}
 	GameObjectComponentPtr VoxelPackage::Create_VoxelRenderer(GameObjectManagerPtr pManager)
 	{

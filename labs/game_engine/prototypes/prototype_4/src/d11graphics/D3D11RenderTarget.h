@@ -21,6 +21,8 @@ namespace engine
 		void										Release();
 		void										SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer);
 		DepthStencilBufferPtr						GetDepthStencilBuffer();
+
+		void										Apply();
 	private:
 
 		ID3D11DeviceContext*						m_pContext;

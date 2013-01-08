@@ -38,6 +38,8 @@ public:
 	static void									SetProject(ProjectPtr pProject);
 	static engine::GameObjectPtr				GetSelectedObject();
 	static void									SetSelectedObject(engine::GameObjectPtr pObj);
+
+	static void									HandleMessage(MSG& msg);
 private:
 
 	static int									s_RTWidth;

@@ -1,0 +1,70 @@
+Project File Format
+
+<project name="name">
+	<settings count= 100>
+		<setting name="setting 0">value</setting>
+		<setting name="setting 1">value</setting>
+	</settings>
+
+	<directories>
+		<dir_root>d:/projects/p01</dir_root>
+		<dir_assets>assets</dir_assets>
+		<dir_template>assets/template</dir_template>
+		<dir_material>assets/material</dir_material>
+		<dir_texture>assets/texture</dir_texture>
+		<dir_script>assets/script</dir_script>
+		<dir_build_output>build<dir_build_output>
+
+	</directories>
+
+	<rendering_settings>
+	</rendering_settings>
+</project>
+
+
+
+--------------------------------------------------------
+
+
+GameScene File Format
+
+
+Header:
+	TYPEID		4			0x00110011
+	VERSION		4			version
+	BlockCount	4
+	FirstBlock	8
+
+Block1			n
+Block2			n
+
+Blockn			n
+
+
+
+---------------------------------------------------------
+
+BlockFormat:
+	BlockSize	8			in bytes
+	TYPEID		4			GameObject		
+						GameObjectTemplate	
+						Hierarchy
+						Settings
+
+
+---------------------------------------------------------
+
+GameObject Format
+
+	Name		str			
+	ComponentCount	4			
+
+	Component1	n
+	Component2	n
+	Componentn	n
+
+---------------------------------------------------------
+Component Format
+	Name		str
+
+

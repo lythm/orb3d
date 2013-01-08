@@ -35,6 +35,7 @@ namespace engine
 
 		TexturePtr								CreateTextureFromFile(const char* szFile);
 		void									SetRenderTarget(RenderTargetPtr pRenderTarget);
+		void									SetRenderWindow(RenderTargetPtr pRenderTarget);
 		void									SetRenderTarget(MultiRenderTargetPtr pRT);
 		TexturePtr								CreateTexture(TEXTURE_TYPE type, G_FORMAT format, int w, int h);
 
@@ -48,6 +49,7 @@ namespace engine
 		ShaderPtr								CreateShaderFromFile(const char* szFile);
 		RenderStatePtr							CreateRenderState();
 
+		RenderTargetPtr							CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);

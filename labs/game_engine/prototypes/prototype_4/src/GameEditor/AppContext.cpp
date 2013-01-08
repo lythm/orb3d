@@ -211,3 +211,10 @@ void AppContext::SetSelectedObject(engine::GameObjectPtr pObj)
 {
 	s_pSelObject = pObj;
 }
+void AppContext::HandleMessage(MSG& msg)
+{
+	if(s_pCore)
+	{
+		s_pCore->HandleMessage(msg);
+	}
+}

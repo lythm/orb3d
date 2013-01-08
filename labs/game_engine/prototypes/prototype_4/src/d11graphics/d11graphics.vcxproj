@@ -91,6 +91,7 @@
     <ClInclude Include="D3D11Graphics.h" />
     <ClInclude Include="D3D11MultiRenderTarget.h" />
     <ClInclude Include="D3D11RenderTarget.h" />
+    <ClInclude Include="D3D11RenderWindow.h" />
     <ClInclude Include="D3D11Texture.h" />
     <ClInclude Include="effect11\Effect.h" />
     <ClInclude Include="effect11\EffectLoad.h" />
@@ -108,6 +109,7 @@
     <ClCompile Include="D3D11Graphics.cpp" />
     <ClCompile Include="D3D11MultiRenderTarget.cpp" />
     <ClCompile Include="D3D11RenderTarget.cpp" />
+    <ClCompile Include="D3D11RenderWindow.cpp" />
     <ClCompile Include="D3D11Texture.cpp" />
     <ClCompile Include="effect11\d3dx11dbg.cpp" />
     <ClCompile Include="effect11\d3dxGlobal.cpp" />

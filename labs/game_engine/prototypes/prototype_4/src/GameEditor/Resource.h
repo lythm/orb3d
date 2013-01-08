@@ -97,6 +97,7 @@
 #define ID_VIEW_TPLVIEW                 311
 #define IDD_STARTUP                     313
 #define IDD_RENDERING_SETTING           316
+#define IDD_PREVIEW                     317
 #define IDC_MFCCOLORBUTTON1             1000
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
@@ -141,14 +142,15 @@
 #define ID_COMPONENT_PLACEHOLDER        32811
 #define ID_32812                        32812
 #define ID_RENDERING_SETTING            32813
+#define ID_BUILD_PREVIEW                32814
 #define ID_COMPONENT_MENU_BASE          60000
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        317
-#define _APS_NEXT_COMMAND_VALUE         32814
+#define _APS_NEXT_RESOURCE_VALUE        318
+#define _APS_NEXT_COMMAND_VALUE         32815
 #define _APS_NEXT_CONTROL_VALUE         1009
 #define _APS_NEXT_SYMED_VALUE           312
 #endif

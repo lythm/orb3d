@@ -8,6 +8,7 @@
 #include "D3D11DepthStencilBuffer.h"
 #include "D3D11Format.h"
 #include "D3D11MultiRenderTarget.h"
+#include "D3D11RenderWindow.h"
 
 EXPORT_C_API engine::Sys_Graphics* CreateSys()
 {
@@ -401,6 +402,31 @@ namespace engine
 					pDSView == NULL ? m_pDepthStencilBuffer : pDSView);
 
 	}
+	void D3D11Graphics::SetRenderWindow(RenderTargetPtr pRenderTarget)
+	{
+		D3D11RenderWindow* pD3DRT = (D3D11RenderWindow*)pRenderTarget.get();
+				
+		ID3D11RenderTargetView* pRTView = NULL;
+		ID3D11DepthStencilView* pDSView = NULL;
+
+		if(pD3DRT)
+		{
+			pRTView = pD3DRT->GetD3D11RenderTargetView();
+			pDSView = pD3DRT->GetD3D11DepthStencilView();
+		}
+				
+		ID3D11ShaderResourceView* pViews[8] = { NULL,};
+
+		m_pContext->PSSetShaderResources(0, 8, pViews);
+
+		m_pContext->OMSetRenderTargets(1, 
+					pRTView == NULL ? &m_pFrameBuffer : &pRTView, 
+					pDSView == NULL ? m_pDepthStencilBuffer : pDSView);
+
+
+		m_pContext->ClearRenderTargetView(pRTView == NULL ? m_pFrameBuffer : pRTView, math::Color4(0, 0, 0,1).v);
+
+	}
 	
 	MaterialPtr D3D11Graphics::CreateMaterialFromFile(const char* szFile)
 	{
@@ -536,6 +562,16 @@ namespace engine
 	RenderStatePtr D3D11Graphics::CreateRenderState()
 	{
 		return RenderStatePtr();
+	}
+	RenderTargetPtr	D3D11Graphics::CreateRenderWindow(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
+	{
+		D3D11RenderWindow* pWnd = new D3D11RenderWindow(m_pContext);
+		if(pWnd->Create(handle, w, h, color_format, ds_format, backbufferCount, multiSampleCount, multiSampleQuality, windowed) == false)
+		{
+			delete pWnd;
+			return RenderTargetPtr();
+		}
+		return RenderTargetPtr(pWnd);
 	}
 }
 
