@@ -64,7 +64,7 @@ namespace engine
 		virtual void								SetViewMatrix(const math::Matrix44& val)					= 0;
 		virtual void								SetProjMatrix(const math::Matrix44& val)					= 0;
 		virtual void								SetWorldMatrix(const math::Matrix44& val)					= 0;
-		virtual void								SetGBuffer(MultiRenderTargetPtr pGBuffer)					= 0;
+		virtual void								SetGBuffer(RenderTargetPtr pGBuffer)					= 0;
 		virtual void								SetABuffer(RenderTargetPtr pABuffer)						= 0;
 	};
 }

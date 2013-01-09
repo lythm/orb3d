@@ -39,7 +39,6 @@ public:
 
 protected:
 
-	void Render();
 // 生成的消息映射函数
 protected:
 	afx_msg void OnFilePrintPreview();

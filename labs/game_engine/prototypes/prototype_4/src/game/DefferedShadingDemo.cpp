@@ -24,7 +24,7 @@ bool DefferedShadingDemo::Init(engine::CoreApiPtr pCore)
 		G_FORMAT_R32_FLOAT,							// depth
 	};
 
-	m_pRT = m_pCore->GetSysGraphics()->CreateMultiRenderTarget(3, 800, 600, formats);
+	m_pRT = m_pCore->GetSysGraphics()->CreateRenderTarget(3, 800, 600, formats);
 
 	//DepthStencilBufferPtr pDS = m_pCore->GetSysGraphics()->CreateDepthStencilBuffer(800, 600, G_FORMAT_D32_FLOAT);
 
@@ -155,7 +155,7 @@ void DefferedShadingDemo::DrawQuad()
 	using namespace engine;
 	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
-	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), math::Color4(1.0, 1.0, 1.0, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), 0, math::Color4(1.0, 1.0, 1.0, 1));
 	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_ALL, 1, 0);
 
 	m_pQuadMaterial->SetTextureByName("pos_tex", m_pRT->AsTexture(0));
@@ -186,9 +186,9 @@ void DefferedShadingDemo::DrawScene()
 	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
 	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), CLEAR_ALL, 0.999999f, 0);
 	
-	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(0), math::Color4(0.0, 0.0, 0.0, 1));
-	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(1), math::Color4(0.0, 0.0, -1.0, 1));
-	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT->GetRenderTarget(2), math::Color4(1.0, 1, 1, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT, 0, math::Color4(0.0, 0.0, 0.0, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT, 1, math::Color4(0.0, 0.0, -1.0, 1));
+	m_pCore->GetSysGraphics()->ClearRenderTarget(m_pRT, 2, math::Color4(1.0, 1, 1, 1));
 
 	static int tick = GetTickCount();
 

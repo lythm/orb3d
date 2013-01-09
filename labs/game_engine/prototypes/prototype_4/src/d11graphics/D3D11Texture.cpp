@@ -14,6 +14,7 @@ namespace engine
 		m_type = TEX_UNKNOWN;
 
 		m_pShaderView = NULL;
+
 	}
 
 
@@ -80,6 +81,7 @@ namespace engine
 				desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 				desc.Texture2D.MipLevels = td.MipLevels;
 				desc.Texture2D.MostDetailedMip = 0;
+
 			}
 			break;
 		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
@@ -136,6 +138,7 @@ namespace engine
 				desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 				desc.Texture2D.MipLevels = td.MipLevels;
 				desc.Texture2D.MostDetailedMip = 0;
+
 			}
 			break;
 		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
@@ -154,4 +157,5 @@ namespace engine
 
 		return true;
 	}
+
 }

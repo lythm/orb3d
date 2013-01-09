@@ -3,8 +3,8 @@
 #include "D3D11Texture.h"
 #include "D3D11Format.h"
 #include "D3D11Buffer.h"
-#include "D3D11MultiRenderTarget.h"
 #include "D3D11RenderTarget.h"
+
 namespace engine
 {
 	D3D11EffectMaterial::D3D11EffectMaterial(ID3D11DeviceContext* pContext)
@@ -485,7 +485,7 @@ namespace engine
 	{
 		m_worldTM = val;
 	}
-	void D3D11EffectMaterial::SetGBuffer(MultiRenderTargetPtr pGBuffer)
+	void D3D11EffectMaterial::SetGBuffer(RenderTargetPtr pGBuffer)
 	{
 		if(m_semantics.m_pGBuffer == nullptr)
 		{
@@ -511,7 +511,7 @@ namespace engine
 		{
 			return;
 		}
-		D3D11Texture* pTex1 = (D3D11Texture*)(pABuffer->AsTexture().get());
+		D3D11Texture* pTex1 = (D3D11Texture*)(pABuffer->AsTexture(0).get());
 
 		m_semantics.m_pABuffer->SetResource(pTex1->GetShaderResourceView());
 	}

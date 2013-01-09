@@ -36,22 +36,19 @@
     <ClInclude Include="D3D11Texture.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11RenderTarget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="D3D11DepthStencilBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="D3D11Format.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11MultiRenderTarget.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="D3D11EffectMaterial.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="D3D11RenderWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11RenderTarget.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,22 +86,19 @@
     <ClCompile Include="D3D11Texture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11RenderTarget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="D3D11DepthStencilBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11Format.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11MultiRenderTarget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="D3D11EffectMaterial.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="D3D11RenderWindow.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11RenderTarget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

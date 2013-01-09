@@ -29,7 +29,7 @@ private:
 
 	engine::TexturePtr								m_pTex;
 
-	engine::MultiRenderTargetPtr					m_pRT;
+	engine::RenderTargetPtr					m_pRT;
 
 
 	engine::GPUBufferPtr							m_pQuadVB;

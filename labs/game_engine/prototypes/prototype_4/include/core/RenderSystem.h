@@ -50,7 +50,7 @@ namespace engine
 		void										RemoveLight(LightPtr pLight);
 		int											GetLightCount();
 
-		MultiRenderTargetPtr						GetGBuffer();
+		RenderTargetPtr								GetGBuffer();
 		RenderTargetPtr								GetABuffer();
 
 		void										DrawFullScreenQuad(MaterialPtr pMaterial);
@@ -58,8 +58,8 @@ namespace engine
 		const math::Color4&							GetGlobalAmbient();
 		void										SetGlobalAmbient(const math::Color4& clr);
 	private:
-		bool										CreateABuffer();
-		bool										CreateGBuffer();
+		bool										CreateABuffer(int w, int h);
+		bool										CreateGBuffer(int w, int h);
 
 		void										DR_G_Pass();
 		void										DR_Final_Pass();
@@ -83,9 +83,8 @@ namespace engine
 		float										m_clearDepth;
 		int											m_clearStencil;
 
-		MultiRenderTargetPtr						m_pGBuffer;
-		
-		RenderTargetPtr								m_pABuffer;
+		RenderTargetPtr						m_pGBuffer;
+		RenderTargetPtr						m_pABuffer;
 
 		ScreenQuadPtr								m_pScreenQuad;
 

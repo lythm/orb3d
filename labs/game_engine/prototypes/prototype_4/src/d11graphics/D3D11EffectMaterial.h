@@ -71,7 +71,7 @@ namespace engine
 		bool								SelectTechByName(const char* szName);
 
 		void								SetABuffer(RenderTargetPtr pABuffer);
-		void								SetGBuffer(MultiRenderTargetPtr pGBuffer);
+		void								SetGBuffer(RenderTargetPtr pGBuffer);
 	private:
 		void								UpdateSemantics();
 		void								OutputDebugInfo(ID3D10Blob* pBlob);

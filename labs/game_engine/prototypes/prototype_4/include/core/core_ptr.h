@@ -64,7 +64,6 @@ namespace engine
 	class Texture;
 	class Material;
 	class GPUBuffer;
-	class MultiRenderTarget;
 	class Camera;
 	class RenderState;
 	class Shader;
@@ -72,7 +71,6 @@ namespace engine
 	typedef boost::shared_ptr<RenderState>					RenderStatePtr;
 	typedef boost::shared_ptr<Shader>						ShaderPtr;
 	typedef boost::shared_ptr<Camera>						CameraPtr;
-	typedef boost::shared_ptr<MultiRenderTarget>			MultiRenderTargetPtr;
 	typedef boost::shared_ptr<DepthStencilBuffer>			DepthStencilBufferPtr;
 	typedef boost::shared_ptr<RenderTarget>					RenderTargetPtr;
 	typedef boost::shared_ptr<RenderData>					RenderDataPtr;

@@ -19,6 +19,7 @@ namespace engine
 		void								Release();
 
 		ID3D11ShaderResourceView*			GetShaderResourceView();
+
 	private:
 		ID3D11Resource*						m_pTex;
 
@@ -26,5 +27,6 @@ namespace engine
 		ID3D11DeviceContext*				m_pContext;
 		ID3D11Device*						m_pDevice;
 		TEXTURE_TYPE						m_type;
+
 	};
 }

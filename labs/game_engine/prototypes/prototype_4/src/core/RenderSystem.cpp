@@ -4,12 +4,12 @@
 #include "core\Sys_Graphics.h"
 #include "core\Material.h"
 #include "core\g_format.h"
-#include "core\MultiRenderTarget.h"
+#include "core\RenderTarget.h"
 #include "core_utils.h"
 #include "core\GPUBuffer.h"
 #include "core\LightManager.h"
 #include "core\Light.h"
-#include "core\RenderTarget.h"
+
 
 namespace engine
 {
@@ -34,11 +34,14 @@ namespace engine
 	{
 		m_pGraphics = pGraphics;
 
-		if(false == CreateGBuffer())
+		int w = pGraphics->GetFrameBufferWidth();
+		int h = pGraphics->GetFrameBufferHeight();
+
+		if(false == CreateGBuffer(w, h))
 		{
 			return false;
 		}
-		if(false == CreateABuffer())
+		if(false == CreateABuffer(w, h))
 		{
 			return false;
 		}
@@ -69,7 +72,7 @@ namespace engine
 		
 		return true;
 	}
-	bool RenderSystem::CreateGBuffer()
+	bool RenderSystem::CreateGBuffer(int w, int h)
 	{
 
 		if(m_pGBuffer != nullptr)
@@ -85,9 +88,7 @@ namespace engine
 			G_FORMAT_R16G16B16A16_FLOAT,				// diffuse color : specular
 		};
 
-		const GraphicsSetting& setting = m_pGraphics->GetGraphicsSetting();
-
-		m_pGBuffer = m_pGraphics->CreateMultiRenderTarget(3, setting.frameBufferWidth, setting.frameBufferHeight, formats);
+		m_pGBuffer = m_pGraphics->CreateRenderTarget(3, w, h, formats);
 
 		return true;
 
@@ -143,9 +144,9 @@ namespace engine
 	void RenderSystem::DR_G_Pass()
 	{
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
-		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(0), math::Color4(0, 0, 0, 1));
-		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(1), math::Color4(0, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(m_pGBuffer->GetRenderTarget(2), math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer, 0, math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer, 1, math::Color4(0, 0, 0, 0));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer, 2, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_ALL, 1.0f, 0);
 
 
@@ -160,7 +161,7 @@ namespace engine
 	void RenderSystem::DR_Final_Pass()
 	{
 		m_pGraphics->SetRenderTarget(RenderTargetPtr());
-		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), m_clearClr);
+		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), 0, m_clearClr);
 
 
 		m_pScreenQuadMaterial->SetGBuffer(m_pGBuffer);
@@ -242,11 +243,13 @@ namespace engine
 			return;
 		}
 
-		m_pGraphics->ResizeFrameBuffer(cx, cy);
 		m_pGraphics->SetRenderTarget(engine::RenderTargetPtr());
 
-		CreateGBuffer();
-		CreateABuffer();
+		m_pGraphics->ResizeFrameBuffer(cx, cy);
+		
+
+		CreateGBuffer(cx, cy);
+		CreateABuffer(cx, cy);
 	}
 	void RenderSystem::AddLight(LightPtr pLight)
 	{
@@ -266,7 +269,7 @@ namespace engine
 		m_pGraphics->SetRenderTarget(m_pABuffer);
 
 		m_globalAmbientColor.a = 0;
-		m_pGraphics->ClearRenderTarget(m_pABuffer, m_globalAmbientColor);
+		m_pGraphics->ClearRenderTarget(m_pABuffer, 0, m_globalAmbientColor);
 
 		m_pLightManager->RenderLights();
 	}
@@ -283,7 +286,7 @@ namespace engine
 		}
 	}
 	
-	bool RenderSystem::CreateABuffer()
+	bool RenderSystem::CreateABuffer(int w, int h)
 	{
 		if(m_pABuffer != nullptr)
 		{
@@ -291,17 +294,16 @@ namespace engine
 			m_pABuffer.reset();
 		}
 
-		const GraphicsSetting& setting = m_pGraphics->GetGraphicsSetting();
-
-		m_pABuffer = m_pGraphics->CreateRenderTarget(setting.frameBufferWidth, setting.frameBufferHeight, G_FORMAT_R16G16B16A16_FLOAT);
+		G_FORMAT formats[1] = {G_FORMAT_R16G16B16A16_FLOAT,};
+		m_pABuffer = m_pGraphics->CreateRenderTarget(1, w, h, formats);
 
 		return true;
 	}
-	MultiRenderTargetPtr RenderSystem::GetGBuffer()
+	RenderTargetPtr RenderSystem::GetGBuffer()
 	{
 		return m_pGBuffer;
 	}
-	RenderTargetPtr	RenderSystem::GetABuffer()
+	RenderTargetPtr RenderSystem::GetABuffer()
 	{
 		return m_pABuffer;
 	}

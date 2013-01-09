@@ -42,7 +42,6 @@
 #include "core\GPUBuffer.h"
 #include "core\VertexFormat.h"
 #include "core\RenderTarget.h"
-#include "core\MultiRenderTarget.h"
 #include "core\DepthStencilBuffer.h"
 #include "core\GameInterface.h"
 #include "core\RenderData.h"

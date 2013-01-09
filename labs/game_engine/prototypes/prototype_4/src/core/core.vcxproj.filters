@@ -59,10 +59,8 @@
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
-    <ClInclude Include="..\..\include\core\MultiRenderTarget.h" />
     <ClInclude Include="..\..\include\core\RenderData.h" />
     <ClInclude Include="..\..\include\core\RenderSystem.h" />
-    <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\SubMesh.h" />
@@ -95,5 +93,6 @@
     <ClInclude Include="..\..\include\core\PostEffect.h" />
     <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
+    <ClInclude Include="..\..\include\core\RenderTarget.h" />
   </ItemGroup>
 </Project>

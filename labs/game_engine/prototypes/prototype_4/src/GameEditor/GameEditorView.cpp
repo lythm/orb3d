@@ -141,7 +141,6 @@ void CGameEditorView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
 
-	Render();
 	// TODO: 在此添加专用代码和/或调用基类
 }
 
@@ -150,10 +149,6 @@ void CGameEditorView::OnInitialUpdate()
 void CGameEditorView::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
-	//UpdateFPS();
-
-	Render();
 
 	CView::OnTimer(nIDEvent);
 }
@@ -203,15 +198,7 @@ void CGameEditorView::OnDestroy()
 
 	// TODO: 在此处添加消息处理程序代码
 }
-void CGameEditorView::Render()
-{
-	RendererPtr pRenderer = AppContext::GetRenderer();
 
-	if(pRenderer)
-	{
-		pRenderer->Render();
-	}
-}
 
 void CGameEditorView::OnMouseHWheel(UINT nFlags, short zDelta, CPoint pt)
 {
@@ -279,8 +266,6 @@ int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;
 	}
 
-	//SetTimer(0, (1000/100), NULL);
-	
 	return 0;
 }
 

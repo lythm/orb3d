@@ -7,15 +7,17 @@
 
 namespace engine
 {
-	D3D11RenderWindow::D3D11RenderWindow(ID3D11DeviceContext* pContext)
+	D3D11RenderWindow::D3D11RenderWindow(ID3D11DeviceContext* pContext) : D3D11RenderTarget(pContext)
 	{
-		m_pContext					= pContext;
+		m_pSwapChain				= NULL;
 
-		m_pDevice					= NULL;
-
-		m_pContext->GetDevice(&m_pDevice);
-		m_pRenderTargetView			= NULL;
-
+		m_width						= 0;
+		m_height					= 0;
+		m_frameBufferFormat			= G_FORMAT_UNKNOWN;
+		m_dsFormat					= G_FORMAT_UNKNOWN;
+		m_backbufferCount			= 0;
+		m_multiSampleCount			= 0;
+		m_multiSampleQuality		= 0;
 	}
 
 
@@ -24,6 +26,14 @@ namespace engine
 	}
 	bool D3D11RenderWindow::Create(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed)
 	{
+
+		m_width						= w;
+		m_height					= h;
+		m_frameBufferFormat			= color_format;
+		m_dsFormat					= ds_format;
+		m_backbufferCount			= backbufferCount;
+		m_multiSampleCount			= multiSampleCount;
+		m_multiSampleQuality		= multiSampleQuality;
 
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory( &sd, sizeof(sd) );
@@ -79,6 +89,7 @@ namespace engine
 		pDXGIAdapter->Release();
 		pDXGIDevice->Release();
 
+		m_pRTViews = new ID3D11RenderTargetView*[1];
 
 		if(CreateFrameBuffer() == false)
 		{
@@ -95,10 +106,6 @@ namespace engine
 		
 		m_pDepthBuffer = DepthStencilBufferPtr(pTarget);
 
-
-		m_pContext->OMSetRenderTargets(1, &m_pRenderTargetView, pTarget->GetD3D11DepthStencilView());
-		m_pContext->OMSetBlendState(NULL, 0, -1);
-
 		SetupViewport(w, h);
 
 		return true;
@@ -106,63 +113,25 @@ namespace engine
 	
 	void D3D11RenderWindow::Release()
 	{
-		if(m_pRenderTargetView != NULL)
-		{
-			m_pRenderTargetView->Release();
-			m_pRenderTargetView = NULL;
-		}
-
-		if(m_pContext)
-		{
-			m_pContext->Release();
-			m_pContext = NULL;
-		}
-
-
-		if(m_pDevice)
-		{
-			m_pDevice->Release();
-			m_pDevice = NULL;
-		}
-
 		if(m_pSwapChain != NULL)
 		{
 			m_pSwapChain->Release();
 			m_pSwapChain = NULL;
 		}
+		m_pRTViews[0]->Release();
 
 		m_pDepthBuffer->Release();
-
 		m_pDepthBuffer.reset();
-
 		m_pContext = NULL;
+
+		D3D11RenderTarget::Release();
 	}
 	
-	ID3D11RenderTargetView*	D3D11RenderWindow::GetD3D11RenderTargetView()
-	{
-		return m_pRenderTargetView;
-	}
-	ID3D11DepthStencilView*	D3D11RenderWindow::GetD3D11DepthStencilView()
-	{
-		if(m_pDepthBuffer == nullptr)
-		{
-			return nullptr;
-		}
-		return ((D3D11DepthStencilBuffer*)m_pDepthBuffer.get())->GetD3D11DepthStencilView();
-	}
-	TexturePtr D3D11RenderWindow::AsTexture()
+	TexturePtr D3D11RenderWindow::AsTexture(int index)
 	{
 		return TexturePtr();
 	}
 
-	DepthStencilBufferPtr D3D11RenderWindow::GetDepthStencilBuffer()
-	{
-		return m_pDepthBuffer;
-	}
-	void D3D11RenderWindow::SetDepthStencilBuffer(DepthStencilBufferPtr pBuffer)
-	{
-		m_pDepthBuffer = pBuffer;
-	}
 	bool D3D11RenderWindow::CreateFrameBuffer()
 	{
 		// Create a render target view
@@ -171,7 +140,7 @@ namespace engine
 		if( FAILED( m_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), (LPVOID*)&pBackBuffer ) ) )
 			return false;
 
-		HRESULT ret = m_pDevice->CreateRenderTargetView( pBackBuffer, NULL, &m_pRenderTargetView);
+		HRESULT ret = m_pDevice->CreateRenderTargetView( pBackBuffer, NULL, &m_pRTViews[0]);
 		pBackBuffer->Release();
 
 		if( FAILED( ret ) )
@@ -190,5 +159,54 @@ namespace engine
 		vp.TopLeftY = 0;
 		m_pContext->RSSetViewports( 1, &vp );
 	}
-	
+	int	D3D11RenderWindow::GetRenderTargetCount()
+	{
+		return 1;
+	}
+
+	void D3D11RenderWindow::Present()
+	{
+		m_pSwapChain->Present(0, 0);
+	}
+	void D3D11RenderWindow::Resize(int cx, int cy)
+	{
+		if(m_pRTViews[0] != NULL)
+		{
+			m_pRTViews[0]->Release();
+			m_pRTViews[0] = NULL;
+		}
+
+		
+		if(m_pDepthBuffer)
+		{
+			m_pDepthBuffer->Release();
+			m_pDepthBuffer.reset();
+		}
+		m_width		= cx;
+		m_height	= cy;
+
+		m_pSwapChain->ResizeBuffers(m_backbufferCount, cx, cy, D3D11Format::Convert(m_frameBufferFormat), 0);
+
+		CreateFrameBuffer();
+
+		D3D11DepthStencilBuffer* pTarget = new D3D11DepthStencilBuffer(m_pContext);
+
+		if(false == pTarget->Create(m_width, m_height, m_dsFormat))
+		{
+			delete pTarget;
+			return;
+		}
+		
+		m_pDepthBuffer = DepthStencilBufferPtr(pTarget);
+
+		SetupViewport(cx, cy);
+	}
+	int	D3D11RenderWindow::GetWidth()
+	{
+		return m_width;
+	}
+	int	D3D11RenderWindow::GetHeight()
+	{
+		return m_height;
+	}
 }

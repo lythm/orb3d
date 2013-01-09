@@ -32,6 +32,7 @@ void CPreviewWnd::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CPreviewWnd, CDialogEx)
 	ON_WM_CLOSE()
 	ON_WM_TIMER()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -51,9 +52,10 @@ BOOL CPreviewWnd::OnInitDialog()
 
 
 	m_pRenderTarget = AppContext::GetCoreApi()->GetSysGraphics()->CreateRenderWindow(m_hWnd, rc.Width(), rc.Height(), G_FORMAT_R8G8B8A8_UNORM, G_FORMAT_D24_UNORM_S8_UINT, 2, 1, 0, true);
-
+	
 	AppContext::GetCoreApi()->GetSysGraphics()->SetRenderWindow(m_pRenderTarget);
-
+	AppContext::ResizeRenderer(rc.Width(), rc.Height());
+	
 	SetTimer(99, 10, nullptr);
 
 	return TRUE;
@@ -65,7 +67,12 @@ void CPreviewWnd::OnClose()
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
 	KillTimer(99);
-	AppContext::GetCoreApi()->GetSysGraphics()->SetRenderTarget(engine::RenderTargetPtr());
+	AppContext::GetCoreApi()->GetSysGraphics()->SetRenderWindow(engine::RenderTargetPtr());
+
+	int w = AppContext::GetCoreApi()->GetSysGraphics()->GetFrameBufferWidth();
+	int h = AppContext::GetCoreApi()->GetSysGraphics()->GetFrameBufferHeight();
+
+	AppContext::ResizeRenderer(w, h);
 
 	m_pRenderTarget->Release();
 	m_pRenderTarget.reset();
@@ -78,8 +85,19 @@ void CPreviewWnd::OnClose()
 
 void CPreviewWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	AppContext::GetCoreApi()->GetSysGraphics()->SetRenderWindow(m_pRenderTarget);
-	AppContext::GetSysGraphics()->Present();
-
+	AppContext::GetRenderer()->Render();
+	
 	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+void CPreviewWnd::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+
+	if(m_pRenderTarget != engine::RenderTargetPtr())
+	{
+		AppContext::ResizeRenderer(cx, cy);
+	}
+	// TODO: 在此处添加消息处理程序代码
 }

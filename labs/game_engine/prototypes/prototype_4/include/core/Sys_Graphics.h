@@ -22,7 +22,11 @@ namespace engine
 																	int basevertex)									= 0;
 		virtual void									SetPrimitiveType(PRIMITIVE_TYPE pt)							= 0;
 		
+		virtual int										GetFrameBufferWidth()										= 0;
+		virtual int										GetFrameBufferHeight()										= 0;
+
 		virtual void									ClearRenderTarget(RenderTargetPtr pTarget, 
+																	int index,
 																	const math::Color4& clr)						= 0; 
 
 		virtual void									ClearDepthStencilBuffer(DepthStencilBufferPtr pTarget, 
@@ -49,16 +53,9 @@ namespace engine
 		
 		virtual TexturePtr								CreateTextureFromFile(const char* szFile)					= 0;
 
-		virtual void									SetRenderTarget(RenderTargetPtr pRenderTarget)				= 0;
+		virtual void									SetRenderTarget(RenderTargetPtr pRT)					= 0;
 
-		virtual void									SetRenderTarget(MultiRenderTargetPtr pRT)					= 0;
-
-		virtual RenderTargetPtr							CreateRenderTarget(int w, 
-																	int h, 
-																	G_FORMAT format, 
-																	int miplvls = 1)								= 0;
-
-		virtual MultiRenderTargetPtr					CreateMultiRenderTarget(int count,
+		virtual RenderTargetPtr							CreateRenderTarget(int count,
 																	int w,
 																	int h,
 																	G_FORMAT formats[],
@@ -79,7 +76,7 @@ namespace engine
 																	int multiSampleQuality, 
 																	bool windowed)									= 0;
 
-		virtual void									SetRenderWindow(RenderTargetPtr pRenderTarget)				= 0;
+		virtual void									SetRenderWindow(RenderTargetPtr pWnd)						= 0;
 	protected:
 		Sys_Graphics(void){}
 		virtual ~Sys_Graphics(void){}
