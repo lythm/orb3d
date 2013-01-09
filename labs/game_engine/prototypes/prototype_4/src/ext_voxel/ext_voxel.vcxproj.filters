@@ -21,9 +21,6 @@
     <ClInclude Include="voxel_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\ext_voxel\VoxelRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\ext_voxel\Voxel.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -51,15 +48,15 @@
     <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\ext_voxel\VoxelWorldRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Package.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="voxel_pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Voxel.cpp">
@@ -81,6 +78,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="VoxelSerializer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelWorldRenderer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

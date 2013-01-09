@@ -3,7 +3,7 @@
 #include "Package.h"
 
 #include "ext_voxel\VoxelWorld.h"
-#include "ext_voxel\VoxelRenderer.h"
+#include "ext_voxel\VoxelWorldRenderer.h"
 
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
@@ -29,10 +29,10 @@ namespace engine
 							L"Voxel",
 							L"Voxel World",
 							&VoxelPackage::Create_VoxelWorld));
-		m_classes.push_back(ComponentClass(L"VoxelRenderer",
+		m_classes.push_back(ComponentClass(L"VoxelWorldRenderer",
 							L"Voxel",
-							L"Voxel Renderer",
-							&VoxelPackage::Create_VoxelRenderer));
+							L"Voxel World Renderer",
+							&VoxelPackage::Create_VoxelWorldRenderer));
 	}
 
 
@@ -57,8 +57,8 @@ namespace engine
 	{
 		return pManager->GetAllocator()->AllocObject<VoxelWorld, GameObjectManagerPtr>(pManager);
 	}
-	GameObjectComponentPtr VoxelPackage::Create_VoxelRenderer(GameObjectManagerPtr pManager)
+	GameObjectComponentPtr VoxelPackage::Create_VoxelWorldRenderer(GameObjectManagerPtr pManager)
 	{
-		return pManager->GetAllocator()->AllocObject<VoxelRenderer, GameObjectManagerPtr>(pManager);
+		return pManager->GetAllocator()->AllocObject<VoxelWorldRenderer, GameObjectManagerPtr>(pManager);
 	}
 }

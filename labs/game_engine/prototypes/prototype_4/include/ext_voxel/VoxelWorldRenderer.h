@@ -2,11 +2,11 @@
 
 namespace engine
 {
-	class VoxelRenderer : public GameObjectComponent
+	class VoxelWorldRenderer : public GameObjectComponent
 	{
 	public:
-		VoxelRenderer(GameObjectManagerPtr pManager);
-		virtual ~VoxelRenderer(void);
+		VoxelWorldRenderer(GameObjectManagerPtr pManager);
+		virtual ~VoxelWorldRenderer(void);
 
 		void										Update();
 		
