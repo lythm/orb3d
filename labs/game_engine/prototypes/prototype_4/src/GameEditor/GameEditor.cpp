@@ -142,6 +142,8 @@ BOOL CGameEditorApp::InitInstance()
 	//  在 SDI 应用程序中，这应在 ProcessShellCommand 之后发生
 	// 启用拖/放
 	m_pMainWnd->DragAcceptFiles();
+
+	
 	return TRUE;
 }
 

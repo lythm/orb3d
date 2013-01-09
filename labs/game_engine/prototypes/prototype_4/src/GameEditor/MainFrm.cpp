@@ -83,6 +83,7 @@ CMainFrame::CMainFrame()
 
 CMainFrame::~CMainFrame()
 {
+
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)

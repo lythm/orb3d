@@ -120,6 +120,9 @@
     <ClInclude Include="PreviewWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ProgressDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -216,6 +219,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="PreviewWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

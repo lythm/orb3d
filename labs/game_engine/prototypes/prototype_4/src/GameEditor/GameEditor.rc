@@ -436,6 +436,14 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
 END
 
+IDD_PROGRESS_DLG DIALOGEX 0, 0, 330, 51
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE
+FONT 9, "ËÎÌו", 400, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",WS_BORDER,11,24,307,14
+    LTEXT           "Static",IDC_PROGRESS_INFO,14,8,303,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -522,6 +530,10 @@ BEGIN
         RIGHTMARGIN, 626
         TOPMARGIN, 7
         BOTTOMMARGIN, 304
+    END
+
+    IDD_PROGRESS_DLG, DIALOG
+    BEGIN
     END
 END
 #endif    // APSTUDIO_INVOKED

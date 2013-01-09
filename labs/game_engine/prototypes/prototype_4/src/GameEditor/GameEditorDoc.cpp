@@ -14,6 +14,7 @@
 
 #include <propkey.h>
 #include "StartDialog.h"
+#include "ProgressDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -44,6 +45,21 @@ BOOL CGameEditorDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
+	CProgressDlg d;
+
+	d.Create((UINT)IDD_PROGRESS_DLG, AfxGetMainWnd());
+	
+	d.CenterWindow();
+	d.ShowWindow(SW_SHOW);
+
+	for(int i = 0; i < 100; ++i)
+	{
+		d.SetPos(i);
+		//d.ProcessMessage();
+		Sleep(20);
+	}
+
+	d.DestroyWindow();
 	
 	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)
@@ -81,7 +97,8 @@ BOOL CGameEditorDoc::OnNewDocument()
 
 	UpdateAllViews(NULL);
 
-	return TRUE;
+
+	return CDocument::OnNewDocument();
 }
 
 
@@ -200,7 +217,7 @@ BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 
 	AppContext::OutputInfo(L"Project openned.");
 
-	return TRUE;
+	return CDocument::OnOpenDocument(lpszPathName);
 }
 
 
@@ -222,7 +239,7 @@ BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)
 		return FALSE;
 	}
 	AppContext::OutputInfo(L"Project saved.");
-	return TRUE;
+	
 
-	//return CDocument::OnSaveDocument(lpszPathName);
+	return CDocument::OnSaveDocument(lpszPathName);
 }
