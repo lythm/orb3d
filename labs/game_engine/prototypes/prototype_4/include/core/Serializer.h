@@ -17,6 +17,9 @@ namespace engine
 			m_pStream.reset();
 		}
 
+
+
+
 	protected:
 		DataStreamPtr										m_pStream;
 	};

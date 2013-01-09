@@ -8,13 +8,11 @@ public:
 	Project(void);
 	virtual ~Project(void);
 
-	bool								New();
+	bool								New(const _TCHAR* filename);
 	bool								Load(const _TCHAR* filename);
 	bool								Save(const _TCHAR* filename);
 	void								Close();
 	
-
-
 	void								CreateObject_Empty();
 	void								CreateObject_FromTemplate_Cube();
 	void								CreateObject_FromTemplate_Cone();

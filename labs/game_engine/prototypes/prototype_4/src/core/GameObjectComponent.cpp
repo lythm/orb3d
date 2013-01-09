@@ -1,6 +1,6 @@
 #include "core_pch.h"
 #include "..\..\include\core\GameObjectComponent.h"
-
+#include "core_utils.h"
 
 namespace engine
 {
@@ -9,7 +9,10 @@ namespace engine
 		SetName(name);	
 		m_pManager = pManager;
 	}
-
+	GameObjectComponent::GameObjectComponent(GameObjectManagerPtr pManager)
+	{
+		m_pManager = pManager;
+	}
 
 	GameObjectComponent::~GameObjectComponent(void)
 	{
@@ -64,6 +67,18 @@ namespace engine
 	void GameObjectComponent::UnSerialize(DataStreamPtr pStream)
 	{
 
+	}
+	bool GameObjectComponent::IsExclusive()
+	{
+		return true;
+	}
+	GameObjectComponentPtr GameObjectComponent::Clone()
+	{
+		GameObjectComponentPtr pClone = alloc_object<GameObjectComponent, GameObjectManagerPtr>(m_pManager);
+
+		pClone->SetName(GetName());
+
+		return pClone;
 	}
 }
 

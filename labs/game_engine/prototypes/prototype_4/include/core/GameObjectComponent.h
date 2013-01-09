@@ -7,6 +7,7 @@ namespace engine
 	{
 	public:
 		GameObjectComponent(const std::wstring& name, GameObjectManagerPtr pManager);
+		GameObjectComponent(GameObjectManagerPtr pManager);
 		virtual ~GameObjectComponent(void);
 		
 		virtual void				Update();
@@ -29,6 +30,9 @@ namespace engine
 
 		GameObjectManagerPtr		GetGameObjectManager();
 
+		virtual bool				IsExclusive();
+
+		virtual GameObjectComponentPtr Clone();
 		
 	private:
 		virtual bool				OnAttach();
@@ -38,5 +42,6 @@ namespace engine
 		GameObjectPtr				m_pObject;
 		std::wstring				m_name;
 		GameObjectManagerPtr		m_pManager;
+
 	};
 }

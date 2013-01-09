@@ -1,12 +1,12 @@
 #include "core_pch.h"
 #include "..\..\include\core\GameObjectTemplate.h"
 #include "core\DataStream_Mem.h"
+#include "core_utils.h"
 
 namespace engine
 {
-	GameObjectTemplate::GameObjectTemplate(const std::wstring& name)
+	GameObjectTemplate::GameObjectTemplate(GameObjectManagerPtr pManager)
 	{
-		SetName(name);
 	}
 
 
@@ -21,7 +21,7 @@ namespace engine
 	{
 		m_name = name;
 	}
-	GameObjectPtr GameObjectTemplate::CreateObject()
+	GameObjectPtr GameObjectTemplate::CreateGameObject()
 	{
 
 		return GameObjectPtr();
@@ -37,5 +37,9 @@ namespace engine
 			m_pData->Close();
 			m_pData.reset();
 		}
+	}
+	bool GameObjectTemplate::Load(DataStreamPtr pStream)
+	{
+		return true;
 	}
 }

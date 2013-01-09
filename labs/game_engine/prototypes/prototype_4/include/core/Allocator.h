@@ -26,6 +26,14 @@ namespace engine
 			return boost::shared_ptr<T>(new (pObj) T(param), boost::bind(&Allocator::FreeObject<T>, this, _1));
 		}
 
+		template<typename T, typename TP1, typename TP2>
+		boost::shared_ptr<T>						AllocObject(TP1 p1, TP2 p2)
+		{
+			T* pObj = (T*)Alloc(sizeof(T));
+			
+			return boost::shared_ptr<T>(new (pObj) T(p1, p2), boost::bind(&Allocator::FreeObject<T>, this, _1));
+		}
+
 	private:
 		template<typename T>
 		void										FreeObject(T* pObj)

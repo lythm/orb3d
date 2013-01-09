@@ -124,6 +124,7 @@
     <ClInclude Include="..\..\include\core\RenderSystem.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\Scene.h" />
+    <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\Serializer.h" />
     <ClInclude Include="..\..\include\core\Shader.h" />
     <ClInclude Include="..\..\include\core\SkyLight.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneSerializer.cpp" />
     <ClCompile Include="SkyLight.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="StdAllocator.cpp" />

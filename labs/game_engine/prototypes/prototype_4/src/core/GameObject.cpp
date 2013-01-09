@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\GameObject.h"
 #include "core\GameObjectComponent.h"
-
+#include "core_utils.h"
 namespace engine
 {
 	GameObject::GameObject(const std::wstring& name)
@@ -71,7 +71,6 @@ namespace engine
 
 		m_components.push_back(pCom);
 		
-
 		return true;
 	}
 	void GameObject::UpdateComponents()
@@ -396,5 +395,19 @@ namespace engine
 	void GameObject::SetPrivateData(void* pData)
 	{
 		m_pPrivateData = pData;
+	}
+	GameObjectPtr GameObject::Clone()
+	{
+		GameObjectPtr pClone = alloc_object<GameObject>();
+		pClone->SetName(m_name);
+		pClone->SetPrivateData(m_pPrivateData);
+		pClone->m_LocalTransform = m_LocalTransform;
+		pClone->m_WorldTransform = m_WorldTransform;
+
+		for(size_t i = 0; i < m_components.size(); ++i)
+		{
+			pClone->AddComponent(m_components[i]->Clone());
+		}
+		return pClone;
 	}
 }

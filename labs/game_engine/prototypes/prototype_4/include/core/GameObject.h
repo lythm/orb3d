@@ -84,6 +84,8 @@ namespace engine
 		void										SetPrivateData(void* pData);
 
 		GameObjectPtr								Root();
+
+		GameObjectPtr								Clone();
 	private:
 		void										UpdateWorldTransform();
 		void										UpdateComponents();

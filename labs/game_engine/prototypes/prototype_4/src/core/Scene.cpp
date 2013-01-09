@@ -32,4 +32,9 @@ namespace engine
 	{
 		m_pRoot->Update();
 	}
+	bool Scene::Load(DataStreamPtr pStream)
+	{
+		
+		return true;
+	}
 }

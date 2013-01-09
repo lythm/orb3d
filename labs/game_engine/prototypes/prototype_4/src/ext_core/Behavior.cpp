@@ -8,7 +8,6 @@ namespace engine
 	{
 	}
 
-
 	Behavior::~Behavior(void)
 	{
 	}

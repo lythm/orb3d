@@ -38,9 +38,9 @@ namespace engine
 		bool							LoadPackage(const std::wstring& name);
 		
 		GameObjectPtr					CreateGameObject(const std::wstring& name);
-		GameObjectPtr					CreateObjectFromTemplate(const std::string& tpl);
+		GameObjectPtr					CreateObjectFromTemplate(const std::wstring& tpl);
 		
-		void							RegisterObject();
+		bool							RegisterTemplate(GameObjectTemplatePtr pTpl);
 
 		GameObjectComponentPtr			CreateComponent(const std::wstring& name);
 
@@ -54,11 +54,15 @@ namespace engine
 
 		Allocator*						GetAllocator();
 		CoreApiPtr						GetCoreApi();
+
+		GameObjectTemplatePtr			FindTemplate(const std::wstring& name);
+
+		bool							LoadAndRegisterTemplate(DataStreamPtr pStream);
 	private:
 
 
 	private:
-		boost::unordered_map<std::string, GameObjectTemplatePtr>			m_templates;
+		boost::unordered_map<std::wstring, GameObjectTemplatePtr>			m_templates;
 		boost::unordered_map<std::wstring, ExtPackage::ComponentClass*>		m_componentClasses;
 
 		std::vector<PackageMod>			m_packages;

@@ -4,6 +4,7 @@
 
 #include "core_utils.h"
 
+#include "core\GameObjectTemplate.h"
 
 namespace engine
 {
@@ -37,14 +38,37 @@ namespace engine
 		}
 		m_packages.clear();
 	}
-
-	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::string& tpl)
+	bool GameObjectManager::LoadAndRegisterTemplate(DataStreamPtr pStream)
 	{
-		return GameObjectPtr();
+		GameObjectTemplatePtr pTemplate = alloc_object<GameObjectTemplate, GameObjectManagerPtr>(shared_from_this());
+
+		if(pTemplate->Load(pStream) == false)
+		{
+			return false;
+		}
+
+		return RegisterTemplate(pTemplate);
 	}
-	void GameObjectManager::RegisterObject()
+	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::wstring& tpl)
 	{
+		GameObjectTemplatePtr pTpl = FindTemplate(tpl);
 
+		if(pTpl == GameObjectTemplatePtr())
+		{
+			return GameObjectPtr();
+		}
+
+		return pTpl->CreateGameObject();
+	}
+	bool GameObjectManager::RegisterTemplate(GameObjectTemplatePtr pTpl)
+	{
+		if(m_templates.find(pTpl->GetName()) != m_templates.end())
+		{
+			return false;
+		}
+		m_templates[pTpl->GetName()] = pTpl;
+
+		return true;
 	}
 	
 	GameObjectComponentPtr GameObjectManager::CreateComponent(const std::wstring& name)
@@ -108,6 +132,26 @@ namespace engine
 	{
 		return m_pCore->GetRenderSystem();
 	}
+	Allocator* GameObjectManager::GetAllocator()
+	{
+		return m_pCore->GetAllocator();
+	}
+
+	CoreApiPtr GameObjectManager::GetCoreApi()
+	{
+		return m_pCore;
+	}
+	GameObjectTemplatePtr GameObjectManager::FindTemplate(const std::wstring& name)
+	{
+		boost::unordered_map<std::wstring, GameObjectTemplatePtr>::iterator it = m_templates.find(name);
+
+		if(it == m_templates.end())
+		{
+			return GameObjectTemplatePtr();
+		}
+
+		return it->second;
+	}
 }
 
 
@@ -162,14 +206,5 @@ namespace engine
 
 		FreeLibrary(m_hLib);
 		m_hLib = NULL;
-	}
-	Allocator* GameObjectManager::GetAllocator()
-	{
-		return m_pCore->GetAllocator();
-	}
-
-	CoreApiPtr GameObjectManager::GetCoreApi()
-	{
-		return m_pCore;
 	}
 }

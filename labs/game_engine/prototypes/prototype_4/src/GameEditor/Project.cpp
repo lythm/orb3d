@@ -14,7 +14,7 @@ Project::~Project(void)
 {
 }
 
-bool Project::New()
+bool Project::New(const _TCHAR* filename)
 {
 	if(AppContext::GetRenderSystem()->GetLightCount() == 0)
 	{
