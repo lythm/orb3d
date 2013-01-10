@@ -52,13 +52,18 @@ DepthStencilState dr_ds
 	BackFaceStencilFunc			= NEVER;
 
 };
-
+BlendState bs
+{
+	BLENDENABLE[0]				= false;
+	
+};
 technique11 dr_render_gbuffer
 {
 	pass p1
 	{
 		SetDepthStencilState(dr_ds, 1);
 		SetRasterizerState(rs);
+		SetBlendState( bs, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
 		SetVertexShader( CompileShader( vs_4_0, vs_main() ) );
 		SetPixelShader( CompileShader( ps_4_0, dr_ps_main() ) );
 	}

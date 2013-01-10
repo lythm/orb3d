@@ -64,8 +64,8 @@ namespace engine
 			return false;
 		}
 
-		//m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_final_merge.fx");
-		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_ssao.fx");
+		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_merge.fx");
+		//m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/material/dr_render_ssao.fx");
 
 		VertexElement vf[] = 
 		{
@@ -77,9 +77,7 @@ namespace engine
 
 		m_pScreenQuadMaterial->SetVertexFormat(format);
 
-		m_pSSAORandomTex = pGraphics->CreateTextureFromFile("./assets/texture/ssao_rand.jpg");
 		
-		m_pScreenQuadMaterial->SetTextureByName("tex_ssao_rand", m_pSSAORandomTex);
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer(int w, int h)
@@ -97,7 +95,7 @@ namespace engine
 			G_FORMAT_R16G16B16A16_FLOAT,				// diffuse color : specular
 		};
 
-		m_pGBuffer = m_pGraphics->CreateRenderTarget(3, w, h, formats);
+		m_pGBuffer = CreateRenderTarget(3, w, h, formats);
 
 		return true;
 
@@ -173,7 +171,7 @@ namespace engine
 		}
 
 	}
-	void RenderSystem::DR_Final_Pass()
+	void RenderSystem::DR_Merge_Pass()
 	{
 		RenderTargetPtr pOutput = m_pPostEffectManager->GetInput();
 
@@ -187,7 +185,6 @@ namespace engine
 		m_pScreenQuadMaterial->SetWorldMatrix(math::MatrixIdentity());
 
 		DrawFullScreenQuad(m_pScreenQuadMaterial);
-
 	}
 	void RenderSystem::RenderForward()
 	{
@@ -211,10 +208,15 @@ namespace engine
 
 		DR_G_Pass();
 		DR_Light_Pass();
-		DR_Final_Pass();
-
+		DR_Merge_Pass();
+		
 		RenderForward();
 
+		RenderPostEffects();
+		
+		RenderFinal();
+
+		
 	}
 	void RenderSystem::Present()
 	{
@@ -244,6 +246,10 @@ namespace engine
 	{
 		m_clearClr	 = clr;
 	}
+	const math::Color4&	RenderSystem::GetClearColor()
+	{
+		return m_clearClr;
+	}
 	void RenderSystem::SetClearDepth(float d)
 	{
 		m_clearDepth = d;
@@ -266,6 +272,8 @@ namespace engine
 
 		CreateGBuffer(cx, cy);
 		CreateABuffer(cx, cy);
+
+		m_pPostEffectManager->Resize(cx, cy);
 	}
 	void RenderSystem::AddLight(LightPtr pLight)
 	{
@@ -311,7 +319,7 @@ namespace engine
 		}
 
 		G_FORMAT formats[1] = {G_FORMAT_R16G16B16A16_FLOAT,};
-		m_pABuffer = m_pGraphics->CreateRenderTarget(1, w, h, formats);
+		m_pABuffer = CreateRenderTarget(1, w, h, formats);
 
 		return true;
 	}
@@ -407,5 +415,33 @@ namespace engine
 	void RenderSystem::ClearDepthBuffer(DepthStencilBufferPtr pDS, CLEAR_DS_FLAG flag, float d, int s)
 	{
 		m_pGraphics->ClearDepthStencilBuffer(pDS, flag, d, s);
+	}
+	RenderTargetPtr	RenderSystem::CreateRenderTarget(int c, int w, int h, G_FORMAT format[])
+	{
+		return m_pGraphics->CreateRenderTarget(c, w, h, format);
+	}
+	int	RenderSystem::GetFrameBufferWidth()
+	{
+		return m_pGraphics->GetFrameBufferWidth();
+	}
+	int	RenderSystem::GetFrameBufferHeight()
+	{
+		return m_pGraphics->GetFrameBufferHeight();
+	}
+	void RenderSystem::RenderPostEffects()
+	{
+		m_pPostEffectManager->Render();
+	}
+	void RenderSystem::RenderFinal()
+	{
+		m_pPostEffectManager->RenderToFrameBuffer();
+	}
+	MaterialPtr	RenderSystem::CreateMaterialFromFile(const char* szFile)
+	{
+		return m_pGraphics->CreateMaterialFromFile(szFile);
+	}
+	TexturePtr RenderSystem::CreateTextureFromFile(const char* szFile)
+	{
+		return m_pGraphics->CreateTextureFromFile(szFile);
 	}
 }

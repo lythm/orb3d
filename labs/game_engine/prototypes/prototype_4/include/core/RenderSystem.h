@@ -41,7 +41,7 @@ namespace engine
 		void										SetClearColor(const math::Color4& clr);
 		void										SetClearDepth(float d);
 		void										SetClearStencil(int s);
-
+		const math::Color4&							GetClearColor();
 		void										ResizeFrameBuffer(int cx, int cy);
 
 		void										SetSemanticsValue(RenderDataPtr pData);
@@ -58,17 +58,25 @@ namespace engine
 		const math::Color4&							GetGlobalAmbient();
 		void										SetGlobalAmbient(const math::Color4& clr);
 
+		RenderTargetPtr								CreateRenderTarget(int c, int w, int h, G_FORMAT format[]);
 		void										SetRenderTarget(RenderTargetPtr pRT);
 		void										ClearRenderTarget(RenderTargetPtr pRT, int index, const math::Color4 & clr);
 		void										ClearDepthBuffer(DepthStencilBufferPtr pDS, CLEAR_DS_FLAG flag, float d, int s);
+
+		int											GetFrameBufferWidth();
+		int											GetFrameBufferHeight();
+
+		MaterialPtr									CreateMaterialFromFile(const char* szFile);
+		TexturePtr									CreateTextureFromFile(const char* szFile);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);
 
 		void										DR_G_Pass();
-		void										DR_Final_Pass();
+		void										DR_Merge_Pass();
 		void										DR_Light_Pass();
-
+		void										RenderPostEffects();
+		void										RenderFinal();
 		void										RenderForward();
 		void										RenderShadowMaps();
 		
@@ -98,8 +106,6 @@ namespace engine
 		MaterialPtr									m_pScreenQuadMaterial;
 
 		math::Color4								m_globalAmbientColor;
-
-		TexturePtr									m_pSSAORandomTex;
 
 		PostEffectManagerPtr						m_pPostEffectManager;
 	};

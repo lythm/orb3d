@@ -18,6 +18,13 @@ namespace engine
 		RenderTargetPtr								GetOutput();
 
 		int											GetEffectCount();
+
+		void										Resize(int cx, int cy);
+
+		void										RenderToFrameBuffer();
+
+	private:
+		bool										CreateRT(int w, int h);
 	private:
 		void										SwapRenderTarget();
 
@@ -28,6 +35,8 @@ namespace engine
 		std::vector<PostEffectPtr>					m_effects;
 
 		RenderSystemPtr								m_pRS;
+
+		MaterialPtr									m_pFinalMaterial;
 	};
 
 

@@ -40,10 +40,16 @@ DepthStencilState ds
 	DepthWriteMask = ALL;
 	StencilEnable = false;
 };
+BlendState bs
+{
+	BLENDENABLE[0]				= false;
+	
+};
 technique11 test
 {
   pass p1
   {
+	SetBlendState( bs, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF );
 	SetRasterizerState(rs);
 	SetDepthStencilState(ds, 0);
 	SetVertexShader( CompileShader( vs_4_0, vs_main() ) );

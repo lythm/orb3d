@@ -4,14 +4,14 @@ float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 
 Texture2D<half4>	tex_gbuffer[3]:DR_GBUFFER;
-Texture2D<float4>	tex_abuffer:DR_ABUFFER;
+Texture2D<float4>	tex_input:DR_ABUFFER;
 Texture2D<float4>	tex_ssao_rand:SSAO_RAND;		
 
 float random_size	= 64;
 float g_sample_rad	= 1;
 float g_intensity	= 1;
 float g_scale		= 1;
-float g_bias		= 0;
+float g_bias		= 0.2;
 float2 g_screen_size = float2(640,640);
 
 
@@ -108,9 +108,9 @@ ps_out ps_main(vs_out i)
 
 //============================================================================
 	
-	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
+	float4 l = tex_input.Sample(Sampler_GBuffer,uv);
 
-	o.color.xyz = l.xyz * d - ao;
+	o.color.xyz = l - ao;
 	o.color.w = 1;
 
 //	o.color.xyz = 1 - ao;
@@ -126,7 +126,7 @@ DepthStencilState ds
 	DepthEnable				= FALSE;
 	DepthFunc				= LESS;
 	DepthWriteMask				= ZERO;
-	StencilEnable				= true;
+	StencilEnable				= false;
 	FrontFaceStencilFail			= KEEP;
 	FrontFaceStencilDepthFail		= KEEP;
 	FrontFaceStencilPass			= KEEP;

@@ -3,6 +3,8 @@
 #include "core\RenderSystem.h"
 #include "core\Material.h"
 #include "core\Sys_Graphics.h"
+#include "core\Texture.h"
+#include "core\RenderTarget.h"
 
 
 namespace engine
@@ -28,10 +30,19 @@ namespace engine
 		format.SetElement(vf, 1);
 
 		m_pMaterial->SetVertexFormat(format);
+
+		m_pSSAORandomTex = pRS->CreateTextureFromFile("./assets/texture/ssao_rand.jpg");
+		
+		m_pMaterial->SetTextureByName("tex_ssao_rand", m_pSSAORandomTex);
 		return true;
 	}
 	void PostEffect_SSAO::Release()
 	{
+		if(m_pSSAORandomTex)
+		{
+			m_pSSAORandomTex->Release();
+			m_pSSAORandomTex.reset();
+		}
 		if(m_pMaterial)
 		{
 			m_pMaterial->Release();
@@ -39,8 +50,16 @@ namespace engine
 		}
 	}
 
-	void PostEffect_SSAO::Render(RenderSystemPtr pRenderer)
+	void PostEffect_SSAO::Render(RenderSystemPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput)
 	{
+		pRenderer->SetRenderTarget(pOutput);
+		pRenderer->ClearRenderTarget(pOutput, 0, math::Color4(0, 0, 0,0));
+
+		m_pMaterial->SetGBuffer(pRenderer->GetGBuffer());
+		m_pMaterial->SetTextureByName("tex_input", pInput->AsTexture(0));
+		m_pMaterial->SetVectorByName("g_screen_size", math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
+
 		pRenderer->DrawFullScreenQuad(m_pMaterial);
 	}
 }
+

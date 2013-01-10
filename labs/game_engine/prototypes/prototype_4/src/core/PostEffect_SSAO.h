@@ -10,12 +10,13 @@ namespace engine
 		PostEffect_SSAO(void);
 		virtual ~PostEffect_SSAO(void);
 
-		void									Render(RenderSystemPtr pRenderer);
-
+		
+		void									Render(RenderSystemPtr pRenderer, RenderTargetPtr pInput, RenderTargetPtr pOutput);
 		bool									Initialize(RenderSystemPtr pRS);
 		void									Release();
 
 	private:
 		MaterialPtr								m_pMaterial;
+		TexturePtr								m_pSSAORandomTex;
 	};
 }
