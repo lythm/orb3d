@@ -14,6 +14,7 @@ namespace engine
 		void										OnDetach();
 
 	private:
-
+		PostEffect_SSAOPtr							m_pSSAO;
+		PostEffect_GaussianBlurPtr					m_pGBlur;
 	};
 }

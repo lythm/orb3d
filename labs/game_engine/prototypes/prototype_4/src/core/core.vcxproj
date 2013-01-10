@@ -115,7 +115,10 @@
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
     <ClInclude Include="..\..\include\core\PostEffectManager.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
     <ClInclude Include="..\..\include\core\PoolAllocator.h" />
@@ -142,7 +145,6 @@
     <ClInclude Include="..\..\include\core\ViewFrustum.h" />
     <ClInclude Include="core_pch.h" />
     <ClInclude Include="core_utils.h" />
-    <ClInclude Include="PostEffect_SSAO.h" />
     <ClInclude Include="WMInput.h" />
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +173,9 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="PostEffectManager.cpp" />
+    <ClCompile Include="PostEffect_BilateralBlur.cpp" />
     <ClCompile Include="PostEffect_FinalCompose.cpp" />
+    <ClCompile Include="PostEffect_GaussianBlur.cpp" />
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderSystem.cpp" />

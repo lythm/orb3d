@@ -37,6 +37,8 @@
     <ClCompile Include="SceneSerializer.cpp" />
     <ClCompile Include="PostEffectManager.cpp" />
     <ClCompile Include="PostEffect_FinalCompose.cpp" />
+    <ClCompile Include="PostEffect_BilateralBlur.cpp" />
+    <ClCompile Include="PostEffect_GaussianBlur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -91,12 +93,14 @@
     <ClInclude Include="..\..\include\core\StdAllocator.h" />
     <ClInclude Include="..\..\include\core\ExtPackage.h" />
     <ClInclude Include="..\..\include\core\SkyLight.h" />
-    <ClInclude Include="PostEffect_SSAO.h" />
     <ClInclude Include="..\..\include\core\PostEffect.h" />
     <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\PostEffectManager.h" />
     <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
   </ItemGroup>
 </Project>

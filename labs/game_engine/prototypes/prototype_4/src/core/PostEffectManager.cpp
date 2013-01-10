@@ -6,7 +6,7 @@
 #include "core\Material.h"
 #include "core\VertexFormat.h"
 
-#include "PostEffect_SSAO.h"
+#include "core\PostEffect_SSAO.h"
 #include "core_utils.h"
 
 namespace engine
@@ -48,10 +48,10 @@ namespace engine
 		m_pFinalMaterial->SetVertexFormat(format);
 
 
-		boost::shared_ptr<PostEffect_SSAO> pSSAO = alloc_object<PostEffect_SSAO>();
+		/*boost::shared_ptr<PostEffect_SSAO> pSSAO = alloc_object<PostEffect_SSAO>();
 		pSSAO->Initialize(m_pRS);
 		
-		m_effects.push_back(pSSAO);
+		m_effects.push_back(pSSAO);*/
 
 		return true;
 	}
@@ -156,5 +156,9 @@ namespace engine
 		m_pFinalMaterial->SetTextureByName("post_output", m_pOutput->AsTexture(0));
 
 		m_pRS->DrawFullScreenQuad(m_pFinalMaterial);
+	}
+	void PostEffectManager::AddEffect(PostEffectPtr pEffect)
+	{
+		m_effects.push_back(pEffect);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace engine
 {
-	class PostEffect
+	class EXPORT_CLASS PostEffect
 	{
 	public:
 		PostEffect(void);

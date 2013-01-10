@@ -3,7 +3,7 @@
 
 namespace engine
 {
-	class PostEffectManager
+	class EXPORT_CLASS PostEffectManager
 	{
 	public:
 		PostEffectManager(void);
@@ -23,6 +23,7 @@ namespace engine
 
 		void										RenderToFrameBuffer();
 
+		void										AddEffect(PostEffectPtr pEffect);
 	private:
 		bool										CreateRT(int w, int h);
 	private:

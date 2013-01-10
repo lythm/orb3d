@@ -4,7 +4,7 @@
 
 namespace engine
 {
-	class PostEffect_FinalCompose : public PostEffect
+	class EXPORT_CLASS PostEffect_FinalCompose : public PostEffect
 	{
 	public:
 		PostEffect_FinalCompose(void);

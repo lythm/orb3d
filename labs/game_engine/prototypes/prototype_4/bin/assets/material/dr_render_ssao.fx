@@ -4,10 +4,10 @@ float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 
 Texture2D<half4>	tex_gbuffer[3]:DR_GBUFFER;
-Texture2D<float4>	tex_input:DR_ABUFFER;
+Texture2D<float4>	tex_input;
 Texture2D<float4>	tex_ssao_rand:SSAO_RAND;		
 
-float random_size	= 64;
+float g_random_size	= 64;
 float g_sample_rad	= 1;
 float g_intensity	= 1;
 float g_scale		= 1;
@@ -28,7 +28,7 @@ SamplerState Sampler_SSAORand
 
 float2 getRandom(in float2 uv)
 {
-	return normalize(tex_ssao_rand.Sample(Sampler_SSAORand, g_screen_size * uv / random_size).xy * 2.0f - 1.0f);
+	return normalize(tex_ssao_rand.Sample(Sampler_SSAORand, g_screen_size * uv / g_random_size).xy * 2.0f - 1.0f);
 }
 float doAmbientOcclusion(in float2 tcoord,in float2 uv, in float3 p, in float3 cnorm)
 {
@@ -37,7 +37,17 @@ float doAmbientOcclusion(in float2 tcoord,in float2 uv, in float3 p, in float3 c
 	const float3 v		= normalize(diff);
 	const float d		= length(diff)*g_scale;
 	
-	return max(0.0,dot(cnorm,v)-g_bias)*(1.0/(1.0+d))*g_intensity;
+	float a = 0;
+	int i = 0;
+	for(float c = 0.1; c < d; c+= 1)
+	{
+		a += max(0.0,dot(cnorm,v)-g_bias)*(1.0/(1.0+d))*g_intensity;
+		i += 1;
+	}
+
+	a /= i;
+	return a;
+
 }
 
 struct vs_in
@@ -108,9 +118,9 @@ ps_out ps_main(vs_out i)
 
 //============================================================================
 	
-	float4 l = tex_input.Sample(Sampler_GBuffer,uv);
+	//float4 l = tex_input.Sample(Sampler_GBuffer,uv);
 
-	o.color.xyz = l - ao;
+	o.color.xyz = ao;
 	o.color.w = 1;
 
 //	o.color.xyz = 1 - ao;

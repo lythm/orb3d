@@ -51,9 +51,9 @@ namespace engine
 	class DataStream;
 	class Mesh;
 	class SubMesh;
-	class PostProcess;
+	
 
-	typedef boost::shared_ptr<PostProcess>					PostProcessPtr;
+
 	typedef boost::shared_ptr<SubMesh>						SubMeshPtr;
 	typedef boost::shared_ptr<DataStream>					DataStreamPtr;
 	typedef boost::shared_ptr<Mesh>							MeshPtr;
@@ -83,7 +83,11 @@ namespace engine
 	class RenderSystem;
 	class PostEffectManager;
 	class PostEffect;
+	class PostEffect_SSAO;
+	class PostEffect_GaussianBlur;
 
+	typedef boost::shared_ptr<PostEffect_GaussianBlur>		PostEffect_GaussianBlurPtr;
+	typedef boost::shared_ptr<PostEffect_SSAO>				PostEffect_SSAOPtr;
 	typedef boost::shared_ptr<PostEffect>					PostEffectPtr;
 	typedef boost::shared_ptr<PostEffectManager>			PostEffectManagerPtr;
 	typedef boost::shared_ptr<RenderSystem>					RenderSystemPtr;

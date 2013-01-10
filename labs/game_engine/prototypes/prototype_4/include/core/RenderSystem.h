@@ -68,6 +68,8 @@ namespace engine
 
 		MaterialPtr									CreateMaterialFromFile(const char* szFile);
 		TexturePtr									CreateTextureFromFile(const char* szFile);
+
+		void										AddPostEffect(PostEffectPtr pEffect);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);

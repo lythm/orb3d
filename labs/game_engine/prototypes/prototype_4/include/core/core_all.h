@@ -56,7 +56,8 @@
 
 #include "core\Light.h"
 
-
-
+#include "core\PostEffect_SSAO.h"
+#include "core\PostEffect_BilateralBlur.h"
+#include "core\PostEffect_GaussianBlur.h"
 
 #include "core\ext\core_ext_all.h"

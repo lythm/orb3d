@@ -444,4 +444,8 @@ namespace engine
 	{
 		return m_pGraphics->CreateTextureFromFile(szFile);
 	}
+	void RenderSystem::AddPostEffect(PostEffectPtr pEffect)
+	{
+		m_pPostEffectManager->AddEffect(pEffect);
+	}
 }
