@@ -322,7 +322,7 @@ namespace engine
 		ID3D11ShaderResourceView* pViews[8] = { NULL,};
 		m_pContext->PSSetShaderResources(0, 8, pViews);
 
-		m_pContext->OMSetRenderTargets(pRT->GetRenderTargetCount(), 
+		m_pContext->OMSetRenderTargets(pD3DRT->GetRenderTargetCount(), 
 					pRTViews, 
 					pDSView == NULL ? m_pCurrentRW->GetD3D11DepthStencilView() : pDSView);
 

@@ -81,7 +81,11 @@ namespace engine
 
 	class CoreApi;
 	class RenderSystem;
+	class PostEffectManager;
+	class PostEffect;
 
+	typedef boost::shared_ptr<PostEffect>					PostEffectPtr;
+	typedef boost::shared_ptr<PostEffectManager>			PostEffectManagerPtr;
 	typedef boost::shared_ptr<RenderSystem>					RenderSystemPtr;
 	typedef boost::shared_ptr<CoreApi>						CoreApiPtr;
 

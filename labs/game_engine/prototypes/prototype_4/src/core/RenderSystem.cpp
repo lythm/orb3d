@@ -9,7 +9,7 @@
 #include "core\GPUBuffer.h"
 #include "core\LightManager.h"
 #include "core\Light.h"
-
+#include "core\PostEffectManager.h"
 
 namespace engine
 {
@@ -21,7 +21,7 @@ namespace engine
 		m_clearClr						= math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
 		m_clearDepth					= 1.0f;
 		m_clearStencil					= 0;
-		m_globalAmbientColor			= math::Color4(0.1f, 0.1f, 0.1f, 1.0f);
+		m_globalAmbientColor			= math::Color4(0.3f, 0.3f, 0.3f, 1.0f);
 
 	}
 
@@ -58,7 +58,14 @@ namespace engine
 			return false;
 		}
 
-		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_final_merge.fx");
+		m_pPostEffectManager = alloc_object<PostEffectManager>();
+		if(m_pPostEffectManager->Initialize(shared_from_this()) == false)
+		{
+			return false;
+		}
+
+		//m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_final_merge.fx");
+		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_ssao.fx");
 
 		VertexElement vf[] = 
 		{
@@ -69,12 +76,14 @@ namespace engine
 		format.SetElement(vf, 1);
 
 		m_pScreenQuadMaterial->SetVertexFormat(format);
+
+		m_pSSAORandomTex = pGraphics->CreateTextureFromFile("./assets/texture/ssao_rand.jpg");
 		
+		m_pScreenQuadMaterial->SetTextureByName("tex_ssao_rand", m_pSSAORandomTex);
 		return true;
 	}
 	bool RenderSystem::CreateGBuffer(int w, int h)
 	{
-
 		if(m_pGBuffer != nullptr)
 		{
 			m_pGBuffer->Release();
@@ -106,6 +115,12 @@ namespace engine
 		{
 			m_pLightManager->Release();
 			m_pLightManager.reset();
+		}
+
+		if(m_pPostEffectManager)
+		{
+			m_pPostEffectManager->Release();
+			m_pPostEffectManager.reset();
 		}
 		if(m_pScreenQuad)
 		{
@@ -160,9 +175,10 @@ namespace engine
 	}
 	void RenderSystem::DR_Final_Pass()
 	{
-		m_pGraphics->SetRenderTarget(RenderTargetPtr());
-		m_pGraphics->ClearRenderTarget(RenderTargetPtr(), 0, m_clearClr);
+		RenderTargetPtr pOutput = m_pPostEffectManager->GetInput();
 
+		m_pGraphics->SetRenderTarget(pOutput);
+		m_pGraphics->ClearRenderTarget(pOutput, 0, m_clearClr);
 
 		m_pScreenQuadMaterial->SetGBuffer(m_pGBuffer);
 		m_pScreenQuadMaterial->SetABuffer(m_pABuffer);
@@ -379,5 +395,17 @@ namespace engine
 	void RenderSystem::SetGlobalAmbient(const math::Color4& clr)
 	{
 		m_globalAmbientColor = clr;
+	}
+	void RenderSystem::SetRenderTarget(RenderTargetPtr pRT)
+	{
+		m_pGraphics->SetRenderTarget(pRT);
+	}
+	void RenderSystem::ClearRenderTarget(RenderTargetPtr pRT, int index, const math::Color4 & clr)
+	{
+		m_pGraphics->ClearRenderTarget(pRT, index, clr);
+	}
+	void RenderSystem::ClearDepthBuffer(DepthStencilBufferPtr pDS, CLEAR_DS_FLAG flag, float d, int s)
+	{
+		m_pGraphics->ClearDepthStencilBuffer(pDS, flag, d, s);
 	}
 }

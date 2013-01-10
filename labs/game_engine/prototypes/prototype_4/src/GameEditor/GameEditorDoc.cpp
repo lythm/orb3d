@@ -45,21 +45,21 @@ BOOL CGameEditorDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	CProgressDlg d;
+	//CProgressDlg d;
 
-	d.Create((UINT)IDD_PROGRESS_DLG, AfxGetMainWnd());
-	
-	d.CenterWindow();
-	d.ShowWindow(SW_SHOW);
+	//d.Create((UINT)IDD_PROGRESS_DLG, AfxGetMainWnd());
+	//
+	//d.CenterWindow();
+	//d.ShowWindow(SW_SHOW);
 
-	for(int i = 0; i < 100; ++i)
-	{
-		d.SetPos(i);
-		//d.ProcessMessage();
-		Sleep(20);
-	}
+	//for(int i = 0; i < 100; ++i)
+	//{
+	//	d.SetPos(i);
+	//	//d.ProcessMessage();
+	//	Sleep(20);
+	//}
 
-	d.DestroyWindow();
+	//d.DestroyWindow();
 	
 	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)

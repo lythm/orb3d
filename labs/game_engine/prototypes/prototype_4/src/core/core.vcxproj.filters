@@ -35,6 +35,8 @@
     <ClCompile Include="DataStream.cpp" />
     <ClCompile Include="DataStream_Mem.cpp" />
     <ClCompile Include="SceneSerializer.cpp" />
+    <ClCompile Include="PostEffectManager.cpp" />
+    <ClCompile Include="PostEffect_FinalCompose.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -94,5 +96,7 @@
     <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
     <ClInclude Include="..\..\include\core\SceneSerializer.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
+    <ClInclude Include="..\..\include\core\PostEffectManager.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
   </ItemGroup>
 </Project>

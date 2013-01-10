@@ -3,7 +3,42 @@
 float4x4 mat:MATRIX_WVP;
 float4x4 matView:MATRIX_WV;
 
-Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
+Texture2D<half4>	tex_gbuffer[3]:DR_GBUFFER;
+Texture2D<float4>	tex_abuffer:DR_ABUFFER;
+Texture2D<float4>	tex_ssao_rand:SSAO_RAND;		
+
+float random_size	= 64;
+float g_sample_rad	= 1;
+float g_intensity	= 1;
+float g_scale		= 1;
+float g_bias		= 0;
+float2 g_screen_size = float2(640,640);
+
+
+SamplerState Sampler_SSAORand
+{
+	AddressU = wrap;
+	AddressV = wrap;
+
+	filter = MIN_MAG_MIP_LINEAR ;
+	BorderColor = float4(1,0,0,1);
+	MinLod = 0;
+	MaxLod = 0;
+};
+
+float2 getRandom(in float2 uv)
+{
+	return normalize(tex_ssao_rand.Sample(Sampler_SSAORand, g_screen_size * uv / random_size).xy * 2.0f - 1.0f);
+}
+float doAmbientOcclusion(in float2 tcoord,in float2 uv, in float3 p, in float3 cnorm)
+{
+	float3 diff			= dr_gbuffer_get_position(tex_gbuffer, tcoord + uv) - p;
+	
+	const float3 v		= normalize(diff);
+	const float d		= length(diff)*g_scale;
+	
+	return max(0.0,dot(cnorm,v)-g_bias)*(1.0/(1.0+d))*g_intensity;
+}
 
 struct vs_in
 {
@@ -34,9 +69,52 @@ ps_out ps_main(vs_out i)
 
 	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
 
-	float3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
 
-	o.color = float4(1, 1, 1, 1);
+	float3 d = dr_gbuffer_get_diffuse(tex_gbuffer, uv);
+	float3 p = dr_gbuffer_get_position(tex_gbuffer, uv);
+	float3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
+	
+	
+
+
+// ====================================SSAO===================================
+
+
+	o.color.rgb = 1.0f;
+	const float2 vec[4] = {float2(1,0),float2(-1,0),
+			float2(0,1),float2(0,-1)};
+ 
+	float2 rand = getRandom(uv);
+
+	//float2 rand = tex_ssao_rand.Sample(Sampler_GBuffer, uv).xy;
+ 
+	float ao = 0.0f;
+	float rad = g_sample_rad/p.z;
+ 
+//**SSAO Calculation**//
+	int iterations = 4;
+	for (int j = 0; j < iterations; ++j)
+	{
+		float2 coord1 = reflect(vec[j],rand)*rad;
+		float2 coord2 = float2(coord1.x*0.707 - coord1.y*0.707,
+			  coord1.x*0.707 + coord1.y*0.707);
+  
+		ao += doAmbientOcclusion(uv,coord1*0.25, p, n);
+		ao += doAmbientOcclusion(uv,coord2*0.5, p, n);
+		ao += doAmbientOcclusion(uv,coord1*0.75, p, n);
+		ao += doAmbientOcclusion(uv,coord2, p, n);
+	}
+	ao/=(float)iterations*4.0;
+
+//============================================================================
+	
+	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
+
+	o.color.xyz = l.xyz * d - ao;
+	o.color.w = 1;
+
+//	o.color.xyz = 1 - ao;
+	//o.color = float4(1, 1, 1, 1);
 	return o;
 }
 RasterizerState rs

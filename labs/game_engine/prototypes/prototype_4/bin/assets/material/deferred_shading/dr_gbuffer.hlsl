@@ -12,7 +12,7 @@ SamplerState Sampler_GBuffer
 	AddressU = clamp;
 	AddressV = clamp;
 
-	filter = MIN_MAG_MIP_POINT ;
+	filter = MIN_MAG_MIP_LINEAR ;
 	BorderColor = float4(1,0,0,1);
 	MinLod = 0;
 	MaxLod = 0;
@@ -49,6 +49,8 @@ float3 dr_gbuffer_get_normal(Texture2D<half4> g[3], float2 uv)
 float4 dr_gbuffer_get_position(Texture2D<half4> g[3], float2 uv)
 {
 	half4 p = g[0].Sample(Sampler_GBuffer, uv);
+//	p.xyz = p.xyz / p.w;
+
 	return p;
 }
 float3 dr_gbuffer_get_diffuse(Texture2D<half4> g[3], float2 uv)

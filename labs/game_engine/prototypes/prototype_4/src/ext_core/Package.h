@@ -29,6 +29,7 @@ namespace engine
 		static GameObjectComponentPtr		Create_SkyLight(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_Camera(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_Sky(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_PostEffectList(GameObjectManagerPtr pManager);
 
 	private:
 		CoreApiPtr							m_pCore;

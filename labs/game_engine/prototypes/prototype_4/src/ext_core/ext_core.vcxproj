@@ -96,6 +96,7 @@
     <ClInclude Include="..\..\include\core\ext\MeshData.h" />
     <ClInclude Include="..\..\include\core\ext\MeshRenderer.h" />
     <ClInclude Include="..\..\include\core\ext\ParticleRenderer.h" />
+    <ClInclude Include="..\..\include\core\ext\PostEffectList.h" />
     <ClInclude Include="..\..\include\core\ext\PropertyManager.h" />
     <ClInclude Include="..\..\include\core\ext\RigidBody.h" />
     <ClInclude Include="..\..\include\core\ext\Sky.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Package.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
+    <ClCompile Include="PostEffectList.cpp" />
     <ClCompile Include="PropertyManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Sky.cpp" />

@@ -19,7 +19,7 @@ vs_out vs_main(vs_in i)
 	vs_out o;
 	o.pos = mul(float4(i.pos, 1), mvp);
 	o.normal = mul(float4(i.normal.xyz, 0), mv).xyz;
-	o.s_pos = o.pos;
+	o.s_pos = mul(float4(i.pos, 1), mv);
 	return o;
 }
 

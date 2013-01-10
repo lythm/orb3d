@@ -18,6 +18,4 @@ namespace engine
 	private:
 		MaterialPtr								m_pMaterial;
 	};
-
-
 }

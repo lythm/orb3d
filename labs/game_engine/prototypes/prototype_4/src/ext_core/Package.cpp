@@ -11,6 +11,7 @@
 #include "core\ext\SkyBox.h"
 #include "core\ext\Camera.h"
 #include "core\ext\Sky.h"
+#include "core\ext\PostEffectList.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -91,6 +92,11 @@ namespace engine
 					L"Sky",
 					&CorePackage::Create_Sky));
 
+		m_classes.push_back(ComponentClass(L"PostEffectList",
+					L"Camera",
+					L"PostEffectList",
+					&CorePackage::Create_PostEffectList));
+
 
 	}
 
@@ -156,6 +162,10 @@ namespace engine
 	GameObjectComponentPtr CorePackage::Create_Sky(GameObjectManagerPtr pManager)
 	{
 		return pManager->GetAllocator()->AllocObject<Sky, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr CorePackage::Create_PostEffectList(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<PostEffectList, GameObjectManagerPtr>(pManager);
 	}
 }
 

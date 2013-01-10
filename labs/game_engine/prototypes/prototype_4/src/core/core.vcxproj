@@ -114,6 +114,8 @@
     <ClInclude Include="..\..\include\core\MeshSerializer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
     <ClInclude Include="..\..\include\core\MeshUtil.h" />
+    <ClInclude Include="..\..\include\core\PostEffectManager.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
     <ClInclude Include="..\..\include\core\RenderTarget.h" />
     <ClInclude Include="..\..\include\core\PointLight.h" />
     <ClInclude Include="..\..\include\core\PoolAllocator.h" />
@@ -168,6 +170,8 @@
     <ClCompile Include="MeshUtil.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
+    <ClCompile Include="PostEffectManager.cpp" />
+    <ClCompile Include="PostEffect_FinalCompose.cpp" />
     <ClCompile Include="PostEffect_SSAO.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderSystem.cpp" />

@@ -57,6 +57,10 @@ namespace engine
 
 		const math::Color4&							GetGlobalAmbient();
 		void										SetGlobalAmbient(const math::Color4& clr);
+
+		void										SetRenderTarget(RenderTargetPtr pRT);
+		void										ClearRenderTarget(RenderTargetPtr pRT, int index, const math::Color4 & clr);
+		void										ClearDepthBuffer(DepthStencilBufferPtr pDS, CLEAR_DS_FLAG flag, float d, int s);
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);
@@ -64,7 +68,6 @@ namespace engine
 		void										DR_G_Pass();
 		void										DR_Final_Pass();
 		void										DR_Light_Pass();
-
 
 		void										RenderForward();
 		void										RenderShadowMaps();
@@ -83,8 +86,8 @@ namespace engine
 		float										m_clearDepth;
 		int											m_clearStencil;
 
-		RenderTargetPtr						m_pGBuffer;
-		RenderTargetPtr						m_pABuffer;
+		RenderTargetPtr								m_pGBuffer;
+		RenderTargetPtr								m_pABuffer;
 
 		ScreenQuadPtr								m_pScreenQuad;
 
@@ -96,5 +99,8 @@ namespace engine
 
 		math::Color4								m_globalAmbientColor;
 
+		TexturePtr									m_pSSAORandomTex;
+
+		PostEffectManagerPtr						m_pPostEffectManager;
 	};
 }
