@@ -41,7 +41,7 @@ float doAmbientOcclusion(in float2 tcoord,in float2 uv, in float3 p, in float3 c
 	int i = 0;
 	for(float c = 0.1; c < d; c+= 1)
 	{
-		a += max(0.0,dot(cnorm,v)-g_bias)*(1.0/(1.0+d))*g_intensity;
+		a += max(0.0,dot(cnorm,v)-g_bias)*(1.0/(1.0+c))*g_intensity;
 		i += 1;
 	}
 

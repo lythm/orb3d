@@ -2,13 +2,14 @@
 
 Texture2D<float4> tex_ao;
 Texture2D<float4> tex_input;
+Texture2D<half4> tex_gbuffer[3]:DR_GBUFFER;
 
 float2 g_input_size;
 
 SamplerState Sampler_GBlur
 {
-	AddressU = clamp;
-	AddressV = clamp;
+	AddressU = wrap;
+	AddressV = wrap;
 
 	filter = MIN_POINT_MAG_MIP_LINEAR ;
 	BorderColor = float4(1,0,0,1);
@@ -61,29 +62,34 @@ static const float BlurWeights[g_cKernelSize] =
 // Pixel Shader: HorizontalBlur
 // Desc: Blurs the image vertically
 //-----------------------------------------------------------------------------
-float4 GBlur_V(Texture2D<float4> tex_clr, float2 uv)
+float4 BBlur_V(Texture2D<float4> tex_clr, float2 uv)
 {
     float4 Color = 0;
 	
+	float dp = dr_gbuffer_get_position(tex_gbuffer, uv).z;
+
     for (int i = 0; i < g_cKernelSize; i++)
     {   
 		float2 offset = PixelKernel[i].xy / g_input_size;
+		float ds = dr_gbuffer_get_position(tex_gbuffer, uv + offset).z;
 
-		Color += tex_clr.Sample( Sampler_GBlur, uv + offset ) * BlurWeights[i];
+		Color += tex_clr.Sample( Sampler_GBlur, uv + offset ) * BlurWeights[i] * (1 / (1 + abs(dp - ds) * 0.1));
     }
 
     return Color;
 }
 
-float4 GBlur_H(Texture2D<float4> tex_clr, float2 uv)
+float4 BBlur_H(Texture2D<float4> tex_clr, float2 uv)
 {
     float4 Color = 0;
 	
+	float dp = dr_gbuffer_get_position(tex_gbuffer, uv).z;
+
 	for (int i = 0; i < g_cKernelSize; i++)
     {   
 		float2 offset = PixelKernel[i].yx / g_input_size;
-
-		Color += tex_clr.Sample( Sampler_GBlur, uv + offset ) * BlurWeights[i];
+		float ds = dr_gbuffer_get_position(tex_gbuffer, uv + offset).z;
+		Color += tex_clr.Sample( Sampler_GBlur, uv + offset ) * BlurWeights[i] * (1 / (1 + abs(dp - ds) * 0.1));
     }
 	
     return Color;
@@ -120,8 +126,8 @@ ps_out ps_main(vs_out i)
 	float2 uv = dr_gbuffer_screenpos_2_uv(i.s_pos);
 	float4 c = tex_input.Sample(Sampler_GBuffer,uv);
 
-	float ao = GBlur_H(tex_ao, uv);
-	ao += GBlur_V(tex_ao, uv);
+	float ao = BBlur_H(tex_ao, uv);
+	ao += BBlur_V(tex_ao, uv);
 	ao /= 2;
 
 	o.color = c - ao;

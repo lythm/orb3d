@@ -54,7 +54,7 @@ namespace engine
 			return false;
 		}
 
-		m_pGBlurMaterial = pRS->CreateMaterialFromFile("./assets/material/dr_render_GBlur.fx");
+		m_pGBlurMaterial = pRS->CreateMaterialFromFile("./assets/material/dr_render_BBlur.fx");
 
 		if(m_pGBlurMaterial == nullptr)
 		{
@@ -108,6 +108,7 @@ namespace engine
 		pRenderer->SetRenderTarget(pOutput);
 		pRenderer->ClearRenderTarget(pOutput, 0, math::Color4(0, 0, 0,0));
 		
+		m_pGBlurMaterial->SetGBuffer(pRenderer->GetGBuffer());
 		m_pGBlurMaterial->SetTextureByName("tex_ao", m_pGBlurTarget->AsTexture(0));
 		m_pGBlurMaterial->SetVectorByName("g_input_size", math::Vector2(pRenderer->GetFrameBufferWidth(), pRenderer->GetFrameBufferHeight()));
 		m_pGBlurMaterial->SetTextureByName("tex_input", pInput->AsTexture(0));
