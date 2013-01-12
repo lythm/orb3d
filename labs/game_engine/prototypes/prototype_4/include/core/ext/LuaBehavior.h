@@ -2,11 +2,19 @@
 
 namespace engine
 {
-	class LuaBehavior
+	class LuaBehavior : public GameObjectComponent
 	{
 	public:
-		LuaBehavior(void);
+		LuaBehavior(GameObjectManagerPtr pManager);
 		virtual ~LuaBehavior(void);
+
+		void						Update();
+		
+	private:
+		bool						OnAttach();
+		void						OnDetach();
+	private:
+
 	};
 
 

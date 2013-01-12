@@ -56,11 +56,8 @@ BEGIN_MESSAGE_MAP(CObjectView, CDockablePane)
 	ON_WM_SETFOCUS()
 	ON_COMMAND_RANGE(ID_SORTING_GROUPBYTYPE, ID_SORTING_SORTBYACCESS, OnSort)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_SORTING_GROUPBYTYPE, ID_SORTING_SORTBYACCESS, OnUpdateSort)
-//	ON_COMMAND(IDR_OV_CONTEXT, &CObjectView::OnIdrOvContext)
 	ON_COMMAND(ID_OV_DELOBJ, &CObjectView::OnOvDelobj)
-//	ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CObjectView::OnCreatefromtemplateCube)
-ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CObjectView::OnCreatefromtemplateCube)
-ON_COMMAND(ID_OV_RENAME, &CObjectView::OnOvRename)
+	ON_COMMAND(ID_OV_RENAME, &CObjectView::OnOvRename)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -83,8 +80,7 @@ int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // 未能创建
 	}
 
-
-
+	
 	// 加载图像:
 	m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, IDR_SORT);
 	m_wndToolBar.LoadToolBar(IDR_SORT, 0, 0, TRUE /* 已锁定*/);
@@ -302,13 +298,6 @@ void CObjectView::OnOvDelobj()
 	
 	m_wndObjectView.EraseItem(hItem);
 
-}
-
-
-void CObjectView::OnCreatefromtemplateCube()
-{
-	//pContext::GetProject()->CreateObject_FromTemplate_Cube();
-	// TODO: 在此添加命令处理程序代码
 }
 
 

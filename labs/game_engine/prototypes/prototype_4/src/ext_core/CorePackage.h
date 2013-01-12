@@ -37,6 +37,10 @@ namespace engine
 		static GameObjectComponentPtr		Create_Sky(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_PostEffectList(GameObjectManagerPtr pManager);
 
+		static GameObjectComponentPtr		Create_LuaBehavior(GameObjectManagerPtr pManager);
+
+
+
 	private:
 		CoreApiPtr							m_pCore;
 

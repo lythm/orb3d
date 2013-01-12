@@ -111,6 +111,8 @@
     <ClInclude Include="Assets.h" />
     <ClInclude Include="AxisIndicator.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="InspectorCtrl.h" />
+    <ClInclude Include="InspectorView.h" />
     <ClInclude Include="MeshImporter.h" />
     <ClInclude Include="MeshImporter_3DSMax.h" />
     <ClInclude Include="ObjectPropertyGrid.h" />
@@ -148,6 +150,8 @@
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="AxisIndicator.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="InspectorCtrl.cpp" />
+    <ClCompile Include="InspectorView.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshImporter_3DSMax.cpp" />
     <ClCompile Include="ObjectPropertyGrid.cpp" />

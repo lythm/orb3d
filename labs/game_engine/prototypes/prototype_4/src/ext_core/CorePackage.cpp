@@ -12,6 +12,10 @@
 #include "core\ext\Camera.h"
 #include "core\ext\Sky.h"
 #include "core\ext\PostEffectList.h"
+#include "core\ext\LuaBehavior.h"
+
+
+
 #include "CubeTpl.h"
 #include "PlaneTpl.h"
 #include "SphereTpl.h"
@@ -138,6 +142,11 @@ namespace engine
 					L"PostEffectList",
 					&CorePackage::Create_PostEffectList));
 
+		m_classes.push_back(ComponentClass(L"LuaBehavior",
+					L"Script",
+					L"Lua script Behavior",
+					&CorePackage::Create_LuaBehavior));
+
 	}
 
 	
@@ -213,6 +222,10 @@ namespace engine
 	GameObjectComponentPtr CorePackage::Create_PostEffectList(GameObjectManagerPtr pManager)
 	{
 		return pManager->GetAllocator()->AllocObject<PostEffectList, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr CorePackage::Create_LuaBehavior(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<LuaBehavior, GameObjectManagerPtr>(pManager);
 	}
 
 	int	CorePackage::GetTemplateCount()

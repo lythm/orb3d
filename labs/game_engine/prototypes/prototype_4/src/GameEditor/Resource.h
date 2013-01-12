@@ -4,6 +4,8 @@
 //
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
+#define IDD_FORMVIEW                    101
+#define IDD_INSPECTOR_VIEW              101
 #define IDD_PROGRESS_DLG                103
 #define IDR_POPUP_EDIT                  119
 #define ID_STATUSBAR_PANE1              120
@@ -96,6 +98,7 @@
 #define IDR_OV_CONTEXT                  310
 #define IDD_APPSETTINGS                 311
 #define ID_VIEW_TPLVIEW                 311
+#define ID_VIEW_INSPECTOR               312
 #define IDD_STARTUP                     313
 #define IDD_RENDERING_SETTING           316
 #define IDD_PREVIEW                     317
@@ -156,6 +159,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        318
 #define _APS_NEXT_COMMAND_VALUE         32815
 #define _APS_NEXT_CONTROL_VALUE         1011
-#define _APS_NEXT_SYMED_VALUE           312
+#define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

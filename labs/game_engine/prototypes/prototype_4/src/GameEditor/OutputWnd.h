@@ -29,7 +29,7 @@ class COutputWnd : public CDockablePane
 public:
 	COutputWnd();
 
-	void UpdateFonts();
+	void			UpdateFonts();
 
 	void			OuputInfo(const CString& string);
 	void			OuputBuild(const CString& string);

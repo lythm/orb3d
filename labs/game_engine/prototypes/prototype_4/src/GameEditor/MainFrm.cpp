@@ -153,6 +153,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("未能创建停靠窗口\n");
 		return -1;
 	}
+
 	m_wndTplView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndFileView.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndObjectView.EnableDocking(CBRS_ALIGN_ANY);
@@ -161,9 +162,16 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndObjectView.AttachToTabWnd(&m_wndFileView, DM_SHOW, TRUE, &pTabbedBar);
 
 	m_wndOutput.EnableDocking(CBRS_ALIGN_ANY);
+	
 	DockPane(&m_wndOutput);
+	
+	
 	m_wndProperties.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndProperties);
+	
+	m_wndInspectorView.EnableDocking(CBRS_ALIGN_ANY);
+	DockPane(&m_wndInspectorView);
+	
 	m_wndTplView.AttachToTabWnd(&m_wndProperties, DM_SHOW, TRUE, &pTabbedBar);
 
 	// 基于持久值设置视觉管理器和样式
@@ -255,6 +263,14 @@ BOOL CMainFrame::CreateDockingWindows()
 		return FALSE; // 未能创建
 	}
 
+	// Inspector View
+	if (!m_wndInspectorView.Create(L"Inspector", this, CRect(0, 0, 200, 200), TRUE, ID_VIEW_INSPECTOR, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_RIGHT| CBRS_FLOAT_MULTI))
+	{
+		TRACE0("未能创建“Inspector View”窗口\n");
+		return FALSE; // 未能创建
+	}
+
+
 
 	// 创建模板视图
 	CString strTplView = L"模板窗口";
@@ -305,8 +321,13 @@ void CMainFrame::SetDockingWindowIcons(BOOL bHiColorIcons)
 	HICON hPropertiesBarIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_PROPERTIES_WND_HC : IDI_PROPERTIES_WND), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
 	m_wndProperties.SetIcon(hPropertiesBarIcon, FALSE);
 
+	HICON hInspectorBarIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_PROPERTIES_WND_HC : IDI_PROPERTIES_WND), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
+	m_wndInspectorView.SetIcon(hPropertiesBarIcon, FALSE);
+
 	HICON hTemplateViewIcon = (HICON) ::LoadImage(::AfxGetResourceHandle(), MAKEINTRESOURCE(bHiColorIcons ? IDI_CLASS_VIEW_HC : IDI_CLASS_VIEW), IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), 0);
 	m_wndTplView.SetIcon(hTemplateViewIcon, FALSE);
+
+
 
 }
 

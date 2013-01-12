@@ -123,6 +123,12 @@
     <ClInclude Include="ProgressDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InspectorView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorCtrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -222,6 +228,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ProgressDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorCtrl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

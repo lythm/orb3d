@@ -8,6 +8,7 @@
 #include "OutputWnd.h"
 #include "PropertiesWnd.h"
 #include "TemplateView.h"
+#include "InspectorView.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -60,7 +61,7 @@ protected:  // 控件条嵌入成员
 	CPropertiesWnd    m_wndProperties;
 	CMFCCaptionBar    m_wndCaptionBar;
 	CTemplateView	  m_wndTplView;
-
+	CInspectorView		m_wndInspectorView;
 	boost::unordered_map<std::wstring, std::vector<engine::ExtPackage::ComponentClass*> >	m_ComClassMap;
 	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >			m_templateMap;
 // 生成的消息映射函数

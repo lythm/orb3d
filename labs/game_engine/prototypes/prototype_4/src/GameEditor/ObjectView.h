@@ -53,7 +53,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnOvDelobj();
-	afx_msg void OnCreatefromtemplateCube();
+
 	afx_msg void OnOvRename();
 };
 
