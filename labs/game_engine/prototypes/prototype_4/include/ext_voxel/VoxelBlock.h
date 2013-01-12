@@ -7,6 +7,9 @@ namespace engine
 	public:
 		VoxelBlock(void);
 		virtual ~VoxelBlock(void);
+
+	private:
+
 	};
 
 }

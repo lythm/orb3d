@@ -103,7 +103,7 @@ void DefferedShadingDemo::CreateQuad()
 	m_pQuadVB = m_pCore->GetSysGraphics()->CreateBuffer(BT_VERTEX_BUFFER, sizeof(Vertex) * 6, verts, true);
 
 
-	m_pQuadMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/material/ds2.fx");
+	m_pQuadMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/ds2.fx");
 
 	VertexElement vf[] = 
 	{
@@ -119,9 +119,9 @@ void DefferedShadingDemo::CreateQuad()
 void DefferedShadingDemo::CreateScene()
 {
 	using namespace engine;
-	m_pTex = m_pCore->GetSysGraphics()->CreateTextureFromFile("./15.png");
+	m_pTex = m_pCore->GetSysGraphics()->CreateTextureFromFile("./assets/standard/texture/15.png");
 
-	m_pMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/material/ds1.fx");
+	m_pMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/ds1.fx");
 
 	VertexElement vf[] = 
 	{

@@ -1,6 +1,6 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\WorldMeshRenderer.h"
-#include "Package.h"
+#include "CorePackage.h"
 
 namespace engine
 {

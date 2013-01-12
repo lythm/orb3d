@@ -34,9 +34,13 @@ public:
 	void					SetFPS(float fps);
 
 	bool					UpdateComClassMap();
+	bool					UpdateTemplateMap();
 private:
 	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
 	engine::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);
+
+	bool					UpdateTemplateMenu(CMFCPopupMenu* pMenu);
+	engine::GameObjectTemplate* FindTemplateByMenuID(UINT uID);
 // 实现
 public:
 	virtual ~CMainFrame();
@@ -57,8 +61,8 @@ protected:  // 控件条嵌入成员
 	CMFCCaptionBar    m_wndCaptionBar;
 	CTemplateView	  m_wndTplView;
 
-	boost::unordered_map<std::wstring, std::vector<engine::ExtPackage::ComponentClass*> > m_ComClassMap;
-
+	boost::unordered_map<std::wstring, std::vector<engine::ExtPackage::ComponentClass*> >	m_ComClassMap;
+	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >			m_templateMap;
 // 生成的消息映射函数
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -85,7 +89,10 @@ public:
 	afx_msg void OnCreatefromtemplateSpotlight();
 	afx_msg void OnCreatefromtemplatePlane();
 	afx_msg void OnComponentMenu(UINT nID);
+	afx_msg void OnCreateFromTemplateMenu(UINT nID);
 	afx_msg void OnUpdateComponentMenuUI(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateCreateFromTemplateMenuUI(CCmdUI* pCmdUI);
+	
 	afx_msg void OnViewShowgrid();
 	afx_msg void OnUpdateViewShowgrid(CCmdUI *pCmdUI);
 	afx_msg void OnEditAppsettings();

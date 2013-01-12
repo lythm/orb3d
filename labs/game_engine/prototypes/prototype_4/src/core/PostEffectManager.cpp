@@ -31,7 +31,7 @@ namespace engine
 			return false;
 		}
 		
-		m_pFinalMaterial = pRS->CreateMaterialFromFile("./assets/material/dr_render_final.fx");
+		m_pFinalMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_final.fx");
 		if(m_pFinalMaterial == nullptr)
 		{
 			return false;

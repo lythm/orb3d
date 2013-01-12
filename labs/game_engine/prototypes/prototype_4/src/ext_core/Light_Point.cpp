@@ -3,7 +3,7 @@
 #include "core\PointLight.h"
 #include "core\RenderSystem.h"
 #include "core\GameObject.h"
-#include "package.h"
+#include "CorePackage.h"
 
 namespace engine
 {

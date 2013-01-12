@@ -89,13 +89,14 @@
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h" />
-    <ClInclude Include="Package.h" />
+    <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelSerializer.h" />
     <ClInclude Include="VoxelWorldRenderData.h" />
+    <ClInclude Include="VoxelWorldTemplate.h" />
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Package.cpp" />
+    <ClCompile Include="VoxelPackage.cpp" />
     <ClCompile Include="Voxel.cpp" />
     <ClCompile Include="VoxelBlock.cpp" />
     <ClCompile Include="VoxelChunk.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="VoxelSerializer.cpp" />
     <ClCompile Include="VoxelWorld.cpp" />
     <ClCompile Include="VoxelWorldRenderData.cpp" />
+    <ClCompile Include="VoxelWorldTemplate.cpp" />
     <ClCompile Include="voxel_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>

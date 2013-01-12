@@ -10,7 +10,7 @@
 #include "core\SubMesh.h"
 #include "core\ext\PropertyManager.h"
 
-#include "package.h"
+#include "CorePackage.h"
 
 namespace engine
 {

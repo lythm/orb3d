@@ -19,7 +19,7 @@ namespace engine
 	{
 		m_pRS = pRS;
 
-		m_pMaterial = pRS->CreateMaterialFromFile("./assets/material/dr_render_GBlur.fx");
+		m_pMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_GBlur.fx");
 
 		if(m_pMaterial == nullptr)
 		{

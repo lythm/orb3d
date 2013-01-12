@@ -85,7 +85,7 @@ void Project::CreateObject_FromTemplate_Sphere()
 
 	GameObjectPtr pObj = CreateObject(L"Sphere");
 
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
 
 	MeshPtr pMesh = MeshUtil::CreateSphere(1, 100, 100, pMaterial);
@@ -110,7 +110,7 @@ void Project::CreateObject_FromTemplate_Cone()
 
 	GameObjectPtr pObj = CreateObject(L"Cone");
 
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 	pMaterial->SelectTechByName("dr_render_gbuffer");
 
 	MeshPtr pMesh = MeshUtil::CreateCone(1, 30, 99, pMaterial);
@@ -133,7 +133,7 @@ void Project::CreateObject_FromTemplate_Plane()
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 	MeshPtr pMesh = MeshUtil::CreatePlane(100, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
@@ -154,7 +154,7 @@ void Project::CreateObject_FromTemplate_Cube()
 
 	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
 
-	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+	MaterialPtr pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 	MeshPtr pMesh = MeshUtil::CreateCube(2, pMaterial);
 
 	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
@@ -182,6 +182,19 @@ engine::GameObjectPtr Project::CreateObject(const std::wstring& name)
 	full_name.Format(L"%s-%d", name.c_str(), m_objNo);
 	
 	GameObjectPtr pObj = AppContext::CreateGameObject(full_name.GetString());
+
+	m_objNo++;
+	return pObj;
+}
+engine::GameObjectPtr Project::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
+{
+	using namespace engine;
+
+	CString full_name;
+
+	full_name.Format(L"%s-%d", name.c_str(), m_objNo);
+	
+	GameObjectPtr pObj = AppContext::CreateGameObjectFromTemplate(full_name.GetString(), tpl);
 
 	m_objNo++;
 	return pObj;

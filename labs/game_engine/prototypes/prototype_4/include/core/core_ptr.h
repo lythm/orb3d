@@ -9,11 +9,9 @@ namespace engine
 	class GameObject;
 	class GameObjectManager;
 	class GameObjectComponent;
-	class GameObjectTemplate;
 	class Scene;
 
 	typedef boost::shared_ptr<Scene>											ScenePtr;
-	typedef boost::shared_ptr<GameObjectTemplate>								GameObjectTemplatePtr;
 	typedef boost::shared_ptr<GameObjectManager>								GameObjectManagerPtr;
 	typedef boost::shared_ptr<GameObject>										GameObjectPtr;
 	typedef boost::shared_ptr<GameObjectComponent>								GameObjectComponentPtr;

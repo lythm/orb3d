@@ -63,4 +63,9 @@ namespace engine
 	{
 		return GameObjectComponentPtr(new DT_Gizmo(pManager));
 	}
+	void DTPackage::Release()
+	{
+		m_classes.clear();
+
+	}
 }

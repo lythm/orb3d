@@ -174,15 +174,22 @@ engine::GameObjectPtr AppContext::CreateGameObject(const std::wstring& name)
 
 	GameObjectPtr pObj = GetCoreApi()->CreateGameObject(name);
 
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"PropertyManager");
-
-	pObj->AddComponent(pPM);
-
-	pPM = CreateGameObjectComponent(L"DT_Gizmo");
+	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_Gizmo");
 	pObj->AddComponent(pPM);
 
 	return pObj;
 
+}
+engine::GameObjectPtr AppContext::CreateGameObjectFromTemplate(const std::wstring& name, const std::wstring& tpl)
+{
+	using namespace engine;
+
+	GameObjectPtr pObj = GetCoreApi()->CreatGameObjectFromTemplate(tpl, name);
+
+	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_Gizmo");
+	pObj->AddComponent(pPM);
+
+	return pObj;
 }
 engine::GameObjectComponentPtr AppContext::CreateGameObjectComponent(const std::wstring& name)
 {

@@ -179,6 +179,23 @@ namespace engine
 
 		return pObj;
 	}
+	GameObjectPtr CoreApi::CreatGameObjectFromTemplate(const std::wstring& tpl, const std::wstring& name)
+	{
+		GameObjectPtr pObj = m_pObjectManager->CreateObjectFromTemplate(tpl);
+
+		if(pObj == nullptr)
+		{
+			return GameObjectPtr();
+		}
+		if(name != L"")
+		{
+			pObj->SetName(name);
+		}
+
+		pObj->LinkTo(m_pScene->Root());
+		return pObj;
+
+	}
 	GameObjectPtr CoreApi::Root()
 	{
 		return m_pScene->Root();

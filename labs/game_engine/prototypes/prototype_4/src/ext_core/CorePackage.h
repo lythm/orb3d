@@ -15,6 +15,11 @@ namespace engine
 		ComponentClass*						GetClassByIndex(int index);
 
 
+		int									GetTemplateCount();
+		GameObjectTemplate*					GetTemplateByIndex(int index);
+
+
+		void								Release();
 	private:
 		void								RegisterClasses();
 
@@ -35,5 +40,7 @@ namespace engine
 		CoreApiPtr							m_pCore;
 
 		std::vector<ComponentClass>			m_classes;
+
+		std::vector<GameObjectTemplate*>	m_tpls;
 	};
 }

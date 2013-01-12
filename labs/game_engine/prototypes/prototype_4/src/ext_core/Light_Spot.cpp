@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\Light_Spot.h"
 #include "core\SpotLight.h"
-#include "Package.h"
+#include "CorePackage.h"
 
 namespace engine
 {

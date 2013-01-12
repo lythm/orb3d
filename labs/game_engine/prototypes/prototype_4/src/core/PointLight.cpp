@@ -49,7 +49,7 @@ namespace engine
 			return false;
 		}
 
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_point_light.fx");
+		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_point_light.fx");
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;

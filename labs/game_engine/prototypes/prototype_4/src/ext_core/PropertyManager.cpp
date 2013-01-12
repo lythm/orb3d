@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\PropertyManager.h"
 #include "core\GameObject.h"
-#include "Package.h"
+#include "CorePackage.h"
 
 namespace engine
 {

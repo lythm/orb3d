@@ -1,5 +1,5 @@
 #include "core_ext_pch.h"
-#include "Package.h"
+#include "CorePackage.h"
 #include "core\ext\MeshData.h"
 #include "core\ext\MeshRenderer.h"
 #include "core\ext\PropertyManager.h"
@@ -12,6 +12,8 @@
 #include "core\ext\Camera.h"
 #include "core\ext\Sky.h"
 #include "core\ext\PostEffectList.h"
+#include "CubeTpl.h"
+#include "PlaneTpl.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -33,6 +35,12 @@ namespace engine
 		m_pCore = pCore;
 
 		RegisterClasses();
+
+		GameObjectTemplate* pTpl = new CubeTpl(m_pCore->GetGameObjectManager(), L"Cube");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new PlaneTpl(m_pCore->GetGameObjectManager(), L"Plane");
+		m_tpls.push_back(pTpl);
 	}
 	void CorePackage::RegisterClasses()
 	{
@@ -97,14 +105,23 @@ namespace engine
 					L"PostEffectList",
 					&CorePackage::Create_PostEffectList));
 
-
 	}
 
 	CorePackage::~CorePackage(void)
 	{
 		m_pCore.reset();
 	}
-	
+	void CorePackage::Release()
+	{
+		m_classes.clear();
+
+		for(size_t i = 0; i < m_tpls.size(); ++i)
+		{
+			m_tpls[i]->Release();
+			delete m_tpls[i];
+		}
+		m_tpls.clear();
+	}
 	std::wstring CorePackage::GetPackageName()
 	{
 		return L"core_ext_package";
@@ -166,6 +183,15 @@ namespace engine
 	GameObjectComponentPtr CorePackage::Create_PostEffectList(GameObjectManagerPtr pManager)
 	{
 		return pManager->GetAllocator()->AllocObject<PostEffectList, GameObjectManagerPtr>(pManager);
+	}
+
+	int	CorePackage::GetTemplateCount()
+	{
+		return (int)m_tpls.size();
+	}
+	GameObjectTemplate* CorePackage::GetTemplateByIndex(int index)
+	{
+		return m_tpls[index];
 	}
 }
 

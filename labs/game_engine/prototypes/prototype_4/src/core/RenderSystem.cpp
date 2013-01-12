@@ -64,8 +64,8 @@ namespace engine
 			return false;
 		}
 
-		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_merge.fx");
-		//m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/material/dr_render_ssao.fx");
+		m_pScreenQuadMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_merge.fx");
+		//m_pScreenQuadMaterial = CreateMaterialFromFile("./assets/standard/material/dr_render_ssao.fx");
 
 		VertexElement vf[] = 
 		{

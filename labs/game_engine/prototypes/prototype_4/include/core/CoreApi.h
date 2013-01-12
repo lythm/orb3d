@@ -30,6 +30,7 @@ namespace engine
 
 		GameObjectPtr									CreateGameObject(const std::wstring& name);
 		GameObjectComponentPtr							CreateGameObjectComponent(const std::wstring& name);
+		GameObjectPtr									CreatGameObjectFromTemplate(const std::wstring& tpl, const std::wstring& name);
 		GameObjectPtr									Root();
 
 		void											DispatchEvent(EventPtr pEvent);

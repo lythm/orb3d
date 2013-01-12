@@ -37,7 +37,7 @@ namespace engine
 			return false;
 		}
 
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_spot_light.fx");
+		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_spot_light.fx");
 		if(m_pMaterial == MaterialPtr())
 		{
 			return false;

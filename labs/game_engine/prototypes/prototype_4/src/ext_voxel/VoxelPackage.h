@@ -17,7 +17,10 @@ namespace engine
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 
+		int									GetTemplateCount();
+		GameObjectTemplate*					GetTemplateByIndex(int index);
 
+		void								Release();
 	private:
 		
 		static GameObjectComponentPtr		Create_VoxelWorld(GameObjectManagerPtr pManager);
@@ -26,5 +29,6 @@ namespace engine
 
 		CoreApiPtr							m_pCore;
 		std::vector<ComponentClass>			m_classes;
+		std::vector<GameObjectTemplate*>	m_tpls;
 	};
 }

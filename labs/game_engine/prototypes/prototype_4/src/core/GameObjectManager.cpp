@@ -32,6 +32,7 @@ namespace engine
 	void GameObjectManager::Release()
 	{
 		m_componentClasses.clear();
+		m_templates.clear();
 		for(size_t i = 0; i < m_packages.size(); ++i)
 		{
 			m_packages[i].delete_package();
@@ -40,33 +41,37 @@ namespace engine
 	}
 	bool GameObjectManager::LoadAndRegisterTemplate(DataStreamPtr pStream)
 	{
-		GameObjectTemplatePtr pTemplate = alloc_object<GameObjectTemplate, GameObjectManagerPtr>(shared_from_this());
+		return true;
+
+		/*GameObjectTemplatePtr pTemplate = alloc_object<GameObjectTemplate, GameObjectManagerPtr>(shared_from_this());
 
 		if(pTemplate->Load(pStream) == false)
 		{
 			return false;
 		}
 
-		return RegisterTemplate(pTemplate);
+		return RegisterTemplate(pTemplate);*/
 	}
 	GameObjectPtr GameObjectManager::CreateObjectFromTemplate(const std::wstring& tpl)
 	{
-		GameObjectTemplatePtr pTpl = FindTemplate(tpl);
+		GameObjectTemplate* pTpl = FindTemplate(tpl);
 
-		if(pTpl == GameObjectTemplatePtr())
+		if(pTpl == nullptr)
 		{
 			return GameObjectPtr();
 		}
 
 		return pTpl->CreateGameObject();
 	}
-	bool GameObjectManager::RegisterTemplate(GameObjectTemplatePtr pTpl)
+	bool GameObjectManager::RegisterTemplate(GameObjectTemplate* pTpl)
 	{
-		if(m_templates.find(pTpl->GetName()) != m_templates.end())
+		std::wstring name = pTpl->GetName();
+		
+		if(m_templates.find(name) != m_templates.end())
 		{
 			return false;
 		}
-		m_templates[pTpl->GetName()] = pTpl;
+		m_templates[name] = pTpl;
 
 		return true;
 	}
@@ -86,6 +91,10 @@ namespace engine
 		GameObjectPtr pObj = alloc_object<GameObject>();
 		pObj->SetName(name);
 
+		GameObjectComponentPtr pPM = CreateComponent(L"PropertyManager");
+
+		pObj->AddComponent(pPM);
+
 		return pObj;
 	}
 	
@@ -99,6 +108,7 @@ namespace engine
 		}
 		
 		RegisterPackage(mod.GetPackage());
+
 		m_packages.push_back(mod);
 		return true;
 	}
@@ -126,6 +136,12 @@ namespace engine
 			ExtPackage::ComponentClass* c = pPack->GetClassByIndex(i);
 			RegisterComponentClass(c);
 		}
+
+		for(int i = 0; i < pPack->GetTemplateCount(); ++i)
+		{
+			RegisterTemplate(pPack->GetTemplateByIndex(i));
+		}
+
 		return true;
 	}
 	RenderSystemPtr	GameObjectManager::GetRenderSystem()
@@ -141,13 +157,13 @@ namespace engine
 	{
 		return m_pCore;
 	}
-	GameObjectTemplatePtr GameObjectManager::FindTemplate(const std::wstring& name)
+	GameObjectTemplate* GameObjectManager::FindTemplate(const std::wstring& name)
 	{
-		boost::unordered_map<std::wstring, GameObjectTemplatePtr>::iterator it = m_templates.find(name);
+		boost::unordered_map<std::wstring, GameObjectTemplate*>::iterator it = m_templates.find(name);
 
 		if(it == m_templates.end())
 		{
-			return GameObjectTemplatePtr();
+			return nullptr;
 		}
 
 		return it->second;
@@ -201,6 +217,7 @@ namespace engine
 			return;
 
 		}
+		m_pPackage->Release();
 
 		DestroyPackage(m_pPackage);
 

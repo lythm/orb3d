@@ -5,15 +5,19 @@
 
 namespace engine
 {
-	GameObjectTemplate::GameObjectTemplate(GameObjectManagerPtr pManager)
+	GameObjectTemplate::GameObjectTemplate(GameObjectManagerPtr pManager, const std::wstring& name, const std::wstring& catalog)
 	{
+		m_pManager = pManager;
+		m_name = name;
+		m_catalog = catalog;
 	}
 
 
 	GameObjectTemplate::~GameObjectTemplate(void)
 	{
+		m_pManager.reset();
 	}
-	const std::wstring&	GameObjectTemplate::GetName()
+	const std::wstring& GameObjectTemplate::GetName()
 	{
 		return m_name;
 	}
@@ -21,25 +25,12 @@ namespace engine
 	{
 		m_name = name;
 	}
-	GameObjectPtr GameObjectTemplate::CreateGameObject()
+	void GameObjectTemplate::SetCataLog(const std::wstring& catalog)
 	{
-
-		return GameObjectPtr();
+		m_catalog = catalog;
 	}
-	bool GameObjectTemplate::CreateFromGameObject(GameObjectPtr pObj)
+	const std::wstring& GameObjectTemplate::GetCataLog()
 	{
-		return true;
-	}
-	void GameObjectTemplate::Release()
-	{
-		if(m_pData)
-		{
-			m_pData->Close();
-			m_pData.reset();
-		}
-	}
-	bool GameObjectTemplate::Load(DataStreamPtr pStream)
-	{
-		return true;
+		return m_catalog;
 	}
 }

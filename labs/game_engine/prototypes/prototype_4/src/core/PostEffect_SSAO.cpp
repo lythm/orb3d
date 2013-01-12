@@ -26,7 +26,7 @@ namespace engine
 	bool PostEffect_SSAO::Initialize(RenderSystemPtr pRS)
 	{
 		
-		m_pMaterial = pRS->CreateMaterialFromFile("./assets/material/dr_render_ssao.fx");
+		m_pMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_ssao.fx");
 
 		VertexElement vf[] = 
 		{
@@ -38,7 +38,7 @@ namespace engine
 
 		m_pMaterial->SetVertexFormat(format);
 
-		m_pSSAORandomTex = pRS->CreateTextureFromFile("./assets/texture/ssao_rand.jpg");
+		m_pSSAORandomTex = pRS->CreateTextureFromFile("./assets/standard/texture/ssao_rand.jpg");
 		
 		m_pMaterial->SetTextureByName("tex_ssao_rand", m_pSSAORandomTex);
 
@@ -54,7 +54,7 @@ namespace engine
 			return false;
 		}
 
-		m_pGBlurMaterial = pRS->CreateMaterialFromFile("./assets/material/dr_render_BBlur.fx");
+		m_pGBlurMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/dr_render_BBlur.fx");
 
 		if(m_pGBlurMaterial == nullptr)
 		{

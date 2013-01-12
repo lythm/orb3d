@@ -94,7 +94,7 @@ bool GridMesh::Init(int size, int grid_size)
 	
 	m_pIB->Unmap();
 
-	m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/editor_grid.fx");
+	m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/editor_grid.fx");
 
 
 	

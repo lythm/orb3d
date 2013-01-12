@@ -29,6 +29,7 @@ public:
 
 	static engine::GameObjectPtr				CreateGameObject(const std::wstring& name);
 	static engine::GameObjectComponentPtr		CreateGameObjectComponent(const std::wstring& name);
+	static engine::GameObjectPtr				CreateGameObjectFromTemplate(const std::wstring& name, const std::wstring& tpl);
 	static void									OutputInfo(const CString& info);
 	static void									OutputBuild(const CString& info);
 

@@ -17,7 +17,7 @@ namespace engine
 	
 	bool SkyLight::Create(Sys_GraphicsPtr pGraphics)
 	{
-		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/material/dr_render_directional_light.fx");
+		m_pMaterial = pGraphics->CreateMaterialFromFile("./assets/standard/material/dr_render_directional_light.fx");
 
 		VertexFormat vf;
 		vf.AddElement(VertexElement(0, VertexElement::POSITION, G_FORMAT_R32G32B32_FLOAT));

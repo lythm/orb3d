@@ -25,7 +25,7 @@ public:
 	void								CreateObject_FromTemplate_SkyLight();
 
 	engine::GameObjectPtr				CreateObject(const std::wstring& name);
-
+	engine::GameObjectPtr				CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
 private:
 	
 	void								AddDefaultLight();

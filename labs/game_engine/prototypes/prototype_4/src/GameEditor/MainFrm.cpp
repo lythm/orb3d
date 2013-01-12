@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_WM_CREATE()
 	ON_COMMAND_RANGE(ID_COMPONENT_MENU_BASE, ID_COMPONENT_MENU_BASE + 1000, &CMainFrame::OnComponentMenu)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_COMPONENT_MENU_BASE, ID_COMPONENT_MENU_BASE + 1000, &CMainFrame::OnUpdateComponentMenuUI)
+	ON_COMMAND_RANGE(ID_COMPONENT_MENU_BASE + 1000, ID_COMPONENT_MENU_BASE + 2000, &CMainFrame::OnCreateFromTemplateMenu)
+	ON_UPDATE_COMMAND_UI_RANGE(ID_COMPONENT_MENU_BASE + 1000, ID_COMPONENT_MENU_BASE + 2000, &CMainFrame::OnUpdateCreateFromTemplateMenuUI)
 	ON_COMMAND(ID_VIEW_CUSTOMIZE, &CMainFrame::OnViewCustomize)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
@@ -55,7 +57,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_VIEW_SHOWGRID, &CMainFrame::OnViewShowgrid)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SHOWGRID, &CMainFrame::OnUpdateViewShowgrid)
 	ON_COMMAND(ID_EDIT_APPSETTINGS, &CMainFrame::OnEditAppsettings)
-	//	ON_COMMAND(ID_PROJECT_IMPORT, &CMainFrame::OnProjectImport)
 	ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
 	ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
 	ON_COMMAND(ID_CREATEFROMTEMPLATE_CONE, &CMainFrame::OnCreatefromtemplateCone)
@@ -224,6 +225,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
 	UpdateComClassMap();
+
+	UpdateTemplateMap();
 	return 0;
 }
 
@@ -721,12 +724,96 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 
 	return true;
 }
+bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
+{
+	if(pMenu == nullptr)
+	{
+		return false;
+	}
 
+	CString str;
+	CMFCToolBarMenuButton* pParent = pMenu->GetParentButton();
+
+	if(pParent == nullptr)
+	{
+		return false;
+	}
+	if(pParent->m_strText != L"GameObject")
+	{
+		return false;
+	}
+
+	using namespace engine;
+
+	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
+
+	pMenu->RemoveAllItems();
+
+	CMFCToolBarMenuButton b(ID_GAMEOBJECT_CREATEEMPTY, nullptr, -1, L"Empty");
+
+	pMenu->InsertItem(b);
+
+	pMenu->InsertSeparator();
+
+	int id = ID_COMPONENT_MENU_BASE + 1001;
+	for(it; it != m_templateMap.end(); ++it)
+	{
+		if(it->second.size() == 0)
+		{
+			continue;
+		}
+		CMenu m;
+		
+		m.CreateMenu();
+		for(size_t i = 0; i < it->second.size(); ++i)
+		{
+			m.InsertMenuW(i, MF_BYPOSITION, id, it->second[i]->GetName().c_str());
+
+			id++;
+		}
+
+		CMFCToolBarMenuButton b(-1, m.GetSafeHmenu(), -1, it->first.c_str());
+		m.Detach();
+
+		pMenu->InsertItem(b);
+	}
+
+	return true;
+}
+engine::GameObjectTemplate* CMainFrame::FindTemplateByMenuID(UINT uID)
+{
+
+	using namespace engine;
+
+	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
+
+	int id = ID_COMPONENT_MENU_BASE + 1001;
+	for(it; it != m_templateMap.end(); ++it)
+	{
+		if(it->second.size() == 0)
+		{
+			continue;
+		}
+		for(size_t i = 0; i < it->second.size(); ++i)
+		{
+			if(id == uID)
+			{
+				return it->second[i];
+			}
+
+			id++;
+		}
+
+	}
+
+	return nullptr;
+}
 
 BOOL CMainFrame::OnShowPopupMenu(CMFCPopupMenu* pMenuPopup)
 {
 	// TODO: 在此添加专用代码和/或调用基类
 	UpdateComponentMenu(pMenuPopup);
+	UpdateTemplateMenu(pMenuPopup);
 
 	return CFrameWndEx::OnShowPopupMenu(pMenuPopup);
 }
@@ -774,6 +861,39 @@ void CMainFrame::OnComponentMenu(UINT nID)
 
 	AppContext::UpdatePropGrid(pObj);
 	return;
+}
+void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
+{
+	using namespace engine;
+
+	GameObjectTemplate* pTpl = FindTemplateByMenuID(nID);
+
+	GameObjectPtr pObj = AppContext::GetProject()->CreateObjectFromTpl(pTpl->GetName(), pTpl->GetName());
+
+	AppContext::UpdateObjectView();
+	AppContext::UpdatePropGrid(pObj);
+
+	return;
+}
+bool CMainFrame::UpdateTemplateMap()
+{
+	using namespace engine;
+
+	m_templateMap.clear();
+
+	GameObjectManagerPtr pManager = AppContext::GetCoreApi()->GetGameObjectManager();
+
+	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
+	{
+		ExtPackage* pPack = pManager->GetPackageByIndex(i);
+		for(size_t ii = 0; ii < pPack->GetTemplateCount(); ++ii)
+		{
+			GameObjectTemplate* pTpl = pPack->GetTemplateByIndex(ii);
+
+			m_templateMap[pTpl->GetCataLog()].push_back(pTpl);
+		}
+	}
+	return true;
 }
 bool CMainFrame::UpdateComClassMap()
 {
@@ -833,6 +953,10 @@ engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 void CMainFrame::OnUpdateComponentMenuUI(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(AppContext::GetSelectedObject() != engine::GameObjectPtr());
+}
+void CMainFrame::OnUpdateCreateFromTemplateMenuUI(CCmdUI* pCmdUI)
+{
+	pCmdUI->Enable(true);
 }
 
 

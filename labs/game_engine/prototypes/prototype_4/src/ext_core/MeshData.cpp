@@ -8,7 +8,7 @@
 #include "core\RenderSystem.h"
 #include "core\Sys_Graphics.h"
 
-#include "Package.h"
+#include "CorePackage.h"
 
 namespace engine
 {
@@ -92,7 +92,7 @@ namespace engine
 				m_pMesh->Destroy();	
 			}
 			
-			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/material/editor_shape.fx");
+			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
 			MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();

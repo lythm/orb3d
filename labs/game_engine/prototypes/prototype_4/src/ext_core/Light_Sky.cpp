@@ -3,7 +3,7 @@
 
 #include "core\SkyLight.h"
 
-#include "Package.h"
+#include "CorePackage.h"
 namespace engine
 {
 

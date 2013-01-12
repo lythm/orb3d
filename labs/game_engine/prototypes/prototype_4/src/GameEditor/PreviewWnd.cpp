@@ -58,6 +58,9 @@ BOOL CPreviewWnd::OnInitDialog()
 	
 	SetTimer(99, 10, nullptr);
 
+
+	AppContext::GetCoreApi()->CreatGameObjectFromTemplate(L"VoxelWorld", L"");
+
 	return TRUE;
 }
 

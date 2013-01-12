@@ -6,7 +6,9 @@ namespace engine
 {
 	VoxelWorld::VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorld", pManager)
 	{
-		m_unitSize = 1.0f;
+		m_blockSize				= 1;
+		m_worldWidth			= 10;
+		m_worldHeight			= 10;
 	}
 
 
@@ -25,27 +27,32 @@ namespace engine
 
 		pPM->Begin(L"VoxelWorld");
 		{
-			pPM->RegisterProperty<float, VoxelWorld>(this,
-									L"Unit Size",
-									&VoxelWorld::GetUnitSize,
-									&VoxelWorld::SetUnitSize);
+			pPM->RegisterProperty<int, VoxelWorld>(this,
+									L"Block Size",
+									&VoxelWorld::GetBlockSize,
+									&VoxelWorld::SetBlockSize);
+
+			pPM->RegisterProperty<int, VoxelWorld>(this,
+									L"World Width",
+									&VoxelWorld::GetWorldWidth,
+									&VoxelWorld::SetWorldWidth);
+
+			pPM->RegisterProperty<int, VoxelWorld>(this,
+									L"World Height",
+									&VoxelWorld::GetWorldHeight,
+									&VoxelWorld::SetWorldHeight);
 		}
 		pPM->End();
-
-
-
-
-
-
+		
 		return true;
 	}
-	const float& VoxelWorld::GetUnitSize()
+	const int& VoxelWorld::GetBlockSize()
 	{
-		return m_unitSize;
+		return m_blockSize;
 	}
-	void VoxelWorld::SetUnitSize(const float& size)
+	void VoxelWorld::SetBlockSize(const int& blockSize)
 	{
-		m_unitSize = size;
+		m_blockSize = blockSize;
 	}
 	void VoxelWorld::OnDetach()
 	{
@@ -57,5 +64,27 @@ namespace engine
 	void VoxelWorld::RemoveBlock()
 	{
 	}
+	const int& VoxelWorld::GetWorldHeight()
+	{
+		return m_worldHeight;
+	}
+	void VoxelWorld::SetWorldHeight(const int& h)
+	{
+		m_worldHeight = h;
+		RebuildWorld();
+	}
+	const int& VoxelWorld::GetWorldWidth()
+	{
+		return m_worldWidth;
+	}
+	void VoxelWorld::SetWorldWidth(const int& w)
+	{
+		m_worldWidth = w;
+		RebuildWorld();
+	}
+	void VoxelWorld::RebuildWorld()
+	{
 
+	}
 }
+

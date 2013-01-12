@@ -16,7 +16,7 @@ namespace engine
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 
-
+		void								Release();
 		CoreApiPtr							GetCoreApi();
 	private:
 		static GameObjectComponentPtr		Create_DT_SelectionBox(GameObjectManagerPtr pManager);

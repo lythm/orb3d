@@ -5,6 +5,7 @@ namespace engine
 	class VoxelWorld : public GameObjectComponent
 	{
 	public:
+
 		VoxelWorld(GameObjectManagerPtr pManager);
 		virtual ~VoxelWorld(void);
 
@@ -13,16 +14,23 @@ namespace engine
 		void										AddBlock();
 		void										RemoveBlock();
 
-		const float&								GetUnitSize();
-		void										SetUnitSize(const float& size);
+		const int&									GetBlockSize();
+		void										SetBlockSize(const int& blockSize);
+
+		const int&									GetWorldHeight();
+		void										SetWorldHeight(const int& h);
+
+		const int&									GetWorldWidth();
+		void										SetWorldWidth(const int& w);
 
 	private:
 		bool										OnAttach();
 		void										OnDetach();
 
-
+		void										RebuildWorld();
 	private:
-		float										m_unitSize;
-
+		int											m_blockSize;
+		int											m_worldWidth;
+		int											m_worldHeight;
 	};
 }

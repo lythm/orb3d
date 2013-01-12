@@ -27,6 +27,7 @@
 #include "core\GameObject.h"
 #include "core\GameObjectComponent.h"
 #include "core\GameObjectManager.h"
+#include "core\GameObjectTemplate.h"
 
 #include "core\ArcBall.h"
 

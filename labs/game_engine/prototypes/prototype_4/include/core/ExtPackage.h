@@ -2,6 +2,8 @@
 
 namespace engine
 {
+	class GameObjectTemplate;
+
 	class ExtPackage
 	{
 	public:
@@ -32,7 +34,9 @@ namespace engine
 		virtual ComponentClass*								GetClassByIndex(int index)						= 0;
 
 		virtual int											GetTemplateCount(){return 0;}
-		virtual GameObjectTemplatePtr						GetTemplateByIndex(int index){return GameObjectTemplatePtr();}
+		virtual GameObjectTemplate*							GetTemplateByIndex(int index){return nullptr;}
+
+		virtual void										Release()										= 0;
 
 	protected:
 		ExtPackage(void){}
