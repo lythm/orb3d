@@ -14,6 +14,12 @@
 #include "core\ext\PostEffectList.h"
 #include "CubeTpl.h"
 #include "PlaneTpl.h"
+#include "SphereTpl.h"
+#include "ConeTpl.h"
+#include "PointLightTpl.h"
+#include "SkyLightTpl.h"
+#include "SpotLightTpl.h"
+#include "DirLightTpl.h"
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
 {
@@ -36,11 +42,38 @@ namespace engine
 
 		RegisterClasses();
 
+		RegisterTemplates();
+	}
+	CorePackage::~CorePackage(void)
+	{
+		m_pCore.reset();
+	}
+	void CorePackage::RegisterTemplates()
+	{
 		GameObjectTemplate* pTpl = new CubeTpl(m_pCore->GetGameObjectManager(), L"Cube");
 		m_tpls.push_back(pTpl);
 
 		pTpl = new PlaneTpl(m_pCore->GetGameObjectManager(), L"Plane");
 		m_tpls.push_back(pTpl);
+
+		pTpl = new SphereTpl(m_pCore->GetGameObjectManager(), L"Sphere");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new ConeTpl(m_pCore->GetGameObjectManager(), L"Cone");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new PointLightTpl(m_pCore->GetGameObjectManager(), L"PointLight");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new SpotLightTpl(m_pCore->GetGameObjectManager(), L"SpotLight");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new DirLightTpl(m_pCore->GetGameObjectManager(), L"DirectionalLight");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new SkyLightTpl(m_pCore->GetGameObjectManager(), L"SkyLight");
+		m_tpls.push_back(pTpl);
+
 	}
 	void CorePackage::RegisterClasses()
 	{
@@ -107,10 +140,7 @@ namespace engine
 
 	}
 
-	CorePackage::~CorePackage(void)
-	{
-		m_pCore.reset();
-	}
+	
 	void CorePackage::Release()
 	{
 		m_classes.clear();
@@ -193,5 +223,6 @@ namespace engine
 	{
 		return m_tpls[index];
 	}
+
 }
 

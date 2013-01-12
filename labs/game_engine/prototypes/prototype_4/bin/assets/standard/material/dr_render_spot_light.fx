@@ -37,8 +37,7 @@ PS_OUTPUT ps_main(PS_INPUT i)
 	half3 n = dr_gbuffer_get_normal(tex_gbuffer, uv);
 	half4 p = dr_gbuffer_get_position(tex_gbuffer, uv);
 
-	float3 v_pos = mul(p, i_p);
-	o.clr.xyz = dr_light_spot(v_pos, n, light, wv);
+	o.clr.xyz = dr_light_spot(p, n, light, wv);
 	o.clr.w = 1;
 
 

@@ -4,7 +4,12 @@
 
 #include "ext_voxel\VoxelWorld.h"
 #include "ext_voxel\VoxelWorldRenderer.h"
+#include "ext_voxel\VoxelObject.h"
+#include "ext_voxel\VoxelObjectRenderer.h"
+
+
 #include "VoxelWorldTemplate.h"
+#include "VoxelObjectTemplate.h"
 
 
 EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
@@ -34,13 +39,20 @@ namespace engine
 							L"Voxel World Renderer",
 							&VoxelPackage::Create_VoxelWorldRenderer));
 
-
-
-
+		m_classes.push_back(ComponentClass(L"VoxelObject",
+							L"Voxel",
+							L"Voxel Object",
+							&VoxelPackage::Create_VoxelObject));
+		m_classes.push_back(ComponentClass(L"VoxelObjectRenderer",
+							L"Voxel",
+							L"Voxel Object Renderer",
+							&VoxelPackage::Create_VoxelObjectRenderer));
 
 		// templates
-
 		GameObjectTemplate* pTpl = new VoxelWorldTemplate(pCore->GetGameObjectManager(), L"VoxelWorld");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new VoxelObjectTemplate(pCore->GetGameObjectManager(), L"VoxelObject");
 		m_tpls.push_back(pTpl);
 	}
 
@@ -79,10 +91,18 @@ namespace engine
 	{
 		return pManager->GetAllocator()->AllocObject<VoxelWorldRenderer, GameObjectManagerPtr>(pManager);
 	}
+
+	GameObjectComponentPtr VoxelPackage::Create_VoxelObject(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<VoxelObject, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr VoxelPackage::Create_VoxelObjectRenderer(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<VoxelObjectRenderer, GameObjectManagerPtr>(pManager);
+	}
 	int	VoxelPackage::GetTemplateCount()
 	{
-		return 1;
-		//return (int)m_tpls.size();
+		return (int)m_tpls.size();
 	}
 	GameObjectTemplate* VoxelPackage::GetTemplateByIndex(int index)
 	{

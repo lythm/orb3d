@@ -84,11 +84,13 @@
     <ClInclude Include="..\..\include\ext_voxel\Voxel.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelBlock.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelChunk.h" />
-    <ClInclude Include="..\..\include\ext_voxel\VoxelEntity.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelObject.h" />
+    <ClInclude Include="..\..\include\ext_voxel\VoxelObjectRenderer.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorldRenderer.h" />
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h" />
+    <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelSerializer.h" />
     <ClInclude Include="VoxelWorldRenderData.h" />
@@ -96,11 +98,13 @@
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="VoxelObjectRenderer.cpp" />
+    <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />
     <ClCompile Include="Voxel.cpp" />
     <ClCompile Include="VoxelBlock.cpp" />
     <ClCompile Include="VoxelChunk.cpp" />
-    <ClCompile Include="VoxelEntity.cpp" />
+    <ClCompile Include="VoxelObject.cpp" />
     <ClCompile Include="VoxelWorldRenderer.cpp" />
     <ClCompile Include="VoxelSerializer.cpp" />
     <ClCompile Include="VoxelWorld.cpp" />

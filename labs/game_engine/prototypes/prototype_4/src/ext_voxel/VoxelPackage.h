@@ -25,6 +25,9 @@ namespace engine
 		
 		static GameObjectComponentPtr		Create_VoxelWorld(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_VoxelWorldRenderer(GameObjectManagerPtr pManager);
+
+		static GameObjectComponentPtr		Create_VoxelObject(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_VoxelObjectRenderer(GameObjectManagerPtr pManager);
 	private:
 
 		CoreApiPtr							m_pCore;

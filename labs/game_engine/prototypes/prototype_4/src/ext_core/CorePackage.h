@@ -22,6 +22,7 @@ namespace engine
 		void								Release();
 	private:
 		void								RegisterClasses();
+		void								RegisterTemplates();
 
 		static GameObjectComponentPtr		Create_SkyBox(GameObjectManagerPtr pManager);
 		static GameObjectComponentPtr		Create_MeshData(GameObjectManagerPtr pManager);

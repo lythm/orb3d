@@ -81,13 +81,7 @@ protected:
 	BOOL CreateCaptionBar();
 public:
 	afx_msg void OnClose();
-	afx_msg void OnCreatefromtemplateCube();
 	afx_msg void OnGameobjectCreateempty();
-	afx_msg void OnCreatefromtemplateSphere();
-	afx_msg void OnCreatefromtemplateDirlight();
-	afx_msg void OnCreatefromtemplatePointlight();
-	afx_msg void OnCreatefromtemplateSpotlight();
-	afx_msg void OnCreatefromtemplatePlane();
 	afx_msg void OnComponentMenu(UINT nID);
 	afx_msg void OnCreateFromTemplateMenu(UINT nID);
 	afx_msg void OnUpdateComponentMenuUI(CCmdUI* pCmdUI);
@@ -96,11 +90,7 @@ public:
 	afx_msg void OnViewShowgrid();
 	afx_msg void OnUpdateViewShowgrid(CCmdUI *pCmdUI);
 	afx_msg void OnEditAppsettings();
-//	afx_msg void OnProjectImport();
 	afx_msg void OnImportImportmaxmesh();
-	afx_msg void OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI);
-	afx_msg void OnCreatefromtemplateCone();
-	afx_msg void OnCreatefromtemplateSkylight();
 	virtual BOOL OnShowPopupMenu(CMFCPopupMenu* pMenuPopup);
 	virtual void OnUpdateFrameMenu(HMENU hMenuAlt);
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);

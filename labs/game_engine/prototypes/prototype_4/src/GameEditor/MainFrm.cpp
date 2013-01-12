@@ -47,20 +47,11 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
 	ON_WM_SETTINGCHANGE()
 	ON_WM_CLOSE()
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnCreatefromtemplateCube)
 	ON_COMMAND(ID_GAMEOBJECT_CREATEEMPTY, &CMainFrame::OnGameobjectCreateempty)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_SPHERE, &CMainFrame::OnCreatefromtemplateSphere)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_DIRLIGHT, &CMainFrame::OnCreatefromtemplateDirlight)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_POINTLIGHT, &CMainFrame::OnCreatefromtemplatePointlight)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_SPOTLIGHT, &CMainFrame::OnCreatefromtemplateSpotlight)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_PLANE, &CMainFrame::OnCreatefromtemplatePlane)
 	ON_COMMAND(ID_VIEW_SHOWGRID, &CMainFrame::OnViewShowgrid)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_SHOWGRID, &CMainFrame::OnUpdateViewShowgrid)
 	ON_COMMAND(ID_EDIT_APPSETTINGS, &CMainFrame::OnEditAppsettings)
 	ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
-	ON_UPDATE_COMMAND_UI(ID_CREATEFROMTEMPLATE_CUBE, &CMainFrame::OnUpdateCreatefromtemplateCube)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_CONE, &CMainFrame::OnCreatefromtemplateCone)
-	ON_COMMAND(ID_CREATEFROMTEMPLATE_SKYLIGHT, &CMainFrame::OnCreatefromtemplateSkylight)
 	ON_COMMAND(ID_RENDERING_SETTING, &CMainFrame::OnRenderingSetting)
 	ON_COMMAND(ID_BUILD_PREVIEW, &CMainFrame::OnBuildPreview)
 END_MESSAGE_MAP()
@@ -553,13 +544,6 @@ CPropertiesWnd*	CMainFrame::GetPropGrid()
 {
 	return &m_wndProperties;
 }
-void CMainFrame::OnCreatefromtemplateCube()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_Cube();
-
-	AppContext::UpdateObjectView();
-}
-
 
 void CMainFrame::OnGameobjectCreateempty()
 {
@@ -568,47 +552,6 @@ void CMainFrame::OnGameobjectCreateempty()
 	AppContext::UpdateObjectView();
 
 	// TODO: 在此添加命令处理程序代码
-}
-
-
-void CMainFrame::OnCreatefromtemplateSphere()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_Sphere();
-
-	AppContext::UpdateObjectView();
-	// TODO: 在此添加命令处理程序代码
-}
-
-
-void CMainFrame::OnCreatefromtemplateDirlight()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_DirLight();
-
-	AppContext::UpdateObjectView();
-}
-
-
-void CMainFrame::OnCreatefromtemplatePointlight()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_PointLight();
-
-	AppContext::UpdateObjectView();
-}
-
-
-void CMainFrame::OnCreatefromtemplateSpotlight()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_SpotLight();
-
-	AppContext::UpdateObjectView();
-}
-
-
-void CMainFrame::OnCreatefromtemplatePlane()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_Plane();
-
-	AppContext::UpdateObjectView();
 }
 
 
@@ -647,11 +590,6 @@ void CMainFrame::OnImportImportmaxmesh()
 }
 
 
-void CMainFrame::OnUpdateCreatefromtemplateCube(CCmdUI *pCmdUI)
-{
-	//pCmdUI->Enable(Project::Instance()->IsEmpty() == false);
-	// TODO: 在此添加命令更新用户界面处理程序代码
-}
 void CMainFrame::SetFPS(float fps)
 {
 	CString str;
@@ -660,21 +598,6 @@ void CMainFrame::SetFPS(float fps)
 
 }
 
-
-void CMainFrame::OnCreatefromtemplateCone()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_Cone();
-
-	AppContext::UpdateObjectView();
-}
-
-
-void CMainFrame::OnCreatefromtemplateSkylight()
-{
-	AppContext::GetProject()->CreateObject_FromTemplate_SkyLight();
-
-	AppContext::UpdateObjectView();
-}
 bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 {
 	if(pMenu == nullptr)

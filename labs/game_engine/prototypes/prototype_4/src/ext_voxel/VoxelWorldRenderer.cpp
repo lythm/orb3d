@@ -21,7 +21,7 @@ namespace engine
 	{
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
 
-		pPM->Begin(L"VoxelRenderer");
+		pPM->Begin(L"VoxelWorldRenderer");
 		{
 			
 		}

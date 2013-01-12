@@ -47,7 +47,7 @@ namespace engine
 
 		int h = pRS->GetFrameBufferHeight();
 		G_FORMAT rt_format[1] = {G_FORMAT_R8G8B8A8_UNORM,};
-		m_pGBlurTarget = pRS->CreateRenderTarget(1, w, h, rt_format);
+		m_pGBlurTarget = pRS->CreateRenderTarget(1, w , h , rt_format);
 
 		if(m_pGBlurTarget == nullptr)
 		{
