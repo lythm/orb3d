@@ -52,7 +52,7 @@ void CInspectorView::AdjustLayout()
 
 	m_wndObjectCombo.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), m_nComboHeight, SWP_NOACTIVATE | SWP_NOZORDER);
 	m_wndToolBar.SetWindowPos(NULL, rectClient.left, rectClient.top + m_nComboHeight, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
-	m_wndInspector.SetWindowPos(NULL, rectClient.left, rectClient.top + m_nComboHeight + cyTlb, rectClient.Width(), rectClient.Height() -(m_nComboHeight+cyTlb), SWP_NOACTIVATE | SWP_NOZORDER);
+	//m_wndInspector.SetWindowPos(NULL, rectClient.left, rectClient.top + m_nComboHeight + cyTlb, rectClient.Width(), rectClient.Height() -(m_nComboHeight+cyTlb), SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 int CInspectorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -63,12 +63,12 @@ int CInspectorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rectDummy;
 	rectDummy.SetRectEmpty();
 
-	if(false == m_wndInspector.Create(L"AAA", rectDummy, this))
-	{
-		DWORD ret = GetLastError();
-		return -1;      // 未能创建
+	//if(false == m_wndInspector.Create(L"AAA", rectDummy, this))
+	//{
+	//	DWORD ret = GetLastError();
+	//	return -1;      // 未能创建
 
-	}
+	//}
 	// 创建组合:
 	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST | WS_BORDER | CBS_SORT | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 

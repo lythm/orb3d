@@ -1,5 +1,6 @@
 #include "voxel_pch.h"
 #include "..\..\include\ext_voxel\VoxelWorld.h"
+#include "ext_voxel\VoxelBlock.h"
 
 
 namespace engine
@@ -9,6 +10,8 @@ namespace engine
 		m_blockSize				= 1;
 		m_worldWidth			= 10;
 		m_worldHeight			= 10;
+		m_pBlocks				= nullptr;
+
 	}
 
 
@@ -17,10 +20,10 @@ namespace engine
 	}
 	void VoxelWorld::Update()
 	{
-		
+
 	}
 
-		
+
 	bool VoxelWorld::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));
@@ -28,23 +31,39 @@ namespace engine
 		pPM->Begin(L"VoxelWorld");
 		{
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-									L"Block Size",
-									&VoxelWorld::GetBlockSize,
-									&VoxelWorld::SetBlockSize);
+				L"Block Size",
+				&VoxelWorld::GetBlockSize,
+				&VoxelWorld::SetBlockSize);
 
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-									L"World Width",
-									&VoxelWorld::GetWorldWidth,
-									&VoxelWorld::SetWorldWidth);
+				L"World Width",
+				&VoxelWorld::GetWorldWidth,
+				&VoxelWorld::SetWorldWidth);
 
 			pPM->RegisterProperty<int, VoxelWorld>(this,
-									L"World Height",
-									&VoxelWorld::GetWorldHeight,
-									&VoxelWorld::SetWorldHeight);
+				L"World Height",
+				&VoxelWorld::GetWorldHeight,
+				&VoxelWorld::SetWorldHeight);
 		}
 		pPM->End();
-		
+
+
+		RebuildWorld();
+
 		return true;
+	}
+	void VoxelWorld::DestroyWorld()
+	{
+		if(m_pBlocks)
+		{
+			for(size_t i = 0; i < m_worldHeight * m_worldWidth; ++i)
+			{
+				FreeBlock(m_pBlocks[i]);
+			}
+		}
+
+		m_pManager->GetAllocator()->Free(m_pBlocks);
+		m_pBlocks = nullptr;
 	}
 	const int& VoxelWorld::GetBlockSize()
 	{
@@ -56,7 +75,7 @@ namespace engine
 	}
 	void VoxelWorld::OnDetach()
 	{
-		
+		DestroyWorld();
 	}
 	void VoxelWorld::AddBlock()
 	{
@@ -70,6 +89,7 @@ namespace engine
 	}
 	void VoxelWorld::SetWorldHeight(const int& h)
 	{
+		DestroyWorld();
 		m_worldHeight = h;
 		RebuildWorld();
 	}
@@ -79,12 +99,32 @@ namespace engine
 	}
 	void VoxelWorld::SetWorldWidth(const int& w)
 	{
+		DestroyWorld();
 		m_worldWidth = w;
 		RebuildWorld();
 	}
 	void VoxelWorld::RebuildWorld()
 	{
+		DestroyWorld();
 
+		m_pBlocks = (VoxelBlock**)m_pManager->GetAllocator()->Alloc(sizeof(VoxelBlock*) * m_worldWidth * m_worldHeight);
+
+		for(int i = 0; i < m_worldHeight * m_worldWidth; ++i)
+		{
+			m_pBlocks[i] = AllocBlock();
+		}
+	}
+	VoxelBlock* VoxelWorld::AllocBlock()
+	{
+		void* pMem = m_pManager->GetAllocator()->Alloc(sizeof(VoxelBlock));
+
+		return new (pMem) VoxelBlock;
+	}
+	void VoxelWorld::FreeBlock(VoxelBlock* pBlock)
+	{
+		pBlock->~VoxelBlock();
+		
+		m_pManager->GetAllocator()->Free(pBlock);
 	}
 }
 

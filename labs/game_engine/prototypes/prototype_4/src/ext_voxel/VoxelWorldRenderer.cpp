@@ -1,5 +1,6 @@
 #include "voxel_pch.h"
 #include "..\..\include\ext_voxel\VoxelWorldRenderer.h"
+#include "VoxelWorldRenderData.h"
 
 namespace engine
 {
@@ -27,10 +28,17 @@ namespace engine
 		}
 		pPM->End();
 
+
+		m_pRenderData = m_pManager->GetAllocator()->AllocObject<VoxelWorldRenderData>();
+		if(m_pRenderData->Initialize() == false)
+		{
+			return false;
+		}
 		return true;
 	}
 	void VoxelWorldRenderer::OnDetach()
 	{
-		
+		m_pRenderData->Release();
+		m_pRenderData.reset();
 	}
 }

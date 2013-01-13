@@ -16,5 +16,6 @@ namespace engine
 
 	private:
 
+		VoxelWorldRenderDataPtr						m_pRenderData;
 	};
 }

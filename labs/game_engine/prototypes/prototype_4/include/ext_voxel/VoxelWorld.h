@@ -2,6 +2,8 @@
 
 namespace engine
 {
+	class VoxelBlock;
+
 	class VoxelWorld : public GameObjectComponent
 	{
 	public:
@@ -28,9 +30,15 @@ namespace engine
 		void										OnDetach();
 
 		void										RebuildWorld();
+		void										DestroyWorld();
+
+		VoxelBlock*									AllocBlock();
+		void										FreeBlock(VoxelBlock* pBlock);
 	private:
 		int											m_blockSize;
 		int											m_worldWidth;
 		int											m_worldHeight;
+
+		VoxelBlock**								m_pBlocks;
 	};
 }

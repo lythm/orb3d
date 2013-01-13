@@ -11,5 +11,11 @@ namespace engine
 	VoxelWorldRenderData::~VoxelWorldRenderData(void)
 	{
 	}
-
+	bool VoxelWorldRenderData::Initialize()
+	{
+		return true;
+	}
+	void VoxelWorldRenderData::Release()
+	{
+	}
 }
