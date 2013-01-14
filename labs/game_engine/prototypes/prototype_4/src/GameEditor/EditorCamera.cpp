@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include "EditorCamera.h"
-#include "AppContext.h"
 
 
 EditorCamera::EditorCamera(void)
@@ -20,7 +19,7 @@ void EditorCamera::Update()
 
 	UpdateViewFrustum();
 
-	RenderSystemPtr pRS = AppContext::GetCoreApi()->GetRenderSystem();
+	RenderSystemPtr pRS = m_pCore->GetRenderSystem();
 
 	pRS->SetViewMatrix(GetViewMatrix());
 	pRS->SetProjMatrix(GetProjMatrix());
@@ -199,10 +198,11 @@ void EditorCamera::OnMouseRButtonUp(UINT nFlags, CPoint point)
 
 }
 
-void EditorCamera::Init()
+void EditorCamera::Init(engine::CoreApiPtr pCore)
 {
 	using namespace math;
-	
+	m_pCore = pCore;
+
 	SetEyePos(Vector3(0, 150, -150));
 	SetFocusPos(Vector3(0, 0,0));
 	

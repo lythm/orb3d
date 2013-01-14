@@ -5,9 +5,9 @@
 #include "GameEditor.h"
 #include "PreviewWnd.h"
 #include "afxdialogex.h"
-#include "AppContext.h"
 
-#include "Renderer.h"
+#include "Project.h"
+
 
 // CPreviewWnd 对话框
 
@@ -51,10 +51,10 @@ BOOL CPreviewWnd::OnInitDialog()
 	GetClientRect(rc);
 
 
-	m_pRenderTarget = AppContext::GetCoreApi()->GetSysGraphics()->CreateRenderWindow(m_hWnd, rc.Width(), rc.Height(), G_FORMAT_R8G8B8A8_UNORM, G_FORMAT_D24_UNORM_S8_UINT, 2, 1, 0, true);
+	m_pRenderTarget =Project::Instance()->GetCoreApi()->GetSysGraphics()->CreateRenderWindow(m_hWnd, rc.Width(), rc.Height(), G_FORMAT_R8G8B8A8_UNORM, G_FORMAT_D24_UNORM_S8_UINT, 2, 1, 0, true);
 	
-	AppContext::GetCoreApi()->GetSysGraphics()->SetRenderWindow(m_pRenderTarget);
-	AppContext::ResizeRenderer(rc.Width(), rc.Height());
+	Project::Instance()->GetCoreApi()->GetSysGraphics()->SetRenderWindow(m_pRenderTarget);
+	Project::Instance()->ResizeRenderer(rc.Width(), rc.Height());
 	
 	SetTimer(99, 10, nullptr);
 
@@ -67,12 +67,15 @@ void CPreviewWnd::OnClose()
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
 	KillTimer(99);
-	AppContext::GetCoreApi()->GetSysGraphics()->SetRenderWindow(engine::RenderTargetPtr());
 
-	int w = AppContext::GetCoreApi()->GetSysGraphics()->GetFrameBufferWidth();
-	int h = AppContext::GetCoreApi()->GetSysGraphics()->GetFrameBufferHeight();
+	engine::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
 
-	AppContext::ResizeRenderer(w, h);
+	pCore->GetSysGraphics()->SetRenderWindow(engine::RenderTargetPtr());
+
+	int w = pCore->GetSysGraphics()->GetFrameBufferWidth();
+	int h = pCore->GetSysGraphics()->GetFrameBufferHeight();
+
+	Project::Instance()->ResizeRenderer(w, h);
 
 	m_pRenderTarget->Release();
 	m_pRenderTarget.reset();
@@ -85,7 +88,7 @@ void CPreviewWnd::OnClose()
 
 void CPreviewWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	AppContext::GetRenderer()->Render();
+	Project::Instance()->Render();
 	
 	CDialogEx::OnTimer(nIDEvent);
 }
@@ -97,7 +100,7 @@ void CPreviewWnd::OnSize(UINT nType, int cx, int cy)
 
 	if(m_pRenderTarget != engine::RenderTargetPtr())
 	{
-		AppContext::ResizeRenderer(cx, cy);
+		Project::Instance()->ResizeRenderer(cx, cy);
 	}
 	// TODO: 在此处添加消息处理程序代码
 }

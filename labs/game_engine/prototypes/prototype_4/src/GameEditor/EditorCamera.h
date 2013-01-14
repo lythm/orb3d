@@ -6,7 +6,7 @@ public:
 	EditorCamera(void);
 	virtual ~EditorCamera(void);
 
-	void				Init();
+	void				Init(engine::CoreApiPtr);
 	void				Update();
 
 	math::Vector3		GetEyePos();
@@ -38,6 +38,8 @@ private:
 
 	math::Vector3		m_at;
 	math::Vector3		m_eye;
+
+	engine::CoreApiPtr	m_pCore;
 
 };
 

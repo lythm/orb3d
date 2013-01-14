@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "GridMesh.h"
-#include "AppContext.h"
+//#include "AppContext.h"
 
 
 GridMesh::GridMesh(void)
@@ -11,14 +11,15 @@ GridMesh::GridMesh(void)
 GridMesh::~GridMesh(void)
 {
 }
-bool GridMesh::Init(int size, int grid_size)
+bool GridMesh::Init(engine::CoreApiPtr pCore, int size, int grid_size)
 {
 	using namespace engine;
 
+	m_pCore = pCore;
 	m_size = size;
 	m_gridSize = grid_size;
 	
-	Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
+	Sys_GraphicsPtr pGraphics =pCore->GetSysGraphics();
 	
 	m_pVB = pGraphics->CreateBuffer(BT_VERTEX_BUFFER, sizeof(math::Vector3) * ((size / grid_size + 1) * 4), NULL, true);
 

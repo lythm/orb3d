@@ -36,6 +36,11 @@ public:
 
 	bool					UpdateComClassMap();
 	bool					UpdateTemplateMap();
+
+	void					UpdateObjectView(engine::GameObjectPtr pRoot);
+	void					UpdatePropGrid(engine::GameObjectPtr pObj);
+	void					OutputInfo(const CString& info);
+	void					outputBuild(const CString& build);
 private:
 	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
 	engine::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);

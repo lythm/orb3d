@@ -10,8 +10,8 @@
 
 #include "GameEditorDoc.h"
 #include "GameEditorView.h"
-#include "AppContext.h"
 #include "Renderer.h"
+#include "Project.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -152,7 +152,7 @@ int CGameEditorApp::ExitInstance()
 	//TODO: 处理可能已添加的附加资源
 	AfxOleTerm(FALSE);
 
-	
+
 	return CWinAppEx::ExitInstance();
 }
 
@@ -224,13 +224,8 @@ void CGameEditorApp::SaveCustomState()
 
 BOOL CGameEditorApp::OnIdle(LONG lCount)
 {
-	// TODO: 在此添加专用代码和/或调用基类
-	RendererPtr pRenderer = AppContext::GetRenderer();
-
-	if(pRenderer)
-	{
-		pRenderer->Render();
-	}
+	Project::Instance()->Render();
+	
 	CWinAppEx::OnIdle(lCount);
 
 	return TRUE;

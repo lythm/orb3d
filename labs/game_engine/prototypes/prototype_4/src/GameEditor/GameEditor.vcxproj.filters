@@ -48,9 +48,6 @@
     <ClInclude Include="PropertiesWnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="AppContext.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="GridMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -129,6 +126,12 @@
     <ClInclude Include="InspectorCtrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ProjectWizard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="editor_utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEditor.cpp">
@@ -153,9 +156,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="PropertiesWnd.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="AppContext.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GridMesh.cpp">
@@ -234,6 +234,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="InspectorCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectWizard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="editor_utils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

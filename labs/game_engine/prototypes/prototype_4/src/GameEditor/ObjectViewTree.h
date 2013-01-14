@@ -10,7 +10,7 @@ class CObjectViewTree : public CTreeCtrl
 public:
 	CObjectViewTree();
 
-	void							UpdateGameObjectTree();
+	void							UpdateGameObjectTree(engine::GameObjectPtr pRoot);
 	void							DeleteTree();
 	engine::GameObjectPtr			GetGameObject(HTREEITEM hObj);
 	void							EraseItem(HTREEITEM hItem);

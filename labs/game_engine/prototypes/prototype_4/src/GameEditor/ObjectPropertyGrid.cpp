@@ -5,7 +5,9 @@
 #include "GameEditor.h"
 #include "ObjectPropertyGrid.h"
 #include "TransformProperty.h"
-#include "AppContext.h"
+#include "Project.h"
+#include "editor_utils.h"
+#include "MainFrm.h"
 
 
 // CObjectPropertyGrid
@@ -231,7 +233,7 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 	
 	if(oldname != m_pObj->GetName())
 	{
-		AppContext::UpdateObjectView();
+		util_update_object_view(Project::Instance()->Root());
 	}
 
 	return CMFCPropertyGridCtrl::OnPropertyChanged(pProp);

@@ -1,9 +1,10 @@
 #include "StdAfx.h"
 #include "Renderer.h"
 #include "GridMesh.h"
-#include "AppContext.h"
 #include "EditorCamera.h"
-
+#include "Project.h"
+#include "editor_utils.h"
+#include "MainFrm.h"
 
 Renderer::Renderer(void)
 {
@@ -14,21 +15,27 @@ Renderer::Renderer(void)
 Renderer::~Renderer(void)
 {
 }
-bool Renderer::Initialize(int vpw, int vph)
+bool Renderer::Initialize(engine::CoreApiPtr pCore)
 {
 	using namespace math;
 	using namespace engine;
 
+	m_pCore = pCore;
+
 	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
 
-	if(false == m_pGrid->Init(1000, 10))
+	if(false == m_pGrid->Init(m_pCore, 1000, 10))
 	{
 		return false;
 	}
 	m_pCamera = EditorCameraPtr(new EditorCamera);
+	
+	int vpw = m_pCore->GetRenderSystem()->GetFrameBufferWidth();
+	int vph = m_pCore->GetRenderSystem()->GetFrameBufferHeight();
+
 	m_pCamera->SetViewPort(vpw, vph);
 
-	m_pCamera->Init();
+	m_pCamera->Init(pCore);
 	m_pCamera->Update();
 	
 	
@@ -36,14 +43,14 @@ bool Renderer::Initialize(int vpw, int vph)
 }
 void Renderer::Resize(int cx, int cy)
 {
-	engine::Sys_GraphicsPtr pGraphics = AppContext::GetSysGraphics();
-	if(pGraphics != NULL)
+	if(m_pCore == nullptr)
 	{
-		if(cx != 0 && cy != 0)
-		{
-			AppContext::GetCoreApi()->GetRenderSystem()->ResizeFrameBuffer(cx, cy);
-			m_pCamera->SetViewPort(cx, cy);
-		}
+		return;
+	}
+	if(cx != 0 && cy != 0)
+	{
+		m_pCore->GetRenderSystem()->ResizeFrameBuffer(cx, cy);
+		m_pCamera->SetViewPort(cx, cy);
 	}
 }
 void Renderer::Release()
@@ -53,28 +60,25 @@ void Renderer::Release()
 		m_pGrid->Release();
 		m_pGrid.reset();
 	}
+
+	m_pCore.reset();
 }
 void Renderer::Render()
 {
-
 	UpdateFPS();
 
-	AppContext::GetCoreApi()->Update();
+	m_pCore->Update();
 
-	m_bShowGrid ? AppContext::GetCoreApi()->AddRenderData(m_pGrid) : 0;
+	m_bShowGrid ? m_pCore->AddRenderData(m_pGrid) : 0;
 
 	m_pCamera->Update();
 
-	AppContext::GetCoreApi()->Render();
-	AppContext::GetCoreApi()->ClearRenderQueue();
+	m_pCore->Render();
+	m_pCore->ClearRenderQueue();
 
-	AppContext::GetCoreApi()->Present();
-
+	m_pCore->Present();
 }
-void Renderer::UpdateSemantics()
-{
 
-}
 void Renderer::OnMouseMove(UINT nFlags, CPoint point)
 {
 	m_pCamera->OnMouseMove(nFlags, point);
@@ -103,9 +107,10 @@ bool Renderer::ShowingGrid()
 }
 void Renderer::OnMouseLButtonClick(UINT nFlags, CPoint point)
 {
-	AppContext::ClearObjectViewSelection();
-	AppContext::UpdatePropGrid(engine::GameObjectPtr());
-	AppContext::SetSelectedObject(engine::GameObjectPtr());
+	util_clear_objview_selection();
+	util_update_obj_property_grid(engine::GameObjectPtr());
+
+	Project::Instance()->SelectObject(engine::GameObjectPtr());
 }
 void Renderer::UpdateFPS()
 {
@@ -117,7 +122,7 @@ void Renderer::UpdateFPS()
 	if(dt > 500)
 	{
 		float fps = float(frame * 1000) / float(dt);
-		AppContext::UpdateStatusBar_FPS(fps);
+		util_update_status_bar_fps(fps);
 		tick = GetTickCount();
 		frame = 0;
 	}

@@ -4,8 +4,9 @@
 #include "ObjectView.h"
 #include "Resource.h"
 #include "GameEditor.h"
-#include "AppContext.h"
 #include "Renderer.h"
+#include "Project.h"
+#include "editor_utils.h"
 
 class CObjectViewMenuButton : public CMFCToolBarMenuButton
 {
@@ -110,7 +111,6 @@ int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pButton->SetMessageWnd(this);
 	}
 
-	UpdateObjectView();
 	return 0;
 }
 
@@ -119,11 +119,11 @@ void CObjectView::OnSize(UINT nType, int cx, int cy)
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
-void CObjectView::UpdateObjectView()
+void CObjectView::UpdateObjectView(engine::GameObjectPtr pRoot)
 {
 	using namespace engine;
 
-	m_wndObjectView.UpdateGameObjectTree();
+	m_wndObjectView.UpdateGameObjectTree(pRoot);
 	m_wndObjectView.Expand(m_wndObjectView.GetRootItem(), TVE_EXPAND);
 }
 
@@ -288,7 +288,7 @@ void CObjectView::OnOvDelobj()
 	// TODO: 在此添加命令处理程序代码
 	using namespace engine;
 
-	AppContext::UpdatePropGrid(GameObjectPtr());
+	util_update_obj_property_grid(GameObjectPtr());
 
 	HTREEITEM hItem = m_wndObjectView.GetSelectedItem();
 	
@@ -312,6 +312,6 @@ void CObjectView::OnOvRename()
 }
 void CObjectView::ClearSelection()
 {
-	AppContext::SetSelectedObject(engine::GameObjectPtr());
+	Project::Instance()->SelectObject(engine::GameObjectPtr());
 	m_wndObjectView.SelectItem(nullptr);
 }

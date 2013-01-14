@@ -22,7 +22,7 @@ public:
 	void AdjustLayout();
 	void OnChangeVisualStyle();
 
-	void UpdateObjectView();
+	void UpdateObjectView(engine::GameObjectPtr pRoot);
 	void ClearSelection();
 protected:
 	CObjectViewToolBar m_wndToolBar;

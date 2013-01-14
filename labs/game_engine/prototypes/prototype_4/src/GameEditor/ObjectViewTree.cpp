@@ -2,7 +2,9 @@
 #include "stdafx.h"
 #include "ObjectViewTree.h"
 
-#include "AppContext.h"
+#include "Project.h"
+#include "editor_utils.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -51,13 +53,18 @@ BOOL CObjectViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 
 	return bRes;
 }
-void CObjectViewTree::UpdateGameObjectTree()
+void CObjectViewTree::UpdateGameObjectTree(engine::GameObjectPtr pRoot)
 {
 	using namespace engine;
 
+	if(pRoot == nullptr)
+	{
+		return;
+	}
+	
+
 	DeleteTree();
 
-	GameObjectPtr pRoot = AppContext::GetCoreApi()->Root();
 
 	HTREEITEM hRoot = InsertItem(pRoot->GetName().c_str(), 5, 5);
 
@@ -188,7 +195,7 @@ void CObjectViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 
 	pObj->SetName(pTVDispInfo->item.pszText);
 
-	AppContext::UpdatePropGrid(pObj);
+	util_update_obj_property_grid(pObj);
 
 	*pResult = 1;
 }
@@ -212,9 +219,10 @@ void CObjectViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 
 	engine::GameObjectPtr pObj = GetGameObject(pNMTreeView->itemNew.hItem);
 
-	AppContext::UpdatePropGrid(pObj);
-	AppContext::SetSelectedObject(pObj);
-
+	util_update_obj_property_grid(pObj);
+	
+	Project::Instance()->SelectObject(pObj);
+	
 	// TODO: 在此添加控件通知处理程序代码
 	*pResult = 0;
 }
@@ -295,7 +303,7 @@ void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 
 			GameObjectPtr pDest = GetGameObject(htiDest);
 
-			pDest == nullptr ? pDest = AppContext::GetCoreApi()->Root() : pDest;
+			pDest == nullptr ? pDest = Project::Instance()->Root() : pDest;
 
 			if(pDest != pSrc)
 			{
@@ -319,7 +327,9 @@ void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 
 		if (bDropped)
 		{
-			AppContext::UpdateObjectView();
+			engine::GameObjectPtr pRoot = Project::Instance()->Root();
+			
+			util_update_object_view(pRoot);
 		}
 	} 
 	

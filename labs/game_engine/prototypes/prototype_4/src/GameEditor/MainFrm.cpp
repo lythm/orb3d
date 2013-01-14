@@ -11,13 +11,14 @@
 #include "Renderer.h"
 
 
-#include "AppContext.h"
 #include "MeshImporter_3DSMax.h"
 #include "Project.h"
 
 #include "RenderingSettingDlg.h"
 
 #include "PreviewWnd.h"
+#include "editor_utils.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -539,18 +540,12 @@ void CMainFrame::OnClose()
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	AppContext::UpdatePropGrid(engine::GameObjectPtr());
+	UpdatePropGrid(engine::GameObjectPtr());
+	UpdateObjectView(engine::GameObjectPtr());
 
-
-	ProjectPtr pProject = AppContext::GetProject();
-	if(pProject)
-	{
-		pProject->Close();
-		AppContext::SetProject(ProjectPtr());
-		pProject.reset();
-	}
-	AppContext::UpdateObjectView();
-
+	ProjectPtr pProject = Project::Instance();
+	pProject->Close();
+		
 	CFrameWndEx::OnClose();
 }
 CObjectView* CMainFrame::GetObjectView()
@@ -568,9 +563,9 @@ CPropertiesWnd*	CMainFrame::GetPropGrid()
 
 void CMainFrame::OnGameobjectCreateempty()
 {
-	AppContext::GetProject()->CreateObject_Empty();
+	Project::Instance()->CreateObject_Empty();
 
-	AppContext::UpdateObjectView();
+	UpdateObjectView(Project::Instance()->Root());
 
 	// TODO: 在此添加命令处理程序代码
 }
@@ -578,16 +573,16 @@ void CMainFrame::OnGameobjectCreateempty()
 
 void CMainFrame::OnViewShowgrid()
 {
-	bool bShow = AppContext::GetRenderer()->ShowingGrid();
+	bool bShow = Project::Instance()->ShowingGrid();
 
-	AppContext::GetRenderer()->ShowGrid(!bShow);
+	Project::Instance()->ShowGrid(!bShow);
 	// TODO: 在此添加命令处理程序代码
 }
 
 
 void CMainFrame::OnUpdateViewShowgrid(CCmdUI *pCmdUI)
 {
-	bool bShow = AppContext::GetRenderer()->ShowingGrid();
+	bool bShow = Project::Instance()->ShowingGrid();
 	pCmdUI->SetCheck(bShow);
 }
 
@@ -640,6 +635,8 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 
 	using namespace engine;
 
+	UpdateComClassMap();
+
 	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
 
 	pMenu->RemoveAllItems();
@@ -675,6 +672,7 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 		return false;
 	}
 
+
 	CString str;
 	CMFCToolBarMenuButton* pParent = pMenu->GetParentButton();
 
@@ -687,6 +685,8 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 		return false;
 	}
 
+
+	UpdateTemplateMap();
 	using namespace engine;
 
 	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
@@ -790,7 +790,7 @@ void CMainFrame::OnComponentMenu(UINT nID)
 	using namespace engine;
 	ExtPackage::ComponentClass* pClass = FindClassByMenuID(nID);
 
-	GameObjectPtr pObj = AppContext::GetSelectedObject();
+	GameObjectPtr pObj = Project::Instance()->GetSelObject();
 
 	if(pObj->GetComponent(pClass->m_name) != GameObjectComponentPtr())
 	{
@@ -799,11 +799,11 @@ void CMainFrame::OnComponentMenu(UINT nID)
 		return;
 	}
 
-	GameObjectComponentPtr pCom = AppContext::CreateGameObjectComponent(pClass->m_name);
+	GameObjectComponentPtr pCom = Project::Instance()->CreateGameObjectComponent(pClass->m_name);
 
 	pObj->AddComponent(pCom);
 
-	AppContext::UpdatePropGrid(pObj);
+	UpdatePropGrid(pObj);
 	return;
 }
 void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
@@ -812,10 +812,10 @@ void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
 
 	GameObjectTemplate* pTpl = FindTemplateByMenuID(nID);
 
-	GameObjectPtr pObj = AppContext::GetProject()->CreateObjectFromTpl(pTpl->GetName(), pTpl->GetName());
+	GameObjectPtr pObj = Project::Instance()->CreateObjectFromTpl(pTpl->GetName(), pTpl->GetName());
 
-	AppContext::UpdateObjectView();
-	AppContext::UpdatePropGrid(pObj);
+	UpdateObjectView(Project::Instance()->Root());
+	UpdatePropGrid(pObj);
 
 	return;
 }
@@ -825,7 +825,13 @@ bool CMainFrame::UpdateTemplateMap()
 
 	m_templateMap.clear();
 
-	GameObjectManagerPtr pManager = AppContext::GetCoreApi()->GetGameObjectManager();
+	engine::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
+	if(pCore == nullptr)
+	{
+		return false;
+	}
+
+	GameObjectManagerPtr pManager = pCore->GetGameObjectManager();
 
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
@@ -845,7 +851,13 @@ bool CMainFrame::UpdateComClassMap()
 
 	m_ComClassMap.clear();
 
-	GameObjectManagerPtr pManager = AppContext::GetCoreApi()->GetGameObjectManager();
+
+	CoreApiPtr pCore = Project::Instance()->GetCoreApi();
+	if(pCore == nullptr)
+	{
+		return false;
+	}
+	GameObjectManagerPtr pManager = pCore->GetGameObjectManager();
 
 	for(size_t i = 0; i < pManager->GetPackageCount(); ++i)
 	{
@@ -896,7 +908,8 @@ engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 }
 void CMainFrame::OnUpdateComponentMenuUI(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable(AppContext::GetSelectedObject() != engine::GameObjectPtr());
+	engine::GameObjectPtr pObj = Project::Instance()->GetSelObject();
+	pCmdUI->Enable(pObj != engine::GameObjectPtr());
 }
 void CMainFrame::OnUpdateCreateFromTemplateMenuUI(CCmdUI* pCmdUI)
 {
@@ -926,8 +939,8 @@ BOOL CMainFrame::OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* p
 	msg.lParam = lParam;
 	msg.wParam = wParam;
 
-	AppContext::HandleMessage(msg);
-
+	Project::Instance()->HandleMessage(msg);
+	
 	return CFrameWndEx::OnWndMsg(message, wParam, lParam, pResult);
 }
 
@@ -945,4 +958,20 @@ void CMainFrame::OnBuildPreview()
 	CPreviewWnd wnd(this);
 
 	wnd.DoModal();
+}
+void CMainFrame::UpdateObjectView(engine::GameObjectPtr pRoot)
+{
+	m_wndObjectView.UpdateObjectView(pRoot);
+}
+void CMainFrame::UpdatePropGrid(engine::GameObjectPtr pObj)
+{
+	m_wndProperties.UpdateGameObjectProp(pObj);
+}
+void CMainFrame::OutputInfo(const CString& info)
+{
+	m_wndOutput.OuputInfo(info);
+}
+void CMainFrame::outputBuild(const CString& build)
+{
+	m_wndOutput.OuputInfo(build);
 }

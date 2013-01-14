@@ -451,6 +451,15 @@ BEGIN
     LTEXT           "TODO: 布局窗体视图",IDC_STATIC,55,42,74,8
 END
 
+IDD_PROJECT_NEW_OPEN DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Project"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,198,156,50,14
+    PUSHBUTTON      "取消",IDCANCEL,252,156,50,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -547,6 +556,14 @@ BEGIN
     BEGIN
         RIGHTMARGIN, 129
         BOTTOMMARGIN, 93
+    END
+
+    IDD_PROJECT_NEW_OPEN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
     END
 END
 #endif    // APSTUDIO_INVOKED

@@ -106,10 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppConfig.h" />
-    <ClInclude Include="AppContext.h" />
     <ClInclude Include="AppSettingsDlg.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="AxisIndicator.h" />
+    <ClInclude Include="editor_utils.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="InspectorCtrl.h" />
     <ClInclude Include="InspectorView.h" />
@@ -129,6 +129,7 @@
     <ClInclude Include="PreviewWnd.h" />
     <ClInclude Include="ProgressDlg.h" />
     <ClInclude Include="Project.h" />
+    <ClInclude Include="ProjectWizard.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderingSettingDlg.h" />
@@ -145,10 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppConfig.cpp" />
-    <ClCompile Include="AppContext.cpp" />
     <ClCompile Include="AppSettingsDlg.cpp" />
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="AxisIndicator.cpp" />
+    <ClCompile Include="editor_utils.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InspectorCtrl.cpp" />
     <ClCompile Include="InspectorView.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="PreviewWnd.cpp" />
     <ClCompile Include="ProgressDlg.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="ProjectWizard.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderingSettingDlg.cpp" />

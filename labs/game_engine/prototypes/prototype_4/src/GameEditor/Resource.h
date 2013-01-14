@@ -102,6 +102,8 @@
 #define IDD_STARTUP                     313
 #define IDD_RENDERING_SETTING           316
 #define IDD_PREVIEW                     317
+#define IDD_DIALOG1                     318
+#define IDD_PROJECT_NEW_OPEN            318
 #define IDC_MFCCOLORBUTTON1             1000
 #define IDC_PROGRESS1                   1009
 #define IDC_PROGRESS                    1009
@@ -156,7 +158,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        318
+#define _APS_NEXT_RESOURCE_VALUE        319
 #define _APS_NEXT_COMMAND_VALUE         32815
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           313

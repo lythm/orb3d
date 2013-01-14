@@ -7,7 +7,7 @@ public:
 	GridMesh(void);
 	virtual ~GridMesh(void);
 
-	bool									Init(int size, int grid_size);
+	bool									Init(engine::CoreApiPtr pCore, int size, int grid_size);
 	void									Release();
 
 	void									Render_Depth(engine::Sys_GraphicsPtr pSysGraphics);
@@ -23,6 +23,8 @@ private:
 	engine::GPUBufferPtr					m_pVB;
 	engine::GPUBufferPtr					m_pIB;
 	engine::MaterialPtr						m_pMaterial;
+
+	engine::CoreApiPtr						m_pCore;
 
 };
 

@@ -13,13 +13,15 @@
 #include "GameEditorView.h"
 
 
-#include "AppContext.h"
-
 #include "MainFrm.h"
 #include "ObjectView.h"
 
 #include "GridMesh.h"
 #include "Renderer.h"
+
+
+#include "editor_utils.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -77,22 +79,12 @@ void CGameEditorView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	
-	CRect rc;
-
-	GetClientRect(rc);
-
-	pDC->TextOutW(rc.Width() / 2, rc.Height() / 2, L"Game Editor");
-
-	//Render();
-	
-	// TODO: 在此处为本机数据添加绘制代码
 }
 
 void CGameEditorView::OnRButtonUp(UINT nFlags , CPoint point)
 {
 
-	RendererPtr pRenderer = AppContext::GetRenderer();
+	RendererPtr pRenderer = Project::Instance()->GetRenderer();
 
 	if(pRenderer)
 	{
@@ -160,18 +152,16 @@ void CGameEditorView::OnSize(UINT nType, int cx, int cy)
 
 	if(cx != 0 && cy != 0)
 	{
-		AppContext::ResizeRenderer(cx, cy);
+		Project::Instance()->ResizeRenderer(cx, cy);
+		
 	}
-
 }
-
 
 void CGameEditorView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
-
-	RendererPtr pRenderer = AppContext::GetRenderer();
+	
+	RendererPtr pRenderer = Project::Instance()->GetRenderer();
 	
 	if(pRenderer)
 	{
@@ -192,8 +182,8 @@ void CGameEditorView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*
 
 void CGameEditorView::OnDestroy()
 {
-	AppContext::ReleaseContext();
-
+	//AppContext::ReleaseContext();
+	util_set_rendering_wnd(nullptr);
 	CView::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
@@ -215,7 +205,7 @@ void CGameEditorView::OnMouseHWheel(UINT nFlags, short zDelta, CPoint pt)
 BOOL CGameEditorView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	RendererPtr pRenderer = AppContext::GetRenderer();
+	RendererPtr pRenderer = Project::Instance()->GetRenderer();
 
 	if(pRenderer)
 	{
@@ -229,7 +219,7 @@ void CGameEditorView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	RendererPtr pRenderer = AppContext::GetRenderer();
+	RendererPtr pRenderer = Project::Instance()->GetRenderer();
 
 	if(pRenderer)
 	{
@@ -257,15 +247,8 @@ int CGameEditorView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	//AppContext::ReleaseContext();
-	CRect rc;
-	GetClientRect(rc);
-	if(false == AppContext::InitContext(m_hWnd, 2, 2))
-	{
-		AfxMessageBox(_T("Failed to init engine."), MB_OK | MB_ICONERROR);
-		return -1;
-	}
-
+	util_set_rendering_wnd(this);
+		
 	return 0;
 }
 
@@ -281,9 +264,9 @@ void CGameEditorView::OnLButtonDblClk(UINT nFlags, CPoint point)
 void CGameEditorView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	if(AppContext::GetRenderer())
+	if(Project::Instance()->GetRenderer())
 	{
-		AppContext::GetRenderer()->OnMouseLButtonClick(nFlags, point);
+		Project::Instance()->GetRenderer()->OnMouseLButtonClick(nFlags, point);
 	}
 	CView::OnLButtonUp(nFlags, point);
 }
