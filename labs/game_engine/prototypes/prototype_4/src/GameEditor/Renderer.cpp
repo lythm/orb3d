@@ -21,6 +21,7 @@ bool Renderer::Initialize(engine::CoreApiPtr pCore)
 	using namespace engine;
 
 	m_pCore = pCore;
+	m_pRS = m_pCore->GetRenderSystem();
 
 	m_pGrid = boost::shared_ptr<GridMesh>(new GridMesh());
 
@@ -127,4 +128,8 @@ void Renderer::UpdateFPS()
 		frame = 0;
 	}
 	frame++;
+}
+void Renderer::SetClearColor(const math::Color4& clr)
+{
+	m_pRS->SetClearColor(clr);
 }

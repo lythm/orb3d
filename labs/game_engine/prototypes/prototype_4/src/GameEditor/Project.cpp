@@ -11,6 +11,7 @@ Project::Project(void)
 {
 	m_objNo	= 0;
 
+	m_clearClr = math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
 }
 
 
@@ -20,14 +21,11 @@ Project::~Project(void)
 
 bool Project::New(const _TCHAR* filename)
 {
-	s_Allocator.Initialize();
+	//s_Allocator.Initialize();
 
-	if(false == InitEngine())
-	{
-		return false;
-	}
+	Reset();
 
-	if(false == InitRenderer())
+	if(false == CreateNewProject(filename))
 	{
 		return false;
 	}
@@ -37,12 +35,12 @@ bool Project::New(const _TCHAR* filename)
 		AddDefaultLight();
 	}
 
-	util_update_object_view(m_pCore->Root());
-
 	return true;
 }
 bool Project::Load(const _TCHAR* filename)
 {
+	Reset();
+
 	m_filePath = filename;
 
 	USES_CONVERSION;
@@ -69,15 +67,30 @@ bool Project::Load(const _TCHAR* filename)
 		AddDefaultLight();
 	}
 
-	util_update_object_view(m_pCore->Root());
+//	util_update_object_view(m_pCore->Root());
 	return true;
 }
 bool Project::Save(const _TCHAR* filename)
 {
+
 	TiXmlDocument doc;
 
 	USES_CONVERSION;
-	doc.InsertEndChild(TiXmlElement("Project"));
+	TiXmlNode* pRoot = doc.InsertEndChild(TiXmlElement("project"));
+
+	TiXmlElement scene("scene");
+
+	pRoot->InsertEndChild(scene);
+	
+	TiXmlElement clearClr("clear_color");
+
+	char szBuffer[1024];
+
+	sprintf_s(szBuffer,1024, "%.3f,%.3f,%.3f,%.3f", m_clearClr.r, m_clearClr.g, m_clearClr.b, m_clearClr.a);
+
+	clearClr.InsertEndChild(TiXmlText(szBuffer));
+
+	pRoot->InsertEndChild(clearClr);
 
 	if(false == doc.SaveFile(W2A(filename)))
 	{
@@ -87,6 +100,10 @@ bool Project::Save(const _TCHAR* filename)
 	m_filePath = filename;
 	return true;
 }
+bool Project::Save()
+{
+	return Save(m_filePath.wstring().c_str());
+}
 void Project::Close()
 {
 	if(m_pCore)
@@ -95,7 +112,7 @@ void Project::Close()
 	}
 
 	m_pSelObject.reset();
-	
+
 	ReleaseRenderer();
 	ReleaseEngine();
 
@@ -227,8 +244,7 @@ void Project::ReleaseEngine()
 }
 void Project::Reset()
 {
-	ReleaseRenderer();
-	ReleaseEngine();
+	Close();
 
 	InitEngine();
 	InitRenderer();
@@ -300,3 +316,102 @@ ProjectPtr Project::Instance()
 	return s_pInstance;
 }
 
+bool Project::CreateNewProject(const CString& dir)
+{
+	using namespace boost;
+	using namespace filesystem;
+
+	path p(dir.GetString());
+
+	if(p.has_extension() == false)
+	{
+		p += path(L".gp");
+	}
+	path tar = p.parent_path();
+
+	path init = initial_path();
+
+	if(false == CopyDirectory(init / path(L"assets"), tar / path(L"assets")))
+	{
+		return false;
+	}
+
+	if(false == create_directory(tar / path(L"temp")))
+	{
+		return false;
+	}
+
+	if(false == create_directory(tar / path(L"packages")))
+	{
+		return false;
+	}
+
+	Save(dir);
+	return true;
+}
+bool Project::CopyDirectory(boost::filesystem::path src, boost::filesystem::path dst)
+{
+	namespace fs = boost::filesystem;
+	try
+	{
+		// Check whether the function call is valid
+		if( !fs::exists(src) || !fs::is_directory(src))
+		{
+			return false;
+		}
+		if(fs::exists(dst))
+		{
+			return false;
+		}
+		// Create the destination directory
+		if(!fs::create_directory(dst))
+		{
+			return false;
+		}
+	}
+	catch(fs::filesystem_error const & e)
+	{
+		std::cerr << e.what() << std::endl;
+		return false;
+	}
+	// Iterate through the source directory
+	for(fs::directory_iterator file(src); file != fs::directory_iterator(); ++file)
+	{
+		try
+		{
+			fs::path current(file->path());
+			if(fs::is_directory(current))
+			{
+				// Found directory: Recursion
+				if(!CopyDirectory(current, dst / current.filename()))
+				{
+					return false;
+				}
+			}
+			else
+			{
+				// Found file: Copy
+				fs::copy_file(current, dst / current.filename());
+			}
+		}
+		catch(fs::filesystem_error const & e)
+		{
+			std:: cerr << e.what() << std::endl;
+		}
+	}
+	return true;
+}
+void Project::SetClearColor(const math::Color4& clr)
+{
+	m_clearClr = clr;
+
+	m_pRenderer->SetClearColor(m_clearClr);
+}
+const math::Color4 Project::GetClearColor()
+{
+	return m_clearClr;
+}
+boost::filesystem::path	Project::GetProjectPath()
+{
+	return m_filePath.parent_path();
+}

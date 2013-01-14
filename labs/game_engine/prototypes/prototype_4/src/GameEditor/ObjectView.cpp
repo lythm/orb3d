@@ -111,6 +111,8 @@ int CObjectView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		pButton->SetMessageWnd(this);
 	}
 
+	UpdateObjectView(Project::Instance()->Root());
+
 	return 0;
 }
 

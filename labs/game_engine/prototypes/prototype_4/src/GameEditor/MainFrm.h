@@ -41,6 +41,7 @@ public:
 	void					UpdatePropGrid(engine::GameObjectPtr pObj);
 	void					OutputInfo(const CString& info);
 	void					outputBuild(const CString& build);
+	void					UpdateAssetsView();
 private:
 	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
 	engine::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);
@@ -105,6 +106,10 @@ public:
 	virtual BOOL OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult);
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	afx_msg void OnBuildPreview();
+	afx_msg void OnFileNew();
+	afx_msg void OnFileOpen();
+	afx_msg void OnFileSave();
+	afx_msg void OnFileSaveAs();
 };
 
 

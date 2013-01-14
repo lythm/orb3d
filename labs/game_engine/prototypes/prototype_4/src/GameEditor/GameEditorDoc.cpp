@@ -49,7 +49,7 @@ BOOL CGameEditorDoc::OnNewDocument()
 		return FALSE;
 
 
-	CProjectWizard pw;
+	CProjectWizard pw(util_get_main_frame());
 	if(IDOK != pw.DoModal())
 	{
 		return FALSE;
@@ -72,36 +72,8 @@ BOOL CGameEditorDoc::OnNewDocument()
 
 	//d.DestroyWindow();
 	
-	// TODO: 在此添加重新初始化代码
-	// (SDI 文档将重用该文档)
-
-	ProjectPtr pProject = Project::Instance();
-	
-	/*if(pProject == ProjectPtr())
-	{
-		CStartDialog dlg;
-		if(IDOK != dlg.DoModal())
-		{
-			return FALSE;
-		}
-		POSITION pos = GetFirstViewPosition();
-		GetNextView(pos)->SetTimer(0, 100 / 1000, NULL);
-	}
-*/
-	
-	pProject->Close();
-	
-
-	if(pProject->New(L"") == false)
-	{
-		util_output_info(L"Failed to create new project.");
-		return TRUE;
-	}
-
-	util_output_info(L"Project created.");
-
-	UpdateAllViews(NULL);
-
+	util_update_object_view(Project::Instance()->Root());
+	util_update_assets_view();
 
 	return CDocument::OnNewDocument();
 }
@@ -215,6 +187,7 @@ BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 
 	return CDocument::OnOpenDocument(lpszPathName);
 }
+
 
 
 BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)

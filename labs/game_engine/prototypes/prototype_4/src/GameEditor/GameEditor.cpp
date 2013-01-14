@@ -72,7 +72,7 @@ BOOL CGameEditorApp::InitInstance()
 
 	CWinAppEx::InitInstance();
 
-
+	
 	// ≥ı ºªØ OLE ø‚
 	if (!AfxOleInit())
 	{

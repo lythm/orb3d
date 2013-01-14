@@ -108,6 +108,8 @@
 #define IDC_PROGRESS1                   1009
 #define IDC_PROGRESS                    1009
 #define IDC_PROGRESS_INFO               1010
+#define IDC_PW_BUTTON_NEW               1013
+#define IDC_PW_BUTTON_OPEN              1014
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -158,9 +160,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        319
+#define _APS_NEXT_RESOURCE_VALUE        321
 #define _APS_NEXT_COMMAND_VALUE         32815
-#define _APS_NEXT_CONTROL_VALUE         1011
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

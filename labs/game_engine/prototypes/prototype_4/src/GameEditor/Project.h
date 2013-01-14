@@ -11,6 +11,7 @@ public:
 	bool								New(const _TCHAR* filename);
 	bool								Load(const _TCHAR* filename);
 	bool								Save(const _TCHAR* filename);
+	bool								Save();
 	void								Close();
 	
 	void								CreateObject_Empty();
@@ -36,8 +37,14 @@ public:
 	void								ShowGrid(bool bShow);
 
 	static ProjectPtr					Instance();
+
+	void								SetClearColor(const math::Color4& clr);
+	const math::Color4					GetClearColor();
+
+	boost::filesystem::path				GetProjectPath();
 private:
 
+	bool								CreateNewProject(const CString& dir);
 	void								Reset();
 
 	bool								InitRenderer();
@@ -49,8 +56,9 @@ private:
 private:
 	
 	void								AddDefaultLight();
+	bool								CopyDirectory(boost::filesystem::path src, boost::filesystem::path dst);
 private:
-	CString								m_filePath;
+	boost::filesystem::path				m_filePath;
 
 	PathManagerPtr						m_pPathManager;
 
@@ -62,8 +70,10 @@ private:
 
 	engine::GameObjectPtr				m_pSelObject;
 
-	static engine::PoolAllocator		s_Allocator;
+	math::Color4						m_clearClr;
 
+	
+	static engine::PoolAllocator		s_Allocator;
 	static ProjectPtr					s_pInstance;
 };
 

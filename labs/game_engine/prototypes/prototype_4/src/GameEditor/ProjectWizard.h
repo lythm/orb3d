@@ -1,6 +1,7 @@
 #pragma once
 
 #include "resource.h"
+#include "afxcmn.h"
 
 // CProjectWizard ¶Ô»°¿ò
 
@@ -20,4 +21,10 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 	virtual void OnOK();
+public:
+	
+	virtual BOOL OnInitDialog();
+
+	afx_msg void OnBnClickedPwButtonNew();
+	afx_msg void OnBnClickedPwButtonOpen();
 };

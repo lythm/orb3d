@@ -11,7 +11,7 @@ CGameEditorApp* util_get_app()
 }
 CMainFrame* util_get_main_frame()
 {
-	return (CMainFrame*)AfxGetMainWnd();
+	return (CMainFrame*)AfxGetApp()->GetMainWnd();
 }
 void util_update_object_view(engine::GameObjectPtr pObj)
 {
@@ -46,4 +46,10 @@ void util_set_rendering_wnd(CWnd* pWnd)
 CWnd*  util_get_rendering_wnd()
 {
 	return g_pRenderWnd;
+}
+
+void util_update_assets_view()
+{
+	CMainFrame* pMain = util_get_main_frame();
+	pMain->UpdateAssetsView();
 }

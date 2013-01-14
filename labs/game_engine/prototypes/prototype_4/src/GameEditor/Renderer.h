@@ -20,6 +20,7 @@ public:
 	bool								ShowingGrid();
 	void								UpdateFPS();
 
+	void								SetClearColor(const math::Color4& clr);
 private:
 		
 private:
@@ -27,6 +28,6 @@ private:
 	bool								m_bShowGrid;
 	EditorCameraPtr						m_pCamera;
 	engine::CoreApiPtr					m_pCore;
-
+	engine::RenderSystemPtr				m_pRS;
 };
 

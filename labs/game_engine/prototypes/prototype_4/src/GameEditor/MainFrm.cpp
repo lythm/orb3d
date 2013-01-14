@@ -55,6 +55,10 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_IMPORT_IMPORTMAXMESH, &CMainFrame::OnImportImportmaxmesh)
 	ON_COMMAND(ID_RENDERING_SETTING, &CMainFrame::OnRenderingSetting)
 	ON_COMMAND(ID_BUILD_PREVIEW, &CMainFrame::OnBuildPreview)
+	ON_COMMAND(ID_FILE_NEW, &CMainFrame::OnFileNew)
+	ON_COMMAND(ID_FILE_OPEN, &CMainFrame::OnFileOpen)
+	ON_COMMAND(ID_FILE_SAVE, &CMainFrame::OnFileSave)
+	ON_COMMAND(ID_FILE_SAVE_AS, &CMainFrame::OnFileSaveAs)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -974,4 +978,31 @@ void CMainFrame::OutputInfo(const CString& info)
 void CMainFrame::outputBuild(const CString& build)
 {
 	m_wndOutput.OuputInfo(build);
+}
+
+void CMainFrame::OnFileNew()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMainFrame::OnFileOpen()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMainFrame::OnFileSave()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CMainFrame::OnFileSaveAs()
+{
+	// TODO: 在此添加命令处理程序代码
+}
+void CMainFrame::UpdateAssetsView()
+{
+	m_wndFileView.ScanFolder(Project::Instance()->GetProjectPath().wstring().c_str());
 }

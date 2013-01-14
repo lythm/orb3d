@@ -16,3 +16,5 @@ void											util_update_status_bar_fps(float fps);
 
 void											util_set_rendering_wnd(CWnd* pWnd);
 CWnd*											util_get_rendering_wnd();
+
+void											util_update_assets_view();

@@ -56,13 +56,12 @@ BOOL CObjectViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 void CObjectViewTree::UpdateGameObjectTree(engine::GameObjectPtr pRoot)
 {
 	using namespace engine;
-
+	
 	if(pRoot == nullptr)
 	{
 		return;
 	}
 	
-
 	DeleteTree();
 
 

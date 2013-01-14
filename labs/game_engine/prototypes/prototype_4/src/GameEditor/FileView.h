@@ -33,7 +33,6 @@ protected:
 	CFileViewToolBar m_wndToolBar;
 
 protected:
-	void FillFileView();
 
 	void			_fill_view(boost::filesystem::path p, HTREEITEM hParent);
 
