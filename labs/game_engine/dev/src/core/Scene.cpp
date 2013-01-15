@@ -107,6 +107,18 @@ namespace ld3d
 			std::wstring comName;
 			pStream->ReadString(comName);
 
+			if(comName == L"PropertyManager")
+			{
+				continue;
+			}
+			GameObjectComponentPtr pCom = m_pObjectManager->CreateComponent(comName);
+			if(pCom == nullptr)
+			{
+				return false;
+			}
+			pObj->AddComponent(pCom);
+
+			pCom->UnSerialize(pStream);
 
 		}
 		
@@ -122,3 +134,4 @@ namespace ld3d
 		return true;
 	}
 }
+

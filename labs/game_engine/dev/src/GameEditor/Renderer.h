@@ -21,6 +21,8 @@ public:
 	void								UpdateFPS();
 
 	void								SetClearColor(const math::Color4& clr);
+
+	EditorCameraPtr						GetCamera();
 private:
 		
 private:

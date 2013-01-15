@@ -207,7 +207,6 @@ void EditorCamera::Init(ld3d::CoreApiPtr pCore)
 	SetFocusPos(Vector3(0, 0,0));
 	
 	LookAtLH(GetEyePos(), GetFocusPos(), Vector3(0, 1, 0));
-
 }
 math::Ray EditorCamera::PickRay(int x, int y)
 {
@@ -222,8 +221,12 @@ math::Vector3 EditorCamera::GetFocusPos()
 void EditorCamera::SetFocusPos(const math::Vector3& at)
 {
 	m_at = at;
+
+	LookAtLH(GetEyePos(), GetFocusPos(), math::Vector3(0, 1, 0));
 }
 void EditorCamera::SetEyePos(const math::Vector3& eye)
 {
 	m_eye = eye;
+
+	LookAtLH(GetEyePos(), GetFocusPos(), math::Vector3(0, 1, 0));
 }

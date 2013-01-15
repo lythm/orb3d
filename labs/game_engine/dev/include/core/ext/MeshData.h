@@ -17,12 +17,14 @@ namespace ld3d
 		bool						OnAttach();
 		void						OnDetach();
 
-		bool						LoadMesh();
-
 		void						SetMeshAsset(const std::wstring& asset);
 		const std::wstring&			GetMeshAsset();
 
+
+		bool						Serialize(DataStream* pStream);
+		bool						UnSerialize(DataStream* pStream);
 	private:
+		bool						LoadMesh(const std::wstring& asset);
 		void						ResetMeshRenderer();
 	private:
 		MeshPtr						m_pMesh;

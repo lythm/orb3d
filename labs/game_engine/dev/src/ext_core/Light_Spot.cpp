@@ -49,6 +49,11 @@ namespace ld3d
 												&SpotLight::SetDiffuseColor);
 
 			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
+												L"Intensity", 
+												&SpotLight::GetIntensity,
+												&SpotLight::SetIntensity);
+
+			pPM->RegisterProperty<float, SpotLight>(m_pLight.get(), 
 												L"Angle", 
 												&SpotLight::GetAngle,
 												&SpotLight::SetAngle);
@@ -57,6 +62,11 @@ namespace ld3d
 												L"Range", 
 												&SpotLight::GetRange,
 												&SpotLight::SetRange);
+
+			pPM->RegisterProperty<bool, SpotLight>(m_pLight.get(), 
+												L"Enabled", 
+												&SpotLight::GetEnabled,
+												&SpotLight::SetEnabled);
 		}
 		pPM->End();
 		return true;
@@ -66,5 +76,52 @@ namespace ld3d
 		m_pRS->RemoveLight(m_pLight);
 		m_pLight->Release();
 		m_pLight.reset();
+	}
+	bool Light_Spot::Serialize(DataStream* pStream)
+	{
+		bool bEnabled = m_pLight->GetEnabled();
+		pStream->WriteBool(bEnabled);
+
+		bool bCastShadow = m_pLight->GetCastShadow();
+		pStream->WriteBool(bCastShadow);
+
+		math::Color4 diff = m_pLight->GetDiffuseColor();
+		pStream->Write(&diff, sizeof(diff));
+
+		float intensity = m_pLight->GetIntensity();
+		pStream->WriteFloat32(intensity);
+
+		float angle = m_pLight->GetAngle();
+		pStream->WriteFloat32(angle);
+
+		float range = m_pLight->GetRange();
+		pStream->WriteFloat32(range);
+
+		return true;
+
+	}
+	bool Light_Spot::UnSerialize(DataStream* pStream)
+	{
+		bool bEnabled = pStream->ReadBool();
+		m_pLight->SetEnabled(bEnabled);
+
+		bool bCastShadow = pStream->ReadBool();
+		m_pLight->SetCastShadow(bCastShadow);
+
+		math::Color4 diff;
+		pStream->Read(&diff, sizeof(diff));
+		m_pLight->SetDiffuseColor(diff);
+
+		float intensity = pStream->ReadFloat32();
+		m_pLight->SetIntensity(intensity);
+
+		float angle = pStream->ReadFloat32();
+		m_pLight->SetAngle(angle);
+
+		float range = pStream->ReadFloat32();
+		m_pLight->SetRange(range);
+
+		return true;
+		
 	}
 }

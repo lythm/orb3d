@@ -94,6 +94,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">utils_pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\utils\MemPool.h" />
@@ -101,6 +102,7 @@
     <ClInclude Include="..\..\include\utils\tinystr.h" />
     <ClInclude Include="..\..\include\utils\tinyxml.h" />
     <ClInclude Include="..\..\include\utils\utils_all.h" />
+    <ClInclude Include="..\..\include\utils\Version.h" />
     <ClInclude Include="utils_pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

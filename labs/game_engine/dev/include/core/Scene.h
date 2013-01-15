@@ -3,6 +3,7 @@
 
 namespace ld3d
 {
+
 	class EXPORT_CLASS Scene
 	{
 	public:

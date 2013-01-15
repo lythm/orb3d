@@ -20,8 +20,8 @@ public:
 	bool								LoadScene(const _TCHAR* filename);
 	
 	void								CreateObject_Empty();
-	ld3d::GameObjectPtr				CreateObject(const std::wstring& name);
-	ld3d::GameObjectPtr				CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
+	ld3d::GameObjectPtr					CreateObject(const std::wstring& name);
+	ld3d::GameObjectPtr					CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
 	ld3d::GameObjectComponentPtr		CreateGameObjectComponent(const std::wstring& name);
 	ld3d::CoreApiPtr					GetCoreApi();
 	RendererPtr							GetRenderer();
@@ -29,9 +29,9 @@ public:
 	void								ResizeRenderer(int cx, int cy);
 
 	void								SelectObject(ld3d::GameObjectPtr pObj);
-	ld3d::GameObjectPtr				GetSelObject();
+	ld3d::GameObjectPtr					GetSelObject();
 
-	ld3d::GameObjectPtr				Root();
+	ld3d::GameObjectPtr					Root();
 
 	void								HandleMessage(MSG& msg);
 
@@ -76,12 +76,12 @@ private:
 
 	ld3d::CoreApiPtr					m_pCore;
 
-	ld3d::GameObjectPtr				m_pSelObject;
+	ld3d::GameObjectPtr					m_pSelObject;
 
 	math::Color4						m_clearClr;
 	GameScenePtr						m_pScene;
 	
-	static ld3d::PoolAllocator		s_Allocator;
+	static ld3d::PoolAllocator			s_Allocator;
 	static ProjectPtr					s_pInstance;
 };
 

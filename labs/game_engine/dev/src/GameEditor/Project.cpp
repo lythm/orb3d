@@ -5,6 +5,7 @@
 #include "editor_utils.h"
 #include "MainFrm.h"
 #include "GameScene.h"
+#include "EditorCamera.h"
 
 ld3d::PoolAllocator				Project::s_Allocator;
 ProjectPtr							Project::s_pInstance = ProjectPtr();
@@ -53,13 +54,45 @@ bool Project::Load(const _TCHAR* filename)
 
 	TiXmlDocument doc;
 
-	doc.LoadFile(W2A(filename));
+	if(false == doc.LoadFile(W2A(filename)))
+	{
+		return false;
+	}
 
 	TiXmlElement* root = doc.RootElement();
 	if(root == nullptr)
 	{
 		return false;
 	}
+
+	TiXmlElement* camera = root->FirstChildElement("camera");
+	if(camera)
+	{
+		TiXmlElement* eye = camera->FirstChildElement("eye_pos");
+		if(eye)
+		{
+			math::Vector3 ep;
+			if(eye->GetText())
+			{
+				sscanf_s(eye->GetText(), "%f, %f, %f", &ep.x, &ep.y, &ep.z);
+			}
+			m_pRenderer->GetCamera()->SetEyePos(ep);
+		}
+		
+		TiXmlElement* focus = camera->FirstChildElement("focus_pos");
+		if(focus)
+		{
+			math::Vector3 fp;
+			if(focus->GetText())
+			{
+				sscanf_s(focus->GetText(), "%f, %f, %f", &fp.x, &fp.y, &fp.z);
+			}
+		
+			m_pRenderer->GetCamera()->SetFocusPos(fp);
+		}
+	}
+
+
 	TiXmlElement* scene = root->FirstChildElement("scene");
 	
 	m_pScene = GameScenePtr(new GameScene(m_pCore));
@@ -91,7 +124,10 @@ bool Project::Save(const _TCHAR* filename)
 
 	TiXmlElement scene("scene");
 
-	scene.InsertEndChild(TiXmlText(m_pScene->GetFileName().string().c_str()));
+	if(m_pScene)
+	{
+		scene.InsertEndChild(TiXmlText(m_pScene->GetFileName().string().c_str()));
+	}
 	pRoot->InsertEndChild(scene);
 	
 	TiXmlElement clearClr("clear_color");
@@ -103,6 +139,25 @@ bool Project::Save(const _TCHAR* filename)
 	clearClr.InsertEndChild(TiXmlText(szBuffer));
 
 	pRoot->InsertEndChild(clearClr);
+
+	TiXmlElement camera("camera");
+
+	math::Vector3 eye = m_pRenderer->GetCamera()->GetEyePos();
+	math::Vector3 focus = m_pRenderer->GetCamera()->GetFocusPos();
+
+	
+	TiXmlElement eEye("eye_pos");
+	sprintf_s(szBuffer,1024, "%.3f,%.3f,%.3f", eye.z, eye.y, eye.z);
+	eEye.InsertEndChild(TiXmlText(szBuffer));
+
+	TiXmlElement eFocus("focus_pos");
+	sprintf_s(szBuffer,1024, "%.3f,%.3f,%.3f", focus.z, focus.y, focus.z);
+	eFocus.InsertEndChild(TiXmlText(szBuffer));
+
+	camera.InsertEndChild(eEye);
+	camera.InsertEndChild(eFocus);
+
+	pRoot->InsertEndChild(camera);
 
 	if(false == doc.SaveFile(W2A(filename)))
 	{

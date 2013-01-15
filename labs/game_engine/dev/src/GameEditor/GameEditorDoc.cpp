@@ -173,6 +173,11 @@ void CGameEditorDoc::Dump(CDumpContext& dc) const
 
 BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
+	using namespace ld3d;
+
+	util_update_obj_property_grid(GameObjectPtr());
+	util_update_object_view(GameObjectPtr());
+
 	ProjectPtr pProject = Project::Instance();
 
 	pProject->Close();
@@ -184,7 +189,7 @@ BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	}
 
 	util_output_info(L"Project openned.");
-
+	util_update_object_view(Project::Instance()->Root());
 	return CDocument::OnOpenDocument(lpszPathName);
 }
 

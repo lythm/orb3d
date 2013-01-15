@@ -11,6 +11,9 @@ namespace ld3d
 		void										Update();
 		DirectionalLightPtr							GetLight();
 
+		bool										Serialize(DataStream* pStream);
+		bool										UnSerialize(DataStream* pStream);
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

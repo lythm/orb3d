@@ -85,25 +85,68 @@ namespace ld3d
 	{
 		m_meshAsset = asset;
 	
-		if(m_meshAsset == L"Cube")
+		if(m_pMesh != nullptr)
 		{
-			if(m_pMesh != nullptr)
-			{
-				m_pMesh->Destroy();	
-			}
-			
+			m_pMesh->Destroy();	
+		}
+
+		if(m_meshAsset == L"_cube_")
+		{
 			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
-			MeshPtr pMesh = MeshUtil::CreateCube(20, pMaterial);
+			MeshPtr pMesh = MeshUtil::CreateCube(1, pMaterial);
 			m_pMesh = pMesh;
 			ResetMeshRenderer();
+		}
+		else if(m_meshAsset == L"_sphere_")
+		{
+			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MeshPtr pMesh = MeshUtil::CreateSphere(1, 50, 50, pMaterial);
+			m_pMesh = pMesh;
+			ResetMeshRenderer();
+		}
+		else if(m_meshAsset == L"_cone_")
+		{
+			
+			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MeshPtr pMesh = MeshUtil::CreateCone(1, 30, 50, pMaterial);
+			m_pMesh = pMesh;
+			ResetMeshRenderer();
+		}
+		else if(m_meshAsset == L"_plane_")
+		{
+						
+			MaterialPtr pMaterial = m_pManager->GetRenderSystem()->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
+			MeshPtr pMesh = MeshUtil::CreatePlane(100, pMaterial);
+			m_pMesh = pMesh;
+			ResetMeshRenderer();
+		}
+		else
+		{
+			// load mesh assets
+			LoadMesh(m_meshAsset);
 		}
 	}
 	const std::wstring& MeshData::GetMeshAsset()
 	{
 		return m_meshAsset;
 	}
-	bool MeshData::LoadMesh()
+
+	bool MeshData::LoadMesh(const std::wstring& asset)
 	{
+		return true;
+	}
+
+	bool MeshData::Serialize(DataStream* pStream)
+	{
+		pStream->WriteString(m_meshAsset);
+		return true;
+	}
+	bool MeshData::UnSerialize(DataStream* pStream)
+	{
+		pStream->ReadString(m_meshAsset);
+
+		SetMeshAsset(m_meshAsset);
+
 		return true;
 	}
 }

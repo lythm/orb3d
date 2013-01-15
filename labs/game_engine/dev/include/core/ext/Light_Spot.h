@@ -12,6 +12,9 @@ namespace ld3d
 		void										Update();
 		SpotLightPtr								GetLight();
 
+		bool										Serialize(DataStream* pStream);
+		bool										UnSerialize(DataStream* pStream);
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

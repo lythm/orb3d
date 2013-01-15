@@ -13,6 +13,9 @@ namespace ld3d
 		void										Update();
 		PointLightPtr								GetLight();
 
+		bool										Serialize(DataStream* pStream);
+		bool										UnSerialize(DataStream* pStream);
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

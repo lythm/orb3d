@@ -11,6 +11,11 @@ namespace ld3d
 		void										Update();
 		SkyLightPtr									GetLight();
 
+
+		bool										Serialize(DataStream* pStream);
+		bool										UnSerialize(DataStream* pStream);
+
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

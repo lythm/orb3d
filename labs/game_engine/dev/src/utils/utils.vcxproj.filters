@@ -36,6 +36,9 @@
     <ClCompile Include="PropertySet.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Version.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\utils\tinystr.h">
@@ -54,6 +57,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\utils\PropertySet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\Version.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

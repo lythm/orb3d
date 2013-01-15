@@ -54,25 +54,18 @@ namespace ld3d
 	{
 		return m_pObject;
 	}
-	void GameObjectComponent::OnComponentAttached(GameObjectComponentPtr pCom)
-	{
-	}
-	void GameObjectComponent::OnComponentDetached(GameObjectComponentPtr pCom)
-	{
-	}
+	
 	bool GameObjectComponent::Serialize(DataStream* pStream)
 	{
 		
 		return true;
 	}
-	void GameObjectComponent::UnSerialize(DataStream* pStream)
-	{
-
-	}
-	bool GameObjectComponent::IsExclusive()
+	bool GameObjectComponent::UnSerialize(DataStream* pStream)
 	{
 		return true;
+
 	}
+	
 	GameObjectComponentPtr GameObjectComponent::Clone()
 	{
 		GameObjectComponentPtr pClone = alloc_object<GameObjectComponent, GameObjectManagerPtr>(m_pManager);

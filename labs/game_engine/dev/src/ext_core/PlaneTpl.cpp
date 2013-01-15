@@ -15,14 +15,8 @@ namespace ld3d
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Plane");
 		
-		RenderSystemPtr pRS = m_pManager->GetRenderSystem();
-
-
-		MaterialPtr pMaterial = pRS->CreateMaterialFromFile("./assets/standard/material/editor_shape.fx");
-		MeshPtr pMesh = MeshUtil::CreatePlane(100, pMaterial);
-
 		MeshDataPtr pMD = boost::shared_dynamic_cast<MeshData>(m_pManager->CreateComponent(L"MeshData"));
-		pMD->SetMesh(pMesh);
+		pMD->SetMeshAsset(L"_plane_");
 
 		pObj->AddComponent(pMD);
 

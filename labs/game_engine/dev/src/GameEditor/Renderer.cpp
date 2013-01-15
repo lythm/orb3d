@@ -133,3 +133,7 @@ void Renderer::SetClearColor(const math::Color4& clr)
 {
 	m_pRS->SetClearColor(clr);
 }
+EditorCameraPtr	Renderer::GetCamera()
+{
+	return m_pCamera;
+}
