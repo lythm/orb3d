@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A2407401-1B15-44BB-B285-5878BDE949C7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>core</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\propsheets\common.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\propsheets\common.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\bin\</OutDir>
+    <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>D:\sdk\boost_1_47_0\stage\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>core_pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\include;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>..\..\lib\$(ProjectName).lib</ImportLibrary>
+      <AdditionalDependencies>utils.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\core\Allocator.h" />
+    <ClInclude Include="..\..\include\core\ArcBall.h" />
+    <ClInclude Include="..\..\include\core\BaseCamera.h" />
+    <ClInclude Include="..\..\include\core\Camera.h" />
+    <ClInclude Include="..\..\include\core\CoreApi.h" />
+    <ClInclude Include="..\..\include\core\core_all.h" />
+    <ClInclude Include="..\..\include\core\core_ptr.h" />
+    <ClInclude Include="..\..\include\core\DataStream.h" />
+    <ClInclude Include="..\..\include\core\DataStream_File.h" />
+    <ClInclude Include="..\..\include\core\DataStream_Mem.h" />
+    <ClInclude Include="..\..\include\core\DepthStencilBuffer.h" />
+    <ClInclude Include="..\..\include\core\DirectionalLight.h" />
+    <ClInclude Include="..\..\include\core\Event.h" />
+    <ClInclude Include="..\..\include\core\EventDispatcher.h" />
+    <ClInclude Include="..\..\include\core\ExtPackage.h" />
+    <ClInclude Include="..\..\include\core\GameInterface.h" />
+    <ClInclude Include="..\..\include\core\GameObject.h" />
+    <ClInclude Include="..\..\include\core\GameObjectComponent.h" />
+    <ClInclude Include="..\..\include\core\GameObjectManager.h" />
+    <ClInclude Include="..\..\include\core\GameObjectTemplate.h" />
+    <ClInclude Include="..\..\include\core\GFX.h" />
+    <ClInclude Include="..\..\include\core\GPUBuffer.h" />
+    <ClInclude Include="..\..\include\core\g_format.h" />
+    <ClInclude Include="..\..\include\core\Light.h" />
+    <ClInclude Include="..\..\include\core\LightManager.h" />
+    <ClInclude Include="..\..\include\core\Mesh.h" />
+    <ClInclude Include="..\..\include\core\MeshSerializer.h" />
+    <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />
+    <ClInclude Include="..\..\include\core\MeshUtil.h" />
+    <ClInclude Include="..\..\include\core\PostEffectManager.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_FinalCompose.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
+    <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
+    <ClInclude Include="..\..\include\core\RenderTarget.h" />
+    <ClInclude Include="..\..\include\core\PointLight.h" />
+    <ClInclude Include="..\..\include\core\PoolAllocator.h" />
+    <ClInclude Include="..\..\include\core\PostEffect.h" />
+    <ClInclude Include="..\..\include\core\property_types.h" />
+    <ClInclude Include="..\..\include\core\RenderData.h" />
+    <ClInclude Include="..\..\include\core\RenderState.h" />
+    <ClInclude Include="..\..\include\core\RenderSystem.h" />
+    <ClInclude Include="..\..\include\core\Scene.h" />
+    <ClInclude Include="..\..\include\core\SceneSerializer.h" />
+    <ClInclude Include="..\..\include\core\Serializer.h" />
+    <ClInclude Include="..\..\include\core\Shader.h" />
+    <ClInclude Include="..\..\include\core\SkyLight.h" />
+    <ClInclude Include="..\..\include\core\SpotLight.h" />
+    <ClInclude Include="..\..\include\core\StdAllocator.h" />
+    <ClInclude Include="..\..\include\core\SubMesh.h" />
+    <ClInclude Include="..\..\include\core\SysManager.h" />
+    <ClInclude Include="..\..\include\core\Sys_Graphics.h" />
+    <ClInclude Include="..\..\include\core\Sys_Input.h" />
+    <ClInclude Include="..\..\include\core\Sys_Physics.h" />
+    <ClInclude Include="..\..\include\core\Sys_Sound.h" />
+    <ClInclude Include="..\..\include\core\Texture.h" />
+    <ClInclude Include="..\..\include\core\VertexFormat.h" />
+    <ClInclude Include="..\..\include\core\ViewFrustum.h" />
+    <ClInclude Include="core_pch.h" />
+    <ClInclude Include="core_utils.h" />
+    <ClInclude Include="WMInput.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArcBall.cpp" />
+    <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CoreApi.cpp" />
+    <ClCompile Include="core_pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="core_utils.cpp" />
+    <ClCompile Include="DataStream.cpp" />
+    <ClCompile Include="DataStream_File.cpp" />
+    <ClCompile Include="DataStream_Mem.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectComponent.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameObjectTemplate.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshSerializer_XML.cpp" />
+    <ClCompile Include="MeshUtil.cpp" />
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="PoolAllocator.cpp" />
+    <ClCompile Include="PostEffectManager.cpp" />
+    <ClCompile Include="PostEffect_BilateralBlur.cpp" />
+    <ClCompile Include="PostEffect_FinalCompose.cpp" />
+    <ClCompile Include="PostEffect_GaussianBlur.cpp" />
+    <ClCompile Include="PostEffect_SSAO.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneSerializer.cpp" />
+    <ClCompile Include="SkyLight.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="StdAllocator.cpp" />
+    <ClCompile Include="SubMesh.cpp" />
+    <ClCompile Include="SysManager.cpp" />
+    <ClCompile Include="ViewFrustum.cpp" />
+    <ClCompile Include="WMInput.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
