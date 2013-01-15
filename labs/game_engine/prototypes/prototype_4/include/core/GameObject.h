@@ -86,6 +86,8 @@ namespace engine
 		GameObjectPtr								Root();
 
 		GameObjectPtr								Clone();
+
+		
 	private:
 		void										UpdateWorldTransform();
 		void										UpdateComponents();

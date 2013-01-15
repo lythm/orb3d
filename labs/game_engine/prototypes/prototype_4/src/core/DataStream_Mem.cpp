@@ -15,18 +15,35 @@ namespace engine
 	DataStream_Mem::~DataStream_Mem(void)
 	{
 	}
-	uint64 DataStream_Mem::Read(void* buffer, uint64 bytes)
+	uint64 DataStream_Mem::Write(void* buffer, uint64 bytes)
 	{
-		if(EnoughToRead(bytes) == false)
+		if(EnoughLeft(bytes) == false)
 		{
 			return 0;
 		}
 
-		memcpy(buffer, ((uint8*)m_pMem) + m_pos, bytes);
+		memcpy(((uint8*)m_pMem) + m_pos, buffer, bytes);
 
 		m_pos += bytes;
 
 		return bytes;
+	}
+	uint64 DataStream_Mem::Read(void* buffer, uint64 bytes)
+	{
+		uint64 left = BytesLeft();
+
+		if(left == 0)
+		{
+			return 0;
+		}
+		
+		uint64 bytes_to_read = bytes <= left ? bytes : left;
+
+		memcpy(buffer, ((uint8*)m_pMem) + m_pos, bytes_to_read);
+
+		m_pos += bytes_to_read;
+
+		return bytes_to_read;
 
 	}
 
@@ -97,8 +114,14 @@ namespace engine
 
 		return true;
 	}
-	bool DataStream_Mem::EnoughToRead(uint64 size)
+	bool DataStream_Mem::EnoughLeft(uint64 size)
 	{
-		return (m_pos + size) <= m_size;
+		//return (m_pos + size) <= m_size;
+
+		return size <= BytesLeft();
+	}
+	uint64 DataStream_Mem::BytesLeft()
+	{
+		return m_size - m_pos;
 	}
 }

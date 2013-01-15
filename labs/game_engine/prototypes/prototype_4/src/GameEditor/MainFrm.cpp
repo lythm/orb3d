@@ -59,6 +59,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_FILE_OPEN, &CMainFrame::OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, &CMainFrame::OnFileSave)
 	ON_COMMAND(ID_FILE_SAVE_AS, &CMainFrame::OnFileSaveAs)
+	ON_COMMAND(ID_FILE_SAVE_SCENE, &CMainFrame::OnFileSaveScene)
+	ON_COMMAND(ID_FILE_OPEN_SCENE, &CMainFrame::OnFileOpenScene)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -1005,4 +1007,58 @@ void CMainFrame::OnFileSaveAs()
 void CMainFrame::UpdateAssetsView()
 {
 	m_wndFileView.ScanFolder(Project::Instance()->GetProjectPath().wstring().c_str());
+}
+
+void CMainFrame::OnFileSaveScene()
+{
+	using namespace boost::filesystem;
+
+	path sceneFile = Project::Instance()->GetGameSceneFile();
+	if(sceneFile.empty())
+	{
+		CFileDialog dlg(FALSE, 
+				L"scene", 
+				NULL, 
+				OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, 
+				L"Game Scene Files (*.scene)|*.scene||");
+
+		if(IDOK != dlg.DoModal())
+		{
+			return;
+		}
+
+		sceneFile = dlg.GetPathName().GetString();
+	}
+
+	Project::Instance()->SaveScene(sceneFile.wstring().c_str());
+	
+}
+
+
+void CMainFrame::OnFileOpenScene()
+{
+	CFileDialog dlg(TRUE, 
+				L"scene", 
+				NULL, 
+				OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, 
+				L"Game Scene Files (*.scene)|*.scene||");
+
+	if(IDOK != dlg.DoModal())
+	{
+		return;
+	}
+
+	ProjectPtr pProject = Project::Instance();
+
+	pProject->CloseScene();
+	
+	CString file = dlg.GetPathName();
+
+	if(pProject->LoadScene(file) == false)
+	{
+		MessageBox(L"Fialed to load scene.", L"error", MB_ICONERROR);
+		return;
+	}
+
+	util_update_object_view(pProject->Root());
 }

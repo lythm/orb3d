@@ -9,7 +9,7 @@ namespace engine
 	public:
 
 		virtual uint64								Read(void* buffer, uint64 bytes)				= 0;
-		virtual void								Write(void* buffer, uint64 bytes)				= 0;
+		virtual uint64								Write(void* buffer, uint64 bytes)				= 0;
 		virtual void								Seek(uint64 offset)								= 0;
 		virtual void								Close()											= 0;
 		virtual uint64								Size()											= 0;

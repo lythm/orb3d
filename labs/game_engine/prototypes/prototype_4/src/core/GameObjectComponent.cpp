@@ -60,11 +60,12 @@ namespace engine
 	void GameObjectComponent::OnComponentDetached(GameObjectComponentPtr pCom)
 	{
 	}
-	bool GameObjectComponent::Serialize(DataStreamPtr pStream)
+	bool GameObjectComponent::Serialize(DataStream* pStream)
 	{
+		
 		return true;
 	}
-	void GameObjectComponent::UnSerialize(DataStreamPtr pStream)
+	void GameObjectComponent::UnSerialize(DataStream* pStream)
 	{
 
 	}

@@ -13,9 +13,12 @@ public:
 	bool								Save(const _TCHAR* filename);
 	bool								Save();
 	void								Close();
+
+	void								CloseScene();
+	bool								SaveScene(const _TCHAR* filename);
+	bool								LoadScene(const _TCHAR* filename);
 	
 	void								CreateObject_Empty();
-	
 	engine::GameObjectPtr				CreateObject(const std::wstring& name);
 	engine::GameObjectPtr				CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
 	engine::GameObjectComponentPtr		CreateGameObjectComponent(const std::wstring& name);
@@ -42,6 +45,8 @@ public:
 	const math::Color4					GetClearColor();
 
 	boost::filesystem::path				GetProjectPath();
+
+	boost::filesystem::path				GetGameSceneFile();
 private:
 
 	bool								CreateNewProject(const CString& dir);
@@ -55,15 +60,12 @@ private:
 
 private:
 	
-	void								AddDefaultLight();
 	bool								CopyDirectory(boost::filesystem::path src, boost::filesystem::path dst);
 private:
 	boost::filesystem::path				m_filePath;
 
 	PathManagerPtr						m_pPathManager;
-
-	int									m_objNo;
-
+	
 	RendererPtr							m_pRenderer;
 
 	engine::CoreApiPtr					m_pCore;
@@ -71,9 +73,10 @@ private:
 	engine::GameObjectPtr				m_pSelObject;
 
 	math::Color4						m_clearClr;
-
+	GameScenePtr						m_pScene;
 	
 	static engine::PoolAllocator		s_Allocator;
 	static ProjectPtr					s_pInstance;
 };
+
 

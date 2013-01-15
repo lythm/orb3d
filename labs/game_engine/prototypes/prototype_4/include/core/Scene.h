@@ -3,10 +3,10 @@
 
 namespace engine
 {
-	class Scene
+	class EXPORT_CLASS Scene
 	{
 	public:
-		Scene(void);
+		Scene(GameObjectManagerPtr pManager);
 		virtual ~Scene(void);
 
 		GameObjectPtr					Root();
@@ -14,15 +14,16 @@ namespace engine
 		void							Release();
 		void							Update();
 
-		bool							Load(DataStreamPtr pStream);
-
+		bool							Serialize(DataStream* pStream);
+		bool							UnSerialize(DataStream* pStream);
 	private:
+
+		bool							SerializeObject(GameObjectPtr pObj, DataStream* pStream);
+		bool							UnSerializeObject(GameObjectPtr pObj, DataStream* pStream);
+	private:
+
 
 		GameObjectManagerPtr			m_pObjectManager;
 		GameObjectPtr					m_pRoot;
-
-
 	};
-
-
 }

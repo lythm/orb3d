@@ -126,5 +126,9 @@ namespace engine
 		
 		m_pManager->GetAllocator()->Free(pBlock);
 	}
+	void VoxelWorld::Generate()
+	{
+
+	}
 }
 

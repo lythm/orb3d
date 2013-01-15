@@ -4,12 +4,13 @@
 #include "Renderer.h"
 #include "editor_utils.h"
 #include "MainFrm.h"
+#include "GameScene.h"
 
 engine::PoolAllocator				Project::s_Allocator;
 ProjectPtr							Project::s_pInstance = ProjectPtr();
 Project::Project(void)
 {
-	m_objNo	= 0;
+	
 
 	m_clearClr = math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
 }
@@ -30,9 +31,11 @@ bool Project::New(const _TCHAR* filename)
 		return false;
 	}
 
-	if(m_pCore->GetRenderSystem()->GetLightCount() == 0)
+	m_pScene = GameScenePtr(new GameScene(m_pCore));
+
+	if(false == m_pScene->New())
 	{
-		AddDefaultLight();
+		return false;
 	}
 
 	return true;
@@ -61,13 +64,9 @@ bool Project::Load(const _TCHAR* filename)
 		return false;
 	}
 
+	m_pScene = GameScenePtr(new GameScene(m_pCore));
 
-	if(m_pCore->GetRenderSystem()->GetLightCount() == 0)
-	{
-		AddDefaultLight();
-	}
-
-//	util_update_object_view(m_pCore->Root());
+	
 	return true;
 }
 bool Project::Save(const _TCHAR* filename)
@@ -106,11 +105,11 @@ bool Project::Save()
 }
 void Project::Close()
 {
-	if(m_pCore)
+	if(m_pScene)
 	{
-		m_pCore->ResetScene();
+		m_pScene->Close();
 	}
-
+	
 	m_pSelObject.reset();
 
 	ReleaseRenderer();
@@ -123,52 +122,18 @@ void Project::Close()
 	//s_Allocator.Release();
 }
 
-void Project::AddDefaultLight()
-{
-	using namespace engine;
-	using namespace engine;
 
-	GameObjectPtr pObj = CreateObjectFromTpl(L"Default Light", L"SkyLight");
-	pObj->SetTranslation(1, 1, 1);
-	pObj->LookAt(math::Vector3(0, 0, 0));
-
-}
 void Project::CreateObject_Empty()
 {
-	using namespace engine;
-	GameObjectPtr pObj = CreateObject(L"GameObject");
+	m_pScene->CreateObject_Empty();
 }
 engine::GameObjectPtr Project::CreateObject(const std::wstring& name)
 {
-	using namespace engine;
-
-	CString full_name;
-
-	full_name.Format(L"%s-%d", name.c_str(), m_objNo);
-
-	GameObjectPtr pObj = m_pCore->CreateGameObject(full_name.GetString());
-
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_Gizmo");
-	pObj->AddComponent(pPM);
-
-	m_objNo++;
-	return pObj;
+	return m_pScene->CreateObject(name);
 }
 engine::GameObjectPtr Project::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
 {
-	using namespace engine;
-
-	CString full_name;
-
-	full_name.Format(L"%s-%d", name.c_str(), m_objNo);
-
-	GameObjectPtr pObj = m_pCore->CreatGameObjectFromTemplate(tpl, full_name.GetString());
-
-	GameObjectComponentPtr pPM = CreateGameObjectComponent(L"DT_Gizmo");
-	pObj->AddComponent(pPM);
-
-	m_objNo++;
-	return pObj;
+	return m_pScene->CreateObjectFromTpl(name, tpl);
 }
 bool Project::InitRenderer()
 {
@@ -259,7 +224,7 @@ RendererPtr Project::GetRenderer()
 }
 engine::GameObjectComponentPtr Project::CreateGameObjectComponent(const std::wstring& name)
 {
-	return m_pCore->CreateGameObjectComponent(name);
+	return m_pScene->CreateGameObjectComponent(name);
 }
 void Project::ResizeRenderer(int cx, int cy)
 {
@@ -414,4 +379,20 @@ const math::Color4 Project::GetClearColor()
 boost::filesystem::path	Project::GetProjectPath()
 {
 	return m_filePath.parent_path();
+}
+bool Project::SaveScene(const _TCHAR* filename)
+{
+	return m_pScene->Save(filename);
+}
+bool Project::LoadScene(const _TCHAR* filename)
+{
+	return m_pScene->Load(filename);
+}
+boost::filesystem::path	Project::GetGameSceneFile()
+{
+	return m_pScene->GetFileName();
+}
+void Project::CloseScene()
+{
+	m_pScene->Close();
 }

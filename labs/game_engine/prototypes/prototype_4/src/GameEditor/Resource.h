@@ -154,6 +154,13 @@
 #define ID_32812                        32812
 #define ID_RENDERING_SETTING            32813
 #define ID_BUILD_PREVIEW                32814
+#define ID_32815                        32815
+#define ID_FILE_NEW_SCENE               32816
+#define ID_FILE_SAVE_SCENE_AS           32817
+#define ID_32818                        32818
+#define ID_FILE_OPEN_SCENE              32819
+#define ID_32820                        32820
+#define ID_FILE_SAVE_SCENE              32821
 #define ID_COMPONENT_MENU_BASE          60000
 
 // Next default values for new objects
@@ -161,7 +168,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        321
-#define _APS_NEXT_COMMAND_VALUE         32815
+#define _APS_NEXT_COMMAND_VALUE         32822
 #define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           313
 #endif

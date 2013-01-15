@@ -25,6 +25,8 @@ namespace engine
 		const int&									GetWorldWidth();
 		void										SetWorldWidth(const int& w);
 
+		void										Generate();
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

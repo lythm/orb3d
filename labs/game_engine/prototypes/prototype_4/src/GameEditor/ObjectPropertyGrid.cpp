@@ -143,7 +143,6 @@ void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 		PropertySetPtr pO = pPM->GetPropertySet(i);
 
 		AddPropertySet(pO);
-
 	}
 
 	Invalidate();

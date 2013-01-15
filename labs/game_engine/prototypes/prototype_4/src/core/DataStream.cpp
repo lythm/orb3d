@@ -18,10 +18,15 @@ namespace engine
 
 		Read(&len, sizeof(uint16));
 		
-		wchar_t* buffer = (wchar_t*)mem_alloc(len * sizeof(uint16));
+		if(len == 0)
+		{
+			str = L"";
+			return;
+		}
+		wchar_t* buffer = (wchar_t*)mem_alloc((len + 1) * sizeof(uint16));
 
 		Read(buffer, len * sizeof(uint16));
-
+		buffer[len] = 0;
 		str = buffer;
 
 		mem_free(buffer);
@@ -33,6 +38,11 @@ namespace engine
 		const wchar_t* buffer = str.c_str();
 
 		Write(&len, sizeof(uint16));
+
+		if(len == 0)
+		{
+			return;
+		}
 		Write((void*)buffer, len * sizeof(uint16));
 	}
 

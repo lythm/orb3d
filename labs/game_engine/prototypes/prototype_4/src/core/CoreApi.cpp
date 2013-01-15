@@ -78,7 +78,7 @@ namespace engine
 			return false;
 		}
 
-		m_pScene = s_pAllocator->AllocObject<Scene>();
+		m_pScene = s_pAllocator->AllocObject<Scene, GameObjectManagerPtr>(m_pObjectManager);
 
 		return true;
 	}

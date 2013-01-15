@@ -13,11 +13,16 @@ namespace engine
 
 	DataStream_File::~DataStream_File(void)
 	{
+		Close();
 	}
 	uint64 DataStream_File::Read(void* buffer, uint64 bytes)
 	{
 		return fread(buffer, size_t(bytes), 1, m_pFile);
 		
+	}
+	uint64 DataStream_File::Write(void* buffer, uint64 bytes)
+	{
+		return fwrite(buffer, size_t(bytes), 1, m_pFile);
 	}
 	
 	void DataStream_File::Seek(uint64 offset)
@@ -27,7 +32,7 @@ namespace engine
 	}
 	void DataStream_File::Close()
 	{
-		if(m_oriPos == 0)
+		if(m_oriPos == 0 && m_pFile != nullptr)
 		{
 			fclose(m_pFile);
 		}
@@ -51,13 +56,21 @@ namespace engine
 	{
 		return ftell(m_pFile) - m_oriPos;
 	}
-	bool DataStream_File::OpenStream(const wchar_t* szFile)
+	bool DataStream_File::OpenStream(const wchar_t* szFile, bool read)
 	{
 		if(m_pFile != nullptr)
 		{
 			Close();
 		}
-		m_pFile = _wfopen(szFile, L"rb+");
+
+		if(read)
+		{
+			m_pFile = _wfopen(szFile, L"rb+");
+		}
+		else
+		{
+			m_pFile = _wfopen(szFile, L"wb+");
+		}
 		if(m_pFile == NULL)
 		{
 			return false;
