@@ -6,7 +6,7 @@
 #include "MainFrm.h"
 #include "GameScene.h"
 
-engine::PoolAllocator				Project::s_Allocator;
+ld3d::PoolAllocator				Project::s_Allocator;
 ProjectPtr							Project::s_pInstance = ProjectPtr();
 Project::Project(void)
 {
@@ -46,6 +46,9 @@ bool Project::Load(const _TCHAR* filename)
 
 	m_filePath = filename;
 
+	RestoreCurrentDirectory();
+
+
 	USES_CONVERSION;
 
 	TiXmlDocument doc;
@@ -80,7 +83,7 @@ bool Project::Load(const _TCHAR* filename)
 }
 bool Project::Save(const _TCHAR* filename)
 {
-	//m_pScene->Save(
+	
 	TiXmlDocument doc;
 
 	USES_CONVERSION;
@@ -107,6 +110,9 @@ bool Project::Save(const _TCHAR* filename)
 	}
 
 	m_filePath = filename;
+
+	RestoreCurrentDirectory();
+
 	return true;
 }
 bool Project::Save()
@@ -136,11 +142,11 @@ void Project::CreateObject_Empty()
 {
 	m_pScene->CreateObject_Empty();
 }
-engine::GameObjectPtr Project::CreateObject(const std::wstring& name)
+ld3d::GameObjectPtr Project::CreateObject(const std::wstring& name)
 {
 	return m_pScene->CreateObject(name);
 }
-engine::GameObjectPtr Project::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
+ld3d::GameObjectPtr Project::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
 {
 	return m_pScene->CreateObjectFromTpl(name, tpl);
 }
@@ -164,7 +170,7 @@ void Project::ReleaseRenderer()
 
 bool Project::InitEngine()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	CWnd* pWnd = util_get_rendering_wnd();
 
@@ -223,7 +229,7 @@ void Project::Reset()
 	InitEngine();
 	InitRenderer();
 }
-engine::CoreApiPtr Project::GetCoreApi()
+ld3d::CoreApiPtr Project::GetCoreApi()
 {
 	return m_pCore;
 }
@@ -231,7 +237,7 @@ RendererPtr Project::GetRenderer()
 {
 	return m_pRenderer;
 }
-engine::GameObjectComponentPtr Project::CreateGameObjectComponent(const std::wstring& name)
+ld3d::GameObjectComponentPtr Project::CreateGameObjectComponent(const std::wstring& name)
 {
 	return m_pScene->CreateGameObjectComponent(name);
 }
@@ -242,19 +248,19 @@ void Project::ResizeRenderer(int cx, int cy)
 		m_pRenderer->Resize(cx, cy);
 	}
 }
-void Project::SelectObject(engine::GameObjectPtr pObj)
+void Project::SelectObject(ld3d::GameObjectPtr pObj)
 {
 	m_pSelObject = pObj;
 }
-engine::GameObjectPtr Project::GetSelObject()
+ld3d::GameObjectPtr Project::GetSelObject()
 {
 	return m_pSelObject;
 }
-engine::GameObjectPtr Project::Root()
+ld3d::GameObjectPtr Project::Root()
 {
 	if(m_pScene == nullptr)
 	{
-		return engine::GameObjectPtr();
+		return ld3d::GameObjectPtr();
 	}
 	return m_pScene->Root();
 }
@@ -305,7 +311,7 @@ bool Project::CreateNewProject(const CString& dir)
 
 	path init = initial_path();
 
-	if(false == CopyDirectory(init / path(L"assets"), tar / path(L"assets")))
+	if(false == util_cpoy_directory(init / path(L"assets"), tar / path(L"assets")))
 	{
 		return false;
 	}
@@ -321,60 +327,15 @@ bool Project::CreateNewProject(const CString& dir)
 	}
 
 	Save(dir);
+
+	RestoreCurrentDirectory();
 	return true;
 }
-bool Project::CopyDirectory(boost::filesystem::path src, boost::filesystem::path dst)
+void Project::RestoreCurrentDirectory()
 {
-	namespace fs = boost::filesystem;
-	try
-	{
-		// Check whether the function call is valid
-		if( !fs::exists(src) || !fs::is_directory(src))
-		{
-			return false;
-		}
-		if(fs::exists(dst))
-		{
-			return false;
-		}
-		// Create the destination directory
-		if(!fs::create_directory(dst))
-		{
-			return false;
-		}
-	}
-	catch(fs::filesystem_error const & e)
-	{
-		std::cerr << e.what() << std::endl;
-		return false;
-	}
-	// Iterate through the source directory
-	for(fs::directory_iterator file(src); file != fs::directory_iterator(); ++file)
-	{
-		try
-		{
-			fs::path current(file->path());
-			if(fs::is_directory(current))
-			{
-				// Found directory: Recursion
-				if(!CopyDirectory(current, dst / current.filename()))
-				{
-					return false;
-				}
-			}
-			else
-			{
-				// Found file: Copy
-				fs::copy_file(current, dst / current.filename());
-			}
-		}
-		catch(fs::filesystem_error const & e)
-		{
-			std:: cerr << e.what() << std::endl;
-		}
-	}
-	return true;
+	SetCurrentDirectory(GetProjectRootPath().wstring().c_str());
 }
+
 void Project::SetClearColor(const math::Color4& clr)
 {
 	m_clearClr = clr;
@@ -395,11 +356,21 @@ boost::filesystem::path	Project::GetProjectFile()
 }
 bool Project::SaveScene(const _TCHAR* filename)
 {
-	return m_pScene->Save(filename);
+	using namespace boost::filesystem;
+
+	path r = GetRelativePath(path(filename));
+	RestoreCurrentDirectory();
+	return m_pScene->Save(r);
 }
 bool Project::LoadScene(const _TCHAR* filename)
 {
-	return m_pScene->Load(filename);
+
+	using namespace boost::filesystem;
+
+	path r = GetRelativePath(path(filename));
+
+	RestoreCurrentDirectory();
+	return m_pScene->Load(r);
 }
 boost::filesystem::path	Project::GetGameSceneFile()
 {
@@ -412,4 +383,12 @@ void Project::CloseScene()
 bool Project::NewScene()
 {
 	return m_pScene->New();
+}
+boost::filesystem::path	Project::GetRelativePath(boost::filesystem::path p)
+{
+	using namespace boost::filesystem;
+
+	path r = util_get_relative_path(p, GetProjectRootPath());
+
+	return r;
 }

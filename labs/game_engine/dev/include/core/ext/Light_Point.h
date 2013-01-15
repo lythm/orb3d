@@ -2,7 +2,7 @@
 #pragma once
 
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS Light_Point : public GameObjectComponent
 	{

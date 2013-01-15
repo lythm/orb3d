@@ -3,7 +3,7 @@
 #include "core\Mesh.h"
 
 
-namespace engine
+namespace ld3d
 {
 	SubMesh::SubMesh()
 	{

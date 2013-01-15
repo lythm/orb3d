@@ -8,7 +8,7 @@
 #include "core\Sys_Graphics.h"
 #include "core\GPUBuffer.h"
 
-namespace engine
+namespace ld3d
 {
 	MeshUtil::MeshUtil(void)
 	{

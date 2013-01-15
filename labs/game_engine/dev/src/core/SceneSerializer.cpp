@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\SceneSerializer.h"
 
-namespace engine
+namespace ld3d
 {
 	SceneSerializer::SceneSerializer(void)
 	{

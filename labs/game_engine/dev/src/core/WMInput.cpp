@@ -2,7 +2,7 @@
 #include "WMInput.h"
 #include <windowsx.h>
 
-namespace engine
+namespace ld3d
 {
 	WMInput::WMInput(void)
 	{

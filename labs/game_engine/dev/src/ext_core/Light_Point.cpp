@@ -5,7 +5,7 @@
 #include "core\GameObject.h"
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 	Light_Point::Light_Point(GameObjectManagerPtr pManager) : GameObjectComponent(L"PointLight", pManager)
 	{

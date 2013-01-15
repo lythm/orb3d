@@ -7,7 +7,7 @@
 #include "core\RenderTarget.h"
 
 
-namespace engine
+namespace ld3d
 {
 	PostEffect_SSAO::PostEffect_SSAO(void)
 	{

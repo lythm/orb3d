@@ -1,7 +1,7 @@
 #pragma once
 #include "core\viewfrustum.h"
 
-namespace engine
+namespace ld3d
 {
 	class LightManager
 	{

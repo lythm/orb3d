@@ -2,7 +2,7 @@
 
 #include "utils\PropertySet.h"
 
-namespace engine
+namespace ld3d
 {
 	enum
 	{

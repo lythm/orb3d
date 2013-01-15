@@ -166,7 +166,7 @@ void CInspectorView::SetPropListFont()
 
 void CInspectorView::OnDestroy()
 {
-	//UpdateGameObjectProp(engine::GameObjectPtr());
+	//UpdateGameObjectProp(ld3d::GameObjectPtr());
 	CDockablePane::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码

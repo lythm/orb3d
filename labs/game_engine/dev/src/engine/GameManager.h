@@ -3,7 +3,7 @@
 #include "core\GameInterface.h"
 
 
-namespace engine
+namespace ld3d
 {
 	class GameManager
 	{

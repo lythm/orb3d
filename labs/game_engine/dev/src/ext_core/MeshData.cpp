@@ -10,7 +10,7 @@
 
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 
 	MeshData::MeshData(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshData", pManager)

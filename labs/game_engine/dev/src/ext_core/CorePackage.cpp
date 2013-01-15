@@ -25,20 +25,20 @@
 #include "SpotLightTpl.h"
 #include "DirLightTpl.h"
 
-EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
+EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::CoreApiPtr pCore)
 {
-	return new engine::CorePackage(pCore);
+	return new ld3d::CorePackage(pCore);
 }
 
 
-EXPORT_C_API void DestroyPackage(engine::ExtPackage* pPackage)
+EXPORT_C_API void DestroyPackage(ld3d::ExtPackage* pPackage)
 {
-	delete (engine::CorePackage*)pPackage;
+	delete (ld3d::CorePackage*)pPackage;
 }
 
 
 
-namespace engine
+namespace ld3d
 {
 	CorePackage::CorePackage(CoreApiPtr pCore)
 	{

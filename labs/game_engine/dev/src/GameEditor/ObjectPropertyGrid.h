@@ -13,14 +13,14 @@ public:
 	virtual ~CObjectPropertyGrid();
 
 
-	void										UpdateGameObjectProp(engine::GameObjectPtr pObj);
-	void										AddPropertySet(engine::PropertySetPtr pPropSet);
+	void										UpdateGameObjectProp(ld3d::GameObjectPtr pObj);
+	void										AddPropertySet(ld3d::PropertySetPtr pPropSet);
 
 private:
-	CMFCPropertyGridProperty*					CreateProperty(engine::Property* p);
+	CMFCPropertyGridProperty*					CreateProperty(ld3d::Property* p);
 	
 private:
-	engine::GameObjectPtr						m_pObj;
+	ld3d::GameObjectPtr						m_pObj;
 	
 protected:
 	DECLARE_MESSAGE_MAP()

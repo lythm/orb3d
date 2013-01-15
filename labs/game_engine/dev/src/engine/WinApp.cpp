@@ -2,7 +2,7 @@
 #include "winapp.h"
 #include <tchar.h>
 
-namespace engine
+namespace ld3d
 {
 	WinApp::WinApp(void)
 	{

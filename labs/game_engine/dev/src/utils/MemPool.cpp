@@ -7,7 +7,7 @@
     (ptrdiff_t)(&((type *)0)->field)))
 #endif
 
-namespace engine
+namespace ld3d
 {
 	MemPool::MemPool(void)
 	{
@@ -130,7 +130,7 @@ namespace engine
 	}
 }
 
-namespace engine
+namespace ld3d
 {
 	MemSlot::MemSlot()
 	{

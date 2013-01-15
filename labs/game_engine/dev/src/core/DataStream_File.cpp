@@ -2,7 +2,7 @@
 #include "..\..\include\core\DataStream_File.h"
 
 
-namespace engine
+namespace ld3d
 {
 	DataStream_File::DataStream_File(void)
 	{

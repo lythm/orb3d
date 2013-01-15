@@ -2,7 +2,7 @@
 
 #include "core\GameObjectComponent.h"
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS Behavior : public GameObjectComponent
 	{

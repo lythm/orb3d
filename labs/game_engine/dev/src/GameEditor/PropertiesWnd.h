@@ -29,7 +29,7 @@ public:
 		m_wndPropList.SetGroupNameFullWidth(bSet);
 	}
 
-	void UpdateGameObjectProp(engine::GameObjectPtr pObj);
+	void UpdateGameObjectProp(ld3d::GameObjectPtr pObj);
 
 protected:
 	CFont m_fntPropList;

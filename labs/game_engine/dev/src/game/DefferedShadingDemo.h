@@ -7,7 +7,7 @@ public:
 	DefferedShadingDemo(void);
 	virtual ~DefferedShadingDemo(void);
 
-	bool											Init(engine::CoreApiPtr pCore);
+	bool											Init(ld3d::CoreApiPtr pCore);
 	void											Release();
 	void											Update();
 
@@ -18,24 +18,24 @@ private:
 	void											Render();
 	void											CreateScene();
 	void											CreateQuad();
-	void											OnWMEvent(engine::EventPtr pEvent);
+	void											OnWMEvent(ld3d::EventPtr pEvent);
 private:
-	engine::CoreApiPtr								m_pCore;
+	ld3d::CoreApiPtr								m_pCore;
 
-	engine::GPUBufferPtr							m_pVB;
-	engine::GPUBufferPtr							m_pIB;
+	ld3d::GPUBufferPtr							m_pVB;
+	ld3d::GPUBufferPtr							m_pIB;
 
-	engine::MaterialPtr								m_pMaterial;
+	ld3d::MaterialPtr								m_pMaterial;
 
-	engine::TexturePtr								m_pTex;
+	ld3d::TexturePtr								m_pTex;
 
-	engine::RenderTargetPtr					m_pRT;
+	ld3d::RenderTargetPtr					m_pRT;
 
 
-	engine::GPUBufferPtr							m_pQuadVB;
-	engine::MaterialPtr								m_pQuadMaterial;
+	ld3d::GPUBufferPtr							m_pQuadVB;
+	ld3d::MaterialPtr								m_pQuadMaterial;
 
-	engine::MeshPtr									m_pMesh;
+	ld3d::MeshPtr									m_pMesh;
 
 };
 

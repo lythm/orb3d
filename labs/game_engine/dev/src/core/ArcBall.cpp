@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\ArcBall.h"
 
-namespace engine
+namespace ld3d
 {
 	ArcBall::ArcBall(void)
 	{

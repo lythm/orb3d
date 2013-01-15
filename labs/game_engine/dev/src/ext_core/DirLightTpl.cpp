@@ -2,7 +2,7 @@
 #include "DirLightTpl.h"
 
 
-namespace engine
+namespace ld3d
 {
 	DirLightTpl::DirLightTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
 	{

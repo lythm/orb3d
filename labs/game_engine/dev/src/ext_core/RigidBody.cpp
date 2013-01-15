@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\RigidBody.h"
 
-namespace engine
+namespace ld3d
 {
 	RigidBody::RigidBody(void)
 	{

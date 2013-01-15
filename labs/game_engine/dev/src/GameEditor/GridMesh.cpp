@@ -11,9 +11,9 @@ GridMesh::GridMesh(void)
 GridMesh::~GridMesh(void)
 {
 }
-bool GridMesh::Init(engine::CoreApiPtr pCore, int size, int grid_size)
+bool GridMesh::Init(ld3d::CoreApiPtr pCore, int size, int grid_size)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	m_pCore = pCore;
 	m_size = size;
@@ -113,9 +113,9 @@ void GridMesh::Release()
 	m_pMaterial->Release();
 }
 
-void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics, engine::MaterialPtr pMaterial)
+void GridMesh::Render(ld3d::Sys_GraphicsPtr pGraphics, ld3d::MaterialPtr pMaterial)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	using namespace math;
 
@@ -145,7 +145,7 @@ void GridMesh::Render(engine::Sys_GraphicsPtr pGraphics, engine::MaterialPtr pMa
 	m_pMaterial->End();
 
 }
-engine::MaterialPtr GridMesh::GetMaterial()
+ld3d::MaterialPtr GridMesh::GetMaterial()
 {
 	return m_pMaterial;
 }
@@ -156,7 +156,7 @@ math::Matrix44 GridMesh::GetWorldMatrix()
 	return mat;
 	
 }
-void GridMesh::Render_Depth(engine::Sys_GraphicsPtr pSysGraphics)
+void GridMesh::Render_Depth(ld3d::Sys_GraphicsPtr pSysGraphics)
 {
 }
 bool GridMesh::IsDeferred()

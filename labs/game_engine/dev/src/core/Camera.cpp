@@ -2,7 +2,7 @@
 #include "..\..\include\core\Camera.h"
 
 
-namespace engine
+namespace ld3d
 {
 
 	Camera::Camera(void)

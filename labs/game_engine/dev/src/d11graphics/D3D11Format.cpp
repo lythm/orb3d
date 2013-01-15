@@ -2,7 +2,7 @@
 #include "D3D11Format.h"
 
 
-namespace engine
+namespace ld3d
 {
 	static DXGI_FORMAT s_g2dxgi[] = 
 	{

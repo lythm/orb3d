@@ -6,7 +6,7 @@
 #include "core\DataStream.h"
 #include "core\GameObjectComponent.h"
 
-namespace engine
+namespace ld3d
 {
 	Scene::Scene(GameObjectManagerPtr pManager)
 	{

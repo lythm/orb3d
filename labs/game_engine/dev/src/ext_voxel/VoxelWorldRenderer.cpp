@@ -2,7 +2,7 @@
 #include "..\..\include\ext_voxel\VoxelWorldRenderer.h"
 #include "VoxelWorldRenderData.h"
 
-namespace engine
+namespace ld3d
 {
 	VoxelWorldRenderer::VoxelWorldRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorldRenderer", pManager)
 	{

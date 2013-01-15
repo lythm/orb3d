@@ -53,9 +53,9 @@ BOOL CObjectViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 
 	return bRes;
 }
-void CObjectViewTree::UpdateGameObjectTree(engine::GameObjectPtr pRoot)
+void CObjectViewTree::UpdateGameObjectTree(ld3d::GameObjectPtr pRoot)
 {
-	using namespace engine;
+	using namespace ld3d;
 	
 	if(pRoot == nullptr)
 	{
@@ -71,14 +71,14 @@ void CObjectViewTree::UpdateGameObjectTree(engine::GameObjectPtr pRoot)
 
 	//Expand(hRoot, TVM_EXPAND);
 }
-void CObjectViewTree::_update_object_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot)
+void CObjectViewTree::_update_object_tree(ld3d::GameObjectPtr pRoot, HTREEITEM hRoot)
 {
 	if(pRoot == NULL)
 	{
 		return;
 	}
 
-	using namespace engine;
+	using namespace ld3d;
 	GameObjectPtr pObj = pRoot->GetFirstChild();
 
 	while(pObj)
@@ -106,7 +106,7 @@ void CObjectViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
 		return;
 	}
 
-	using namespace engine;
+	using namespace ld3d;
 	GameObjectPtr* pObj = (GameObjectPtr*)GetItemData(hRoot);
 
 	delete pObj;
@@ -120,9 +120,9 @@ void CObjectViewTree::_delete_gameobject_tree(HTREEITEM hRoot)
 		hItem = GetNextSiblingItem(hItem);
 	}
 }
-engine::GameObjectPtr CObjectViewTree::GetGameObject(HTREEITEM hObj)
+ld3d::GameObjectPtr CObjectViewTree::GetGameObject(HTREEITEM hObj)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	if(hObj == nullptr)
 	{
@@ -138,7 +138,7 @@ engine::GameObjectPtr CObjectViewTree::GetGameObject(HTREEITEM hObj)
 }
 void CObjectViewTree::EraseItem(HTREEITEM hItem)
 {
-	using namespace engine;
+	using namespace ld3d;
 	GameObjectPtr* pObj = (GameObjectPtr*)GetItemData(hItem);
 
 	delete pObj;
@@ -160,7 +160,7 @@ void CObjectViewTree::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 
 	// TODO: 在此添加控件通知处理程序代码
 
-	engine::GameObjectPtr pObj = GetGameObject(pTVDispInfo->item.hItem);
+	ld3d::GameObjectPtr pObj = GetGameObject(pTVDispInfo->item.hItem);
 	if(pObj == NULL || pObj->IsRoot())
 	{
 		*pResult = 1;
@@ -175,7 +175,7 @@ void CObjectViewTree::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
 
-	engine::GameObjectPtr pObj = GetGameObject(pTVDispInfo->item.hItem);
+	ld3d::GameObjectPtr pObj = GetGameObject(pTVDispInfo->item.hItem);
 
 	if(pObj == NULL || pTVDispInfo->item.pszText == nullptr)
 	{
@@ -216,7 +216,7 @@ void CObjectViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 
-	engine::GameObjectPtr pObj = GetGameObject(pNMTreeView->itemNew.hItem);
+	ld3d::GameObjectPtr pObj = GetGameObject(pNMTreeView->itemNew.hItem);
 
 	util_update_obj_property_grid(pObj);
 	
@@ -287,7 +287,7 @@ void CObjectViewTree::OnMouseMove(UINT nFlags, CPoint point)
 
 void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	bool bDropped = false;
 
@@ -326,7 +326,7 @@ void CObjectViewTree::OnLButtonUp(UINT nFlags, CPoint point)
 
 		if (bDropped)
 		{
-			engine::GameObjectPtr pRoot = Project::Instance()->Root();
+			ld3d::GameObjectPtr pRoot = Project::Instance()->Root();
 			
 			util_update_object_view(pRoot);
 		}

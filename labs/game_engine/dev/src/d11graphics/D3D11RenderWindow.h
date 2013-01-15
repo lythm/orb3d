@@ -2,7 +2,7 @@
 
 #include "D3D11RenderTarget.h"
 
-namespace engine
+namespace ld3d
 {
 	class D3D11RenderWindow : public D3D11RenderTarget
 	{

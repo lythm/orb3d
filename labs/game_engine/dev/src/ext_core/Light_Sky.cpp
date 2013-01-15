@@ -4,7 +4,7 @@
 #include "core\SkyLight.h"
 
 #include "CorePackage.h"
-namespace engine
+namespace ld3d
 {
 
 	Light_Sky::Light_Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyLight", pManager)

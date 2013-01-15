@@ -5,7 +5,7 @@ namespace custom_property
 	class TransformProperty: public CMFCPropertyGridProperty
 	{
 	public:
-		TransformProperty(const CString& strName, engine::Property* pVal);
+		TransformProperty(const CString& strName, ld3d::Property* pVal);
 		virtual ~TransformProperty(void);
 
 		void								Update();
@@ -23,7 +23,7 @@ namespace custom_property
 		math::Vector3						m_scale;
 		math::Vector3						m_rotation;
 
-		engine::Property*					m_pProp;
+		ld3d::Property*					m_pProp;
 
 
 		CMFCPropertyGridProperty*			m_pTransX;

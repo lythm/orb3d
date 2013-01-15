@@ -1,7 +1,7 @@
 #include "voxel_pch.h"
 #include "VoxelSerializer.h"
 
-namespace engine
+namespace ld3d
 {
 	VoxelWorldSerializer::VoxelWorldSerializer(DataStreamPtr pStream) : Serializer(pStream)
 	{
@@ -16,7 +16,7 @@ namespace engine
 
 
 
-namespace engine
+namespace ld3d
 {
 	VoxelEntitySerializer::VoxelEntitySerializer(void)
 	{

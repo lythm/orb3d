@@ -4,7 +4,7 @@
 #include "core\allocator.h"
 #include "core\coreapi.h"
 
-namespace engine
+namespace ld3d
 {
 
 	class EXPORT_CLASS PropertyManager : public GameObjectComponent

@@ -33,9 +33,9 @@ END_MESSAGE_MAP()
 
 // CObjectPropertyGrid 消息处理程序
 
-CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* p)
+CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(ld3d::Property* p)
 {
-	using namespace engine;
+	using namespace ld3d;
 	using namespace custom_property;
 
 	CMFCPropertyGridProperty* pProp = NULL;
@@ -120,7 +120,7 @@ CMFCPropertyGridProperty* CObjectPropertyGrid::CreateProperty(engine::Property* 
 	
 	return pProp;
 }
-void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
+void CObjectPropertyGrid::UpdateGameObjectProp(ld3d::GameObjectPtr pObj)
 {
 	//return;
 	m_pObj = pObj;
@@ -134,7 +134,7 @@ void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 		return;
 	}
 
-	using namespace engine;
+	using namespace ld3d;
 
 	PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(pObj->GetComponent(L"PropertyManager"));
 	
@@ -147,9 +147,9 @@ void CObjectPropertyGrid::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 
 	Invalidate();
 }
-void CObjectPropertyGrid::AddPropertySet(engine::PropertySetPtr pPropSet)
+void CObjectPropertyGrid::AddPropertySet(ld3d::PropertySetPtr pPropSet)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	if(pPropSet == nullptr)
 	{
@@ -176,7 +176,7 @@ void CObjectPropertyGrid::OnPropertyChanged(CMFCPropertyGridProperty* pProp) con
 	
 	std::wstring oldname = m_pObj->GetName();
 
-	using namespace engine;
+	using namespace ld3d;
 	Property* p = (Property*)pProp->GetData();
 
 	switch(p->getType())
@@ -243,7 +243,7 @@ void CObjectPropertyGrid::OnDestroy()
 {
 	m_pObj.reset();
 
-	//UpdateGameObjectProp(engine::GameObjectPtr());
+	//UpdateGameObjectProp(ld3d::GameObjectPtr());
 	CMFCPropertyGridCtrl::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码
@@ -252,7 +252,7 @@ void CObjectPropertyGrid::OnDestroy()
 
 void CObjectPropertyGrid::OnNcDestroy()
 {
-	//UpdateGameObjectProp(engine::GameObjectPtr());
+	//UpdateGameObjectProp(ld3d::GameObjectPtr());
 	CMFCPropertyGridCtrl::OnNcDestroy();
 
 	// TODO: 在此处添加消息处理程序代码

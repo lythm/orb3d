@@ -6,7 +6,7 @@
 
 #include "core\GameObjectTemplate.h"
 
-namespace engine
+namespace ld3d
 {
 	GameObjectManager::GameObjectManager(void)
 	{
@@ -171,7 +171,7 @@ namespace engine
 }
 
 
-namespace engine
+namespace ld3d
 {
 	GameObjectManager::PackageMod::PackageMod()
 	{

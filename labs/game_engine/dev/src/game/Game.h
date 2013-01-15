@@ -2,13 +2,13 @@
 
 #include "DefferedShadingDemo.h"
 
-class Game : public engine::GameInterface
+class Game : public ld3d::GameInterface
 {
 public:
 	Game(void);
 	virtual ~Game(void);
 
-	bool									Initialize(engine::CoreApiPtr pCore);
+	bool									Initialize(ld3d::CoreApiPtr pCore);
 	void									Release();
 	bool									Update();
 

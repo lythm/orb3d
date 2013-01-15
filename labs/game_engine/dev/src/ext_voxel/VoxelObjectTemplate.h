@@ -1,5 +1,5 @@
 #pragma once
-namespace engine
+namespace ld3d
 {
 	class VoxelObjectTemplate : public GameObjectTemplate
 	{

@@ -284,7 +284,7 @@ void CPropertiesWnd::SetPropListFont()
 	m_wndPropList.SetFont(&m_fntPropList);
 	m_wndObjectCombo.SetFont(&m_fntPropList);
 }
-void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
+void CPropertiesWnd::UpdateGameObjectProp(ld3d::GameObjectPtr pObj)
 {
 
 	//return;
@@ -295,7 +295,7 @@ void CPropertiesWnd::UpdateGameObjectProp(engine::GameObjectPtr pObj)
 
 void CPropertiesWnd::OnDestroy()
 {
-	//UpdateGameObjectProp(engine::GameObjectPtr());
+	//UpdateGameObjectProp(ld3d::GameObjectPtr());
 	CDockablePane::OnDestroy();
 
 	// TODO: 在此处添加消息处理程序代码

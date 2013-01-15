@@ -5,7 +5,7 @@
 #include "D3D11Buffer.h"
 #include "D3D11RenderTarget.h"
 
-namespace engine
+namespace ld3d
 {
 	D3D11EffectMaterial::D3D11EffectMaterial(ID3D11DeviceContext* pContext)
 	{

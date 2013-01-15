@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\LuaBehavior.h"
 
-namespace engine
+namespace ld3d
 {
 	LuaBehavior::LuaBehavior(GameObjectManagerPtr pManager) : GameObjectComponent(L"LuaBehavior", pManager)
 	{

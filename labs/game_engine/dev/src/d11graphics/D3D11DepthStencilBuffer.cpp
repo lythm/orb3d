@@ -4,7 +4,7 @@
 #include "D3D11Format.h"
 
 
-namespace engine
+namespace ld3d
 {
 	D3D11DepthStencilBuffer::D3D11DepthStencilBuffer(ID3D11DeviceContext* pContext)
 	{

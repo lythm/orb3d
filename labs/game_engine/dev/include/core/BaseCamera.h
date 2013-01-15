@@ -1,7 +1,7 @@
 #pragma once
 #include "core\ViewFrustum.h"
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS BaseCamera
 	{

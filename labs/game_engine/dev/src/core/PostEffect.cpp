@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\PostEffect.h"
 
-namespace engine
+namespace ld3d
 {
 	PostEffect::PostEffect(void)
 	{

@@ -5,7 +5,7 @@
 #include "core\GameObject.h"
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 	Light_Dir::Light_Dir(GameObjectManagerPtr pManager) : GameObjectComponent(L"DirectionalLight", pManager)
 	{

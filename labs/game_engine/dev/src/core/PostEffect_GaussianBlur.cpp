@@ -5,7 +5,7 @@
 #include "core\VertexFormat.h"
 #include "core\RenderTarget.h"
 
-namespace engine
+namespace ld3d
 {
 	PostEffect_GaussianBlur::PostEffect_GaussianBlur(void)
 	{

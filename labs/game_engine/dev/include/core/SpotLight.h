@@ -1,7 +1,7 @@
 #pragma once
 #include "core\Light.h"
 
-namespace engine
+namespace ld3d
 {
 
 	class EXPORT_CLASS SpotLight : public Light

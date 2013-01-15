@@ -44,7 +44,7 @@ BOOL CPreviewWnd::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 
-	using namespace engine;
+	using namespace ld3d;
 
 	CRect rc;
 
@@ -68,9 +68,9 @@ void CPreviewWnd::OnClose()
 
 	KillTimer(99);
 
-	engine::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
+	ld3d::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
 
-	pCore->GetSysGraphics()->SetRenderWindow(engine::RenderTargetPtr());
+	pCore->GetSysGraphics()->SetRenderWindow(ld3d::RenderTargetPtr());
 
 	int w = pCore->GetSysGraphics()->GetFrameBufferWidth();
 	int h = pCore->GetSysGraphics()->GetFrameBufferHeight();
@@ -98,7 +98,7 @@ void CPreviewWnd::OnSize(UINT nType, int cx, int cy)
 {
 	CDialogEx::OnSize(nType, cx, cy);
 
-	if(m_pRenderTarget != engine::RenderTargetPtr())
+	if(m_pRenderTarget != ld3d::RenderTargetPtr())
 	{
 		Project::Instance()->ResizeRenderer(cx, cy);
 	}

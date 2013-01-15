@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\Light.h"
 
-namespace engine
+namespace ld3d
 {
 
 	Light::Light(LIGHT_TYPE type)

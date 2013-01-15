@@ -3,7 +3,7 @@
 
 
 
-namespace engine
+namespace ld3d
 {
 
 	SoundEmitter::SoundEmitter(GameObjectManagerPtr pManager):GameObjectComponent(L"SoundEmitter", pManager)

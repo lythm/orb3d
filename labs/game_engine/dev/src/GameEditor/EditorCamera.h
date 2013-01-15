@@ -1,12 +1,12 @@
 #pragma once
 
-class EditorCamera : public engine::BaseCamera
+class EditorCamera : public ld3d::BaseCamera
 {
 public:
 	EditorCamera(void);
 	virtual ~EditorCamera(void);
 
-	void				Init(engine::CoreApiPtr);
+	void				Init(ld3d::CoreApiPtr);
 	void				Update();
 
 	math::Vector3		GetEyePos();
@@ -39,7 +39,7 @@ private:
 	math::Vector3		m_at;
 	math::Vector3		m_eye;
 
-	engine::CoreApiPtr	m_pCore;
+	ld3d::CoreApiPtr	m_pCore;
 
 };
 

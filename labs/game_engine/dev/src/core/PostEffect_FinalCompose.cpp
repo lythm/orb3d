@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\PostEffect_FinalCompose.h"
 
-namespace engine
+namespace ld3d
 {
 	PostEffect_FinalCompose::PostEffect_FinalCompose(void)
 	{

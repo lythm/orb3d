@@ -3,7 +3,7 @@
 
 #include "core\ExtPackage.h"
 
-namespace engine
+namespace ld3d
 {
 	class VoxelPackage : public ExtPackage
 	{

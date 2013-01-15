@@ -12,18 +12,18 @@
 #include "VoxelObjectTemplate.h"
 
 
-EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
+EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::CoreApiPtr pCore)
 {
-	return new engine::VoxelPackage(pCore);
+	return new ld3d::VoxelPackage(pCore);
 }
 
 
-EXPORT_C_API void DestroyPackage(engine::ExtPackage* pPackage)
+EXPORT_C_API void DestroyPackage(ld3d::ExtPackage* pPackage)
 {
-	delete (engine::VoxelPackage*)pPackage;
+	delete (ld3d::VoxelPackage*)pPackage;
 }
 
-namespace engine
+namespace ld3d
 {
 	VoxelPackage::VoxelPackage(CoreApiPtr pCore)
 	{

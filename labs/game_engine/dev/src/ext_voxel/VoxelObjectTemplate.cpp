@@ -3,7 +3,7 @@
 
 
 
-namespace engine
+namespace ld3d
 {
 	VoxelObjectTemplate::VoxelObjectTemplate(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Voxel")
 	{

@@ -4,7 +4,7 @@
 class GameScene
 {
 public:
-	GameScene(engine::CoreApiPtr pCore);
+	GameScene(ld3d::CoreApiPtr pCore);
 	virtual ~GameScene(void);
 
 	bool										Load(boost::filesystem::path file);
@@ -16,16 +16,16 @@ public:
 
 
 	void										CreateObject_Empty();
-	engine::GameObjectPtr						CreateObject(const std::wstring& name);
-	engine::GameObjectPtr						CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
-	engine::GameObjectComponentPtr				CreateGameObjectComponent(const std::wstring& name);
+	ld3d::GameObjectPtr						CreateObject(const std::wstring& name);
+	ld3d::GameObjectPtr						CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
+	ld3d::GameObjectComponentPtr				CreateGameObjectComponent(const std::wstring& name);
 
-	engine::GameObjectPtr						Root();
+	ld3d::GameObjectPtr						Root();
 private:
 	void										AddDefaultLight();
 private:
 	boost::filesystem::path						m_filepath;
-	engine::CoreApiPtr							m_pCore;
+	ld3d::CoreApiPtr							m_pCore;
 
 	int											m_objNo;
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost\enable_shared_from_this.hpp>
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS GameObject : public boost::enable_shared_from_this<GameObject>
 	{

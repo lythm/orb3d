@@ -10,12 +10,12 @@ class CObjectViewTree : public CTreeCtrl
 public:
 	CObjectViewTree();
 
-	void							UpdateGameObjectTree(engine::GameObjectPtr pRoot);
+	void							UpdateGameObjectTree(ld3d::GameObjectPtr pRoot);
 	void							DeleteTree();
-	engine::GameObjectPtr			GetGameObject(HTREEITEM hObj);
+	ld3d::GameObjectPtr			GetGameObject(HTREEITEM hObj);
 	void							EraseItem(HTREEITEM hItem);
 private:
-	void							_update_object_tree(engine::GameObjectPtr pRoot, HTREEITEM hRoot);
+	void							_update_object_tree(ld3d::GameObjectPtr pRoot, HTREEITEM hRoot);
 	void							_delete_gameobject_tree(HTREEITEM hRoot);
 // ÖØÐ´
 protected:

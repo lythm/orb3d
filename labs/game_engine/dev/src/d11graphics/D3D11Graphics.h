@@ -3,7 +3,7 @@
 #include "core\Sys_Graphics.h"
 
 
-namespace engine
+namespace ld3d
 {
 	class D3D11RenderWindow;
 

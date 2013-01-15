@@ -3,7 +3,7 @@
 #include "core\Material.h"
 #include "core_utils.h"
 
-namespace engine
+namespace ld3d
 {
 	Mesh::Mesh(void)
 	{

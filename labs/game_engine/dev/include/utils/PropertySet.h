@@ -6,7 +6,7 @@
 #include <boost\function.hpp>
 
 
-namespace engine
+namespace ld3d
 {
 	enum PropType
 	{

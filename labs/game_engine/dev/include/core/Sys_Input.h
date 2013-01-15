@@ -2,7 +2,7 @@
 
 #include "types\types.h"
 
-namespace engine
+namespace ld3d
 {
 	class Sys_Input
 	{

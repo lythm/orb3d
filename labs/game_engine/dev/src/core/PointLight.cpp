@@ -6,7 +6,7 @@
 #include "core_utils.h"
 #include "core\Material.h"
 #include "core\RenderSystem.h"
-namespace engine
+namespace ld3d
 {
 	PointLight::PointLight(void) : Light(LT_POINTLIGHT)
 	{

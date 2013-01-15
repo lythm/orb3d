@@ -4,7 +4,7 @@
 
 #include <fstream>
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS DataStream_File : public DataStream
 	{

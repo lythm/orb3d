@@ -4,7 +4,7 @@
 
 #include "core\VertexFormat.h"
 
-namespace engine
+namespace ld3d
 {
 	class D3D11EffectMaterial : public Material
 	{

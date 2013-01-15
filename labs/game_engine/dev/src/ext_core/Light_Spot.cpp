@@ -3,7 +3,7 @@
 #include "core\SpotLight.h"
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 	Light_Spot::Light_Spot(GameObjectManagerPtr pManager) : GameObjectComponent(L"SpotLight", pManager)
 	{

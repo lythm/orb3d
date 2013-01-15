@@ -1,7 +1,7 @@
 #include "voxel_pch.h"
 #include "VoxelWorldGenerator.h"
 
-namespace engine
+namespace ld3d
 {
 	VoxelWorldGenerator::VoxelWorldGenerator(void)
 	{

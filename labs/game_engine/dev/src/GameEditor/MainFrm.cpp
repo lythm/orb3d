@@ -551,8 +551,8 @@ void CMainFrame::OnClose()
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	UpdatePropGrid(engine::GameObjectPtr());
-	UpdateObjectView(engine::GameObjectPtr());
+	UpdatePropGrid(ld3d::GameObjectPtr());
+	UpdateObjectView(ld3d::GameObjectPtr());
 
 	ProjectPtr pProject = Project::Instance();
 	pProject->Close();
@@ -644,7 +644,7 @@ bool CMainFrame::UpdateComponentMenu(CMFCPopupMenu* pMenu)
 		return false;
 	}
 
-	using namespace engine;
+	using namespace ld3d;
 
 	UpdateComClassMap();
 
@@ -698,9 +698,9 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 
 
 	UpdateTemplateMap();
-	using namespace engine;
+	using namespace ld3d;
 
-	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
+	boost::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
 
 	pMenu->RemoveAllItems();
 
@@ -735,12 +735,12 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 
 	return true;
 }
-engine::GameObjectTemplate* CMainFrame::FindTemplateByMenuID(UINT uID)
+ld3d::GameObjectTemplate* CMainFrame::FindTemplateByMenuID(UINT uID)
 {
 
-	using namespace engine;
+	using namespace ld3d;
 
-	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
+	boost::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >::iterator it = m_templateMap.begin();
 
 	int id = ID_COMPONENT_MENU_BASE + 1001;
 	for(it; it != m_templateMap.end(); ++it)
@@ -798,7 +798,7 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 }
 void CMainFrame::OnComponentMenu(UINT nID)
 {
-	using namespace engine;
+	using namespace ld3d;
 	ExtPackage::ComponentClass* pClass = FindClassByMenuID(nID);
 
 	GameObjectPtr pObj = Project::Instance()->GetSelObject();
@@ -819,7 +819,7 @@ void CMainFrame::OnComponentMenu(UINT nID)
 }
 void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	GameObjectTemplate* pTpl = FindTemplateByMenuID(nID);
 
@@ -832,11 +832,11 @@ void CMainFrame::OnCreateFromTemplateMenu(UINT nID)
 }
 bool CMainFrame::UpdateTemplateMap()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	m_templateMap.clear();
 
-	engine::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
+	ld3d::CoreApiPtr pCore = Project::Instance()->GetCoreApi();
 	if(pCore == nullptr)
 	{
 		return false;
@@ -858,7 +858,7 @@ bool CMainFrame::UpdateTemplateMap()
 }
 bool CMainFrame::UpdateComClassMap()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	m_ComClassMap.clear();
 
@@ -890,9 +890,9 @@ bool CMainFrame::UpdateComClassMap()
 	}
 	return true;
 }
-engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
+ld3d::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	boost::unordered_map<std::wstring, std::vector<ExtPackage::ComponentClass*> >::iterator it = m_ComClassMap.begin();
 
@@ -919,8 +919,8 @@ engine::ExtPackage::ComponentClass* CMainFrame::FindClassByMenuID(UINT uID)
 }
 void CMainFrame::OnUpdateComponentMenuUI(CCmdUI* pCmdUI)
 {
-	engine::GameObjectPtr pObj = Project::Instance()->GetSelObject();
-	pCmdUI->Enable(pObj != engine::GameObjectPtr());
+	ld3d::GameObjectPtr pObj = Project::Instance()->GetSelObject();
+	pCmdUI->Enable(pObj != ld3d::GameObjectPtr());
 }
 void CMainFrame::OnUpdateCreateFromTemplateMenuUI(CCmdUI* pCmdUI)
 {
@@ -970,11 +970,11 @@ void CMainFrame::OnBuildPreview()
 
 	wnd.DoModal();
 }
-void CMainFrame::UpdateObjectView(engine::GameObjectPtr pRoot)
+void CMainFrame::UpdateObjectView(ld3d::GameObjectPtr pRoot)
 {
 	m_wndObjectView.UpdateObjectView(pRoot);
 }
-void CMainFrame::UpdatePropGrid(engine::GameObjectPtr pObj)
+void CMainFrame::UpdatePropGrid(ld3d::GameObjectPtr pObj)
 {
 	m_wndProperties.UpdateGameObjectProp(pObj);
 }
@@ -1016,7 +1016,7 @@ void CMainFrame::UpdateAssetsView()
 
 void CMainFrame::OnFileSaveScene()
 {
-	using namespace engine;
+	using namespace ld3d;
 	util_update_obj_property_grid(GameObjectPtr());
 
 	using namespace boost::filesystem;
@@ -1045,7 +1045,7 @@ void CMainFrame::OnFileSaveScene()
 
 void CMainFrame::OnFileOpenScene()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	util_update_obj_property_grid(GameObjectPtr());
 	util_update_object_view(GameObjectPtr());
@@ -1102,7 +1102,7 @@ void CMainFrame::OnFileSaveSceneAs()
 
 void CMainFrame::OnFileNewScene()
 {
-	using namespace engine;
+	using namespace ld3d;
 	util_update_obj_property_grid(GameObjectPtr());
 	util_update_object_view(GameObjectPtr());
 
@@ -1121,7 +1121,7 @@ void CMainFrame::OnFileNewScene()
 
 void CMainFrame::OnFileNewProject()
 {
-	using namespace engine;
+	using namespace ld3d;
 	util_update_obj_property_grid(GameObjectPtr());
 	util_update_object_view(GameObjectPtr());
 
@@ -1166,7 +1166,7 @@ void CMainFrame::OnFileNewProject()
 
 void CMainFrame::OnFileOpenProject()
 {
-	using namespace engine;
+	using namespace ld3d;
 	util_update_obj_property_grid(GameObjectPtr());
 	util_update_object_view(GameObjectPtr());
 
@@ -1200,7 +1200,7 @@ void CMainFrame::OnFileOpenProject()
 
 void CMainFrame::OnFileSaveProject()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	util_update_obj_property_grid(GameObjectPtr());
 

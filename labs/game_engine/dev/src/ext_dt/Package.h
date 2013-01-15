@@ -2,7 +2,7 @@
 
 #include "core\ExtPackage.h"
 
-namespace engine
+namespace ld3d
 {
 	class DTPackage : public ExtPackage
 	{

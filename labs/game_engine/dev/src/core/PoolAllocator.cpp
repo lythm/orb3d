@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\PoolAllocator.h"
 
-namespace engine
+namespace ld3d
 {
 
 	PoolAllocator::PoolAllocator(void)

@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace engine
+namespace ld3d
 {
 	class SphereTpl : public GameObjectTemplate
 	{

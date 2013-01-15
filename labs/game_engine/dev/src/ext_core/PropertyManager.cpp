@@ -3,7 +3,7 @@
 #include "core\GameObject.h"
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 	PropertyManager::PropertyManager(GameObjectManagerPtr pManager) : GameObjectComponent(L"PropertyManager", pManager)
 	{

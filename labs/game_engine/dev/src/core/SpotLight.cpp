@@ -8,7 +8,7 @@
 #include "core\Material.h"
 #include "core\RenderSystem.h"
 
-namespace engine
+namespace ld3d
 {
 	SpotLight::SpotLight(void) : Light(LT_SPOTLIGHT)
 	{

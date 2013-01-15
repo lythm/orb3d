@@ -6,7 +6,7 @@ public:
 	virtual ~Renderer(void);
 
 	void								Resize(int vpw, int vph);
-	bool								Initialize(engine::CoreApiPtr pCore);
+	bool								Initialize(ld3d::CoreApiPtr pCore);
 	void								Release();
 	void								Render();
 
@@ -27,7 +27,7 @@ private:
 	GridMeshPtr							m_pGrid;
 	bool								m_bShowGrid;
 	EditorCameraPtr						m_pCamera;
-	engine::CoreApiPtr					m_pCore;
-	engine::RenderSystemPtr				m_pRS;
+	ld3d::CoreApiPtr					m_pCore;
+	ld3d::RenderSystemPtr				m_pRS;
 };
 

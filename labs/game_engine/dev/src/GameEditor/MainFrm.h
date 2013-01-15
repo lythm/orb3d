@@ -37,17 +37,17 @@ public:
 	bool					UpdateComClassMap();
 	bool					UpdateTemplateMap();
 
-	void					UpdateObjectView(engine::GameObjectPtr pRoot);
-	void					UpdatePropGrid(engine::GameObjectPtr pObj);
+	void					UpdateObjectView(ld3d::GameObjectPtr pRoot);
+	void					UpdatePropGrid(ld3d::GameObjectPtr pObj);
 	void					OutputInfo(const CString& info);
 	void					outputBuild(const CString& build);
 	void					UpdateAssetsView();
 private:
 	bool					UpdateComponentMenu(CMFCPopupMenu* pMenu);
-	engine::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);
+	ld3d::ExtPackage::ComponentClass* FindClassByMenuID(UINT uID);
 
 	bool					UpdateTemplateMenu(CMFCPopupMenu* pMenu);
-	engine::GameObjectTemplate* FindTemplateByMenuID(UINT uID);
+	ld3d::GameObjectTemplate* FindTemplateByMenuID(UINT uID);
 // 实现
 public:
 	virtual ~CMainFrame();
@@ -68,8 +68,8 @@ protected:  // 控件条嵌入成员
 	CMFCCaptionBar    m_wndCaptionBar;
 	CTemplateView	  m_wndTplView;
 	CInspectorView		m_wndInspectorView;
-	boost::unordered_map<std::wstring, std::vector<engine::ExtPackage::ComponentClass*> >	m_ComClassMap;
-	boost::unordered_map<std::wstring, std::vector<engine::GameObjectTemplate*> >			m_templateMap;
+	boost::unordered_map<std::wstring, std::vector<ld3d::ExtPackage::ComponentClass*> >	m_ComClassMap;
+	boost::unordered_map<std::wstring, std::vector<ld3d::GameObjectTemplate*> >			m_templateMap;
 // 生成的消息映射函数
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

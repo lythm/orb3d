@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\Sky.h"
 
-namespace engine
+namespace ld3d
 {
 	Sky::Sky(GameObjectManagerPtr pManager) : GameObjectComponent(L"Sky", pManager)
 	{

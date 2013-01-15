@@ -15,10 +15,10 @@ Renderer::Renderer(void)
 Renderer::~Renderer(void)
 {
 }
-bool Renderer::Initialize(engine::CoreApiPtr pCore)
+bool Renderer::Initialize(ld3d::CoreApiPtr pCore)
 {
 	using namespace math;
-	using namespace engine;
+	using namespace ld3d;
 
 	m_pCore = pCore;
 	m_pRS = m_pCore->GetRenderSystem();
@@ -109,9 +109,9 @@ bool Renderer::ShowingGrid()
 void Renderer::OnMouseLButtonClick(UINT nFlags, CPoint point)
 {
 	util_clear_objview_selection();
-	util_update_obj_property_grid(engine::GameObjectPtr());
+	util_update_obj_property_grid(ld3d::GameObjectPtr());
 
-	Project::Instance()->SelectObject(engine::GameObjectPtr());
+	Project::Instance()->SelectObject(ld3d::GameObjectPtr());
 }
 void Renderer::UpdateFPS()
 {

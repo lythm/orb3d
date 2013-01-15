@@ -1,7 +1,7 @@
 #include "gameeditor_ext_pch.h"
 #include "ext_dt\DT_SelectionBox.h"
 
-namespace engine
+namespace ld3d
 {
 	DT_SelectionBox::DT_SelectionBox(GameObjectManagerPtr pManager) : GameObjectComponent(L"DT_SelectionBox", pManager)
 	{

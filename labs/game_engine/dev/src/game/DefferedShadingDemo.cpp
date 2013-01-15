@@ -10,9 +10,9 @@ DefferedShadingDemo::DefferedShadingDemo(void)
 DefferedShadingDemo::~DefferedShadingDemo(void)
 {
 }
-bool DefferedShadingDemo::Init(engine::CoreApiPtr pCore)
+bool DefferedShadingDemo::Init(ld3d::CoreApiPtr pCore)
 {
-	using namespace engine;
+	using namespace ld3d;
 	m_pCore = pCore;
 
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&DefferedShadingDemo::OnWMEvent, this, _1));
@@ -61,9 +61,9 @@ void DefferedShadingDemo::Update()
 	Render();
 }
 
-void DefferedShadingDemo::OnWMEvent(engine::EventPtr pEvent)
+void DefferedShadingDemo::OnWMEvent(ld3d::EventPtr pEvent)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	const MSG& msg = ((WMEvent*)pEvent.get())->msg;
 
@@ -83,7 +83,7 @@ void DefferedShadingDemo::OnWMEvent(engine::EventPtr pEvent)
 }
 void DefferedShadingDemo::CreateQuad()
 {
-	using namespace engine;
+	using namespace ld3d;
 	struct Vertex
 	{
 		math::Vector3			pos;
@@ -118,7 +118,7 @@ void DefferedShadingDemo::CreateQuad()
 }
 void DefferedShadingDemo::CreateScene()
 {
-	using namespace engine;
+	using namespace ld3d;
 	m_pTex = m_pCore->GetSysGraphics()->CreateTextureFromFile("./assets/standard/texture/15.png");
 
 	m_pMaterial = m_pCore->GetSysGraphics()->CreateMaterialFromFile("./assets/standard/material/ds1.fx");
@@ -152,7 +152,7 @@ void DefferedShadingDemo::Render()
 }
 void DefferedShadingDemo::DrawQuad()
 {
-	using namespace engine;
+	using namespace ld3d;
 	m_pCore->GetSysGraphics()->SetRenderTarget(RenderTargetPtr());
 
 	m_pCore->GetSysGraphics()->ClearRenderTarget(RenderTargetPtr(), 0, math::Color4(1.0, 1.0, 1.0, 1));
@@ -181,7 +181,7 @@ void DefferedShadingDemo::DrawQuad()
 }
 void DefferedShadingDemo::DrawScene()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	m_pCore->GetSysGraphics()->SetRenderTarget(m_pRT);
 	m_pCore->GetSysGraphics()->ClearDepthStencilBuffer(m_pRT->GetDepthStencilBuffer(), CLEAR_ALL, 0.999999f, 0);
@@ -197,7 +197,7 @@ void DefferedShadingDemo::DrawScene()
 	float angle = 3.14f * (dt / 2000.0f);
 
 	tick = GetTickCount();
-	using namespace engine;
+	using namespace ld3d;
 
 	static float rad = 0;
 	rad += angle;

@@ -2,7 +2,7 @@
 #include "..\..\include\core\GameObjectComponent.h"
 #include "core_utils.h"
 
-namespace engine
+namespace ld3d
 {
 	GameObjectComponent::GameObjectComponent(const std::wstring& name, GameObjectManagerPtr pManager)
 	{

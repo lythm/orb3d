@@ -2,7 +2,7 @@
 
 #include "core\DepthStencilBuffer.h"
 
-namespace engine
+namespace ld3d
 {
 	class D3D11DepthStencilBuffer : public DepthStencilBuffer
 	{

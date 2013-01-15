@@ -2,7 +2,7 @@
 #include "..\..\include\core\ext\Behavior.h"
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 	Behavior::Behavior(GameObjectManagerPtr pManager):GameObjectComponent(L"Behavior", pManager)
 	{

@@ -3,7 +3,7 @@
 #include "core\CoreApi.h"
 #include "core\Allocator.h"
 
-namespace engine
+namespace ld3d
 {
 	inline
 		void*												mem_alloc(uint64 bytes)

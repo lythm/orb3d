@@ -2,7 +2,7 @@
 
 #include "core\Texture.h"
 
-namespace engine
+namespace ld3d
 {
 	class D3D11Texture : public Texture
 	{

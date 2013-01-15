@@ -2,7 +2,7 @@
 
 #include <boost\smart_ptr.hpp>
 
-namespace engine
+namespace ld3d
 {
 	class VoxelWorld;
 	class VoxelWorldRenderer;

@@ -12,7 +12,7 @@
 
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 
 	MeshRenderer::MeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"MeshRenderer", pManager)

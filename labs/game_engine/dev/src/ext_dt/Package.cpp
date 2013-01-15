@@ -5,19 +5,19 @@
 #include "ext_dt\DT_Gizmo.h"
 
 
-EXPORT_C_API engine::ExtPackage* CreatePackage(engine::CoreApiPtr pCore)
+EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::CoreApiPtr pCore)
 {
-	return new engine::DTPackage(pCore);
+	return new ld3d::DTPackage(pCore);
 }
 
 
-EXPORT_C_API void DestroyPackage(engine::ExtPackage* pPackage)
+EXPORT_C_API void DestroyPackage(ld3d::ExtPackage* pPackage)
 {
-	delete (engine::DTPackage*)pPackage;
+	delete (ld3d::DTPackage*)pPackage;
 }
 
 
-namespace engine
+namespace ld3d
 {
 	DTPackage::DTPackage(CoreApiPtr pCore)
 	{

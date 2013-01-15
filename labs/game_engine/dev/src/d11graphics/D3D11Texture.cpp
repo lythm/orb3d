@@ -2,7 +2,7 @@
 #include "D3D11Texture.h"
 #include "D3D11Format.h"
 
-namespace engine
+namespace ld3d
 {
 	D3D11Texture::D3D11Texture(ID3D11DeviceContext* pContext)
 	{

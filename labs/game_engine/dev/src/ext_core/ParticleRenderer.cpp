@@ -2,7 +2,7 @@
 #include "..\..\include\core\ext\ParticleRenderer.h"
 
 
-namespace engine
+namespace ld3d
 {
 
 	ParticleRenderer::ParticleRenderer(void)

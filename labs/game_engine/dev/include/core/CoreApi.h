@@ -4,7 +4,7 @@
 #include "core\StdAllocator.h"
 
 #include <boost\enable_shared_from_this.hpp>
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS CoreApi : public boost::enable_shared_from_this<CoreApi>
 	{

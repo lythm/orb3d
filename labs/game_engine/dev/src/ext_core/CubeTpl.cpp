@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "CubeTpl.h"
 
-namespace engine
+namespace ld3d
 {
 	CubeTpl::CubeTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{

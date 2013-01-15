@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "core\BaseCamera.h"
 
-namespace engine
+namespace ld3d
 {
 	BaseCamera::BaseCamera(void)
 	{

@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\PostEffect_BilateralBlur.h"
 
-namespace engine
+namespace ld3d
 {
 	PostEffect_BilateralBlur::PostEffect_BilateralBlur(void)
 	{

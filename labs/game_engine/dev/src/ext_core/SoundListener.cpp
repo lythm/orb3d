@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\SoundListener.h"
 
-namespace engine
+namespace ld3d
 {
 
 	SoundListener::SoundListener(GameObjectManagerPtr pManager) : GameObjectComponent(L"SoundListener", pManager)

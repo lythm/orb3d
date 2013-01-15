@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\StdAllocator.h"
 
-namespace engine
+namespace ld3d
 {
 	StdAllocator::StdAllocator(void)
 	{

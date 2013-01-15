@@ -3,7 +3,7 @@
 #include "ext_voxel\VoxelBlock.h"
 
 
-namespace engine
+namespace ld3d
 {
 	VoxelWorld::VoxelWorld(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelWorld", pManager)
 	{

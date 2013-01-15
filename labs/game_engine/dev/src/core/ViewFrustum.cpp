@@ -2,7 +2,7 @@
 #include "..\..\include\core\ViewFrustum.h"
 
 
-namespace engine
+namespace ld3d
 {
 
 	ViewFrustum::ViewFrustum(void)

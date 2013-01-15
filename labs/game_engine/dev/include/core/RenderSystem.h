@@ -2,7 +2,7 @@
 
 
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS RenderSystem : public boost::enable_shared_from_this<RenderSystem>
 	{

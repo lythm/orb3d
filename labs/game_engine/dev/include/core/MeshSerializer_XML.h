@@ -2,7 +2,7 @@
 
 #include "core\MeshSerializer.h"
 
-namespace engine
+namespace ld3d
 {
 	class MeshSerializer_XML : public MeshSerializer
 	{

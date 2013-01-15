@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 
-namespace engine
+namespace ld3d
 {
 	class WinApp
 	{

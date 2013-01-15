@@ -15,7 +15,7 @@ EditorCamera::~EditorCamera(void)
 }
 void EditorCamera::Update()
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	UpdateViewFrustum();
 
@@ -198,7 +198,7 @@ void EditorCamera::OnMouseRButtonUp(UINT nFlags, CPoint point)
 
 }
 
-void EditorCamera::Init(engine::CoreApiPtr pCore)
+void EditorCamera::Init(ld3d::CoreApiPtr pCore)
 {
 	using namespace math;
 	m_pCore = pCore;

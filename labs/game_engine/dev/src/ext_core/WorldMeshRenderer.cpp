@@ -2,7 +2,7 @@
 #include "..\..\include\core\ext\WorldMeshRenderer.h"
 #include "CorePackage.h"
 
-namespace engine
+namespace ld3d
 {
 
 	WorldMeshRenderer::WorldMeshRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"WorldMeshRenderer", pManager)

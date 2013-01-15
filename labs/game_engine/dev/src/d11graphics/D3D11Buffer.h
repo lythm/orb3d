@@ -4,7 +4,7 @@
 #include "core\GPUBuffer.h"
 
 
-namespace engine
+namespace ld3d
 {
 	class D3D11Buffer : public GPUBuffer
 	{

@@ -9,7 +9,7 @@
 #include "core\PostEffect_SSAO.h"
 #include "core_utils.h"
 
-namespace engine
+namespace ld3d
 {
 	PostEffectManager::PostEffectManager(void)
 	{

@@ -5,7 +5,7 @@
 #include "core\Material.h"
 #include "core\RenderSystem.h"
 
-namespace engine
+namespace ld3d
 {
 	DirectionalLight::DirectionalLight(void) : Light(LT_DIRLIGHT)
 	{

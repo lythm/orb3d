@@ -4,7 +4,7 @@
 #include "WinApp.h"
 #include "GameManager.h"
 
-namespace engine
+namespace ld3d
 {
 	
 	class EngineApp : public WinApp

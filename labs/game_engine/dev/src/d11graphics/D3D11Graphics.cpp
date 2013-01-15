@@ -9,17 +9,17 @@
 #include "D3D11RenderTarget.h"
 #include "D3D11RenderWindow.h"
 
-EXPORT_C_API engine::Sys_Graphics* CreateSys()
+EXPORT_C_API ld3d::Sys_Graphics* CreateSys()
 {
-	return new engine::D3D11Graphics;
+	return new ld3d::D3D11Graphics;
 }
 
-EXPORT_C_API void DestroySys(engine::Sys_Graphics* pSys)
+EXPORT_C_API void DestroySys(ld3d::Sys_Graphics* pSys)
 {
-	delete (engine::D3D11Graphics*)pSys;
+	delete (ld3d::D3D11Graphics*)pSys;
 }
 
-namespace engine
+namespace ld3d
 {
 	D3D11Graphics::D3D11Graphics(void)
 	{

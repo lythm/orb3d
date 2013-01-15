@@ -6,7 +6,7 @@
 #include "D3D11Format.h"
 
 
-namespace engine
+namespace ld3d
 {
 	D3D11RenderTarget::D3D11RenderTarget(ID3D11DeviceContext* pContext)
 	{

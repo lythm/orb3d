@@ -264,7 +264,7 @@ void CFileView::_fill_view(boost::filesystem::path p, HTREEITEM hParent)
 }
 HTREEITEM CFileView::AddFileItem(HTREEITEM hParent, boost::filesystem::path p)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	HTREEITEM item = m_wndFileView.InsertItem(p.filename().wstring().c_str(), 2, 2, hParent);
 

@@ -110,6 +110,7 @@
     <ClInclude Include="..\..\include\core\g_format.h" />
     <ClInclude Include="..\..\include\core\Light.h" />
     <ClInclude Include="..\..\include\core\LightManager.h" />
+    <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Mesh.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer.h" />
     <ClInclude Include="..\..\include\core\MeshSerializer_XML.h" />

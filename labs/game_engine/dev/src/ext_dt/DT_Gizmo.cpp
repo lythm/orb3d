@@ -2,7 +2,7 @@
 #include "..\..\include\ext_dt\DT_Gizmo.h"
 
 
-namespace engine
+namespace ld3d
 {
 	DT_Gizmo::DT_Gizmo(GameObjectManagerPtr pManager) : GameObjectComponent(L"DT_Gizmo", pManager)
 	{

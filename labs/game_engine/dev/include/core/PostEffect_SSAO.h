@@ -2,7 +2,7 @@
 
 #include "core\PostEffect.h"
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS PostEffect_SSAO : public PostEffect
 	{

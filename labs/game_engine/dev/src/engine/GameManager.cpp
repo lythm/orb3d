@@ -2,7 +2,7 @@
 #include "GameManager.h"
 
 
-namespace engine
+namespace ld3d
 {
 	GameManager::GameManager(void)
 	{

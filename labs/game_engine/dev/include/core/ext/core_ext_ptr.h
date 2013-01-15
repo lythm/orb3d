@@ -1,6 +1,6 @@
 #pragma once
 
-namespace engine
+namespace ld3d
 {
 	class PropertyManager;
 	class MeshRenderer;

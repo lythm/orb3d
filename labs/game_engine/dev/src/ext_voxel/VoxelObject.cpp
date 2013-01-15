@@ -1,7 +1,7 @@
 #include "voxel_pch.h"
 #include "..\..\include\ext_voxel\VoxelObject.h"
 
-namespace engine
+namespace ld3d
 {
 	VoxelObject::VoxelObject(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelObject", pManager)
 	{

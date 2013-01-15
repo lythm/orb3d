@@ -1,7 +1,7 @@
 #include "voxel_pch.h"
 #include "..\..\include\ext_voxel\Voxel.h"
 
-namespace engine
+namespace ld3d
 {
 	Voxel::Voxel(void)
 	{

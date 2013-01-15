@@ -3,7 +3,7 @@
 #include "ext_voxel\VoxelWorld.h"
 #include "ext_voxel\VoxelWorldRenderer.h"
 
-namespace engine
+namespace ld3d
 {
 	VoxelWorldTemplate::VoxelWorldTemplate(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Voxel")
 	{

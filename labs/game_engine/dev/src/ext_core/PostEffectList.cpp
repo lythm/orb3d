@@ -4,7 +4,7 @@
 #include "core\ext\PropertyManager.h"
 
 
-namespace engine
+namespace ld3d
 {
 
 	PostEffectList::PostEffectList(GameObjectManagerPtr pManager) : GameObjectComponent(L"PostEffectList", pManager)

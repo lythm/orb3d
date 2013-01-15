@@ -20,18 +20,18 @@ public:
 	bool								LoadScene(const _TCHAR* filename);
 	
 	void								CreateObject_Empty();
-	engine::GameObjectPtr				CreateObject(const std::wstring& name);
-	engine::GameObjectPtr				CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
-	engine::GameObjectComponentPtr		CreateGameObjectComponent(const std::wstring& name);
-	engine::CoreApiPtr					GetCoreApi();
+	ld3d::GameObjectPtr				CreateObject(const std::wstring& name);
+	ld3d::GameObjectPtr				CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl);
+	ld3d::GameObjectComponentPtr		CreateGameObjectComponent(const std::wstring& name);
+	ld3d::CoreApiPtr					GetCoreApi();
 	RendererPtr							GetRenderer();
 
 	void								ResizeRenderer(int cx, int cy);
 
-	void								SelectObject(engine::GameObjectPtr pObj);
-	engine::GameObjectPtr				GetSelObject();
+	void								SelectObject(ld3d::GameObjectPtr pObj);
+	ld3d::GameObjectPtr				GetSelObject();
 
-	engine::GameObjectPtr				Root();
+	ld3d::GameObjectPtr				Root();
 
 	void								HandleMessage(MSG& msg);
 
@@ -50,7 +50,9 @@ public:
 	boost::filesystem::path				GetGameSceneFile();
 	boost::filesystem::path				GetProjectFile();
 
+	boost::filesystem::path				GetRelativePath(boost::filesystem::path p);
 
+	void								RestoreCurrentDirectory();
 private:
 
 	bool								CreateNewProject(const CString& dir);
@@ -64,7 +66,7 @@ private:
 
 private:
 	
-	bool								CopyDirectory(boost::filesystem::path src, boost::filesystem::path dst);
+	
 private:
 	boost::filesystem::path				m_filePath;
 
@@ -72,14 +74,14 @@ private:
 	
 	RendererPtr							m_pRenderer;
 
-	engine::CoreApiPtr					m_pCore;
+	ld3d::CoreApiPtr					m_pCore;
 
-	engine::GameObjectPtr				m_pSelObject;
+	ld3d::GameObjectPtr				m_pSelObject;
 
 	math::Color4						m_clearClr;
 	GameScenePtr						m_pScene;
 	
-	static engine::PoolAllocator		s_Allocator;
+	static ld3d::PoolAllocator		s_Allocator;
 	static ProjectPtr					s_pInstance;
 };
 

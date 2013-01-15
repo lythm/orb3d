@@ -2,7 +2,7 @@
 #include "..\..\include\ext_voxel\VoxelObjectRenderer.h"
 
 
-namespace engine
+namespace ld3d
 {
 	VoxelObjectRenderer::VoxelObjectRenderer(GameObjectManagerPtr pManager) : GameObjectComponent(L"VoxelObjectRenderer", pManager)
 	{

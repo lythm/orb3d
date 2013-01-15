@@ -3,7 +3,7 @@
 
 namespace custom_property
 {
-	TransformProperty::TransformProperty(const CString& strName, engine::Property* pProp) : CMFCPropertyGridProperty(strName)
+	TransformProperty::TransformProperty(const CString& strName, ld3d::Property* pProp) : CMFCPropertyGridProperty(strName)
 	{
 		m_pProp = pProp;
 
@@ -76,7 +76,7 @@ namespace custom_property
 	}
 	void TransformProperty::UpdateValue()
 	{
-		using namespace engine;
+		using namespace ld3d;
 
 		math::Matrix44 mat = ((Matrix44Property*)m_pProp)->Get();
 
@@ -90,7 +90,7 @@ namespace custom_property
 	}
 	void TransformProperty::UpdatePropValue()
 	{
-		using namespace engine;
+		using namespace ld3d;
 
 		//math::Matrix44 mat = math::MatrixScale(m_scale)  * EularToMatrix(m_rotation) * math::MatrixTranslation(m_translation);
 

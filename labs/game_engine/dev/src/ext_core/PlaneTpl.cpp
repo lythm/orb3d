@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "PlaneTpl.h"
 
-namespace engine
+namespace ld3d
 {
 	PlaneTpl::PlaneTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{

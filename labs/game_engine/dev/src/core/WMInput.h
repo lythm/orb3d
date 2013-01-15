@@ -3,7 +3,7 @@
 #include "core\Sys_Input.h"
 
 
-namespace engine
+namespace ld3d
 {
 	class WMInput : public Sys_Input
 	{

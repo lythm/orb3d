@@ -2,7 +2,7 @@
 
 #include "core\Allocator.h"
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS StdAllocator : public Allocator
 	{

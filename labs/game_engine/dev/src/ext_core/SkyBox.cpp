@@ -2,7 +2,7 @@
 #include "..\..\include\core\ext\SkyBox.h"
 
 
-namespace engine
+namespace ld3d
 {
 	SkyBox::SkyBox(GameObjectManagerPtr pManager) : GameObjectComponent(L"SkyBox", pManager)
 	{

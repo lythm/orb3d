@@ -1,7 +1,7 @@
 #include "voxel_pch.h"
 #include "VoxelWorldRenderData.h"
 
-namespace engine
+namespace ld3d
 {
 	VoxelWorldRenderData::VoxelWorldRenderData(void)
 	{

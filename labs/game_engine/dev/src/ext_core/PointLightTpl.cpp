@@ -3,7 +3,7 @@
 
 
 
-namespace engine
+namespace ld3d
 {
 	PointLightTpl::PointLightTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
 	{

@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\DataStream_Mem.h"
 #include "core_utils.h"
-namespace engine
+namespace ld3d
 {
 	DataStream_Mem::DataStream_Mem(void)
 	{

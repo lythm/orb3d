@@ -5,7 +5,7 @@
 #include "ext_voxel\voxel_ptr.h"
 
 
-namespace engine
+namespace ld3d
 {
 
 	class VoxelWorldRenderData;

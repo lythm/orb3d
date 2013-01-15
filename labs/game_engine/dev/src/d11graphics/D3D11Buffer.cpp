@@ -2,7 +2,7 @@
 #include "D3D11Buffer.h"
 
 
-namespace engine
+namespace ld3d
 {
 	D3D11Buffer::D3D11Buffer(ID3D11Buffer* pBuffer, ID3D11DeviceContext* pContext)
 	{

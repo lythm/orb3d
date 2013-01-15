@@ -102,5 +102,6 @@
     <ClInclude Include="..\..\include\core\PostEffect_SSAO.h" />
     <ClInclude Include="..\..\include\core\PostEffect_BilateralBlur.h" />
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
+    <ClInclude Include="..\..\include\core\Material.h" />
   </ItemGroup>
 </Project>

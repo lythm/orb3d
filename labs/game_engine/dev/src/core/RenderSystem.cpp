@@ -11,7 +11,7 @@
 #include "core\Light.h"
 #include "core\PostEffectManager.h"
 
-namespace engine
+namespace ld3d
 {
 	RenderSystem::RenderSystem(void)
 	{
@@ -265,7 +265,7 @@ namespace engine
 			return;
 		}
 
-		m_pGraphics->SetRenderTarget(engine::RenderTargetPtr());
+		m_pGraphics->SetRenderTarget(ld3d::RenderTargetPtr());
 
 		m_pGraphics->ResizeFrameBuffer(cx, cy);
 		
@@ -351,7 +351,7 @@ namespace engine
 
 
 
-namespace engine
+namespace ld3d
 {
 	bool RenderSystem::ScreenQuad::Init(Sys_GraphicsPtr pGraphics)
 	{

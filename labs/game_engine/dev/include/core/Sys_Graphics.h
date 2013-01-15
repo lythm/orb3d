@@ -4,7 +4,7 @@
 
 #include "core/g_format.h"
 
-namespace engine
+namespace ld3d
 {
 	class Sys_Graphics
 	{

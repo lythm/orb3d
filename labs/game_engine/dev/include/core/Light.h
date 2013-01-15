@@ -3,7 +3,7 @@
 
 #include "core\ViewFrustum.h"
 
-namespace engine
+namespace ld3d
 {
 	class EXPORT_CLASS Light: public boost::enable_shared_from_this<Light>
 	{

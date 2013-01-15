@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "SphereTpl.h"
 
-namespace engine
+namespace ld3d
 {
 	SphereTpl::SphereTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{

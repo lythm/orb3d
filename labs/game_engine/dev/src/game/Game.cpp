@@ -8,7 +8,7 @@ EXPORT_C_API Game* CreateGame()
 	return new Game;
 }
 
-EXPORT_C_API void DestroyGame(engine::GameInterface* pGame)
+EXPORT_C_API void DestroyGame(ld3d::GameInterface* pGame)
 {
 	delete (Game*)pGame;
 }
@@ -24,7 +24,7 @@ Game::Game(void)
 Game::~Game(void)
 {
 }
-bool Game::Initialize(engine::CoreApiPtr pCore)
+bool Game::Initialize(ld3d::CoreApiPtr pCore)
 {
 	m_pDemo = new DefferedShadingDemo;
 

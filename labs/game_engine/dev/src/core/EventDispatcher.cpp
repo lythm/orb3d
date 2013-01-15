@@ -2,7 +2,7 @@
 #include "..\..\include\core\EventDispatcher.h"
 #include "core\Event.h"
 
-namespace engine
+namespace ld3d
 {
 	EventDispatcher::EventDispatcher(void)
 	{

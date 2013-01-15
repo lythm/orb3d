@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "ConeTpl.h"
 
-namespace engine
+namespace ld3d
 {
 	ConeTpl::ConeTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{

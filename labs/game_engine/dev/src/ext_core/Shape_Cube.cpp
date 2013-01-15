@@ -1,7 +1,7 @@
 #include "core_ext_pch.h"
 #include "..\..\include\core\ext\Shape_Cube.h"
 
-namespace engine
+namespace ld3d
 {
 	Shape_Cube::Shape_Cube(GameObjectManagerPtr pManager):GameObjectComponent(L"Shape_Cube", pManager)
 	{

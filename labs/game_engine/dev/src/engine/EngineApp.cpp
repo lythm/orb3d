@@ -4,7 +4,7 @@
 
 
 
-namespace engine
+namespace ld3d
 {
 
 	EngineApp::EngineApp(void)
@@ -126,7 +126,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	using namespace engine;
+	using namespace ld3d;
 	EngineApp app;
 
 	if(false == app.Initialize(hInstance, L"Main Window", 800, 600))

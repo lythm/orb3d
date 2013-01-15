@@ -2,7 +2,7 @@
 #include "GameScene.h"
 
 
-GameScene::GameScene(engine::CoreApiPtr pCore)
+GameScene::GameScene(ld3d::CoreApiPtr pCore)
 {
 	m_pCore = pCore;
 	m_objNo	= 0;
@@ -28,7 +28,7 @@ bool GameScene::Load(boost::filesystem::path file)
 
 	m_filepath = file;
 
-	using namespace engine;
+	using namespace ld3d;
 
 	DataStream_File stream;
 	if(false == stream.OpenStream(file.wstring().c_str()))
@@ -49,7 +49,7 @@ bool GameScene::Save(boost::filesystem::path file)
 {
 	m_filepath = file;
 
-	using namespace engine;
+	using namespace ld3d;
 	DataStream_File stream;
 	if(false == stream.OpenStream(file.wstring().c_str(), false))
 	{
@@ -81,8 +81,8 @@ void GameScene::Close()
 
 void GameScene::AddDefaultLight()
 {
-	using namespace engine;
-	using namespace engine;
+	using namespace ld3d;
+	using namespace ld3d;
 
 	GameObjectPtr pObj = CreateObjectFromTpl(L"Default Light", L"SkyLight");
 	pObj->SetTranslation(1, 1, 1);
@@ -91,12 +91,12 @@ void GameScene::AddDefaultLight()
 }
 void GameScene::CreateObject_Empty()
 {
-	using namespace engine;
+	using namespace ld3d;
 	GameObjectPtr pObj = CreateObject(L"GameObject");
 }
-engine::GameObjectPtr GameScene::CreateObject(const std::wstring& name)
+ld3d::GameObjectPtr GameScene::CreateObject(const std::wstring& name)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	CString full_name;
 
@@ -110,9 +110,9 @@ engine::GameObjectPtr GameScene::CreateObject(const std::wstring& name)
 	m_objNo++;
 	return pObj;
 }
-engine::GameObjectPtr GameScene::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
+ld3d::GameObjectPtr GameScene::CreateObjectFromTpl(const std::wstring& name, const std::wstring& tpl)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	CString full_name;
 
@@ -126,15 +126,15 @@ engine::GameObjectPtr GameScene::CreateObjectFromTpl(const std::wstring& name, c
 	m_objNo++;
 	return pObj;
 }
-engine::GameObjectComponentPtr GameScene::CreateGameObjectComponent(const std::wstring& name)
+ld3d::GameObjectComponentPtr GameScene::CreateGameObjectComponent(const std::wstring& name)
 {
 	return m_pCore->CreateGameObjectComponent(name);
 }
-engine::GameObjectPtr GameScene::Root()
+ld3d::GameObjectPtr GameScene::Root()
 {
 	if(m_pCore == nullptr)
 	{
-		return engine::GameObjectPtr();
+		return ld3d::GameObjectPtr();
 	}
 	return m_pCore->Root();
 }

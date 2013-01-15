@@ -24,7 +24,7 @@ public:
 
 
 private:
-	engine::RenderTargetPtr				m_pRenderTarget;
+	ld3d::RenderTargetPtr				m_pRenderTarget;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnSize(UINT nType, int cx, int cy);

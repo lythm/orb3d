@@ -1,7 +1,7 @@
 #include "core_pch.h"
 #include "core\SysManager.h"
 
-namespace engine
+namespace ld3d
 {
 	SysManager::SysManager(void)
 	{

@@ -2,7 +2,7 @@
 #include "SkyLightTpl.h"
 
 
-namespace engine
+namespace ld3d
 {
 	SkyLightTpl::SkyLightTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
 	{

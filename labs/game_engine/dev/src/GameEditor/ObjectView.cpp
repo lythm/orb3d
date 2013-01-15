@@ -121,9 +121,9 @@ void CObjectView::OnSize(UINT nType, int cx, int cy)
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
-void CObjectView::UpdateObjectView(engine::GameObjectPtr pRoot)
+void CObjectView::UpdateObjectView(ld3d::GameObjectPtr pRoot)
 {
-	using namespace engine;
+	using namespace ld3d;
 
 	m_wndObjectView.UpdateGameObjectTree(pRoot);
 	m_wndObjectView.Expand(m_wndObjectView.GetRootItem(), TVE_EXPAND);
@@ -288,7 +288,7 @@ void CObjectView::OnChangeVisualStyle()
 void CObjectView::OnOvDelobj()
 {
 	// TODO: 在此添加命令处理程序代码
-	using namespace engine;
+	using namespace ld3d;
 
 	util_update_obj_property_grid(GameObjectPtr());
 
@@ -314,6 +314,6 @@ void CObjectView::OnOvRename()
 }
 void CObjectView::ClearSelection()
 {
-	Project::Instance()->SelectObject(engine::GameObjectPtr());
+	Project::Instance()->SelectObject(ld3d::GameObjectPtr());
 	m_wndObjectView.SelectItem(nullptr);
 }

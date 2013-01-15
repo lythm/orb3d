@@ -17,7 +17,7 @@
 #include "WMInput.h"
 
 
-namespace engine
+namespace ld3d
 {
 	Allocator*										CoreApi::s_pAllocator;
 

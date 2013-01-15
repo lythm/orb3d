@@ -4,7 +4,7 @@
 #include "core\GPUBuffer.h"
 #include "core\Material.h"
 #include "core\RenderSystem.h"
-namespace engine
+namespace ld3d
 {
 	SkyLight::SkyLight(void) : Light(LT_SKYLIGHT)
 	{

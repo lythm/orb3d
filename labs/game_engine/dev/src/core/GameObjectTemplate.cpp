@@ -3,7 +3,7 @@
 #include "core\DataStream_Mem.h"
 #include "core_utils.h"
 
-namespace engine
+namespace ld3d
 {
 	GameObjectTemplate::GameObjectTemplate(GameObjectManagerPtr pManager, const std::wstring& name, const std::wstring& catalog)
 	{

@@ -1,7 +1,7 @@
 #include "utils_pch.h"
 #include "..\..\include\utils\PropertySet.h"
 
-namespace engine
+namespace ld3d
 {
 	PropertySet::PropertySet(const std::wstring& name)
 	{
