@@ -32,6 +32,7 @@ namespace ld3d
 	void GameObjectManager::Release()
 	{
 		m_componentClasses.clear();
+		
 		m_templates.clear();
 		for(size_t i = 0; i < m_packages.size(); ++i)
 		{

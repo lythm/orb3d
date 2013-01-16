@@ -266,6 +266,11 @@ HTREEITEM CFileView::AddFileItem(HTREEITEM hParent, boost::filesystem::path p)
 {
 	using namespace ld3d;
 
+
+	if(p.extension() == ".gp")
+	{
+		return nullptr;
+	}
 	HTREEITEM item = m_wndFileView.InsertItem(p.filename().wstring().c_str(), 2, 2, hParent);
 
 	//PropertySetPtr pSet = PropertySetPtr(new PropertySet(L"general"));

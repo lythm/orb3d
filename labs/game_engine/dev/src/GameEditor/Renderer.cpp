@@ -62,7 +62,7 @@ void Renderer::Release()
 		m_pGrid->Release();
 		m_pGrid.reset();
 	}
-
+	m_pCamera.reset();
 	m_pCore.reset();
 }
 void Renderer::Render()
