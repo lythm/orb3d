@@ -1,22 +1,22 @@
 #include "core_ext_pch.h"
-#include "ConeTpl.h"
+#include "Tpl_Cube.h"
 
 namespace ld3d
 {
-	ConeTpl::ConeTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
+	Tpl_Cube::Tpl_Cube(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{
 	}
 
 
-	ConeTpl::~ConeTpl(void)
+	Tpl_Cube::~Tpl_Cube(void)
 	{
 	}
-	GameObjectPtr ConeTpl::CreateGameObject()
+	GameObjectPtr Tpl_Cube::CreateGameObject()
 	{
-		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Cone");
+		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Cube");
 		
 		MeshDataPtr pMD = boost::shared_dynamic_cast<MeshData>(m_pManager->CreateComponent(L"MeshData"));
-		pMD->SetMeshAsset(L"_cone_");
+		pMD->SetMeshAsset(L"_cube_");
 
 		pObj->AddComponent(pMD);
 
@@ -25,8 +25,7 @@ namespace ld3d
 
 		return pObj;
 	}
-	void ConeTpl::Release()
+	void Tpl_Cube::Release()
 	{
 	}
-
 }

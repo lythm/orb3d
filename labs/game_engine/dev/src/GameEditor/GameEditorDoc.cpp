@@ -55,25 +55,10 @@ BOOL CGameEditorDoc::OnNewDocument()
 		return FALSE;
 	}
 
-
-	//CProgressDlg d;
-
-	//d.Create((UINT)IDD_PROGRESS_DLG, AfxGetMainWnd());
-	//
-	//d.CenterWindow();
-	//d.ShowWindow(SW_SHOW);
-
-	//for(int i = 0; i < 100; ++i)
-	//{
-	//	d.SetPos(i);
-	//	//d.ProcessMessage();
-	//	Sleep(20);
-	//}
-
-	//d.DestroyWindow();
-	
 	util_update_object_view(Project::Instance()->Root());
 	util_update_assets_view();
+
+	SetTitle(Project::Instance()->GetGameSceneFile().c_str());
 
 	return CDocument::OnNewDocument();
 }
@@ -83,20 +68,6 @@ BOOL CGameEditorDoc::OnNewDocument()
 
 void CGameEditorDoc::Serialize(CArchive& ar)
 {
-	ProjectPtr pProject = Project::Instance();
-	if (ar.IsStoring())
-	{
-		// TODO: 在此添加存储代码
-		
-		pProject->Save(ar.m_strFileName);
-
-	}
-	else
-	{
-		// TODO: 在此添加加载代码
-		pProject->Load(ar.m_strFileName);
-	}
-
 }
 
 #ifdef SHARED_HANDLERS

@@ -11,7 +11,8 @@ namespace ld3d
 		virtual void											SetDepthStencilBuffer(DepthStencilBufferPtr pDepthBuffer)		= 0;
 		virtual DepthStencilBufferPtr							GetDepthStencilBuffer()											= 0;
 		virtual void											Release()														= 0;
-
+		virtual int												GetWidth(int index)												= 0;
+		virtual int												GetHeight(int index)											= 0;
 	protected:
 
 		RenderTarget(void){}

@@ -87,6 +87,7 @@
     <ClInclude Include="D3D11Buffer.h" />
     <ClInclude Include="D3D11DepthStencilBuffer.h" />
     <ClInclude Include="D3D11EffectMaterial.h" />
+    <ClInclude Include="D3D11Font.h" />
     <ClInclude Include="D3D11Format.h" />
     <ClInclude Include="D3D11Graphics.h" />
     <ClInclude Include="D3D11RenderTarget.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="D3D11Buffer.cpp" />
     <ClCompile Include="D3D11DepthStencilBuffer.cpp" />
     <ClCompile Include="D3D11EffectMaterial.cpp" />
+    <ClCompile Include="D3D11Font.cpp" />
     <ClCompile Include="D3D11Format.cpp" />
     <ClCompile Include="D3D11Graphics.cpp" />
     <ClCompile Include="D3D11RenderTarget.cpp" />

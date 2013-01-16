@@ -16,14 +16,14 @@
 
 
 
-#include "CubeTpl.h"
-#include "PlaneTpl.h"
-#include "SphereTpl.h"
-#include "ConeTpl.h"
-#include "PointLightTpl.h"
-#include "SkyLightTpl.h"
-#include "SpotLightTpl.h"
-#include "DirLightTpl.h"
+#include "Tpl_Cube.h"
+#include "Tpl_Plane.h"
+#include "Tpl_Sphere.h"
+#include "Tpl_Cone.h"
+#include "Tpl_PointLight.h"
+#include "Tpl_SkyLight.h"
+#include "Tpl_SpotLight.h"
+#include "Tpl_DirLight.h"
 
 EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::CoreApiPtr pCore)
 {
@@ -54,28 +54,28 @@ namespace ld3d
 	}
 	void CorePackage::RegisterTemplates()
 	{
-		GameObjectTemplate* pTpl = new CubeTpl(m_pCore->GetGameObjectManager(), L"Cube");
+		GameObjectTemplate* pTpl = new Tpl_Cube(m_pCore->GetGameObjectManager(), L"Cube");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new PlaneTpl(m_pCore->GetGameObjectManager(), L"Plane");
+		pTpl = new Tpl_Plane(m_pCore->GetGameObjectManager(), L"Plane");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new SphereTpl(m_pCore->GetGameObjectManager(), L"Sphere");
+		pTpl = new Tpl_Sphere(m_pCore->GetGameObjectManager(), L"Sphere");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new ConeTpl(m_pCore->GetGameObjectManager(), L"Cone");
+		pTpl = new Tpl_Cone(m_pCore->GetGameObjectManager(), L"Cone");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new PointLightTpl(m_pCore->GetGameObjectManager(), L"PointLight");
+		pTpl = new Tpl_PointLight(m_pCore->GetGameObjectManager(), L"PointLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new SpotLightTpl(m_pCore->GetGameObjectManager(), L"SpotLight");
+		pTpl = new Tpl_SpotLight(m_pCore->GetGameObjectManager(), L"SpotLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new DirLightTpl(m_pCore->GetGameObjectManager(), L"DirectionalLight");
+		pTpl = new Tpl_DirLight(m_pCore->GetGameObjectManager(), L"DirectionalLight");
 		m_tpls.push_back(pTpl);
 
-		pTpl = new SkyLightTpl(m_pCore->GetGameObjectManager(), L"SkyLight");
+		pTpl = new Tpl_SkyLight(m_pCore->GetGameObjectManager(), L"SkyLight");
 		m_tpls.push_back(pTpl);
 
 	}

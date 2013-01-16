@@ -12,10 +12,11 @@ namespace ld3d
 	{
 		m_pContext					= pContext;
 		m_pRTViews					= NULL;
-
 		m_pDevice					= NULL;
-
 		m_pContext->GetDevice(&m_pDevice);
+
+		m_width						= 0;
+		m_height					= 0;
 
 	}
 
@@ -62,6 +63,15 @@ namespace ld3d
 		{
 			return false;
 		}
+
+		if(w == 0 || h == 0)
+		{
+			return false;
+		}
+
+		m_width = w;
+		m_height = h;
+
 		m_pRTViews = new ID3D11RenderTargetView*[count];
 
 		for(int i = 0; i < count; ++i)
@@ -120,6 +130,14 @@ namespace ld3d
 	ID3D11RenderTargetView* D3D11RenderTarget::GetD3D11RenderTargetView(int index)
 	{
 		return m_pRTViews[index];
+	}
+	int D3D11RenderTarget::GetWidth(int index)
+	{
+		return m_width;
+	}
+	int	D3D11RenderTarget::GetHeight(int index)
+	{
+		return m_height;
 	}
 	
 }

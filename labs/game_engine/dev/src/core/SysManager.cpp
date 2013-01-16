@@ -42,4 +42,16 @@ namespace ld3d
 		return m_graphicsMod.pSys;
 	}
 
+	Sys_SoundPtr SysManager::LoadSysSound(const wchar_t * szFile)
+	{
+		if(m_soundMod.load_sys(szFile) == false)
+		{
+			return Sys_SoundPtr();
+		}
+		return m_soundMod.pSys;
+	}
+	Sys_SoundPtr SysManager::GetSys_Sound()
+	{
+		return m_soundMod.pSys;
+	}
 }

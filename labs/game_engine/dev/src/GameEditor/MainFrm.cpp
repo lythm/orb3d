@@ -609,11 +609,7 @@ void CMainFrame::OnEditAppsettings()
 
 void CMainFrame::OnImportImportmaxmesh()
 {
-	// TODO: 在此添加命令处理程序代码
-
-	MeshImporter_3DSMax imp;
-
-	imp.Import(L"./a.max");
+	return;
 }
 
 

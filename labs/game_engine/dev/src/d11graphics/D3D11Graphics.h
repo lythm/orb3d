@@ -54,6 +54,8 @@ namespace ld3d
 		RenderTargetPtr							GetCurrentRenderTarget();
 		int										GetFrameBufferWidth();
 		int										GetFrameBufferHeight();
+
+		void									SetViewPort(int x, int y, int w, int h);
 	private:
 		GPUBufferPtr							CreateIndexBuffer(int bytes, void* pInitData, bool dynamic);
 		GPUBufferPtr							CreateVertexBuffer(int bytes, void* pInitData, bool dynamic);
@@ -62,7 +64,7 @@ namespace ld3d
 		bool									CreateDefaultRenderTarget(const GraphicsSetting& setting);
 		bool									CreateFrameBuffer();
 		bool									CreateDepthStencilBuffer(const GraphicsSetting& setting);
-		void									SetupViewport(int w, int h);
+		
 	private:
 
 		ID3D11Device*							m_pDevice;
@@ -73,6 +75,8 @@ namespace ld3d
 		boost::shared_ptr<D3D11RenderWindow>	m_pDefaultRW;
 
 		boost::shared_ptr<D3D11RenderWindow>	m_pCurrentRW;
-		//boost::shared_ptr<D3D11RenderWindow>	m_pFrameBuffer;
+		
+		D3D11_VIEWPORT							m_viewPort;
+
 	};
 }

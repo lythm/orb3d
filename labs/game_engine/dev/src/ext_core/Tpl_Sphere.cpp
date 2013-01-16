@@ -1,20 +1,20 @@
 #include "core_ext_pch.h"
-#include "SphereTpl.h"
+#include "Tpl_Sphere.h"
 
 namespace ld3d
 {
-	SphereTpl::SphereTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
+	Tpl_Sphere::Tpl_Sphere(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{
 	}
 
 
-	SphereTpl::~SphereTpl(void)
+	Tpl_Sphere::~Tpl_Sphere(void)
 	{
 	}
-	void SphereTpl::Release()
+	void Tpl_Sphere::Release()
 	{
 	}
-	GameObjectPtr SphereTpl::CreateGameObject()
+	GameObjectPtr Tpl_Sphere::CreateGameObject()
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Sphere");
 		

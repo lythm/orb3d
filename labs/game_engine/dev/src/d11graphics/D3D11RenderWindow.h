@@ -16,25 +16,22 @@ namespace ld3d
 
 		bool										Create(void* handle, int w, int h, G_FORMAT color_format, G_FORMAT ds_format, int backbufferCount, int multiSampleCount, int multiSampleQuality, bool windowed);
 		void										Release();
-		void										SetupViewport(int w, int h);
-
+		
 		void										Present();
 		void										Resize(int cx, int cy);
 
-		int											GetWidth();
-		int											GetHeight();
 	private:
 		bool										CreateFrameBuffer();
 	private:
 
 		IDXGISwapChain*								m_pSwapChain;
 
-		int											m_width;
-		int											m_height;
+
 		G_FORMAT									m_frameBufferFormat;
 		G_FORMAT									m_dsFormat;
 		int											m_backbufferCount;
 		int											m_multiSampleCount;
 		int											m_multiSampleQuality;
+
 	};
 }

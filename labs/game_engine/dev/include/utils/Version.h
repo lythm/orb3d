@@ -27,36 +27,36 @@ namespace ld3d
 
 		uint8						V1()
 		{
-			return m_value >> 24 & 0xffffff00;
+			return m_value >> 24 & 0x000000ff;
 		}
 		uint8						V2()
 		{
-			return m_value >> 16 & 0xffffff00;
+			return m_value >> 16 & 0x000000ff;
 		}
 		uint8						V3()
 		{
-			return m_value >> 8 & 0xffffff00;
+			return m_value >> 8 & 0x000000ff;
 		}
 		uint8						V4()
 		{
-			return m_value & 0xffffff00;
+			return m_value & 0x000000ff;
 		}
 
 		void						V1(uint8 v)
 		{
-			m_value = m_value & 0x00ffffff | v << 24;
+			m_value = (m_value & 0x00ffffff) | (v << 24);
 		}
 		void						V2(uint8 v)
 		{
-			m_value = m_value & 0xff00ffff | v << 16;
+			m_value = (m_value & 0xff00ffff) | (v << 16);
 		}
 		void						V3(uint8 v)
 		{
-			m_value = m_value & 0xffff00ff | v << 8;
+			m_value = (m_value & 0xffff00ff) | (v << 8);
 		}
 		void						V4(uint8 v)
 		{
-			m_value = m_value & 0xffffff00 | v;
+			m_value = (m_value & 0xffffff00) | v;
 		}
 
 		std::string					AsString()

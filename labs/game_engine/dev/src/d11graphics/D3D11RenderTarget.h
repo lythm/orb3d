@@ -21,6 +21,8 @@ namespace ld3d
 		virtual ID3D11RenderTargetView**				GetD3D11RenderTargetViews();
 		virtual ID3D11RenderTargetView*					GetD3D11RenderTargetView(int index);
 
+		int												GetWidth(int index);
+		int												GetHeight(int index);
 	private:
 
 	protected:
@@ -29,5 +31,8 @@ namespace ld3d
 		ID3D11DeviceContext*							m_pContext;
 		std::vector<TexturePtr>							m_pTexures;
 		DepthStencilBufferPtr							m_pDepthBuffer;
+
+		int												m_width;
+		int												m_height;
 	};
 }

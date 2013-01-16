@@ -11,13 +11,12 @@ namespace ld3d
 	{
 		m_pSwapChain				= NULL;
 
-		m_width						= 0;
-		m_height					= 0;
 		m_frameBufferFormat			= G_FORMAT_UNKNOWN;
 		m_dsFormat					= G_FORMAT_UNKNOWN;
 		m_backbufferCount			= 0;
 		m_multiSampleCount			= 0;
 		m_multiSampleQuality		= 0;
+
 	}
 
 
@@ -106,8 +105,6 @@ namespace ld3d
 		
 		m_pDepthBuffer = DepthStencilBufferPtr(pTarget);
 
-		SetupViewport(w, h);
-
 		return true;
 	}
 	
@@ -147,17 +144,6 @@ namespace ld3d
 			return false;
 
 		return true;
-	}
-	void D3D11RenderWindow::SetupViewport(int w, int h)
-	{
-		D3D11_VIEWPORT vp;
-		vp.Width = (FLOAT)w;
-		vp.Height = (FLOAT)h;
-		vp.MinDepth = 0.0f;
-		vp.MaxDepth = 1.0f;
-		vp.TopLeftX = 0;
-		vp.TopLeftY = 0;
-		m_pContext->RSSetViewports( 1, &vp );
 	}
 	int	D3D11RenderWindow::GetRenderTargetCount()
 	{
@@ -199,14 +185,5 @@ namespace ld3d
 		
 		m_pDepthBuffer = DepthStencilBufferPtr(pTarget);
 
-		SetupViewport(cx, cy);
-	}
-	int	D3D11RenderWindow::GetWidth()
-	{
-		return m_width;
-	}
-	int	D3D11RenderWindow::GetHeight()
-	{
-		return m_height;
 	}
 }

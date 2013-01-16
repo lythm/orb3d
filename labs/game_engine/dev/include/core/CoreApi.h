@@ -24,6 +24,7 @@ namespace ld3d
 		Sys_InputPtr									GetSysInput();
 
 		void											Render();
+		void											Render(BaseCameraPtr pCamera);
 		void											Present();
 		void											AddRenderData(RenderDataPtr pData);
 		void											ClearRenderQueue();
@@ -46,6 +47,7 @@ namespace ld3d
 		SysManagerPtr									m_pSysManager;
 		Sys_GraphicsPtr									m_pSysGraphics;
 		Sys_InputPtr									m_pSysInput;
+		Sys_SoundPtr									m_pSysSound;
 		EventDispatcherPtr								m_pEventDispatcher;
 
 		RenderSystemPtr									m_pRenderSystem;

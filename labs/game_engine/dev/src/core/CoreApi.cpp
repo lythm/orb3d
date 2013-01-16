@@ -15,7 +15,7 @@
 #include "core\GameObject.h"
 
 #include "WMInput.h"
-
+#include "core\Sys_Sound.h"
 
 namespace ld3d
 {
@@ -67,6 +67,12 @@ namespace ld3d
 			return false;
 		}
 
+		m_pSysSound = m_pSysManager->LoadSysSound(L"./fmod_sound.dll");
+		if(m_pSysSound->Initialize() == false)
+		{
+			return false;
+		}
+
 		m_pRenderSystem = s_pAllocator->AllocObject<RenderSystem>();
 		if(m_pRenderSystem->Initialize(m_pSysGraphics) == false)
 		{
@@ -111,6 +117,11 @@ namespace ld3d
 			m_pSysGraphics->Release();
 			m_pSysGraphics.reset();
 		}
+		if(m_pSysSound)
+		{
+			m_pSysSound->Release();
+			m_pSysSound.reset();
+		}
 
 		m_pSysManager.reset();
 
@@ -152,6 +163,13 @@ namespace ld3d
 		if(m_pRenderSystem)
 		{
 			m_pRenderSystem->Render();
+		}
+	}
+	void CoreApi::Render(BaseCameraPtr pCamera)
+	{
+		if(m_pRenderSystem)
+		{
+			m_pRenderSystem->Render(pCamera);
 		}
 	}
 	void CoreApi::AddRenderData(RenderDataPtr pData)

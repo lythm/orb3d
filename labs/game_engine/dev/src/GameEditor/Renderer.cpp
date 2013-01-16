@@ -51,6 +51,7 @@ void Renderer::Resize(int cx, int cy)
 	if(cx != 0 && cy != 0)
 	{
 		m_pCore->GetRenderSystem()->ResizeFrameBuffer(cx, cy);
+		m_pCore->GetSysGraphics()->SetViewPort(0, 0, cx, cy);
 		m_pCamera->SetViewPort(cx, cy);
 	}
 }
@@ -74,7 +75,7 @@ void Renderer::Render()
 
 	m_pCamera->Update();
 
-	m_pCore->Render();
+	m_pCore->Render(m_pCamera);
 	m_pCore->ClearRenderQueue();
 
 	m_pCore->Present();

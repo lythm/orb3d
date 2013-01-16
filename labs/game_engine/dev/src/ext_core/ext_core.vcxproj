@@ -99,32 +99,31 @@
     <ClInclude Include="..\..\include\core\ext\PostEffectList.h" />
     <ClInclude Include="..\..\include\core\ext\PropertyManager.h" />
     <ClInclude Include="..\..\include\core\ext\RigidBody.h" />
-    <ClInclude Include="..\..\include\core\ext\Shape_Cube.h" />
     <ClInclude Include="..\..\include\core\ext\Sky.h" />
     <ClInclude Include="..\..\include\core\ext\SkyBox.h" />
     <ClInclude Include="..\..\include\core\ext\SoundEmitter.h" />
     <ClInclude Include="..\..\include\core\ext\SoundListener.h" />
     <ClInclude Include="..\..\include\core\ext\WorldMeshRenderer.h" />
-    <ClInclude Include="ConeTpl.h" />
+    <ClInclude Include="Tpl_Cone.h" />
     <ClInclude Include="core_ext_pch.h" />
     <ClInclude Include="CorePackage.h" />
-    <ClInclude Include="CubeTpl.h" />
-    <ClInclude Include="DirLightTpl.h" />
-    <ClInclude Include="PlaneTpl.h" />
-    <ClInclude Include="PointLightTpl.h" />
-    <ClInclude Include="SkyLightTpl.h" />
-    <ClInclude Include="SphereTpl.h" />
-    <ClInclude Include="SpotLightTpl.h" />
+    <ClInclude Include="Tpl_Cube.h" />
+    <ClInclude Include="Tpl_DirLight.h" />
+    <ClInclude Include="Tpl_Plane.h" />
+    <ClInclude Include="Tpl_PointLight.h" />
+    <ClInclude Include="Tpl_SkyLight.h" />
+    <ClInclude Include="Tpl_Sphere.h" />
+    <ClInclude Include="Tpl_SpotLight.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ConeTpl.cpp" />
+    <ClCompile Include="Tpl_Cone.cpp" />
     <ClCompile Include="core_ext_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="CubeTpl.cpp" />
-    <ClCompile Include="DirLightTpl.cpp" />
+    <ClCompile Include="Tpl_Cube.cpp" />
+    <ClCompile Include="Tpl_DirLight.cpp" />
     <ClCompile Include="Light_Dir.cpp" />
     <ClCompile Include="Light_Point.cpp" />
     <ClCompile Include="Light_Sky.cpp" />
@@ -135,19 +134,18 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="CorePackage.cpp" />
     <ClCompile Include="ParticleRenderer.cpp" />
-    <ClCompile Include="PlaneTpl.cpp" />
-    <ClCompile Include="PointLightTpl.cpp" />
+    <ClCompile Include="Tpl_Plane.cpp" />
+    <ClCompile Include="Tpl_PointLight.cpp" />
     <ClCompile Include="PostEffectList.cpp" />
     <ClCompile Include="PropertyManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Shape_Cube.cpp" />
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="SkyBox.cpp" />
-    <ClCompile Include="SkyLightTpl.cpp" />
+    <ClCompile Include="Tpl_SkyLight.cpp" />
     <ClCompile Include="SoundEmitter.cpp" />
     <ClCompile Include="SoundListener.cpp" />
-    <ClCompile Include="SphereTpl.cpp" />
-    <ClCompile Include="SpotLightTpl.cpp" />
+    <ClCompile Include="Tpl_Sphere.cpp" />
+    <ClCompile Include="Tpl_SpotLight.cpp" />
     <ClCompile Include="WorldMeshRenderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,6 +10,7 @@
 #include "core\LightManager.h"
 #include "core\Light.h"
 #include "core\PostEffectManager.h"
+#include "core\Camera.h"
 
 namespace ld3d
 {
@@ -201,6 +202,24 @@ namespace ld3d
 			
 			m_transparentQueue[i]->Render(m_pGraphics);
 		}
+	}
+	void RenderSystem::Render(BaseCameraPtr pCamera)
+	{
+		SetViewMatrix(pCamera->GetViewMatrix());
+		SetProjMatrix(pCamera->GetProjMatrix());
+
+		RenderShadowMaps();
+
+		DR_G_Pass();
+		DR_Light_Pass();
+		DR_Merge_Pass();
+		
+		RenderForward();
+
+		RenderPostEffects();
+		
+		RenderFinal();
+		
 	}
 	void RenderSystem::Render()
 	{

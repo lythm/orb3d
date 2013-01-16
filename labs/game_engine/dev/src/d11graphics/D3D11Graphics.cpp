@@ -25,6 +25,8 @@ namespace ld3d
 	{
 		m_pDevice						= NULL;
 		m_pContext						= NULL;
+
+		ZeroMemory(&m_viewPort, sizeof(m_viewPort));
 	}
 
 
@@ -64,20 +66,19 @@ namespace ld3d
 
 		m_pContext->OMSetBlendState(NULL, 0, -1);
 
-		SetupViewport(m_setting.frameBufferWidth , m_setting.frameBufferHeight);
+		SetViewPort(0, 0, m_setting.frameBufferWidth , m_setting.frameBufferHeight);
 		
 		return true;
 	}
-	void D3D11Graphics::SetupViewport(int w, int h)
+	void D3D11Graphics::SetViewPort(int x, int y, int w, int h)
 	{
-		D3D11_VIEWPORT vp;
-		vp.Width = (FLOAT)w;
-		vp.Height = (FLOAT)h;
-		vp.MinDepth = 0.0f;
-		vp.MaxDepth = 1.0f;
-		vp.TopLeftX = 0;
-		vp.TopLeftY = 0;
-		m_pContext->RSSetViewports( 1, &vp );
+		m_viewPort.Width = (FLOAT)w;
+		m_viewPort.Height = (FLOAT)h;
+		m_viewPort.MinDepth = 0.0f;
+		m_viewPort.MaxDepth = 1.0f;
+		m_viewPort.TopLeftX = x;
+		m_viewPort.TopLeftY = y;
+		m_pContext->RSSetViewports( 1, &m_viewPort );
 	}
 
 	
@@ -349,6 +350,8 @@ namespace ld3d
 		m_pCurrentRW->Resize(cx, cy);
 		m_setting.frameBufferWidth = cx;
 		m_setting.frameBufferHeight = cy;
+
+		//SetViewPort(0, 0, cx, cy);
 	}
 	RenderTargetPtr D3D11Graphics::CreateRenderTarget(int count, int w, int h, G_FORMAT formats[], int miplvls)
 	{
@@ -409,11 +412,11 @@ namespace ld3d
 
 	int D3D11Graphics::GetFrameBufferWidth()
 	{
-		return m_pCurrentRW->GetWidth();
+		return m_pCurrentRW->GetWidth(0);
 	}
 	int D3D11Graphics::GetFrameBufferHeight()
 	{
-		return m_pCurrentRW->GetHeight();
+		return m_pCurrentRW->GetHeight(0);
 	}
 	RenderTargetPtr D3D11Graphics::GetCurrentRenderTarget()
 	{

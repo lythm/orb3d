@@ -19,12 +19,6 @@ void EditorCamera::Update()
 
 	UpdateViewFrustum();
 
-	RenderSystemPtr pRS = m_pCore->GetRenderSystem();
-
-	pRS->SetViewMatrix(GetViewMatrix());
-	pRS->SetProjMatrix(GetProjMatrix());
-
-	
 	return;
 }
 math::Vector3 EditorCamera::GetEyePos()

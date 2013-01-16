@@ -65,10 +65,12 @@ namespace ld3d
 	class Camera;
 	class RenderState;
 	class Shader;
+	class BaseCamera;
 
 	typedef boost::shared_ptr<RenderState>					RenderStatePtr;
 	typedef boost::shared_ptr<Shader>						ShaderPtr;
 	typedef boost::shared_ptr<Camera>						CameraPtr;
+	typedef boost::shared_ptr<BaseCamera>					BaseCameraPtr;
 	typedef boost::shared_ptr<DepthStencilBuffer>			DepthStencilBufferPtr;
 	typedef boost::shared_ptr<RenderTarget>					RenderTargetPtr;
 	typedef boost::shared_ptr<RenderData>					RenderDataPtr;

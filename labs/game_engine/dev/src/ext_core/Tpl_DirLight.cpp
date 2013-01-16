@@ -1,18 +1,18 @@
 #include "core_ext_pch.h"
-#include "DirLightTpl.h"
+#include "Tpl_DirLight.h"
 
 
 namespace ld3d
 {
-	DirLightTpl::DirLightTpl(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
+	Tpl_DirLight::Tpl_DirLight(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Light")
 	{
 	}
 
 
-	DirLightTpl::~DirLightTpl(void)
+	Tpl_DirLight::~Tpl_DirLight(void)
 	{
 	}
-	GameObjectPtr DirLightTpl::CreateGameObject()
+	GameObjectPtr Tpl_DirLight::CreateGameObject()
 	{
 		GameObjectPtr pObj = m_pManager->CreateGameObject(L"Directional Light");
 
@@ -21,7 +21,7 @@ namespace ld3d
 
 		return pObj;
 	}
-	void DirLightTpl::Release()
+	void Tpl_DirLight::Release()
 	{
 	}
 }
