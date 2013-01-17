@@ -13,6 +13,10 @@ namespace ld3d
 	WorldMeshRenderer::~WorldMeshRenderer(void)
 	{
 	}
+	const Version& WorldMeshRenderer::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 
 }
 

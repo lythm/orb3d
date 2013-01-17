@@ -9,7 +9,7 @@ namespace ld3d
 		virtual ~VoxelWorldRenderer(void);
 
 		void										Update();
-		
+		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();
 		void										OnDetach();

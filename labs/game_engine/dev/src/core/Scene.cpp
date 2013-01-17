@@ -8,6 +8,9 @@
 
 namespace ld3d
 {
+
+	static const Version						g_scene_file_version = Version(0, 0, 0, 1);
+
 	Scene::Scene(GameObjectManagerPtr pManager)
 	{
 		m_pObjectManager = pManager;
@@ -38,10 +41,19 @@ namespace ld3d
 	
 	bool Scene::Serialize(DataStream* pStream)
 	{
+		pStream->WriteInt32(g_scene_file_version.AsUInt32());
+
 		return SerializeObject(m_pRoot, pStream);
 	}
 	bool Scene::UnSerialize(DataStream* pStream)
 	{
+		uint32 v = pStream->ReadInt32();
+
+		if(Version(v) != g_scene_file_version)
+		{
+			return false;
+		}
+
 		return UnSerializeObject(m_pRoot, pStream);
 	}
 	bool Scene::SerializeObject(GameObjectPtr pObj, DataStream* pStream)
@@ -59,6 +71,11 @@ namespace ld3d
 		{
 			GameObjectComponentPtr pCom = pObj->GetComponent(i);
 			
+			if(pCom->GetName() == L"PropertyManager")
+			{
+				continue;
+			}
+
 			pStream->WriteString(pCom->GetName());
 			
 			if(false == pCom->Serialize(pStream))
@@ -107,10 +124,7 @@ namespace ld3d
 			std::wstring comName;
 			pStream->ReadString(comName);
 
-			if(comName == L"PropertyManager")
-			{
-				continue;
-			}
+			
 			GameObjectComponentPtr pCom = m_pObjectManager->CreateComponent(comName);
 			if(pCom == nullptr)
 			{

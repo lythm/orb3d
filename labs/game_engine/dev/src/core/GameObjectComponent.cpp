@@ -1,6 +1,7 @@
 #include "core_pch.h"
 #include "..\..\include\core\GameObjectComponent.h"
 #include "core_utils.h"
+#include "core\DataStream.h"
 
 namespace ld3d
 {
@@ -57,22 +58,36 @@ namespace ld3d
 	
 	bool GameObjectComponent::Serialize(DataStream* pStream)
 	{
-		
-		return true;
+		const Version& v = GetVersion();
+		pStream->WriteInt32(v.AsUInt32());
+
+		return OnSerialize(pStream);
 	}
 	bool GameObjectComponent::UnSerialize(DataStream* pStream)
 	{
-		return true;
+		uint32 v = pStream->ReadInt32();
 
+		return OnUnSerialize(pStream, Version(v));
 	}
-	
+	bool GameObjectComponent::OnSerialize(DataStream* pStream)
+	{
+		return true;
+	}
+	bool GameObjectComponent::OnUnSerialize(DataStream* pStream, const Version& version)
+	{
+		return true;
+	}
 	GameObjectComponentPtr GameObjectComponent::Clone()
 	{
-		GameObjectComponentPtr pClone = alloc_object<GameObjectComponent, GameObjectManagerPtr>(m_pManager);
+		//GameObjectComponentPtr pClone = alloc_object<GameObjectComponent, GameObjectManagerPtr>(m_pManager);
 
-		pClone->SetName(GetName());
+		//pClone->SetName(GetName());
 
-		return pClone;
+		return GameObjectComponentPtr();
+	}
+	std::wstring GameObjectComponent::GetVersionString()
+	{
+		return GetVersion().AsWString();
 	}
 }
 

@@ -11,6 +11,10 @@ namespace ld3d
 	Sky::~Sky(void)
 	{
 	}
+	const Version& Sky::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	bool Sky::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

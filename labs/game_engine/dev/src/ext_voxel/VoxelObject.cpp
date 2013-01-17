@@ -11,6 +11,10 @@ namespace ld3d
 	VoxelObject::~VoxelObject(void)
 	{
 	}
+	const Version& VoxelObject::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	bool VoxelObject::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

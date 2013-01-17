@@ -23,6 +23,10 @@ namespace ld3d
 	{
 
 	}
+	const Version& MeshData::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	void MeshData::Update()
 	{
 		if(m_pMesh)
@@ -136,13 +140,17 @@ namespace ld3d
 		return true;
 	}
 
-	bool MeshData::Serialize(DataStream* pStream)
+	bool MeshData::OnSerialize(DataStream* pStream)
 	{
 		pStream->WriteString(m_meshAsset);
 		return true;
 	}
-	bool MeshData::UnSerialize(DataStream* pStream)
+	bool MeshData::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
+		if(version != GetVersion())
+		{
+			return false;
+		}
 		pStream->ReadString(m_meshAsset);
 
 		SetMeshAsset(m_meshAsset);

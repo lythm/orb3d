@@ -10,6 +10,8 @@ namespace ld3d
 		Sky(GameObjectManagerPtr pManager);
 		virtual ~Sky(void);
 
+		const Version&								GetVersion() const;
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

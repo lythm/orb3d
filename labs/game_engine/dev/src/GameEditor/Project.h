@@ -81,7 +81,6 @@ private:
 	math::Color4						m_clearClr;
 	GameScenePtr						m_pScene;
 	
-	static ld3d::PoolAllocator			s_Allocator;
 	static ProjectPtr					s_pInstance;
 };
 

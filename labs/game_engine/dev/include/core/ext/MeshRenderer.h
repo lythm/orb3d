@@ -53,6 +53,8 @@ namespace ld3d
 		void							SetDeferred(const bool& b);
 
 		RenderSystemPtr					GetRenderSystem(){return m_pRS;}
+
+		const Version&					GetVersion() const;
 	private:
 		bool							OnAttach();
 		void							OnDetach();

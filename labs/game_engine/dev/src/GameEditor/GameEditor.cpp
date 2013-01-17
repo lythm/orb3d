@@ -60,6 +60,7 @@ CGameEditorApp theApp;
 
 BOOL CGameEditorApp::InitInstance()
 {
+	g_Allocator.Initialize();
 	//_CrtSetBreakAlloc(17180);
 
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
@@ -154,7 +155,7 @@ int CGameEditorApp::ExitInstance()
 	//TODO: 处理可能已添加的附加资源
 	AfxOleTerm(FALSE);
 
-
+	g_Allocator.Release();
 	return CWinAppEx::ExitInstance();
 }
 

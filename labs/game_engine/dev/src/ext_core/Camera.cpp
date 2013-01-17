@@ -11,5 +11,8 @@ namespace ld3d
 	Camera::~Camera(void)
 	{
 	}
-
+	const Version& Camera::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 }

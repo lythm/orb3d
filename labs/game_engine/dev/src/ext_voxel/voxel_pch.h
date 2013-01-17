@@ -12,5 +12,5 @@ namespace ld3d
 
 	typedef boost::shared_ptr<VoxelWorldRenderData>			VoxelWorldRenderDataPtr;
 
-
+	extern Version											g_packageVersion;
 }

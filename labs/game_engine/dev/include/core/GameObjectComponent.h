@@ -15,9 +15,11 @@ namespace ld3d
 		virtual bool				Attach(GameObjectPtr pObject);
 		virtual void				Detach();
 		
-		virtual bool				Serialize(DataStream* pStream);
-		virtual bool				UnSerialize(DataStream* pStream);
+		bool						Serialize(DataStream* pStream);
+		bool						UnSerialize(DataStream* pStream);
 
+		virtual bool				OnSerialize(DataStream* pStream);
+		virtual bool				OnUnSerialize(DataStream* pStream, const Version& version);
 		
 		const std::wstring&			GetName();
 
@@ -27,11 +29,12 @@ namespace ld3d
 
 		GameObjectManagerPtr		GetGameObjectManager();
 
-		
-		virtual GameObjectComponentPtr Clone();
+		virtual const Version&		GetVersion() const														= 0;
 
-		//virtual Version				GetVersion() const														= 0;
-		
+		std::wstring				GetVersionString();
+
+		virtual GameObjectComponentPtr Clone();
+	
 	private:
 		virtual bool				OnAttach();
 		virtual void				OnDetach();
@@ -40,6 +43,5 @@ namespace ld3d
 		GameObjectPtr				m_pObject;
 		std::wstring				m_name;
 		GameObjectManagerPtr		m_pManager;
-
 	};
 }

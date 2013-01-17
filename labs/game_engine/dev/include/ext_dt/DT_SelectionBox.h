@@ -21,7 +21,7 @@ namespace ld3d
 		virtual ~DT_SelectionBox(void);
 
 		void										Update();
-
+		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();
 		void										OnDetach();

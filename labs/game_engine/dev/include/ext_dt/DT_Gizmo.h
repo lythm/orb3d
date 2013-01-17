@@ -26,7 +26,7 @@ namespace ld3d
 		void											ChangeMode(OP_MODE mode);
 		OP_MODE											GetMode();
 
-		
+		const Version&									GetVersion() const;
 
 	private:
 		GIZMO_STATE										m_state;

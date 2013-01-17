@@ -30,7 +30,10 @@ namespace ld3d
 	void DT_SelectionBox::OnDetach()
 	{
 	}
-
+	const Version& DT_SelectionBox::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	void DT_SelectionBox::BoxRenderData::Render_Depth(Sys_GraphicsPtr pSysGraphics)
 	{
 	}

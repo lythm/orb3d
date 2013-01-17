@@ -85,3 +85,7 @@ typedef boost::shared_ptr<EditorCamera>				EditorCameraPtr;
 typedef boost::shared_ptr<GridMesh>					GridMeshPtr;
 typedef boost::shared_ptr<Renderer>					RendererPtr;
 typedef boost::shared_ptr<Project>					ProjectPtr;
+
+
+
+extern ld3d::PoolAllocator							g_Allocator;

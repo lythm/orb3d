@@ -16,7 +16,10 @@ namespace ld3d
 	{
 		
 	}
-
+	const Version& VoxelObjectRenderer::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 		
 	bool VoxelObjectRenderer::OnAttach()
 	{

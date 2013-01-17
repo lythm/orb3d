@@ -15,7 +15,10 @@ namespace ld3d
 	void SkyBox::Update()
 	{
 	}
-
+	const Version& SkyBox::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	bool SkyBox::OnAttach()
 	{
 	

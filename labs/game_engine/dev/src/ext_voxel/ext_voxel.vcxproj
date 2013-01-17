@@ -90,6 +90,7 @@
     <ClInclude Include="..\..\include\ext_voxel\VoxelWorld.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_all.h" />
     <ClInclude Include="..\..\include\ext_voxel\voxel_ptr.h" />
+    <ClInclude Include="VoxelPolygonizer.h" />
     <ClInclude Include="VoxelObjectTemplate.h" />
     <ClInclude Include="VoxelPackage.h" />
     <ClInclude Include="VoxelSerializer.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="voxel_pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="VoxelPolygonizer.cpp" />
     <ClCompile Include="VoxelObjectRenderer.cpp" />
     <ClCompile Include="VoxelObjectTemplate.cpp" />
     <ClCompile Include="VoxelPackage.cpp" />

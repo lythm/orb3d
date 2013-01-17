@@ -8,7 +8,7 @@ namespace ld3d
 		PostEffectList(GameObjectManagerPtr pManager);
 		virtual ~PostEffectList(void);
 
-
+		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();
 		void										OnDetach();

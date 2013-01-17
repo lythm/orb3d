@@ -7,12 +7,11 @@
 #include "GameScene.h"
 #include "EditorCamera.h"
 
-ld3d::PoolAllocator				Project::s_Allocator;
+
+ld3d::PoolAllocator					g_Allocator;
 ProjectPtr							Project::s_pInstance = ProjectPtr();
 Project::Project(void)
 {
-	
-
 	m_clearClr = math::Color4(0.0f, 0.2f, 0.3f, 1.0f);
 }
 
@@ -190,7 +189,6 @@ void Project::Close()
 	m_pRenderer.reset();
 	m_pPathManager.reset();
 
-	//s_Allocator.Release();
 }
 
 void Project::CreateObject_Empty()
@@ -251,12 +249,12 @@ bool Project::InitEngine()
 	setting.wnd = pWnd->m_hWnd;
 
 #ifdef _DEBUG
-	if(false == m_pCore->Initialize(setting))
+	if(false == m_pCore->Initialize(setting, &g_Allocator))
 	{
 		return false;
 	}
 #else
-	if(false == s_pCore->Initialize(setting, &s_Allocator))
+	if(false == s_pCore->Initialize(setting, &g_Allocator))
 	{
 		return false;
 	}

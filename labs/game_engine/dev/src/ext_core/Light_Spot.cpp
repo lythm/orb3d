@@ -13,7 +13,10 @@ namespace ld3d
 	Light_Spot::~Light_Spot(void)
 	{
 	}
-	
+	const Version& Light_Spot::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	void Light_Spot::Update()
 	{
 		if(m_pLight)
@@ -77,7 +80,7 @@ namespace ld3d
 		m_pLight->Release();
 		m_pLight.reset();
 	}
-	bool Light_Spot::Serialize(DataStream* pStream)
+	bool Light_Spot::OnSerialize(DataStream* pStream)
 	{
 		bool bEnabled = m_pLight->GetEnabled();
 		pStream->WriteBool(bEnabled);
@@ -100,8 +103,13 @@ namespace ld3d
 		return true;
 
 	}
-	bool Light_Spot::UnSerialize(DataStream* pStream)
+	bool Light_Spot::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
+		if(version != GetVersion())
+		{
+			return false;
+		}
+		
 		bool bEnabled = pStream->ReadBool();
 		m_pLight->SetEnabled(bEnabled);
 

@@ -9,6 +9,8 @@ namespace ld3d
 	public:
 		Camera(GameObjectManagerPtr pManager);
 		virtual ~Camera(void);
+
+		const Version&				GetVersion() const;
 	};
 
 

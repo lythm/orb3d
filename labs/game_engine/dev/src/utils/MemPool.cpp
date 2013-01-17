@@ -97,7 +97,7 @@ namespace ld3d
 			s.pSlot = pSlot;
 			m_Slots.push_back(s);
 
-			WarmSlot(v_list[i], 100);
+			WarmSlot(v_list[i], 1000);
 		}
 
 		return true;

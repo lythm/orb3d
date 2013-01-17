@@ -8,6 +8,8 @@ namespace ld3d
 		VoxelObject(GameObjectManagerPtr pManager);
 		virtual ~VoxelObject(void);
 
+		const Version&								GetVersion() const;
+
 	private:
 		bool										OnAttach();
 		void										OnDetach();

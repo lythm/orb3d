@@ -26,7 +26,7 @@ namespace ld3d
 		void										SetWorldWidth(const int& w);
 
 		void										Generate();
-
+		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();
 		void										OnDetach();

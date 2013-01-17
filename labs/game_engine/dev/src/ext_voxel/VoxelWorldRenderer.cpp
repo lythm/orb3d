@@ -17,7 +17,10 @@ namespace ld3d
 		
 	}
 
-		
+	const Version& VoxelWorldRenderer::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	bool VoxelWorldRenderer::OnAttach()
 	{
 		PropertyManagerPtr pPM = boost::shared_dynamic_cast<PropertyManager>(m_pObject->GetComponent(L"PropertyManager"));

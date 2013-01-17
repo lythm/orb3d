@@ -39,13 +39,13 @@ namespace ld3d
 
 		static GameObjectComponentPtr		Create_LuaBehavior(GameObjectManagerPtr pManager);
 
-
-
 	private:
 		CoreApiPtr							m_pCore;
 
 		std::vector<ComponentClass>			m_classes;
 
 		std::vector<GameObjectTemplate*>	m_tpls;
+
+		
 	};
 }

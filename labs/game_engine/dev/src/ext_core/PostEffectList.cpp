@@ -15,6 +15,10 @@ namespace ld3d
 	PostEffectList::~PostEffectList(void)
 	{
 	}
+	const Version& PostEffectList::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	bool PostEffectList::OnAttach()
 	{
 		m_pSSAO = m_pManager->GetAllocator()->AllocObject<PostEffect_SSAO>();

@@ -11,6 +11,10 @@ namespace ld3d
 	LuaBehavior::~LuaBehavior(void)
 	{
 	}
+	const Version& LuaBehavior::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	void LuaBehavior::Update()
 	{
 	}

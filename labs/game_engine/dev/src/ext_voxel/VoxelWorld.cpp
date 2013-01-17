@@ -22,7 +22,10 @@ namespace ld3d
 	{
 
 	}
-
+	const Version& VoxelWorld::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 
 	bool VoxelWorld::OnAttach()
 	{

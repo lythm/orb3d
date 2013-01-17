@@ -79,7 +79,7 @@ namespace ld3d
 		m_pLight->Release();
 		m_pLight.reset();
 	}
-	bool Light_Point::Serialize(DataStream* pStream)
+	bool Light_Point::OnSerialize(DataStream* pStream)
 	{
 		bool bEnabled = m_pLight->GetEnabled();
 		pStream->WriteBool(bEnabled);
@@ -98,8 +98,12 @@ namespace ld3d
 		return true;
 
 	}
-	bool Light_Point::UnSerialize(DataStream* pStream)
+	bool Light_Point::OnUnSerialize(DataStream* pStream, const Version& version)
 	{
+		if(version != GetVersion())
+		{
+			return false;
+		}
 		bool bEnabled = pStream->ReadBool();
 		m_pLight->SetEnabled(bEnabled);
 
@@ -118,5 +122,9 @@ namespace ld3d
 
 		return true;
 		
+	}
+	const Version& Light_Point::GetVersion() const
+	{
+		return g_packageVersion;
 	}
 }

@@ -21,4 +21,8 @@ namespace ld3d
 	void Behavior::OnDetach()
 	{
 	}
+	const Version& Behavior::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 }

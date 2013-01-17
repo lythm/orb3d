@@ -24,4 +24,8 @@ namespace ld3d
 	void DT_Gizmo::Update()
 	{
 	}
+	const Version& DT_Gizmo::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 }

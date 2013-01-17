@@ -11,7 +11,7 @@ namespace ld3d
 		virtual ~SkyBox(void);
 
 		void										Update();
-
+		const Version&								GetVersion() const;
 	private:
 		bool										OnAttach();
 		void										OnDetach();

@@ -21,7 +21,7 @@ namespace ld3d
 
 		bool								OnAttach();
 		void								OnDetach();
-
+		const Version&						GetVersion() const;
 
 		int									GetPropertySetCount();
 		PropertySetPtr						GetPropertySet(int index);

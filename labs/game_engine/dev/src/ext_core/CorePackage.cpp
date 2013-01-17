@@ -236,6 +236,5 @@ namespace ld3d
 	{
 		return m_tpls[index];
 	}
-
 }
 

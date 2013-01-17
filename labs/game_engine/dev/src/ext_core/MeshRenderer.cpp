@@ -24,6 +24,10 @@ namespace ld3d
 	MeshRenderer::~MeshRenderer(void)
 	{
 	}
+	const Version& MeshRenderer::GetVersion() const
+	{
+		return g_packageVersion;
+	}
 	void MeshRenderer::SetDeferred(const bool& b)
 	{
 		m_deferred = b;
