@@ -2,8 +2,6 @@
 
 namespace ld3d
 {
-	class VoxelBlock;
-
 	class VoxelWorld : public GameObjectComponent
 	{
 	public:
@@ -34,13 +32,11 @@ namespace ld3d
 		void										RebuildWorld();
 		void										DestroyWorld();
 
-		VoxelBlock*									AllocBlock();
-		void										FreeBlock(VoxelBlock* pBlock);
 	private:
 		int											m_blockSize;
 		int											m_worldWidth;
 		int											m_worldHeight;
 
-		VoxelBlock**								m_pBlocks;
+		std::vector<VoxelBlockPtr>					m_blocks;
 	};
 }

@@ -10,7 +10,6 @@ namespace ld3d
 		m_blockSize				= 1;
 		m_worldWidth			= 10;
 		m_worldHeight			= 10;
-		m_pBlocks				= nullptr;
 
 	}
 
@@ -51,22 +50,11 @@ namespace ld3d
 		pPM->End();
 
 
-		RebuildWorld();
-
 		return true;
 	}
 	void VoxelWorld::DestroyWorld()
 	{
-		if(m_pBlocks)
-		{
-			for(size_t i = 0; i < m_worldHeight * m_worldWidth; ++i)
-			{
-				FreeBlock(m_pBlocks[i]);
-			}
-		}
-
-		m_pManager->GetAllocator()->Free(m_pBlocks);
-		m_pBlocks = nullptr;
+		m_blocks.clear();
 	}
 	const int& VoxelWorld::GetBlockSize()
 	{
@@ -110,28 +98,18 @@ namespace ld3d
 	{
 		DestroyWorld();
 
-		m_pBlocks = (VoxelBlock**)m_pManager->GetAllocator()->Alloc(sizeof(VoxelBlock*) * m_worldWidth * m_worldHeight);
-
-		for(int i = 0; i < m_worldHeight * m_worldWidth; ++i)
-		{
-			m_pBlocks[i] = AllocBlock();
-		}
-	}
-	VoxelBlock* VoxelWorld::AllocBlock()
-	{
-		void* pMem = m_pManager->GetAllocator()->Alloc(sizeof(VoxelBlock));
-
-		return new (pMem) VoxelBlock;
-	}
-	void VoxelWorld::FreeBlock(VoxelBlock* pBlock)
-	{
-		pBlock->~VoxelBlock();
+		Generate();
 		
-		m_pManager->GetAllocator()->Free(pBlock);
 	}
+	
 	void VoxelWorld::Generate()
 	{
+		for(int i = 0; i < m_worldHeight * m_worldWidth; ++i)
+		{
+			VoxelBlockPtr pBlock = m_pManager->GetAllocator()->AllocObject<VoxelBlock>();
 
+			m_blocks.push_back(pBlock);
+		}
 	}
 }
 

@@ -22,6 +22,8 @@ namespace ld3d
 
 		pObj->AddComponent(pWorld);
 
+		pWorld->Generate();
+
 		VoxelWorldRendererPtr pRenderer = m_pManager->GetAllocator()->AllocObject<VoxelWorldRenderer>(m_pManager);
 		pObj->AddComponent(pRenderer);
 

@@ -7,10 +7,5 @@
 
 namespace ld3d
 {
-
-	class VoxelWorldRenderData;
-
-	typedef boost::shared_ptr<VoxelWorldRenderData>			VoxelWorldRenderDataPtr;
-
 	extern Version											g_packageVersion;
 }

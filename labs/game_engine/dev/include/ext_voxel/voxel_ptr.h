@@ -14,5 +14,10 @@ namespace ld3d
 	typedef boost::shared_ptr<VoxelObject>							VoxelObjectPtr;
 	typedef boost::shared_ptr<VoxelObjectRenderer>					VoxelObjectRendererPtr;
 
-	
+	class VoxelWorldRenderData;
+	class VoxelBlock;
+
+	typedef boost::shared_ptr<VoxelBlock>							VoxelBlockPtr;
+	typedef boost::shared_ptr<VoxelWorldRenderData>					VoxelWorldRenderDataPtr;
+		
 }
