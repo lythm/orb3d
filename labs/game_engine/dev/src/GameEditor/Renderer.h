@@ -9,6 +9,7 @@ public:
 	bool								Initialize(ld3d::CoreApiPtr pCore);
 	void								Release();
 	void								Render();
+	void								RenderPreview();
 
 	void								OnMouseMove(UINT nFlags, CPoint point);
 	void								OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);

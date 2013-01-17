@@ -80,12 +80,14 @@ void CProjectWizard::OnBnClickedPwButtonNew()
 	{
 		
 		MessageBox(L"Fialed to create project, file or directory already exist.", L"error", MB_ICONERROR);
+		util_log_info(L"Fialed to create project, file or directory already exist.");
+
 		pProject->Close();
 		CDialogEx::OnCancel();
 		return;
 	}
 
-	//util_output_info(L"Project created.");
+	util_log_info(L"Project created.");
 
 	CDialogEx::OnOK();
 }
@@ -113,12 +115,14 @@ void CProjectWizard::OnBnClickedPwButtonOpen()
 	if(pProject->Load(file) == false)
 	{
 		MessageBox(L"Fialed to load project.", L"error", MB_ICONERROR);
+		util_log_info(L"Fialed to load project.");
+
 		pProject->Close();
 		CDialogEx::OnCancel();
 		return;
 	}
 
-	//util_output_info(L"Project created.");
+	util_log_info(L"Project openned.");
 
 	CDialogEx::OnOK();
 }

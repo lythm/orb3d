@@ -10,7 +10,7 @@ namespace ld3d
 		CorePackage(CoreApiPtr pCore);
 		virtual ~CorePackage(void);
 
-		std::wstring						GetPackageName();
+		const wchar_t*						GetPackageName();
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 

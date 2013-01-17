@@ -84,7 +84,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ext\Behavior.h" />
-    <ClInclude Include="..\..\include\core\ext\Camera.h" />
+    <ClInclude Include="..\..\include\core\ext\CameraData.h" />
     <ClInclude Include="..\..\include\core\ext\core_ext_all.h" />
     <ClInclude Include="..\..\include\core\ext\core_ext_ptr.h" />
     <ClInclude Include="..\..\include\core\ext\Light_Dir.h" />
@@ -104,6 +104,7 @@
     <ClInclude Include="..\..\include\core\ext\SoundEmitter.h" />
     <ClInclude Include="..\..\include\core\ext\SoundListener.h" />
     <ClInclude Include="..\..\include\core\ext\WorldMeshRenderer.h" />
+    <ClInclude Include="Tpl_Camera.h" />
     <ClInclude Include="Tpl_Cone.h" />
     <ClInclude Include="core_ext_pch.h" />
     <ClInclude Include="CorePackage.h" />
@@ -117,7 +118,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Behavior.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraData.cpp" />
+    <ClCompile Include="Tpl_Camera.cpp" />
     <ClCompile Include="Tpl_Cone.cpp" />
     <ClCompile Include="core_ext_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

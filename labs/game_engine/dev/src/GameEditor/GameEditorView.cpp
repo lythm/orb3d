@@ -270,3 +270,4 @@ void CGameEditorView::OnLButtonUp(UINT nFlags, CPoint point)
 	}
 	CView::OnLButtonUp(nFlags, point);
 }
+

@@ -25,6 +25,7 @@ COutputWnd::~COutputWnd()
 BEGIN_MESSAGE_MAP(COutputWnd, CDockablePane)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 int COutputWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -44,47 +45,18 @@ int COutputWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// 创建输出窗格:
 	const DWORD dwStyle = LBS_NOINTEGRALHEIGHT | WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL;
-
-	if(!m_wndOutputMessage.Create(dwStyle, rectDummy, &m_wndTabs, 2) ||
-		!m_wndOutputBuild.Create(dwStyle, rectDummy, &m_wndTabs, 3))
+	
+	if(!m_wndOutputMessage.Create(rectDummy, &m_wndTabs) ||
+		!m_wndOutputBuild.Create(rectDummy, &m_wndTabs))
 	{
 		TRACE0("未能创建输出窗口\n");
 		return -1;      // 未能创建
 	}
-	//if (!m_wndOutputBuild.Create(dwStyle, rectDummy, &m_wndTabs, 2) ||
-	//	!m_wndOutputDebug.Create(dwStyle, rectDummy, &m_wndTabs, 3) ||
-	//	!m_wndOutputFind.Create(dwStyle, rectDummy, &m_wndTabs, 4))
-	//{
-	//	TRACE0("未能创建输出窗口\n");
-	//	return -1;      // 未能创建
-	//}
 
 	UpdateFonts();
 
-	CString strTabName;
-	BOOL bNameValid;
-
-	// 将列表窗口附加到选项卡:
-	
-	m_wndTabs.AddTab(&m_wndOutputMessage, L"信息", (UINT)2);
-
-	bNameValid = strTabName.LoadString(IDS_BUILD_TAB);
-	ASSERT(bNameValid);
-	m_wndTabs.AddTab(&m_wndOutputBuild, strTabName, (UINT)3);
-	//bNameValid = strTabName.LoadString(IDS_DEBUG_TAB);
-	//ASSERT(bNameValid);
-	//m_wndTabs.AddTab(&m_wndOutputDebug, strTabName, (UINT)1);
-	//bNameValid = strTabName.LoadString(IDS_FIND_TAB);
-	//ASSERT(bNameValid);
-	//m_wndTabs.AddTab(&m_wndOutputFind, strTabName, (UINT)2);
-
-	
-	
-
-	// 使用一些虚拟文本填写输出选项卡(无需复杂数据)
-	FillBuildWindow();
-	//FillDebugWindow();
-	//FillFindWindow();
+	m_wndTabs.AddTab(&m_wndOutputMessage, L"General", (UINT)2);
+	m_wndTabs.AddTab(&m_wndOutputBuild, L"Build", (UINT)3);
 
 	return 0;
 }
@@ -97,83 +69,85 @@ void COutputWnd::OnSize(UINT nType, int cx, int cy)
 	m_wndTabs.SetWindowPos (NULL, -1, -1, cx, cy, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-void COutputWnd::AdjustHorzScroll(CListBox& wndListBox)
-{
-	CClientDC dc(this);
-	CFont* pOldFont = dc.SelectObject(&afxGlobalData.fontRegular);
-
-	int cxExtentMax = 0;
-
-	for (int i = 0; i < wndListBox.GetCount(); i ++)
-	{
-		CString strItem;
-		wndListBox.GetText(i, strItem);
-
-		cxExtentMax = max(cxExtentMax, (int)dc.GetTextExtent(strItem).cx);
-	}
-
-	wndListBox.SetHorizontalExtent(cxExtentMax);
-	dc.SelectObject(pOldFont);
-}
 void COutputWnd::OuputInfo(const CString& string)
 {
-	m_wndOutputMessage.AddString(string);
+	m_wndOutputMessage.AddLine(string);
 }
 void COutputWnd::OuputBuild(const CString& string)
 {
-	m_wndOutputBuild.AddString(string);
-}
-void COutputWnd::FillBuildWindow()
-{
-	//m_wndOutputBuild.AddString(_T("生成输出正显示在此处。"));
-	//m_wndOutputBuild.AddString(_T("输出正显示在列表视图的行中"));
-	//m_wndOutputBuild.AddString(_T("但您可以根据需要更改其显示方式..."));
-}
-
-void COutputWnd::FillDebugWindow()
-{
-	//m_wndOutputDebug.AddString(_T("调试输出正显示在此处。"));
-	//m_wndOutputDebug.AddString(_T("输出正显示在列表视图的行中"));
-	//m_wndOutputDebug.AddString(_T("但您可以根据需要更改其显示方式..."));
-}
-
-void COutputWnd::FillFindWindow()
-{
-	//m_wndOutputFind.AddString(_T("查找输出正显示在此处。"));
-	//m_wndOutputFind.AddString(_T("输出正显示在列表视图的行中"));
-	//m_wndOutputFind.AddString(_T("但您可以根据需要更改其显示方式..."));
+	m_wndOutputBuild.AddLine(string);
 }
 
 void COutputWnd::UpdateFonts()
 {
-	//m_wndOutputBuild.SetFont(&afxGlobalData.fontRegular);
-	//m_wndOutputDebug.SetFont(&afxGlobalData.fontRegular);
-	//m_wndOutputFind.SetFont(&afxGlobalData.fontRegular);
 	m_wndOutputMessage.SetFont(&afxGlobalData.fontRegular);
+	m_wndOutputBuild.SetFont(&afxGlobalData.fontRegular);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// COutputList1
 
-COutputList::COutputList()
+HBRUSH COutputWnd::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	//HBRUSH hbr = CEdit::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	return (HBRUSH)GetStockObject(WHITE_BRUSH);
+}
+
+
+COutputEdit::COutputEdit()
+{
+	
+}
+COutputEdit::~COutputEdit()
 {
 }
-
-COutputList::~COutputList()
-{
-}
-
-BEGIN_MESSAGE_MAP(COutputList, CListBox)
+BEGIN_MESSAGE_MAP(COutputEdit, CEdit)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_EDIT_COPY, OnEditCopy)
 	ON_COMMAND(ID_EDIT_CLEAR, OnEditClear)
 	ON_COMMAND(ID_VIEW_OUTPUTWND, OnViewOutput)
 	ON_WM_WINDOWPOSCHANGING()
-END_MESSAGE_MAP()
-/////////////////////////////////////////////////////////////////////////////
-// COutputList 消息处理程序
 
-void COutputList::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
+	ON_COMMAND(ID_OUTPUT_EDIT_SELECT_ALL, &COutputEdit::OnOutputEditSelectAll)
+	ON_WM_CTLCOLOR()
+END_MESSAGE_MAP()
+
+BOOL COutputEdit::Create(const RECT& rect, CWnd* pParentWnd)
+{
+	const DWORD dwEditStyle = WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL | ES_MULTILINE | ES_READONLY ;
+
+	return CEdit::Create(dwEditStyle, rect, pParentWnd, 0);
+}
+
+
+void COutputEdit::AddLine(const CString& l)
+{
+	m_buffer += l;
+	m_buffer += "\r\n";
+
+	SetWindowText(m_buffer);
+
+	ScrollToEnd();
+}
+void COutputEdit::ScrollToEnd()
+{
+	int lines = GetLineCount();
+	LineScroll(lines);
+}
+void COutputEdit::OnViewOutput()
+{
+	CDockablePane* pParentBar = DYNAMIC_DOWNCAST(CDockablePane, GetOwner());
+	CMDIFrameWndEx* pMainFrame = DYNAMIC_DOWNCAST(CMDIFrameWndEx, GetTopLevelFrame());
+
+	if (pMainFrame != NULL && pParentBar != NULL)
+	{
+		pMainFrame->SetFocus();
+		pMainFrame->ShowPane(pParentBar, FALSE, FALSE, FALSE);
+		pMainFrame->RecalcLayout();
+
+	}
+}
+
+void COutputEdit::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	CMenu menu;
 	menu.LoadMenu(IDR_OUTPUT_POPUP);
@@ -198,26 +172,28 @@ void COutputList::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	SetFocus();
 }
 
-void COutputList::OnEditCopy()
+void COutputEdit::OnEditCopy()
 {
-	MessageBox(_T("复制输出"));
+	Copy();
 }
 
-void COutputList::OnEditClear()
+void COutputEdit::OnEditClear()
 {
-
+	m_buffer = L"";
+	SetWindowText(m_buffer);
 }
 
-void COutputList::OnViewOutput()
+void COutputEdit::OnOutputEditSelectAll()
 {
-	CDockablePane* pParentBar = DYNAMIC_DOWNCAST(CDockablePane, GetOwner());
-	CMDIFrameWndEx* pMainFrame = DYNAMIC_DOWNCAST(CMDIFrameWndEx, GetTopLevelFrame());
-
-	if (pMainFrame != NULL && pParentBar != NULL)
-	{
-		pMainFrame->SetFocus();
-		pMainFrame->ShowPane(pParentBar, FALSE, FALSE, FALSE);
-		pMainFrame->RecalcLayout();
-
-	}
+	this->SetSel(0, -1);
 }
+
+
+
+HBRUSH COutputEdit::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	//HBRUSH hbr = CEdit::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	return (HBRUSH)GetStockObject(WHITE_BRUSH);
+}
+

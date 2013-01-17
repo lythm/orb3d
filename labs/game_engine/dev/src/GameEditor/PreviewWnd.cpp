@@ -88,7 +88,7 @@ void CPreviewWnd::OnClose()
 
 void CPreviewWnd::OnTimer(UINT_PTR nIDEvent)
 {
-	Project::Instance()->Render();
+	Project::Instance()->RenderPreview();
 	
 	CDialogEx::OnTimer(nIDEvent);
 }

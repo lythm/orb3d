@@ -11,7 +11,9 @@ namespace ld3d
 	class Light_Point;
 	class Light_Spot;
 	class Light_Sky;
+	class CameraData;
 
+	typedef boost::shared_ptr<CameraData>										CameraDataPtr;
 	typedef boost::shared_ptr<Light_Sky>										Light_SkyPtr;
 	typedef boost::shared_ptr<Light_Spot>										Light_SpotPtr;
 	typedef boost::shared_ptr<Light_Point>										Light_PointPtr;

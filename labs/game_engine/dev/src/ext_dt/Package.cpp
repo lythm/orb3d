@@ -42,9 +42,9 @@ namespace ld3d
 	{
 		return m_pCore;
 	}
-	std::wstring DTPackage::GetPackageName()
+	const wchar_t* DTPackage::GetPackageName()
 	{
-		return L"DT";
+		return L"Design Time";
 	}
 	
 	int DTPackage::GetClassCount()

@@ -9,7 +9,7 @@
 #include "core\ext\Light_Spot.h"
 #include "core\ext\Light_Sky.h"
 #include "core\ext\SkyBox.h"
-#include "core\ext\Camera.h"
+#include "core\ext\CameraData.h"
 #include "core\ext\Sky.h"
 #include "core\ext\PostEffectList.h"
 #include "core\ext\LuaBehavior.h"
@@ -24,6 +24,7 @@
 #include "Tpl_SkyLight.h"
 #include "Tpl_SpotLight.h"
 #include "Tpl_DirLight.h"
+#include "Tpl_Camera.h"
 
 EXPORT_C_API ld3d::ExtPackage* CreatePackage(ld3d::CoreApiPtr pCore)
 {
@@ -76,6 +77,9 @@ namespace ld3d
 		m_tpls.push_back(pTpl);
 
 		pTpl = new Tpl_SkyLight(m_pCore->GetGameObjectManager(), L"SkyLight");
+		m_tpls.push_back(pTpl);
+
+		pTpl = new Tpl_Camera(m_pCore->GetGameObjectManager(), L"Camera");
 		m_tpls.push_back(pTpl);
 
 	}
@@ -161,9 +165,9 @@ namespace ld3d
 		}
 		m_tpls.clear();
 	}
-	std::wstring CorePackage::GetPackageName()
+	const wchar_t* CorePackage::GetPackageName()
 	{
-		return L"core_ext_package";
+		return L"Core";
 	}
 	
 	int CorePackage::GetClassCount()
@@ -213,7 +217,7 @@ namespace ld3d
 	}
 	GameObjectComponentPtr CorePackage::Create_Camera(GameObjectManagerPtr pManager)
 	{
-		return pManager->GetAllocator()->AllocObject<Camera, GameObjectManagerPtr>(pManager);
+		return pManager->GetAllocator()->AllocObject<CameraData, GameObjectManagerPtr>(pManager);
 	}
 	GameObjectComponentPtr CorePackage::Create_Sky(GameObjectManagerPtr pManager)
 	{

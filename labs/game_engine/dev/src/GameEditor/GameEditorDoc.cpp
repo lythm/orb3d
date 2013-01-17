@@ -155,11 +155,11 @@ BOOL CGameEditorDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	
 	if(pProject->Load(lpszPathName) == false)
 	{
-		util_output_info(L"Failed to open project.");
+		util_log_info(L"Failed to open project.");
 		return FALSE;
 	}
 
-	util_output_info(L"Project openned.");
+	util_log_info(L"Project openned.");
 	util_update_object_view(Project::Instance()->Root());
 	return CDocument::OnOpenDocument(lpszPathName);
 }
@@ -176,10 +176,10 @@ BOOL CGameEditorDoc::OnSaveDocument(LPCTSTR lpszPathName)
 		
 	if(pProject->Save(lpszPathName) == false)
 	{
-		util_output_info(L"Failed to save project.");
+		util_log_info(L"Failed to save project.");
 		return FALSE;
 	}
-	util_output_info(L"Project saved.");
+	util_log_info(L"Project saved.");
 	
 
 	return CDocument::OnSaveDocument(lpszPathName);

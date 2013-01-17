@@ -28,6 +28,7 @@ namespace ld3d
 	void Scene::Reset()
 	{
 		m_pRoot->Clear();
+		m_pRoot = m_pObjectManager->CreateGameObject(L"_root_");
 	}
 	void Scene::Release()
 	{
@@ -64,7 +65,7 @@ namespace ld3d
 		const math::Matrix44& local = pObj->GetLocalTransform();
 		pStream->Write((void*)&local, sizeof(local));
 
-		uint16 nCom = pObj->GetComponentCount();
+		uint16 nCom = pObj->GetComponentCount() - 1;
 		pStream->WriteInt16(nCom);
 
 		for(int i = 0; i < nCom; ++i)

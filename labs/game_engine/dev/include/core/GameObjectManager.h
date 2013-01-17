@@ -58,6 +58,8 @@ namespace ld3d
 		GameObjectTemplate*				FindTemplate(const std::wstring& name);
 
 		bool							LoadAndRegisterTemplate(DataStreamPtr pStream);
+
+		void							Log(const std::wstring& text);
 	private:
 
 

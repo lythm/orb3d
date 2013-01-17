@@ -61,4 +61,7 @@
 #include "core\PostEffect_BilateralBlur.h"
 #include "core\PostEffect_GaussianBlur.h"
 
+#include "core\Camera.h"
+
+
 #include "core\ext\core_ext_all.h"

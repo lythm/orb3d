@@ -319,6 +319,8 @@ BEGIN
     POPUP "弹出项"
     BEGIN
         MENUITEM "清除(&C)",                      ID_EDIT_CLEAR
+        MENUITEM "Copy",                        ID_EDIT_COPY
+        MENUITEM "Select All",                  ID_OUTPUT_EDIT_SELECT_ALL
     END
 END
 
@@ -411,7 +413,8 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,198,156,50,14
     PUSHBUTTON      "取消",IDCANCEL,252,156,50,14
-    CONTROL         "",IDC_MFCCOLORBUTTON1,"MfcColorButton",WS_TABSTOP,97,58,50,14
+    CONTROL         "",IDC_MFCCOLORBUTTON1,"MfcColorButton",WS_TABSTOP,17,16,50,14
+    EDITTEXT        IDC_EDIT1,207,28,40,14,ES_AUTOHSCROLL
 END
 
 IDD_STARTUP DIALOGEX 0, 0, 619, 268

@@ -235,6 +235,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	//CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
+
+	util_set_main_frame(this);
+
 	UpdateComClassMap();
 
 	UpdateTemplateMap();
@@ -609,6 +612,13 @@ void CMainFrame::OnEditAppsettings()
 
 void CMainFrame::OnImportImportmaxmesh()
 {
+	for(int i = 0; i < 100; ++i)
+	{
+		CString text;
+		text.Format(L"%d-fdafjkdlajflkdajfkldaf", i);
+		
+		m_wndOutput.OuputInfo(text);
+	}
 	return;
 }
 
@@ -1202,8 +1212,14 @@ void CMainFrame::OnFileSaveProject()
 
 	using namespace boost::filesystem;
 
-	path sceneFile = Project::Instance()->GetProjectFile();
+	path sceneFile = Project::Instance()->GetGameSceneFile();
 	if(sceneFile.empty())
+	{
+		OnFileSaveScene();
+	}
+
+	path projectFile = Project::Instance()->GetProjectFile();
+	if(projectFile.empty())
 	{
 		CFileDialog dlg(FALSE, 
 				L"gp", 
@@ -1216,9 +1232,9 @@ void CMainFrame::OnFileSaveProject()
 			return;
 		}
 
-		sceneFile = dlg.GetPathName().GetString();
+		projectFile = dlg.GetPathName().GetString();
 	}
 
-	Project::Instance()->Save(sceneFile.wstring().c_str());
+	Project::Instance()->Save(projectFile.wstring().c_str());
 
 }

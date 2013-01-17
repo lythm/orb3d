@@ -29,7 +29,7 @@ namespace ld3d
 
 		};
 
-		virtual std::wstring								GetPackageName()								= 0;
+		virtual const wchar_t*								GetPackageName()								= 0;
 		virtual int											GetClassCount()									= 0;
 		virtual ComponentClass*								GetClassByIndex(int index)						= 0;
 

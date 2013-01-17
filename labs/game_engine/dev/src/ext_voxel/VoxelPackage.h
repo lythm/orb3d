@@ -13,7 +13,7 @@ namespace ld3d
 
 		
 
-		std::wstring						GetPackageName();
+		const wchar_t*						GetPackageName();
 		int									GetClassCount();
 		ComponentClass*						GetClassByIndex(int index);
 

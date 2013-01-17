@@ -236,6 +236,8 @@ bool Project::InitEngine()
 
 	m_pCore = CoreApiPtr(new CoreApi());
 
+	CoreApi::SetLogger(util_log_info);
+
 	GraphicsSetting setting;
 	setting.sysMod = L"./d11graphics.dll";
 	setting.backBufferCount = 2;
@@ -330,6 +332,10 @@ void Project::Render()
 	{
 		m_pRenderer->Render();
 	}
+}
+void Project::RenderPreview()
+{
+	m_pRenderer->RenderPreview();
 }
 bool Project::ShowingGrid()
 {

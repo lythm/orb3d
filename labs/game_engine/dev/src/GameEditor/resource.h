@@ -110,6 +110,7 @@
 #define IDC_PROGRESS_INFO               1010
 #define IDC_PW_BUTTON_NEW               1013
 #define IDC_PW_BUTTON_OPEN              1014
+#define IDC_EDIT1                       1015
 #define ID_OV_32771                     32771
 #define ID_OV_DELOBJ                    32772
 #define ID_GAMEOBJECT_CREATEEMPTY       32773
@@ -164,6 +165,11 @@
 #define ID_FILE_NEW_PROJECT             32822
 #define ID_FILE_OPEN_PROJECT            32823
 #define ID_FILE_SAVE_PROJECT            32824
+#define ID_32825                        32825
+#define ID_EDIT_CPOY                    32826
+#define ID_32827                        32827
+#define ID_SELECT_ALL                   32828
+#define ID_OUTPUT_EDIT_SELECT_ALL       32829
 #define ID_COMPONENT_MENU_BASE          60000
 
 // Next default values for new objects
@@ -171,8 +177,8 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        321
-#define _APS_NEXT_COMMAND_VALUE         32825
-#define _APS_NEXT_CONTROL_VALUE         1015
+#define _APS_NEXT_COMMAND_VALUE         32830
+#define _APS_NEXT_CONTROL_VALUE         1016
 #define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

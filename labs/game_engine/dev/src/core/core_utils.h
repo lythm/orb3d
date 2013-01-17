@@ -28,4 +28,9 @@ namespace ld3d
 		return CoreApi::GetAllocator()->AllocObject<T, TP>(p);
 	}
 
+	inline
+		void												log(const std::wstring& text)
+	{
+		CoreApi::Log(text);
+	}
 }

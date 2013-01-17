@@ -6,7 +6,7 @@ namespace ld3d
 	Tpl_Cube::Tpl_Cube(GameObjectManagerPtr pManager, const std::wstring& name) : GameObjectTemplate(pManager, name, L"Geometry")
 	{
 	}
-
+	 
 
 	Tpl_Cube::~Tpl_Cube(void)
 	{

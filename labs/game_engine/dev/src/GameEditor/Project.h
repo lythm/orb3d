@@ -36,6 +36,7 @@ public:
 	void								HandleMessage(MSG& msg);
 
 	void								Render();
+	void								RenderPreview();
 
 	bool								ShowingGrid();
 	void								ShowGrid(bool bShow);

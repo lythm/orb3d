@@ -20,7 +20,7 @@
 namespace ld3d
 {
 	Allocator*										CoreApi::s_pAllocator;
-
+	CoreApi::Logger									CoreApi::s_logger;
 	static StdAllocator								g_stdAllocator;
 
 	CoreApi::CoreApi(void)
@@ -249,5 +249,21 @@ namespace ld3d
 	void CoreApi::ResetScene()
 	{
 		m_pScene->Reset();
+	}
+	void CoreApi::Log(const std::wstring& text)
+	{
+		if(s_logger.empty() == false)
+		{
+			s_logger(text);
+		}
+
+#ifdef _DEBUG
+		OutputDebugString(text.c_str());
+		OutputDebugString(L"\r\n");
+#endif
+	}
+	void CoreApi::SetLogger(Logger logger)
+	{
+		s_logger = logger;
 	}
 }

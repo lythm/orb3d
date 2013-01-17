@@ -9,7 +9,7 @@ namespace ld3d
 	class EXPORT_CLASS CoreApi : public boost::enable_shared_from_this<CoreApi>
 	{
 	public:
-		typedef boost::function<void (const std::wstring& log)>			Log;
+		typedef boost::function<void (const std::wstring& log)>			Logger;
 
 		CoreApi(void);
 		virtual ~CoreApi(void);
@@ -42,6 +42,9 @@ namespace ld3d
 		ScenePtr										GetScene();
 		void											ResetScene();
 		static Allocator*								GetAllocator();
+
+		static void										Log(const std::wstring& text);
+		static void										SetLogger(Logger logger);
 	private:
 		GameObjectManagerPtr							m_pObjectManager;
 		SysManagerPtr									m_pSysManager;
@@ -53,7 +56,7 @@ namespace ld3d
 		RenderSystemPtr									m_pRenderSystem;
 
 		static Allocator*								s_pAllocator;
-
+		static Logger									s_logger;
 		ScenePtr										m_pScene;
 	};
 }

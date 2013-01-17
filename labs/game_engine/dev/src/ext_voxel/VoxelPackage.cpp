@@ -70,7 +70,7 @@ namespace ld3d
 		}
 		m_tpls.clear();
 	}
-	std::wstring VoxelPackage::GetPackageName()
+	const wchar_t* VoxelPackage::GetPackageName()
 	{
 		return L"Voxel";
 	}

@@ -4,24 +4,37 @@
 /////////////////////////////////////////////////////////////////////////////
 // COutputList 窗口
 
-class COutputList : public CListBox
-{
-// 构造
-public:
-	COutputList();
 
-// 实现
+class COutputEdit : public CEdit
+{
 public:
-	virtual ~COutputList();
+	COutputEdit();
+	virtual ~COutputEdit();
+
+	BOOL Create(const RECT& rect, CWnd* pParentWnd);
+	void					AddLine(const CString& l);
+	void					ScrollToEnd();
 
 protected:
+	
+
+private:
+	CString					m_buffer;
+	
+	
+public:
+	afx_msg void OnOutputEditSelectAll();
+	afx_msg void OnViewOutput();
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditClear();
-	afx_msg void OnViewOutput();
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	DECLARE_MESSAGE_MAP()
 };
+
+
 
 class COutputWnd : public CDockablePane
 {
@@ -37,17 +50,10 @@ public:
 protected:
 	CMFCTabCtrl	m_wndTabs;
 
-	COutputList m_wndOutputMessage;
-	COutputList m_wndOutputBuild;
-	//COutputList m_wndOutputDebug;
-	//COutputList m_wndOutputFind;
+	COutputEdit m_wndOutputMessage;
+	COutputEdit m_wndOutputBuild;
 
 protected:
-	void FillBuildWindow();
-	void FillDebugWindow();
-	void FillFindWindow();
-
-	void AdjustHorzScroll(CListBox& wndListBox);
 
 // 实现
 public:
@@ -58,5 +64,7 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
 

@@ -73,7 +73,7 @@ namespace ld3d
 			return false;
 		}
 		m_templates[name] = pTpl;
-
+		log(L"Template registered: " + name);
 		return true;
 	}
 	
@@ -109,7 +109,7 @@ namespace ld3d
 		}
 		
 		RegisterPackage(mod.GetPackage());
-
+		log(std::wstring(L"Package loaded: ") + mod.GetPackage()->GetPackageName());
 		m_packages.push_back(mod);
 		return true;
 	}
@@ -128,6 +128,8 @@ namespace ld3d
 			return false;
 		}
 		m_componentClasses[c->m_name] = c;
+
+		log(L"Component registered: " + c->m_name);
 		return true;
 	}
 	bool GameObjectManager::RegisterPackage(ExtPackage* pPack)
@@ -224,5 +226,9 @@ namespace ld3d
 
 		FreeLibrary(m_hLib);
 		m_hLib = NULL;
+	}
+	void GameObjectManager::Log(const std::wstring& text)
+	{
+		log(text);
 	}
 }

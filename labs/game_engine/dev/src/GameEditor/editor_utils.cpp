@@ -4,6 +4,7 @@
 
 
 static CWnd*						g_pRenderWnd				= nullptr;
+static CMainFrame*					g_pMainFrame				= nullptr;
 
 CGameEditorApp* util_get_app()
 {
@@ -11,33 +12,43 @@ CGameEditorApp* util_get_app()
 }
 CMainFrame* util_get_main_frame()
 {
-	return (CMainFrame*)AfxGetApp()->GetMainWnd();
+	return g_pMainFrame;
+}
+void util_set_main_frame(CMainFrame* pWnd)
+{
+	g_pMainFrame = pWnd;
 }
 void util_update_object_view(ld3d::GameObjectPtr pObj)
 {
-	util_get_main_frame()->UpdateObjectView(pObj);
+	if(util_get_main_frame())
+	{
+		util_get_main_frame()->UpdateObjectView(pObj);
+	}
 }
 void util_update_obj_property_grid(ld3d::GameObjectPtr pObj)
 {
-	util_get_main_frame()->UpdatePropGrid(pObj);
+	if(util_get_main_frame())
+	{
+		util_get_main_frame()->UpdatePropGrid(pObj);
+	}
 }
-void util_output_info(const CString& info)
-{
-	util_get_main_frame()->OutputInfo(info);
-}
-void util_output_build(const CString& build)
-{
-	util_get_main_frame()->OutputInfo(build);
-}
+
 void util_clear_objview_selection()
 {
 	CMainFrame* pMain = util_get_main_frame();
-	pMain->GetObjectView()->ClearSelection();
+	
+	if(pMain)
+	{
+		pMain->GetObjectView()->ClearSelection();
+	}
 }
 void util_update_status_bar_fps(float fps)
 {
 	CMainFrame* pMain = util_get_main_frame();
-	pMain->SetFPS(fps);
+	if(pMain)
+	{
+		pMain->SetFPS(fps);
+	}
 }
 void util_set_rendering_wnd(CWnd* pWnd)
 {
@@ -51,7 +62,10 @@ CWnd*  util_get_rendering_wnd()
 void util_update_assets_view()
 {
 	CMainFrame* pMain = util_get_main_frame();
-	pMain->UpdateAssetsView();
+	if(pMain)
+	{
+		pMain->UpdateAssetsView();
+	}
 }
 
 
@@ -154,4 +168,18 @@ bool util_cpoy_directory(boost::filesystem::path src, boost::filesystem::path ds
 		}
 	}
 	return true;
+}
+void util_log_info(const std::wstring& text)
+{
+	if(util_get_main_frame())
+	{
+		util_get_main_frame()->OutputInfo(text.c_str());
+	}
+}
+void util_log_build(const std::wstring& text)
+{
+	if(util_get_main_frame())
+	{
+		util_get_main_frame()->outputBuild(text.c_str());
+	}
 }

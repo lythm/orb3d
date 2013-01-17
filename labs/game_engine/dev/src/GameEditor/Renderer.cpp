@@ -80,7 +80,15 @@ void Renderer::Render()
 
 	m_pCore->Present();
 }
+void Renderer::RenderPreview()
+{
+	m_pCore->Update();
 
+	m_pCore->Render();
+	m_pCore->ClearRenderQueue();
+
+	m_pCore->Present();
+}
 void Renderer::OnMouseMove(UINT nFlags, CPoint point)
 {
 	m_pCamera->OnMouseMove(nFlags, point);
