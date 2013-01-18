@@ -608,18 +608,15 @@ void CMainFrame::OnEditAppsettings()
 
 	dlg.DoModal();
 }
-
-
+class Test
+{
+public:
+	void		foo(ld3d::EventPtr pEvent)
+	{
+	}
+};
 void CMainFrame::OnImportImportmaxmesh()
 {
-	for(int i = 0; i < 100; ++i)
-	{
-		CString text;
-		text.Format(L"%d-fdafjkdlajflkdajfkldaf", i);
-		
-		m_wndOutput.OuputInfo(text);
-	}
-	return;
 }
 
 
@@ -689,7 +686,6 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 		return false;
 	}
 
-
 	CString str;
 	CMFCToolBarMenuButton* pParent = pMenu->GetParentButton();
 
@@ -713,7 +709,6 @@ bool CMainFrame::UpdateTemplateMenu(CMFCPopupMenu* pMenu)
 	CMFCToolBarMenuButton b(ID_GAMEOBJECT_CREATEEMPTY, nullptr, -1, L"Empty");
 
 	pMenu->InsertItem(b);
-
 	pMenu->InsertSeparator();
 
 	int id = ID_COMPONENT_MENU_BASE + 1001;
@@ -809,7 +804,7 @@ void CMainFrame::OnComponentMenu(UINT nID)
 
 	GameObjectPtr pObj = Project::Instance()->GetSelObject();
 
-	if(pObj->GetComponent(pClass->m_name) != GameObjectComponentPtr())
+	if(pClass->m_bExclusive && pObj->GetComponent(pClass->m_name) != GameObjectComponentPtr())
 	{
 		CString str = pClass->m_name.c_str() + CString(L" can only be added once per object");
 		MessageBox(str, L"Component Error", MB_ICONERROR);
@@ -1165,7 +1160,7 @@ void CMainFrame::OnFileNewProject()
 	}
 
 	util_update_object_view(pProject->Root());
-	//util_output_info(L"Project created.");
+	util_log_info(L"Project created.");
 
 }
 
@@ -1201,6 +1196,7 @@ void CMainFrame::OnFileOpenProject()
 	}
 
 	util_update_object_view(pProject->Root());
+	util_log_info(L"Project openned.");
 }
 
 
@@ -1235,6 +1231,12 @@ void CMainFrame::OnFileSaveProject()
 		projectFile = dlg.GetPathName().GetString();
 	}
 
-	Project::Instance()->Save(projectFile.wstring().c_str());
+	if(false == Project::Instance()->Save(projectFile.wstring().c_str()))
+	{
+		MessageBox(L"Fialed to load project.", L"error", MB_ICONERROR);
+		Project::Instance()->Close();
+		return;
+	}
 
+	util_log_info(L"Project saved.");
 }

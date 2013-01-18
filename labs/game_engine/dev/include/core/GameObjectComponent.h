@@ -31,9 +31,13 @@ namespace ld3d
 
 		virtual const Version&		GetVersion() const														= 0;
 
-		std::wstring				GetVersionString();
+		const wchar_t*				GetVersionString();
 
 		virtual GameObjectComponentPtr Clone();
+
+		virtual const std::vector<std::wstring>&	GetDependences();
+		virtual bool				IsExclusive();
+		
 	
 	private:
 		virtual bool				OnAttach();

@@ -148,7 +148,7 @@ namespace ld3d
 	}
 	void CoreApi::HandleMessage(MSG& msg)
 	{
-		boost::shared_ptr<WMEvent> pEvent = s_pAllocator->AllocObject<WMEvent, MSG>(msg);
+		boost::shared_ptr<Event_WindowMessage> pEvent = s_pAllocator->AllocObject<Event_WindowMessage, MSG>(msg);
 		pEvent->msg = msg;
 
 		DispatchEvent(pEvent);
@@ -226,11 +226,14 @@ namespace ld3d
 	{
 		m_pEventDispatcher->DispatchEvent(pEvent);
 	}
-	void CoreApi::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
+	EventDispatcher::EventHandlerHandle CoreApi::AddEventHandler(uint32 id, EventDispatcher::EventHandler handler)
 	{
-		m_pEventDispatcher->AddEventHandler(id, handler);
+		return m_pEventDispatcher->AddEventHandler(id, handler);
 	}
-		
+	void CoreApi::RemoveEventHandler(EventDispatcher::EventHandlerHandle handle)
+	{
+		m_pEventDispatcher->RemoveEventHandler(handle);
+	}
 	void CoreApi::Present()
 	{
 		if(m_pRenderSystem)
@@ -265,5 +268,17 @@ namespace ld3d
 	void CoreApi::SetLogger(Logger logger)
 	{
 		s_logger = logger;
+	}
+	bool CoreApi::LoadPackage(const std::wstring& packageFile)
+	{
+		return m_pObjectManager->LoadPackage(packageFile);
+	}
+	void CoreApi::AddCamera(CameraPtr pCamera)
+	{
+		m_pRenderSystem->AddCamera(pCamera);
+	}
+	void CoreApi::RemoveCamera(CameraPtr pCamera)
+	{
+		m_pRenderSystem->RemoveCamera(pCamera);
 	}
 }

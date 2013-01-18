@@ -85,9 +85,19 @@ namespace ld3d
 
 		return GameObjectComponentPtr();
 	}
-	std::wstring GameObjectComponent::GetVersionString()
+	const wchar_t* GameObjectComponent::GetVersionString()
 	{
-		return GetVersion().AsWString();
+		return GetVersion().AsWString().c_str();
+	}
+	const std::vector<std::wstring>& GameObjectComponent::GetDependences()
+	{
+		static std::vector<std::wstring> deps;
+
+		return deps;
+	}
+	bool GameObjectComponent::IsExclusive()
+	{
+		return true;
 	}
 }
 

@@ -25,6 +25,10 @@ namespace ld3d
 		const ViewFrustum&										GetViewFrustum() const;
 		void													UpdateViewFrustum();
 
+		math::Vector3											GetAxisX();
+		math::Vector3											GetAxisY();
+		math::Vector3											GetAxisZ();
+
 	private:
 		math::Matrix44											m_viewMatrix;
 		math::Matrix44											m_projMatrix;

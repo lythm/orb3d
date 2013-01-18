@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost\signal.hpp>
+
 namespace ld3d
 {
 	class EventDispatcher
@@ -8,9 +10,11 @@ namespace ld3d
 
 		typedef boost::function<void (EventPtr)>		EventHandler;
 
-		typedef std::vector<EventHandler>				HandlerArray;
+		typedef boost::signal<void (EventPtr)>			EventHandlers;
 
-		typedef boost::unordered_map<uint32, HandlerArray> HandlerMap;
+		typedef boost::signals::connection				EventHandlerHandle;
+
+		typedef boost::unordered_map<uint32, EventHandlers> HandlerMap;
 
 
 
@@ -20,8 +24,8 @@ namespace ld3d
 
 
 		void									DispatchEvent(EventPtr pEvent);
-		void									AddEventHandler(uint32 id, const EventHandler& handler);
-
+		EventHandlerHandle						AddEventHandler(uint32 id, const EventHandler& handler);
+		void									RemoveEventHandler(EventHandlerHandle handler);
 		void									Clear();
 	private:
 

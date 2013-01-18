@@ -160,7 +160,7 @@ namespace ld3d
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(m_pGBuffer, 0, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearRenderTarget(m_pGBuffer, 1, math::Color4(0, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(m_pGBuffer, 2, math::Color4(0, 0, 0, 1));
+		m_pGraphics->ClearRenderTarget(m_pGBuffer, 2, m_clearClr);
 		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_ALL, 1.0f, 0);
 
 
@@ -223,7 +223,15 @@ namespace ld3d
 	}
 	void RenderSystem::Render()
 	{
-		RenderShadowMaps();
+		m_cameras.sort(Camera::SortFunction);
+
+		std::list<CameraPtr>::iterator it = m_cameras.begin();
+		for(it; it != m_cameras.end(); ++it)
+		{
+			Render(*it);
+		}
+
+	/*	RenderShadowMaps();
 
 		DR_G_Pass();
 		DR_Light_Pass();
@@ -234,8 +242,7 @@ namespace ld3d
 		RenderPostEffects();
 		
 		RenderFinal();
-
-		
+*/
 	}
 	void RenderSystem::Present()
 	{
@@ -466,5 +473,13 @@ namespace ld3d
 	void RenderSystem::AddPostEffect(PostEffectPtr pEffect)
 	{
 		m_pPostEffectManager->AddEffect(pEffect);
+	}
+	void RenderSystem::AddCamera(CameraPtr pCamera)
+	{
+		m_cameras.push_back(pCamera);
+	}
+	void RenderSystem::RemoveCamera(CameraPtr pCamera)
+	{
+		m_cameras.remove(pCamera);
 	}
 }

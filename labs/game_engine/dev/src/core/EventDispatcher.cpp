@@ -15,22 +15,24 @@ namespace ld3d
 	
 	void EventDispatcher::DispatchEvent(EventPtr pEvent)
 	{
-		HandlerArray& handlers = m_HandlerMap[pEvent->id];
+		EventHandlers& handlers = m_HandlerMap[pEvent->id];
 
-		for(size_t i = 0;i < handlers.size(); ++i)
-		{
-			handlers[i](pEvent);
-		}
+		handlers(pEvent);
+		
 
 	}
-	void EventDispatcher::AddEventHandler(uint32 id, const EventHandler& handler)
+	EventDispatcher::EventHandlerHandle EventDispatcher::AddEventHandler(uint32 id, const EventHandler& handler)
 	{
-		HandlerArray& handlers = m_HandlerMap[id];
+		EventHandlers& handlers = m_HandlerMap[id];
 
-		handlers.push_back(handler);
+		return handlers.connect(handler);
 	}
 	void EventDispatcher::Clear()
 	{
 		m_HandlerMap.clear();
+	}
+	void EventDispatcher::RemoveEventHandler(EventHandlerHandle handler)
+	{
+		handler.disconnect();
 	}
 }

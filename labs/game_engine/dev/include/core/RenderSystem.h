@@ -71,6 +71,10 @@ namespace ld3d
 		TexturePtr									CreateTextureFromFile(const char* szFile);
 
 		void										AddPostEffect(PostEffectPtr pEffect);
+
+		void										AddCamera(CameraPtr pCamera);
+		void										RemoveCamera(CameraPtr pCamera);
+
 	private:
 		bool										CreateABuffer(int w, int h);
 		bool										CreateGBuffer(int w, int h);
@@ -111,5 +115,7 @@ namespace ld3d
 		math::Color4								m_globalAmbientColor;
 
 		PostEffectManagerPtr						m_pPostEffectManager;
+
+		std::list<CameraPtr>						m_cameras;
 	};
 }

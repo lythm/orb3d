@@ -53,4 +53,16 @@ namespace ld3d
 	{
 		m_frustum.Update(m_viewMatrix, m_projMatrix);
 	}
+	math::Vector3 BaseCamera::GetAxisX()
+	{
+		return m_viewMatrix.GetCol3(0);
+	}
+	math::Vector3 BaseCamera::GetAxisY()
+	{
+		return m_viewMatrix.GetCol3(1);
+	}
+	math::Vector3 BaseCamera::GetAxisZ()
+	{
+		return m_viewMatrix.GetCol3(2);
+	}
 }

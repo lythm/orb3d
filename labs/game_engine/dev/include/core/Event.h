@@ -5,6 +5,7 @@ namespace ld3d
 	enum EVENT_ID
 	{
 		EV_WINMSG,
+		EV_RESIZE_FRAMEBUFFER,
 	};
 	class Event
 	{
@@ -18,15 +19,27 @@ namespace ld3d
 		uint32								id;
 	};
 
-#if defined(WIN32) || defined(WIN64)
-	class WMEvent : public Event
+	class Event_ResizeFrameBuffer : public Event
 	{
 	public:
-		WMEvent(const MSG& m) : Event(EV_WINMSG)
+		Event_ResizeFrameBuffer(int cx, int cy) : Event(EV_RESIZE_FRAMEBUFFER)
+		{
+			m_width = cx;
+			m_height = cy;
+		}
+
+		int							m_width;
+		int							m_height;
+	};
+#if defined(WIN32) || defined(WIN64)
+	class Event_WindowMessage: public Event
+	{
+	public:
+		Event_WindowMessage(const MSG& m) : Event(EV_WINMSG)
 		{
 			msg = m;
 		}
-		virtual ~WMEvent(){}
+		virtual ~Event_WindowMessage(){}
 
 		MSG									msg;
 	};

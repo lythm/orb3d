@@ -21,7 +21,7 @@
     <ClInclude Include="Game.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DefferedShadingDemo.h">
+    <ClInclude Include="VoxelDemo.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DefferedShadingDemo.cpp">
+    <ClCompile Include="VoxelDemo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

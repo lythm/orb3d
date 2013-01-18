@@ -46,7 +46,7 @@ DepthStencilState ds
 	DepthEnable				= FALSE;
 	DepthFunc				= LESS;
 	DepthWriteMask				= ZERO;
-	StencilEnable				= false;
+	StencilEnable				= true;
 	FrontFaceStencilFail			= KEEP;
 	FrontFaceStencilDepthFail		= KEEP;
 	FrontFaceStencilPass			= KEEP;

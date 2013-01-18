@@ -26,15 +26,13 @@ Game::~Game(void)
 }
 bool Game::Initialize(ld3d::CoreApiPtr pCore)
 {
-	m_pDemo = new DefferedShadingDemo;
+	m_pDemo = new VoxelDemo;
 
 	if(m_pDemo->Init(pCore) == false)
 	{
 		return false;
 	}
-
 	
-
 	return true;
 }
 void Game::Release()
@@ -45,8 +43,6 @@ void Game::Release()
 bool Game::Update()
 {
 	m_pDemo->Update();
-	
-
 	
 	return true;
 }

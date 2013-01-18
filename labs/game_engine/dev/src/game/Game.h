@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DefferedShadingDemo.h"
+#include "voxeldemo.h"
 
 class Game : public ld3d::GameInterface
 {
@@ -14,7 +14,9 @@ public:
 
 private:
 
-	DefferedShadingDemo*					m_pDemo;
+	VoxelDemo*								m_pDemo;
+
+	
 
 };
 

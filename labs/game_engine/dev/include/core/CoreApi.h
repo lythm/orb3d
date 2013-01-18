@@ -28,17 +28,21 @@ namespace ld3d
 		void											Present();
 		void											AddRenderData(RenderDataPtr pData);
 		void											ClearRenderQueue();
+		
+		void											AddCamera(CameraPtr pCamera);
+		void											RemoveCamera(CameraPtr pCamera);
 
 		RenderSystemPtr									GetRenderSystem();
 
+		bool											LoadPackage(const std::wstring& packageFile);
 		GameObjectPtr									CreateGameObject(const std::wstring& name);
 		GameObjectComponentPtr							CreateGameObjectComponent(const std::wstring& name);
 		GameObjectPtr									CreatGameObjectFromTemplate(const std::wstring& tpl, const std::wstring& name);
 		GameObjectPtr									Root();
 
 		void											DispatchEvent(EventPtr pEvent);
-		void											AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
-
+		EventDispatcher::EventHandlerHandle				AddEventHandler(uint32 id, EventDispatcher::EventHandler handler);
+		void											RemoveEventHandler(EventDispatcher::EventHandlerHandle handle);
 		ScenePtr										GetScene();
 		void											ResetScene();
 		static Allocator*								GetAllocator();

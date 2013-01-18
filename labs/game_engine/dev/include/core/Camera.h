@@ -10,8 +10,12 @@ namespace ld3d
 		Camera(void);
 		virtual ~Camera(void);
 
+		void								SetOrder(const int& order);
+		const int&							GetOrder();
 
+		static bool							SortFunction(CameraPtr pC1, CameraPtr pC2);
 	private:
+		int									m_order;
 
 	};
 }
