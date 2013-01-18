@@ -34,7 +34,7 @@ namespace ld3d
 		GraphicsSetting setting;
 		setting.sysMod = L"./d11graphics.dll";
 		setting.backBufferCount = 2;
-		setting.depthStencilFormat = G_FORMAT_D32_FLOAT;
+		setting.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
 		setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
 		setting.frameBufferHeight = GetClientHeight();
 		setting.frameBufferWidth = GetClientWidth();
@@ -91,7 +91,8 @@ namespace ld3d
 
 			wchar_t buffer[100];
 
-			swprintf(buffer, 100, L"fps : %.3f", float(frames * 1000) / float(dt));
+			float fps = float(frames * 1000) / float(dt);
+			swprintf(buffer, 100, L"fps : %.3f - %fms", fps, 1000.0f / fps);
 
 			SetTitle(buffer);
 

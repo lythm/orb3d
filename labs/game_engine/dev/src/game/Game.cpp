@@ -13,8 +13,6 @@ EXPORT_C_API void DestroyGame(ld3d::GameInterface* pGame)
 	delete (Game*)pGame;
 }
 
-
-
 Game::Game(void)
 {
 	m_pDemo = NULL;

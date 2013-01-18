@@ -160,7 +160,7 @@ namespace ld3d
 		m_pGraphics->SetRenderTarget(m_pGBuffer);
 		m_pGraphics->ClearRenderTarget(m_pGBuffer, 0, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearRenderTarget(m_pGBuffer, 1, math::Color4(0, 0, 0, 0));
-		m_pGraphics->ClearRenderTarget(m_pGBuffer, 2, m_clearClr);
+		m_pGraphics->ClearRenderTarget(m_pGBuffer, 2, math::Color4(0, 0, 0, 1));
 		m_pGraphics->ClearDepthStencilBuffer(DepthStencilBufferPtr(), CLEAR_ALL, 1.0f, 0);
 
 
@@ -203,7 +203,7 @@ namespace ld3d
 			m_transparentQueue[i]->Render(m_pGraphics);
 		}
 	}
-	void RenderSystem::Render(BaseCameraPtr pCamera)
+	void RenderSystem::Render(CameraPtr pCamera)
 	{
 		SetViewMatrix(pCamera->GetViewMatrix());
 		SetProjMatrix(pCamera->GetProjMatrix());
@@ -230,19 +230,6 @@ namespace ld3d
 		{
 			Render(*it);
 		}
-
-	/*	RenderShadowMaps();
-
-		DR_G_Pass();
-		DR_Light_Pass();
-		DR_Merge_Pass();
-		
-		RenderForward();
-
-		RenderPostEffects();
-		
-		RenderFinal();
-*/
 	}
 	void RenderSystem::Present()
 	{
@@ -318,8 +305,10 @@ namespace ld3d
 	{
 		m_pGraphics->SetRenderTarget(m_pABuffer);
 
-		m_globalAmbientColor.a = 0;
-		m_pGraphics->ClearRenderTarget(m_pABuffer, 0, m_globalAmbientColor);
+		math::Color4 clr = m_globalAmbientColor;
+		clr.a = 0;
+
+		m_pGraphics->ClearRenderTarget(m_pABuffer, 0, clr);
 
 		m_pLightManager->RenderLights();
 	}
@@ -344,7 +333,7 @@ namespace ld3d
 			m_pABuffer.reset();
 		}
 
-		G_FORMAT formats[1] = {G_FORMAT_R16G16B16A16_FLOAT,};
+		G_FORMAT formats[1] = {G_FORMAT_R8G8B8A8_UNORM,};
 		m_pABuffer = CreateRenderTarget(1, w, h, formats);
 
 		return true;

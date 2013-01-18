@@ -39,6 +39,7 @@
     <ClCompile Include="PostEffect_FinalCompose.cpp" />
     <ClCompile Include="PostEffect_BilateralBlur.cpp" />
     <ClCompile Include="PostEffect_GaussianBlur.cpp" />
+    <ClCompile Include="OrbitCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\ArcBall.h" />
@@ -104,5 +105,6 @@
     <ClInclude Include="..\..\include\core\PostEffect_GaussianBlur.h" />
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Font.h" />
+    <ClInclude Include="..\..\include\core\OrbitCamera.h" />
   </ItemGroup>
 </Project>

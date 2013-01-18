@@ -1,8 +1,8 @@
 struct GBuffer
 {
-	half4	T1:SV_TARGET0;
-	half4	T2:SV_TARGET1;
-	half4	T3:SV_TARGET2;
+	float4	T1:SV_TARGET0;
+	float4	T2:SV_TARGET1;
+	float4	T3:SV_TARGET2;
 };
 
 

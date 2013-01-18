@@ -165,7 +165,7 @@ namespace ld3d
 			m_pRenderSystem->Render();
 		}
 	}
-	void CoreApi::Render(BaseCameraPtr pCamera)
+	void CoreApi::Render(CameraPtr pCamera)
 	{
 		if(m_pRenderSystem)
 		{

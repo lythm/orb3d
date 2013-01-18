@@ -15,7 +15,6 @@ namespace ld3d
 
 		std::vector<Face>				Polygonize(VoxelWorldPtr pWorld);
 		std::vector<Face>				Polygonize(VoxelObjectPtr pObj);
+		std::vector<Face>				Polygonize(VoxelBlockPtr pBlock);
 	};
-
-
 }

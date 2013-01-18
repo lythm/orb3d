@@ -21,8 +21,8 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->LoadPackage(L"./extensions/ext_voxel.dll");
 
-	m_pCore->GetRenderSystem()->SetGlobalAmbient(math::Color4(0.2, 0.1, 0.2, 1.0));
-	m_pCore->GetRenderSystem()->SetClearColor(math::Color4(1.0, 1.0, 1, 1));
+	m_pCore->GetRenderSystem()->SetGlobalAmbient(math::Color4(0, 0.1, 0.2, 1.0));
+	m_pCore->GetRenderSystem()->SetClearColor(math::Color4(0.3, 0.2, 0.3, 1));
 
 	m_pCamera = m_pCore->GetAllocator()->AllocObject<ld3d::Camera>();
 	m_pCamera->PerspectiveFovLH(0.25 * 3.14, 4.0 / 3.0, 0.01, 10000);
@@ -30,12 +30,17 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore->AddCamera(m_pCamera);
 
-	//m_pCore->CreatGameObjectFromTemplate(L"VoxelWorld", L"World");
+	m_pCore->CreatGameObjectFromTemplate(L"Plane", L"Plane");
+
+
 	GameObjectPtr pCube = m_pCore->CreatGameObjectFromTemplate(L"Cube", L"Cube");
+
+	pCube->Translate(0, 0.5, 0);
+	
 
 	GameObjectPtr pLight = m_pCore->CreatGameObjectFromTemplate(L"SkyLight", L"light");
 
-	pLight->SetTranslation(0, 10, 10);
+	pLight->SetTranslation(10, 10, 10);
 	pLight->LookAt(pCube);
 	return true;
 }
@@ -73,7 +78,7 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 				Matrix44 view = m_pCamera->GetViewMatrix();
 				Vector3 axis_x = m_pCamera->GetAxisX();
 
-				m_pCamera->SetViewMatrix(MatrixRotationAxis(-axis_x, dy * 0.01) * MatrixRotationAxisY(-dx * 0.01) * view);
+				m_pCamera->SetViewMatrix(MatrixRotationAxisY(-dx * 0.01) * MatrixRotationAxis(-axis_x, dy * 0.01) * view);
 			}
 
 			lastx = x;
@@ -83,7 +88,7 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 
 	case WM_MOUSEWHEEL:
 		{
-			int zDelta = GET_WHEEL_DELTA_WPARAM(pMsg->msg.wParam);
+			int zDelta = -GET_WHEEL_DELTA_WPARAM(pMsg->msg.wParam);
 
 			using namespace math;
 
@@ -98,6 +103,4 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 	default:
 		break;
 	}
-
-
 }

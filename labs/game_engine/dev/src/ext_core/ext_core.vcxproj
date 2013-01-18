@@ -83,7 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\CameraController_ArcBall.h" />
     <ClInclude Include="..\..\include\core\ext\Behavior.h" />
+    <ClInclude Include="..\..\include\core\ext\CameraController_Orbit.h" />
     <ClInclude Include="..\..\include\core\ext\CameraData.h" />
     <ClInclude Include="..\..\include\core\ext\core_ext_all.h" />
     <ClInclude Include="..\..\include\core\ext\core_ext_ptr.h" />
@@ -118,6 +120,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="CameraController_ArcBall.cpp" />
+    <ClCompile Include="CameraController_Orbit.cpp" />
     <ClCompile Include="CameraData.cpp" />
     <ClCompile Include="Tpl_Camera.cpp" />
     <ClCompile Include="Tpl_Cone.cpp" />

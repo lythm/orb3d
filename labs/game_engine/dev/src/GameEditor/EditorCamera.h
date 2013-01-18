@@ -1,6 +1,6 @@
 #pragma once
 
-class EditorCamera : public ld3d::BaseCamera
+class EditorCamera : public ld3d::Camera
 {
 public:
 	EditorCamera(void);

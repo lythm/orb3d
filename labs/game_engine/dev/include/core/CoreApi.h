@@ -24,7 +24,7 @@ namespace ld3d
 		Sys_InputPtr									GetSysInput();
 
 		void											Render();
-		void											Render(BaseCameraPtr pCamera);
+		void											Render(CameraPtr pCamera);
 		void											Present();
 		void											AddRenderData(RenderDataPtr pData);
 		void											ClearRenderQueue();

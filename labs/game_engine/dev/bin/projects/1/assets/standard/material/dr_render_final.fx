@@ -39,7 +39,7 @@ ps_out ps_main(vs_out i)
 }
 RasterizerState rs
 {
-	CULLMODE				= None;
+	CULLMODE				= Back;
 };
 DepthStencilState ds
 {

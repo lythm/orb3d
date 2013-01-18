@@ -19,4 +19,8 @@ namespace ld3d
 	{
 		return std::vector<Face>();
 	}
+	std::vector<VoxelPolygonizer::Face> VoxelPolygonizer::Polygonize(VoxelBlockPtr pBlock)
+	{
+		return std::vector<Face>();
+	}
 }
