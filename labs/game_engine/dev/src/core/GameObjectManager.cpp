@@ -231,4 +231,8 @@ namespace ld3d
 	{
 		log(text);
 	}
+	Sys_SoundPtr GameObjectManager::GetSysSound()
+	{
+		return m_pCore->GetSysSound();
+	}
 }

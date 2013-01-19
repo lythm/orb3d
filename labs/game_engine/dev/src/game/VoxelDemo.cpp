@@ -17,6 +17,17 @@ bool VoxelDemo::Init(ld3d::CoreApiPtr pCore)
 
 	m_pCore = pCore;
 
+	//m_pSound = m_pCore->GetSysSound()->CreateSound("./assets/standard/music/1.mp3");
+
+	//m_pChannel = m_pCore->GetSysSound()->AllocChannel(m_pSound);
+
+	m_pChannel = m_pCore->GetSysSound()->Create3DStream("./assets/standard/music/1.mp3");
+	
+	//m_pChannel = m_pCore->GetSysSound()->Create3DStream("http://music.k618.cn/tytq/song/201208/W020120827815517810655.mp3");
+
+	
+	m_pChannel->Play(true);
+	
 	m_pCore->AddEventHandler(EV_WINMSG, boost::bind(&VoxelDemo::OnMsg, this, _1));
 
 	m_pCore->LoadPackage(L"./extensions/ext_voxel.dll");
@@ -93,6 +104,16 @@ void VoxelDemo::OnMsg(ld3d::EventPtr pEvent)
 			Vector3 axis_z = m_pCamera->GetAxisZ();
 
 			m_pCamera->SetViewMatrix( MatrixTranslation(0.01 * zDelta * axis_z) * view);
+
+			view = m_pCamera->GetViewMatrix();
+			math::Vector3 eye(0, 0, 0);
+			math::Vector3 up = m_pCamera->GetAxisY();
+			math::Vector3 forward = m_pCamera->GetAxisZ();
+			
+			view.Invert();
+			math::TransformCoord(eye, view);
+
+			m_pCore->GetSysSound()->SetListenerAttr(eye, math::Vector3(), forward, up);
 
 		}
 		break;

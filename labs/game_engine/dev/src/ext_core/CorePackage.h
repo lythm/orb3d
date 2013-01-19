@@ -39,6 +39,9 @@ namespace ld3d
 
 		static GameObjectComponentPtr		Create_LuaBehavior(GameObjectManagerPtr pManager);
 
+		static GameObjectComponentPtr		Create_SoundEmitter(GameObjectManagerPtr pManager);
+		static GameObjectComponentPtr		Create_SoundListener(GameObjectManagerPtr pManager);
+
 	private:
 		CoreApiPtr							m_pCore;
 

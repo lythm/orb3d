@@ -19,6 +19,9 @@ void EditorCamera::Update()
 
 	UpdateViewFrustum();
 
+
+	m_pCore->GetSysSound()->SetListenerAttr(GetEyePos(), math::Vector3(), GetAxisZ(), GetAxisY());
+
 	return;
 }
 math::Vector3 EditorCamera::GetEyePos()

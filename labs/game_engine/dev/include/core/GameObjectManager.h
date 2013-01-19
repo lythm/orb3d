@@ -59,6 +59,8 @@ namespace ld3d
 
 		bool							LoadAndRegisterTemplate(DataStreamPtr pStream);
 
+		Sys_SoundPtr					GetSysSound();
+
 		void							Log(const std::wstring& text);
 	private:
 

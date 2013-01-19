@@ -100,6 +100,14 @@ namespace ld3d
 	typedef boost::shared_ptr<Event>						EventPtr;
 	typedef boost::shared_ptr<EventDispatcher>				EventDispatcherPtr;
 
+
+	class Sound;
+	class SoundChannel;
+	typedef boost::shared_ptr<Sound>						SoundPtr;
+	typedef boost::shared_ptr<SoundChannel>					SoundChannelPtr;
+
+
+
 	class PropertySet;
 	class Property;
 

@@ -1,19 +1,23 @@
 #pragma once
 
-#include "core\Sys_Sound.h"
-
 namespace ld3d
 {
-	class FMSound : public Sys_Sound
+	class FMSound : public Sound
 	{
 	public:
-		FMSound(void);
+		FMSound(FMOD::System* pSystem);
 		virtual ~FMSound(void);
 
-		bool								Initialize();
-		void								Release();
-		void								Update();
+		bool										Create(const char* szFile);
+		bool										Create3D(const char* szFile);
+		
+		FMOD::Sound*								GetFMSound();
+
+		void										Release();
+		
 	private:
-		FMOD::System*						m_pSystem;
+		FMOD::System*								m_pSystem;
+		FMOD::Sound *								m_pSound;
 	};
+
 }

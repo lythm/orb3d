@@ -80,10 +80,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FMSound.h" />
+    <ClInclude Include="FMSoundChannel.h" />
+    <ClInclude Include="FMSoundSystem.h" />
     <ClInclude Include="fmsound_pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FMSound.cpp" />
+    <ClCompile Include="FMSoundChannel.cpp" />
+    <ClCompile Include="FMSoundSystem.cpp" />
     <ClCompile Include="fmsound_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>

@@ -13,6 +13,8 @@
 #include "core\ext\Sky.h"
 #include "core\ext\PostEffectList.h"
 #include "core\ext\LuaBehavior.h"
+#include "core\ext\SoundEmitter.h"
+#include "core\ext\SoundListener.h"
 
 
 
@@ -151,6 +153,16 @@ namespace ld3d
 					L"Lua script Behavior",
 					&CorePackage::Create_LuaBehavior));
 
+		m_classes.push_back(ComponentClass(L"SoundEmitter",
+					L"Sound",
+					L"Sound Emitter",
+					&CorePackage::Create_SoundEmitter));
+
+		m_classes.push_back(ComponentClass(L"SoundListener",
+					L"Sound",
+					L"Sound Listener",
+					&CorePackage::Create_SoundListener));
+
 	}
 
 	
@@ -239,6 +251,15 @@ namespace ld3d
 	GameObjectTemplate* CorePackage::GetTemplateByIndex(int index)
 	{
 		return m_tpls[index];
+	}
+
+	GameObjectComponentPtr CorePackage::Create_SoundEmitter(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<SoundEmitter, GameObjectManagerPtr>(pManager);
+	}
+	GameObjectComponentPtr CorePackage::Create_SoundListener(GameObjectManagerPtr pManager)
+	{
+		return pManager->GetAllocator()->AllocObject<SoundListener, GameObjectManagerPtr>(pManager);
 	}
 }
 

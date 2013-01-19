@@ -37,7 +37,7 @@ namespace ld3d
 		m_pSysSound->Update();
 		m_pScene->Update();
 	}
-	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting, Allocator* pAlloc)
+	bool CoreApi::Initialize(const SysSetting& setting, Allocator* pAlloc)
 	{
 		s_pAllocator = pAlloc;
 
@@ -48,26 +48,26 @@ namespace ld3d
 		
 		m_pEventDispatcher = s_pAllocator->AllocObject<EventDispatcher>();
 		m_pSysManager = s_pAllocator->AllocObject<SysManager>();
-		m_pSysGraphics = m_pSysManager->LoadSysGraphics(graphicsSetting.sysMod.c_str());
+		m_pSysGraphics = m_pSysManager->LoadSysGraphics(setting.graphics.sysMod.c_str());
 		
 		if(m_pSysGraphics == Sys_GraphicsPtr())
 		{
 			return false;
 		}
-		if(false == m_pSysGraphics->Initialize(graphicsSetting))
+		if(false == m_pSysGraphics->Initialize(setting.graphics))
 		{
 			return false;
 		}
 
 		m_pSysInput = s_pAllocator->AllocObject<WMInput>();
 
-		if(false == m_pSysInput->Initialize(graphicsSetting.wnd))
+		if(false == m_pSysInput->Initialize(setting.input.wnd))
 		{
 			return false;
 		}
 
-		m_pSysSound = m_pSysManager->LoadSysSound(L"./fmod_sound.dll");
-		if(m_pSysSound->Initialize() == false)
+		m_pSysSound = m_pSysManager->LoadSysSound(setting.sound.sysMod.c_str());
+		if(m_pSysSound->Initialize(100) == false)
 		{
 			return false;
 		}
@@ -279,5 +279,9 @@ namespace ld3d
 	void CoreApi::RemoveCamera(CameraPtr pCamera)
 	{
 		m_pRenderSystem->RemoveCamera(pCamera);
+	}
+	Sys_SoundPtr CoreApi::GetSysSound()
+	{
+		return m_pSysSound;
 	}
 }

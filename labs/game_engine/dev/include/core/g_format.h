@@ -184,6 +184,28 @@ namespace ld3d
 
 	};
 
+	struct SoundSetting
+	{
+		std::wstring		sysMod;
+		int					maxChannels;
+	};
+	struct InputSetting
+	{
+		std::wstring		sysMod;
+		void*				wnd;
+	};
+	struct PhysicsSetting
+	{
+		std::wstring		sysMod;
+	};
+
+	struct SysSetting
+	{
+		GraphicsSetting		graphics;
+		InputSetting		input;
+		SoundSetting		sound;
+		PhysicsSetting		physics;
+	};
 
 
 	

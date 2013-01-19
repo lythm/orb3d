@@ -18,7 +18,13 @@
     <ClInclude Include="fmsound_pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FMSoundSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="FMSound.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FMSoundChannel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -26,7 +32,13 @@
     <ClCompile Include="fmsound_pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="FMSoundSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="FMSound.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FMSoundChannel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

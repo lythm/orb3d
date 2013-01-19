@@ -39,23 +39,23 @@ ps_out ps_main(vs_out i)
 }
 RasterizerState rs
 {
-	CULLMODE				= Back;
+	CULLMODE						= Back;
 };
 DepthStencilState ds
 {
-	DepthEnable				= FALSE;
-	DepthFunc				= LESS;
-	DepthWriteMask				= ZERO;
-	StencilEnable				= false;
+	DepthEnable						= FALSE;
+	DepthFunc						= LESS;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
 	FrontFaceStencilFail			= KEEP;
 	FrontFaceStencilDepthFail		= KEEP;
 	FrontFaceStencilPass			= KEEP;
-	FrontFaceStencilFunc			= EQUAL;
+	FrontFaceStencilFunc			= ALWAYS;
 
-	BackFaceStencilFail			= KEEP;
+	BackFaceStencilFail				= KEEP;
 	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass			= KEEP;
-	BackFaceStencilFunc			= NEVER;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= NEVER;
 };
 BlendState bs
 {

@@ -32,29 +32,29 @@ GBuffer dr_ps_main(vs_out i)
 }
 RasterizerState rs
 {
-	CULLMODE = Back;
+	CULLMODE						= Back;
 };
 DepthStencilState dr_ds
 {
-	DepthEnable = TRUE;
-	DepthFunc = LESS;
-	DepthWriteMask = ALL;
-	StencilEnable = true;
+	DepthEnable						= TRUE;
+	DepthFunc						= LESS;
+	DepthWriteMask					= ALL;
+	StencilEnable					= true;
 
 	FrontFaceStencilFail			= KEEP;
 	FrontFaceStencilDepthFail		= KEEP;
 	FrontFaceStencilPass			= Replace;
 	FrontFaceStencilFunc			= ALWAYS;
 
-	BackFaceStencilFail			= KEEP;
+	BackFaceStencilFail				= KEEP;
 	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass			= KEEP;
-	BackFaceStencilFunc			= NEVER;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= NEVER;
 
 };
 BlendState bs
 {
-	BLENDENABLE[0]				= false;
+	BLENDENABLE[0]					= false;
 	
 };
 technique11 dr_render_gbuffer

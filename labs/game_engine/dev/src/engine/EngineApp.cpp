@@ -31,17 +31,25 @@ namespace ld3d
 
 		m_pCore = CoreApiPtr(new CoreApi);
 
-		GraphicsSetting setting;
-		setting.sysMod = L"./d11graphics.dll";
-		setting.backBufferCount = 2;
-		setting.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
-		setting.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
-		setting.frameBufferHeight = GetClientHeight();
-		setting.frameBufferWidth = GetClientWidth();
-		setting.multiSampleCount = 1;
-		setting.multiSampleQuality = 0;
-		setting.windowed = true;
-		setting.wnd = GetWnd();
+		SysSetting setting;
+		setting.graphics.sysMod = L"./d11graphics.dll";
+		setting.graphics.backBufferCount = 2;
+		setting.graphics.depthStencilFormat = G_FORMAT_D24_UNORM_S8_UINT;
+		setting.graphics.frameBufferFormat = G_FORMAT_R8G8B8A8_UNORM;
+		setting.graphics.frameBufferHeight = GetClientHeight();
+		setting.graphics.frameBufferWidth = GetClientWidth();
+		setting.graphics.multiSampleCount = 1;
+		setting.graphics.multiSampleQuality = 0;
+		setting.graphics.windowed = true;
+		setting.graphics.wnd = GetWnd();
+
+		setting.input.sysMod = L"";
+		setting.input.wnd = GetWnd();
+
+		setting.sound.maxChannels = 100;
+		setting.sound.sysMod = L"./fmod_sound.dll";
+
+		setting.physics.sysMod = L"";
 
 		if(false == m_pCore->Initialize(setting))
 		{

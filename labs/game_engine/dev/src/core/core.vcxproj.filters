@@ -106,5 +106,7 @@
     <ClInclude Include="..\..\include\core\Material.h" />
     <ClInclude Include="..\..\include\core\Font.h" />
     <ClInclude Include="..\..\include\core\OrbitCamera.h" />
+    <ClInclude Include="..\..\include\core\Sound.h" />
+    <ClInclude Include="..\..\include\core\SoundChannel.h" />
   </ItemGroup>
 </Project>

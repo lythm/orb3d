@@ -14,14 +14,18 @@ namespace ld3d
 		CoreApi(void);
 		virtual ~CoreApi(void);
 
+
+		bool											Initialize(const SysSetting& setting, Allocator* pAlloc = nullptr);
+
 		void											Update();
-		bool											Initialize(const GraphicsSetting& graphicsSetting, Allocator* pAlloc = nullptr);
+		
 		void											Release();
 		void											HandleMessage(MSG& msg);
 		
 		GameObjectManagerPtr							GetGameObjectManager();
 		Sys_GraphicsPtr									GetSysGraphics();
 		Sys_InputPtr									GetSysInput();
+		Sys_SoundPtr									GetSysSound();
 
 		void											Render();
 		void											Render(CameraPtr pCamera);

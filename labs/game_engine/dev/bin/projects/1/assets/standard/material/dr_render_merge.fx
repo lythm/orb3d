@@ -40,7 +40,6 @@ ps_out ps_main(vs_out i)
 	float4 l = tex_abuffer.Sample(Sampler_GBuffer,uv);
 
 	o.color.xyz = l.xyz * d;
-	//o.color.xyz = 0.5;
 	o.color.w = 1;
 	return o;
 }
@@ -50,19 +49,19 @@ RasterizerState rs
 };
 DepthStencilState ds
 {
-	DepthEnable				= FALSE;
-	DepthFunc				= LESS;
-	DepthWriteMask				= ZERO;
-	StencilEnable				= true;
+	DepthEnable						= FALSE;
+	DepthFunc						= LESS;
+	DepthWriteMask					= ZERO;
+	StencilEnable					= true;
 	FrontFaceStencilFail			= KEEP;
 	FrontFaceStencilDepthFail		= KEEP;
 	FrontFaceStencilPass			= KEEP;
 	FrontFaceStencilFunc			= EQUAL;
 
-	BackFaceStencilFail			= KEEP;
+	BackFaceStencilFail				= KEEP;
 	BackFaceStencilDepthFail		= KEEP;
-	BackFaceStencilPass			= KEEP;
-	BackFaceStencilFunc			= NEVER;
+	BackFaceStencilPass				= KEEP;
+	BackFaceStencilFunc				= NEVER;
 };
 BlendState bs
 {

@@ -14,5 +14,8 @@ private:
 	ld3d::CoreApiPtr							m_pCore;
 
 	ld3d::CameraPtr								m_pCamera;
+
+	ld3d::SoundChannelPtr						m_pChannel;
+	ld3d::SoundPtr								m_pSound;
 };
 
