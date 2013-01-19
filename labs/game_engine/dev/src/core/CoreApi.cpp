@@ -33,6 +33,8 @@ namespace ld3d
 	}
 	void CoreApi::Update()
 	{
+		m_pSysInput->Update();
+		m_pSysSound->Update();
 		m_pScene->Update();
 	}
 	bool CoreApi::Initialize(const GraphicsSetting& graphicsSetting, Allocator* pAlloc)
@@ -45,12 +47,9 @@ namespace ld3d
 		}
 		
 		m_pEventDispatcher = s_pAllocator->AllocObject<EventDispatcher>();
-
-
 		m_pSysManager = s_pAllocator->AllocObject<SysManager>();
-
 		m_pSysGraphics = m_pSysManager->LoadSysGraphics(graphicsSetting.sysMod.c_str());
-
+		
 		if(m_pSysGraphics == Sys_GraphicsPtr())
 		{
 			return false;

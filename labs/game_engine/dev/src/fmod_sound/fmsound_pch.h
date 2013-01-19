@@ -3,3 +3,4 @@
 #include "types\dllexport.h"
 #include "types\types.h"
 
+#include <fmod.hpp>

@@ -12,7 +12,8 @@ namespace ld3d
 
 		bool								Initialize();
 		void								Release();
+		void								Update();
+	private:
+		FMOD::System*						m_pSystem;
 	};
-
-
 }
