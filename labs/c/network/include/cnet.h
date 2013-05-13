@@ -1,6 +1,9 @@
 #pragma once
 
 
+#ifndef __CNET_HEADER__
+#define __CNET_HEADER__
+
 typedef void (*cnet_handler)(struct cnet_inst* net, struct cnet_fd* fd, unsigned int op, unsigned int error);
 
 
@@ -62,3 +65,7 @@ void				cnet_close(struct cnet_inst* net, struct cnet_fd* fd);
 	cnet_fin();
 
 */
+
+
+
+#endif
