@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'inspector.ui'
+** Form generated from reading UI file 'testform.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.0.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_INSPECTOR_H
-#define UI_INSPECTOR_H
+#ifndef UI_TESTFORM_H
+#define UI_TESTFORM_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -18,32 +18,32 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Inspector
+class Ui_TestForm
 {
 public:
 
-    void setupUi(QWidget *Inspector)
+    void setupUi(QWidget *TestForm)
     {
-        if (Inspector->objectName().isEmpty())
-            Inspector->setObjectName(QStringLiteral("Inspector"));
-        Inspector->resize(400, 300);
+        if (TestForm->objectName().isEmpty())
+            TestForm->setObjectName(QStringLiteral("TestForm"));
+        TestForm->resize(400, 300);
 
-        retranslateUi(Inspector);
+        retranslateUi(TestForm);
 
-        QMetaObject::connectSlotsByName(Inspector);
+        QMetaObject::connectSlotsByName(TestForm);
     } // setupUi
 
-    void retranslateUi(QWidget *Inspector)
+    void retranslateUi(QWidget *TestForm)
     {
-        Inspector->setWindowTitle(QApplication::translate("Inspector", "Inspector", 0));
+        TestForm->setWindowTitle(QApplication::translate("TestForm", "TestForm", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Inspector: public Ui_Inspector {};
+    class TestForm: public Ui_TestForm {};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_INSPECTOR_H
+#endif // UI_TESTFORM_H
