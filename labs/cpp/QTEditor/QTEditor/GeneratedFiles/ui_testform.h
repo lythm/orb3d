@@ -14,6 +14,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -21,12 +23,20 @@ QT_BEGIN_NAMESPACE
 class Ui_TestForm
 {
 public:
+    QPushButton *pushButton;
+    QToolButton *toolButton;
 
     void setupUi(QWidget *TestForm)
     {
         if (TestForm->objectName().isEmpty())
             TestForm->setObjectName(QStringLiteral("TestForm"));
         TestForm->resize(400, 300);
+        pushButton = new QPushButton(TestForm);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(150, 70, 75, 23));
+        toolButton = new QToolButton(TestForm);
+        toolButton->setObjectName(QStringLiteral("toolButton"));
+        toolButton->setGeometry(QRect(110, 200, 37, 18));
 
         retranslateUi(TestForm);
 
@@ -36,6 +46,8 @@ public:
     void retranslateUi(QWidget *TestForm)
     {
         TestForm->setWindowTitle(QApplication::translate("TestForm", "TestForm", 0));
+        pushButton->setText(QApplication::translate("TestForm", "PushButton", 0));
+        toolButton->setText(QApplication::translate("TestForm", "...", 0));
     } // retranslateUi
 
 };
