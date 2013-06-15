@@ -50,12 +50,6 @@
     <ClCompile Include="GeneratedFiles\qrc_qteditor.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_inspector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_inspector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="inspectorform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -129,9 +123,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_inspector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_inspectorform.h">
       <Filter>Generated Files</Filter>
     </ClInclude>

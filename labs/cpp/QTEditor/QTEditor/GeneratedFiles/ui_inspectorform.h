@@ -26,7 +26,7 @@ public:
     {
         if (InspectorForm->objectName().isEmpty())
             InspectorForm->setObjectName(QStringLiteral("InspectorForm"));
-        InspectorForm->resize(400, 300);
+        InspectorForm->resize(308, 725);
 
         retranslateUi(InspectorForm);
 
